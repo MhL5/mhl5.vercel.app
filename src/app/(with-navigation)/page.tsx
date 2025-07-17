@@ -9,7 +9,7 @@ export default function Home() {
       />
 
       <div className="animate-fade-left via-muted hidden h-px w-dvw bg-gradient-to-r from-zinc-300/0 to-zinc-300/0 md:block" />
-      <h1 className="text-edge-outline animate-title bg-foreground z-10 cursor-default bg-clip-text px-0.5 py-3.5 font-sans text-4xl font-semibold whitespace-nowrap text-transparent duration-300 sm:text-6xl md:text-7xl lg:text-8xl">
+      <h1 className="text-edge-outline animate-title bg-foreground font-space-grotesk z-10 cursor-default bg-clip-text px-0.5 py-3.5 text-4xl font-semibold whitespace-nowrap text-transparent duration-300 sm:text-6xl md:text-7xl lg:text-8xl">
         Mohammad Lashani
       </h1>
       <div className="animate-fade-right via-muted hidden h-px w-screen bg-gradient-to-r from-zinc-300/0 to-zinc-300/0 md:block" />

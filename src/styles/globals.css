@@ -89,11 +89,11 @@
   /* 448px/28rem */
   --breakpoint-xs: 28rem;
 
-  --font-roboto:
-    var(--font-roboto), ui-sans-serif, system-ui, sans-serif,
+  --font-space-grotesk:
+    var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-nunito:
-    var(--font-nunito), ui-sans-serif, system-ui, sans-serif,
+  --font-figtree:
+    var(--font-figtree), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
   --container-8xl: 96rem;

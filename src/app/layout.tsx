@@ -1,25 +1,21 @@
 import Providers from "@/providers/Providers";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
-import { Space_Grotesk, Figtree } from "next/font/google";
+import localFont from "next/font/local";
 
-const nunito = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-nunito",
+const figtree = localFont({
+  src: "./fonts/Figtree/Figtree-VariableFont_wght.ttf",
+  variable: "--font-figtree",
   display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
 });
 
-const roboto = Figtree({
-  subsets: ["latin"],
-  variable: "--font-roboto",
-  style: "normal",
+const spaceGrotesk = localFont({
+  src: "./fonts/Space_Grotesk/SpaceGrotesk-VariableFont_wght.ttf",
+  variable: "--font-space-grotesk",
   display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  // todo: env
   metadataBase: new URL("https://mhl5.vercel.app/"),
   alternates: {
     canonical: "/",
@@ -40,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${nunito.variable} ${roboto.variable} font-roboto min-w-xs antialiased`}
+        className={`${spaceGrotesk.variable} ${figtree.variable} font-figtree min-w-xs antialiased`}
       >
         <Providers>{children}</Providers>
       </body>
