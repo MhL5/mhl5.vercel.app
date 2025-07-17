@@ -1,3 +1,7 @@
+# useLocalStorageExternalStore
+
+A custom React hook that syncs localStorage state across browser tabs using `useSyncExternalStore`. It works just like `useState` but persists data in localStorage and keeps it in sync between tabs.
+
 ```ts
 function subscribe(key: string, callback: () => void) {
   const handler = (e: StorageEvent) => {
@@ -23,7 +27,7 @@ function getSnapshot<T>(key: string, defaultValue: T) {
 
 export function useLocalStorageExternalStore<T>(
   key: string,
-  defaultValue: T | (() => T)
+  defaultValue: T | (() => T),
 ) {
   const defaultVal = useMemo(() => {
     return defaultValue instanceof Function ? defaultValue() : defaultValue;
@@ -32,7 +36,7 @@ export function useLocalStorageExternalStore<T>(
   const value = useSyncExternalStore(
     (cb) => subscribe(key, cb),
     () => getSnapshot(key, defaultVal),
-    () => defaultVal // for SSR
+    () => defaultVal, // for SSR
   );
 
   const setValue = useCallback(
@@ -40,7 +44,7 @@ export function useLocalStorageExternalStore<T>(
       localStorage.setItem(key, JSON.stringify(newValue));
       window.dispatchEvent(new StorageEvent("storage", { key }));
     },
-    [key]
+    [key],
   );
 
   return [value, setValue] as const;
