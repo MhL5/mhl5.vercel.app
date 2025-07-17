@@ -1,6 +1,6 @@
-import { Button, ButtonProps } from "@/components/ui/button";
+import { Button, type ButtonProps } from "@/components/ui/button";
 import Link from "next/link";
-import { ComponentPropsWithoutRef } from "react";
+import type { ComponentPropsWithoutRef } from "react";
 
 type LinkButtonProps = ComponentPropsWithoutRef<typeof Link> & {
   buttonProps?: ButtonProps;
