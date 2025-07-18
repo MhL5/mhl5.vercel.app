@@ -17,7 +17,6 @@ export default function SnippetSubPageLayout({
   return (
     <SearchableLayout
       title={pageName}
-      description=""
       items={snippet.items}
       render={(item) => <SnippetSubPageLayoutCard key={item.title} {...item} />}
       filter={(item, searchQuery) =>
@@ -43,7 +42,7 @@ function SnippetSubPageLayoutCard({
         size: "lg",
       }}
       href={url}
-      className="not-prose"
+      className="not-prose justify-start text-start"
     >
       {title}
     </LinkButton>

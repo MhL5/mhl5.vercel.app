@@ -147,6 +147,15 @@ const bookmarksData = [
     tags: ["icons", "svg", "brands", "resources"],
   },
   {
+    id: "https://heroicons.com/",
+    title: "Hero Icons",
+    description:
+      "Beautiful hand-crafted SVG icons, by the makers of Tailwind CSS.",
+    url: "https://heroicons.com/",
+    category: "Design",
+    tags: ["icons", "svg", "brands", "resources"],
+  },
+  {
     id: "og-image-generator",
     title: "OG Image Generator",
     description:
