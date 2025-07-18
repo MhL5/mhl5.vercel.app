@@ -70,16 +70,6 @@ export const snippetsLinks: Links[] = [
     ]
   },
   {
-    "title": "notes",
-    "url": "/snippets/notes",
-    "items": [
-      {
-        "title": "notes",
-        "url": "/snippets/notes/notes"
-      }
-    ]
-  },
-  {
     "title": "types",
     "url": "/snippets/types",
     "items": [

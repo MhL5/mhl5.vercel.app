@@ -1,7 +1,9 @@
 import CopyButton from "@/components/blocks/buttons/CopyButton";
 import LinkButton from "@/components/blocks/buttons/LinkButton";
-import CustomBreadCrumb from "@/components/BreadCrumb";
+import BreadCrumb from "@/components/BreadCrumb";
 import CodeBlock from "@/components/CodeBlock";
+import { Button } from "@/components/ui/button";
+import { snippetsLinks } from "@/constants/snippetsLinks";
 import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 import type { MDXComponents } from "mdx/types";
@@ -33,9 +35,26 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       );
     },
     h1: ({ children, className, ...props }: ComponentPropsWithoutRef<"h1">) => {
+      let prevNext: { title: string; url: string }[] = [];
+
+      for (const category of snippetsLinks) {
+        if (!category.items) continue;
+
+        for (let i = 0; i < category.items.length; i++) {
+          if (category.items[i].title === children) {
+            const prev = category.items[i - 1];
+            const next = category.items[i + 1];
+            prevNext = [prev, next];
+            break;
+          }
+        }
+
+        if (prevNext.length) break;
+      }
+
       return (
         <div className="grid gap-7">
-          <CustomBreadCrumb />
+          <BreadCrumb />
 
           <div className="mb-2 flex items-center justify-between gap-3">
             <h1
@@ -53,26 +72,35 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
             </h1>
 
             <div className="flex gap-2">
-              <LinkButton
-                href="#"
-                buttonProps={{
-                  size: "icon",
-                  variant: "secondary",
-                }}
-                className="size-7"
-              >
-                <ArrowRight className="rotate-180" />
-              </LinkButton>
-              <LinkButton
-                href="#"
-                buttonProps={{
-                  size: "icon",
-                  variant: "secondary",
-                }}
-                className="size-7"
-              >
-                <ArrowRight />
-              </LinkButton>
+              {prevNext.map((item, index) => {
+                if (!item)
+                  return (
+                    <Button
+                      key={`h1-link-button${index}`}
+                      size="icon"
+                      disabled={!item}
+                      variant="secondary"
+                      className="size-7"
+                    >
+                      <H1PrevNextChildren disabled={true} index={index} />
+                    </Button>
+                  );
+
+                return (
+                  <LinkButton
+                    key={`h1-link-button${index}`}
+                    href={item?.url || "#"}
+                    buttonProps={{
+                      size: "icon",
+                      disabled: !item,
+                      variant: "secondary",
+                    }}
+                    className="size-7"
+                  >
+                    <H1PrevNextChildren index={index} />
+                  </LinkButton>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -134,4 +162,22 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     CodeBlock: CodeBlock,
     ...components,
   };
+}
+
+function H1PrevNextChildren({
+  index,
+  disabled,
+}: {
+  index: number;
+  disabled?: boolean;
+}) {
+  return (
+    <>
+      <span className="sr-only">
+        {disabled ? "not available" : `go ${index === 0 ? "previous" : "next"}`}
+      </span>
+
+      {index === 0 ? <ArrowRight className="rotate-180" /> : <ArrowRight />}
+    </>
+  );
 }

@@ -2,21 +2,19 @@
 
 import type { StringWithAutoComplete } from "@/app/(with-navigation)/snippets/types/AutoComplete";
 import { Button } from "@/components/ui/button";
+import { snippetsCategoryConfig } from "@/constants/constants";
 import { cn } from "@/lib/utils";
 import {
-  Search,
-  ExternalLink,
-  Code2,
-  Palette,
-  Zap,
-  BookOpen,
-  Wrench,
-  Monitor,
-  Globe,
-  Star,
   Calendar,
+  Code2,
+  ExternalLink,
+  Globe,
+  Monitor,
+  Palette,
+  Search,
+  Star,
 } from "lucide-react";
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 
 // Bookmark data structure
 interface Bookmark {
@@ -176,6 +174,7 @@ const bookmarksData: Bookmark[] = [
     tags: ["kanban", "components", "project-management", "interactive"],
     addedDate: "2024-01-20",
   },
+
   {
     id: "simple-icons",
     title: "Simple Icons",
@@ -186,16 +185,6 @@ const bookmarksData: Bookmark[] = [
     addedDate: "2024-01-20",
   },
   {
-    id: "eslint-plugin-jsx-a11y",
-    title: "eslint-plugin-jsx-a11y",
-    description:
-      "Static AST checker for accessibility rules on JSX elements. Helps ensure your React applications are accessible to users with disabilities.",
-    url: "https://www.npmjs.com/package/eslint-plugin-jsx-a11y",
-    category: "Development",
-    tags: ["accessibility", "eslint", "jsx", "react", "a11y"],
-    addedDate: "2024-01-20",
-  },
-  {
     id: "og-image-generator",
     title: "OG Image Generator",
     description:
@@ -203,6 +192,17 @@ const bookmarksData: Bookmark[] = [
     url: "https://ogimage.click/",
     category: "Tools",
     tags: ["seo", "open-graph", "social-media", "images"],
+    addedDate: "2024-01-20",
+  },
+
+  {
+    id: "eslint-plugin-jsx-a11y",
+    title: "eslint-plugin-jsx-a11y",
+    description:
+      "Static AST checker for accessibility rules on JSX elements. Helps ensure your React applications are accessible to users with disabilities.",
+    url: "https://www.npmjs.com/package/eslint-plugin-jsx-a11y",
+    category: "Development",
+    tags: ["accessibility", "eslint", "jsx", "react", "a11y"],
     addedDate: "2024-01-20",
   },
   {
@@ -217,14 +217,18 @@ const bookmarksData: Bookmark[] = [
   },
 ];
 
-// Category configuration
 const categoryConfig = {
   Development: { icon: Code2, color: "text-blue-600 dark:text-blue-400" },
   Design: { icon: Palette, color: "text-purple-600 dark:text-purple-400" },
-  "AI/ML": { icon: Zap, color: "text-yellow-600 dark:text-yellow-400" },
-  Learning: { icon: BookOpen, color: "text-green-600 dark:text-green-400" },
-  Tools: { icon: Wrench, color: "text-orange-600 dark:text-orange-400" },
+  Tools: {
+    icon: snippetsCategoryConfig["utils"].icon,
+    color: snippetsCategoryConfig["utils"].tailwindClass,
+  },
   General: { icon: Globe, color: "text-gray-600 dark:text-gray-400" },
+  UI: {
+    icon: snippetsCategoryConfig["components"].icon,
+    color: snippetsCategoryConfig["components"].tailwindClass,
+  },
 };
 
 function BookmarkCard({ bookmark }: { bookmark: Bookmark }) {
