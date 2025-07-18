@@ -1,8 +1,8 @@
-# Typescript config
+# Configs
+
+## Typescript
 
 ```json
-  // -------------------------------------------------------------------------------------
-  // ⚙️ custom settings:
   "pretty": true,
   "noFallthroughCasesInSwitch": true,
   "forceConsistentCasingInFileNames": true,
@@ -14,6 +14,23 @@
     "@/*": ["./src/*"],
     "~/*": ["./*"]
   }
-  // ⚙️ end of custom settings
-  // -------------------------------------------------------------------------------------
+```
+
+## Next js
+
+```ts
+const nextConfig: NextConfig = {
+  experimental: {
+    staleTimes: {
+      dynamic: 10,
+    },
+  },
+};
+```
+
+## Package.json useful scripts
+
+```json
+"typecheck": "tsc --noEmit",
+"prettier": "prettier --write ."
 ```
