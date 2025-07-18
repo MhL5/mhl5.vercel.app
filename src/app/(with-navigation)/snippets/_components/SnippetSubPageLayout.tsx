@@ -2,6 +2,7 @@
 
 import LinkButton from "@/components/blocks/buttons/LinkButton";
 import SearchableLayout from "@/components/SearchableLayout";
+import { snippetsCategoryConfig } from "@/constants/constants";
 import { snippetsLinks } from "@/constants/snippetsLinks";
 
 type SnippetSubPageLayoutProps = {
@@ -14,8 +15,12 @@ export default function SnippetSubPageLayout({
   const snippet = snippetsLinks.find((link) => link.title === pageName);
 
   if (!snippet || !snippet.items) return null;
+  const Icon = snippetsCategoryConfig?.[pageName]?.icon;
+  const titleClass = snippetsCategoryConfig?.[pageName]?.tailwindClass;
   return (
     <SearchableLayout
+      titleIcon={Icon}
+      titleClassName={titleClass}
       title={pageName}
       items={snippet.items}
       render={(item) => <SnippetSubPageLayoutCard key={item.title} {...item} />}
@@ -38,11 +43,11 @@ function SnippetSubPageLayoutCard({
   return (
     <LinkButton
       buttonProps={{
-        variant: "ghost",
+        variant: "link",
         size: "lg",
       }}
       href={url}
-      className="not-prose justify-start text-start"
+      className="not-prose justify-start px-0 text-start"
     >
       {title}
     </LinkButton>

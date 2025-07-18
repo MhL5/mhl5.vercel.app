@@ -3,10 +3,12 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Monitor, Search } from "lucide-react";
-import { useMemo, useState, type ReactNode } from "react";
+import { useMemo, useState, type JSX, type ReactNode } from "react";
 
 type SearchableLayoutProps<T> = {
-  title: string;
+  title: ReactNode;
+  titleIcon?: JSX.ElementType;
+  titleClassName?: string;
   description?: string;
   items: T[];
   render: (item: T, index: number) => ReactNode;
@@ -23,7 +25,15 @@ export default function SearchableLayout<T>(props: SearchableLayoutProps<T>) {
   return (
     <section className="mx-auto min-h-svh max-w-7xl px-4 py-8 md:px-6">
       <div className="mb-8">
-        <h1 className="text-foreground text-4xl font-bold tracking-tight capitalize sm:text-5xl">
+        <h1
+          className={cn(
+            "text-foreground flex items-center gap-3 text-4xl font-bold tracking-tight capitalize sm:gap-4 sm:text-5xl",
+            props.titleClassName,
+          )}
+        >
+          {props.titleIcon ? (
+            <props.titleIcon className="size-8 shrink-0 sm:size-9.5" />
+          ) : null}
           {props.title}
         </h1>
 
@@ -45,6 +55,7 @@ function SearchableLayoutGrid<T>({
   render,
   categories = [],
   filter,
+  titleClassName,
 }: SearchableLayoutProps<T>) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
@@ -95,11 +106,10 @@ function SearchableLayoutGrid<T>({
         ) : null}
       </div>
 
-      {/*  Grid */}
       <section className="min-h-[50svh]">
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-foreground text-xl font-semibold">
-            All {title}
+          <h2 className="text-foreground text-xl font-semibold capitalize">
+            All <span className={titleClassName}>{title}</span>
             <span className="text-muted-foreground ml-2 text-sm font-normal">
               ({filteredItems.length})
             </span>

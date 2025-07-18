@@ -1,5 +1,6 @@
 "use client";
 
+import LinkButton from "@/components/blocks/buttons/LinkButton";
 import { Button } from "@/components/ui/button";
 import { snippetsCategoryConfig } from "@/constants/constants";
 import { snippetsLinks } from "@/constants/snippetsLinks";
@@ -47,12 +48,16 @@ export default function Aside() {
               key={`${title}-${url}`}
               className={title === "components" ? "capitalize" : ""}
             >
-              <h2
+              <LinkButton
+                href={url}
+                buttonProps={{
+                  variant: "ghost",
+                }}
                 className={`${config.tailwindClass} || mb-2 flex w-full items-center justify-start gap-2 px-2 text-sm font-semibold tracking-wider capitalize`}
               >
                 {Icon ? <Icon className="size-4" /> : null}
                 {title}
-              </h2>
+              </LinkButton>
               <div className="space-y-1 pl-0.5">
                 {items?.map((item, i) => {
                   const isActive = pathname.includes(item.url);
