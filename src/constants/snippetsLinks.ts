@@ -80,12 +80,20 @@ export const snippetsLinks: Links[] = [
     "url": "/snippets/types",
     "items": [
       {
-        "title": "generics",
-        "url": "/snippets/types/generics"
+        "title": "AutoComplete",
+        "url": "/snippets/types/AutoComplete"
       },
       {
         "title": "LaravelPaginatedResourceType",
         "url": "/snippets/types/LaravelPaginatedResourceType"
+      },
+      {
+        "title": "PartialPick",
+        "url": "/snippets/types/PartialPick"
+      },
+      {
+        "title": "RequiredPick",
+        "url": "/snippets/types/RequiredPick"
       }
     ]
   },

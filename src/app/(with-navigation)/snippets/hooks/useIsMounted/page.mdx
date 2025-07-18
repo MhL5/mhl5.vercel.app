@@ -1,17 +1,7 @@
+import CodeBlock from "@/components/CodeBlock";
+
 # useIsMounted
 
-```tsx
-"use client";
+Simple hook for checking if the component is mounted.
 
-import { useEffect, useState } from "react";
-
-export function useIsMounted() {
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  return isMounted;
-}
-```
+<CodeBlock path="src/app/(with-navigation)/snippets/hooks/useIsMounted/index.ts" />
