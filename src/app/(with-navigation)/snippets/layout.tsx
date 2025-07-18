@@ -14,7 +14,8 @@ export default function MdxLayout({ children }: { children: React.ReactNode }) {
           {children}
         </main>
 
-        <aside className="text-muted-foreground flex flex-col gap-1 pt-8 pb-2 text-sm">
+        {/* todo: hidden */}
+        <aside className="text-muted-foreground flex flex-col gap-1 pt-8 pb-2 text-sm opacity-0">
           <LinkButton
             buttonProps={{
               variant: "ghost",

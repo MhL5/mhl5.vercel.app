@@ -86,8 +86,8 @@ export const snippetsLinks: Links[] = [
         "url": "/snippets/utils/groupByKey"
       },
       {
-        "title": "isServer isClient",
-        "url": "/snippets/utils/isServer-isClient"
+        "title": "isServer",
+        "url": "/snippets/utils/isServer"
       },
       {
         "title": "objectKeysTyped",

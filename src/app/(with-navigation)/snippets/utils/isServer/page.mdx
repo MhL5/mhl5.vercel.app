@@ -1,4 +1,4 @@
-# isServer & isClient
+# isServer
 
 ## Overview
 
@@ -7,5 +7,5 @@ very simple helper functions to determine if the code is running on the server o
 ```tsx
 export const isServer = () => typeof window === "undefined";
 
-export const isClient = () => !isServer();
+export const isClient = () => typeof window !== "undefined";
 ```
