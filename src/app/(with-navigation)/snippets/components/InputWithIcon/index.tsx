@@ -10,6 +10,10 @@ type InputWithIconProps = {
   inputProps?: ComponentPropsWithoutRef<typeof Input>;
 } & ComponentPropsWithoutRef<"div">;
 
+/**
+ * Caveats:
+ *  - don't change the container's padding
+ */
 export default function InputWithIcon({
   className,
   icon: Icon,
@@ -22,8 +26,8 @@ export default function InputWithIcon({
     <div className={cn("relative", className)} {...props}>
       <Input
         className={cn(
-          iconXPosition === "right" ? "pr-8" : "pl-8",
-          "h-[inherit]",
+          iconXPosition === "right" ? "pr-10" : "pl-10",
+          "h-[inherit] w-full",
           iconClassName,
         )}
         {...inputProps}
@@ -31,7 +35,7 @@ export default function InputWithIcon({
       <Icon
         className={cn(
           `absolute top-1/2 size-4 -translate-y-1/2 stroke-2`,
-          iconXPosition === "right" ? "right-2" : "left-2",
+          iconXPosition === "right" ? "right-4" : "left-4",
           inputClassName,
         )}
         {...iconProps}
