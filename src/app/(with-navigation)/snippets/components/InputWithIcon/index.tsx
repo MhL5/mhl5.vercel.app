@@ -23,6 +23,7 @@ export default function InputWithIcon({
       <Input
         className={cn(
           iconXPosition === "right" ? "pr-8" : "pl-8",
+          "h-[inherit]",
           iconClassName,
         )}
         {...inputProps}
