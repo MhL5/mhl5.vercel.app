@@ -20,6 +20,10 @@ export const snippetsLinks: Links[] = [
     "url": "/snippets/components",
     "items": [
       {
+        "title": "InputWithIcon",
+        "url": "/snippets/components/InputWithIcon"
+      },
+      {
         "title": "ScrollToTopOnNavigation",
         "url": "/snippets/components/ScrollToTopOnNavigation"
       },
