@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 import type { MDXComponents } from "mdx/types";
 import Link from "next/link";
-import type { ComponentPropsWithoutRef } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import { codeToHtml } from "shiki";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
@@ -56,7 +56,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         <div className="grid gap-7">
           <BreadCrumb />
 
-          <div className="mb-2 flex items-center justify-between gap-3">
+          <div className="mb-2 flex flex-wrap items-center justify-between gap-3">
             <h1
               className={cn(
                 "mb-0",
@@ -160,6 +160,85 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       );
     },
     CodeBlock: CodeBlock,
+    SnippetH1: ({
+      heading,
+      className,
+      pageSlug,
+    }: {
+      pageSlug: string;
+      heading: ReactNode;
+      className?: string;
+    }) => {
+      let prevNext: { title: string; url: string }[] = [];
+
+      for (const category of snippetsLinks) {
+        if (!category.items) continue;
+
+        for (let i = 0; i < category.items.length; i++) {
+          if (category.items[i].title === pageSlug) {
+            const prev = category.items[i - 1];
+            const next = category.items[i + 1];
+            prevNext = [prev, next];
+            break;
+          }
+        }
+
+        if (prevNext.length) break;
+      }
+
+      return (
+        <div className="grid gap-7">
+          <BreadCrumb />
+
+          <div className="mb-2 flex flex-wrap items-center justify-between gap-3">
+            <h1
+              className={cn(
+                "mb-0 break-all",
+                typeof heading === "string" &&
+                  !heading.toLowerCase().startsWith("use")
+                  ? "capitalize"
+                  : "",
+                className,
+              )}
+            >
+              {heading}
+            </h1>
+
+            <div className="flex gap-2">
+              {prevNext.map((item, index) => {
+                if (!item)
+                  return (
+                    <Button
+                      key={`h1-link-button${index}`}
+                      size="icon"
+                      disabled={!item}
+                      variant="secondary"
+                      className="size-7"
+                    >
+                      <H1PrevNextChildren disabled={true} index={index} />
+                    </Button>
+                  );
+
+                return (
+                  <LinkButton
+                    key={`h1-link-button${index}`}
+                    href={item?.url || "#"}
+                    buttonProps={{
+                      size: "icon",
+                      disabled: !item,
+                      variant: "secondary",
+                    }}
+                    className="size-7"
+                  >
+                    <H1PrevNextChildren index={index} />
+                  </LinkButton>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      );
+    },
     ...components,
   };
 }

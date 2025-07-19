@@ -1,0 +1,48 @@
+import { useCallback, useMemo, useSyncExternalStore } from "react";
+
+export function useLocalStorageExternalStore<T>(
+  key: string,
+  defaultValue: T | (() => T),
+) {
+  const defaultVal = useMemo(() => {
+    return defaultValue instanceof Function ? defaultValue() : defaultValue;
+  }, [defaultValue]);
+
+  const value = useSyncExternalStore(
+    (cb) => subscribe(key, cb),
+    () => getSnapshot(key, defaultVal),
+    () => defaultVal, // for SSR
+  );
+
+  const setValue = useCallback(
+    (newValue: T) => {
+      localStorage.setItem(key, JSON.stringify(newValue));
+      window.dispatchEvent(new StorageEvent("storage", { key }));
+    },
+    [key],
+  );
+
+  return [value, setValue] as const;
+}
+
+function subscribe(key: string, callback: () => void) {
+  const handler = (e: StorageEvent) => {
+    if (e.key === key) callback();
+  };
+  window.addEventListener("storage", handler);
+  return () => window.removeEventListener("storage", handler);
+}
+
+function getSnapshot<T>(key: string, defaultValue: T) {
+  try {
+    const item = localStorage.getItem(key);
+
+    return !item ? defaultValue : JSON.parse(item);
+  } catch (error) {
+    // optional error handling for development
+    if (process.env.NODE_ENV === "development")
+      throw new Error(error instanceof Error ? error.message : "Unknown error");
+
+    return defaultValue;
+  }
+}
