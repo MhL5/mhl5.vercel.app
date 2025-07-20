@@ -1,20 +1,28 @@
 import InputWithIcon from "@/app/(with-navigation)/snippets/components/InputWithIcon";
 import { Search } from "lucide-react";
-import Demo from "./Demo";
+import CodeBlockServer from "@/components/code-components/CodeBlock/CodeBlockServer";
+import CodePreview from "@/components/code-components/CodePreview";
+import Example from "@/app/(with-navigation)/snippets/components/InputWithIcon/Example";
 
 <SnippetH1 heading={`InputWithIcon`} pageSlug="InputWithIcon" />
 
-The `InputWithIcon` component is a customizable input field that supports icons on either the left or right side. It's built on top of the base `Input` component and provides a clean way to add icons to your input fields while maintaining proper spacing and alignment.
+The `InputWithIcon` component is a customizable input field that supports icons on either the left or right side. It's built on top of the base `Input` component.
 
 Key features:
 
 - Supports icons on both left and right sides via the `iconXPosition` prop
 - Maintains proper spacing and alignment of the icon
 - Fully customizable through className props for the container, input, and icon
-- Inherits all native input props through ComponentPropsWithoutRef
+- Inherits all native input props through `ComponentPropsWithoutRef`
+
+Known issues:
+
+- Changing the container's padding will break the position of the icon
 
 <CodeBlockServer path="src/app/(with-navigation)/snippets/components/InputWithIcon/index.tsx" />
 
 ## Examples
 
-<Demo />
+<CodePreview preview={<Example />}>
+  <CodeBlockServer path="src/app/(with-navigation)/snippets/components/InputWithIcon/Example.tsx" />
+</CodePreview>

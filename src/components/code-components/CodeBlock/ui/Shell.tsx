@@ -20,7 +20,10 @@ export default function CodeBlockShell({
 
       <code
         dangerouslySetInnerHTML={{ __html: codeHTML }}
-        className={cn("block max-w-full text-sm leading-relaxed", className)}
+        className={cn(
+          "max-h-96 max-w-full overflow-auto text-sm leading-relaxed",
+          className,
+        )}
         {...props}
       />
     </pre>
