@@ -7,223 +7,179 @@ import { cn } from "@/lib/utils";
 import { Code2, ExternalLink, Globe, Palette, Star } from "lucide-react";
 import Link from "next/link";
 
-const bookmarksData = [
+const bookmarksData: {
+  title: string;
+  description: string;
+  url: string;
+  category: "UI" | "Design" | "Tools" | "Development";
+  featured?: boolean;
+}[] = [
   {
-    id: "shadcn-extension",
     title: "Shadcn Extension",
     description: "Additional components and utilities for shadcn/ui.",
     url: "https://shadcn-extension.vercel.app/",
     category: "UI",
-    tags: ["shadcn", "components", "ui", "react"],
   },
   {
-    id: "shadcn-phone-input",
     title: "Shadcn Phone Input",
     description:
       "Phone input component for shadcn/ui with international format support.",
     url: "https://shadcn-phone-input.vercel.app/",
     category: "UI",
-    tags: ["shadcn", "input", "phone", "form"],
   },
   {
-    id: "shadcn-form-build",
     title: "Shadcn Form Builder",
     description: "Visual form builder and playground for shadcn/ui components.",
     url: "https://www.shadcn-form.com/",
     category: "UI",
-    tags: ["shadcn", "form", "builder", "playground"],
   },
   {
     featured: true,
-    id: "aceternity-ui",
     title: "Aceternity UI",
     description: "Beautiful and modern UI components built with Tailwind CSS.",
     url: "https://ui.aceternity.com/",
     category: "UI",
-    tags: ["components", "tailwind", "ui", "modern"],
   },
   {
     featured: true,
-    id: "magic-ui",
     title: "MagicUI",
     description: "Collection of magical UI components and effects.",
     url: "https://magicui.design/",
     category: "UI",
-    tags: ["components", "effects", "animation", "design"],
   },
   {
-    id: "shadcn/ui-expansions",
     title: "shadcn/ui expansions",
     description: "More components built on top of shadcn-ui.",
     url: "https://shadcnui-expansions.typeart.cc/",
     category: "UI",
-    tags: ["shadcn", "textarea", "form", "component"],
   },
   {
     featured: true,
-    id: "enhanced-button",
     title: "Enhanced Button",
     description:
       "Advanced button components with additional features and styles.",
     url: "https://enhanced-button.vercel.app/",
     category: "UI",
-    tags: ["button", "component", "ui", "interactive"],
   },
   {
-    id: "cult-ui",
     title: "Cult UI",
     description: "Modern UI component library with unique design approach.",
     url: "https://www.cult-ui.com/",
     category: "UI",
-    tags: ["components", "design", "modern", "library"],
   },
   {
-    id: "awesome-shadcn",
     title: "Awesome Shadcn UI",
     description: "Curated collection of shadcn/ui resources and components.",
     url: "https://awesome-shadcn-ui.vercel.app/",
     category: "UI",
-    tags: ["shadcn", "collection", "resources", "components"],
   },
   {
-    id: "eldora-bento",
     title: "EldoraUI BentoGrid",
     description: "Bento grid components and layouts for modern web design.",
     url: "https://www.eldoraui.site/",
     category: "UI",
-    tags: ["bento", "grid", "layout", "design"],
   },
   {
-    id: "wds-shadcn",
     title: "WDS Shadcn Registry",
     description: "Component registry for shadcn/ui by Web Dev Simplified.",
     url: "https://wds-shadcn-registry.netlify.app/",
     category: "UI",
-    tags: ["shadcn", "registry", "components", "collection"],
   },
   {
-    id: "motion-primitives",
     title: "Motion Primitives",
     description:
       "Animation primitives and components for modern web applications.",
     url: "https://motion-primitives.com/",
     category: "UI",
-    tags: ["animation", "motion", "components", "interactive"],
   },
   {
-    id: "origin-ui",
     title: "Origin UI",
     description:
       "Clean and minimal UI component library for modern applications.",
     url: "https://originui.com/",
     category: "UI",
-    tags: ["components", "minimal", "modern", "library"],
   },
   {
-    id: "dice-ui-kanban",
     title: "DiceUI",
     description:
       "A collection of composable, unstyled UI primitives for building accessible web applications.",
     url: "https://www.diceui.com/",
     category: "UI",
-    tags: ["kanban", "components", "project-management", "interactive"],
   },
   {
-    id: "mvp-blocks",
     title: "MVP Blocks",
     description: "Prebuilt UI Logo blocks to ship beautiful MVPs fast",
     url: "https://blocks.mvp-subha.me/",
     category: "UI",
-    tags: ["kanban", "components", "project-management", "interactive"],
   },
   {
-    id: "https://www.shsfui.com/",
     title: "shsfui",
     description: "Motion-first UI library for those who care about details.",
     url: "https://www.shsfui.com/",
     category: "UI",
-    tags: ["kanban", "components", "project-management", "interactive"],
   },
   {
-    id: "https://www.kibo-ui.com/",
     title: "kibo ui",
     description:
       "Kibo UI is a custom registry of composable, accessible and open source components designed for use with shadcn/ui.",
     url: "https://www.kibo-ui.com/",
     category: "UI",
-    tags: ["kanban", "components", "project-management", "interactive"],
   },
   {
-    id: "https://skiper-ui.com/",
     title: "skiper ui",
     description: "Components crafted for Modern Websites",
     url: "https://skiper-ui.com/",
     category: "UI",
-    tags: ["kanban", "components", "project-management", "interactive"],
   },
   {
-    id: "21st-dev2",
     title: "21st.dev",
     description:
       "A collection of composable, unstyled UI primitives for building accessible web applications.",
     url: "https://21st.dev/home",
     category: "UI",
-    tags: ["kanban", "components", "project-management", "interactive"],
   },
   {
-    id: "untitled ui",
     title: "Untitled UI",
     description:
       "Untitled UI React is the world’s largest collection of open-source React components built with Tailwind CSS and React Aria. Just copy, paste, and build.",
     url: "https://www.untitledui.com/react",
     category: "UI",
-    tags: ["components", "project-management", "interactive"],
   },
 
   {
-    id: "simple-icons",
     title: "Simple Icons",
     description: "3334 SVG icons for popular brands",
     url: "https://simpleicons.org/",
     category: "Design",
-    tags: ["icons", "svg", "brands", "resources"],
   },
   {
-    id: "https://heroicons.com/",
     title: "Hero Icons",
     description:
       "Beautiful hand-crafted SVG icons, by the makers of Tailwind CSS.",
     url: "https://heroicons.com/",
     category: "Design",
-    tags: ["icons", "svg", "brands", "resources"],
   },
   {
-    id: "og-image-generator",
     title: "OG Image Generator",
     description:
       "Free Open Graph image generator for websites. Create beautiful social media preview images for your web pages.",
     url: "https://ogimage.click/",
     category: "Tools",
-    tags: ["seo", "open-graph", "social-media", "images"],
   },
 
   {
-    id: "eslint-plugin-jsx-a11y",
     title: "eslint-plugin-jsx-a11y",
     description:
       "Static AST checker for accessibility rules on JSX elements. Helps ensure your React applications are accessible to users with disabilities.",
     url: "https://www.npmjs.com/package/eslint-plugin-jsx-a11y",
     category: "Development",
-    tags: ["accessibility", "eslint", "jsx", "react", "a11y"],
   },
   {
-    id: "unlighthouse",
     title: "Unlighthouse",
     description:
-      "Scan your entire website with Google Lighthouse️ - in 2 minutes. A powerful tool for automated Lighthouse auditing and performance analysis.",
+      "Scan your entire website with Google Lighthouse - in 2 minutes. A powerful tool for automated Lighthouse auditing and performance analysis.",
     url: "https://next.unlighthouse.dev/",
     category: "Development",
-    tags: ["performance", "lighthouse", "seo", "audit", "testing"],
   },
 ];
 
@@ -239,12 +195,7 @@ export default function BookmarksPage() {
           const matchesSearch =
             searchQuery === "" ||
             item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            item.description
-              .toLowerCase()
-              .includes(searchQuery.toLowerCase()) ||
-            item.tags?.some((tag) =>
-              tag.toLowerCase().includes(searchQuery.toLowerCase()),
-            );
+            item.description.toLowerCase().includes(searchQuery.toLowerCase());
 
           const matchesCategory =
             selectedCategory === "All" || item.category === selectedCategory;
@@ -289,7 +240,7 @@ function BookmarkCard({
   const CategoryIcon = categoryInfo.icon;
 
   return (
-    <div className="bg-card group relative rounded-lg border p-6 transition-all hover:shadow-md hover:shadow-black/5 dark:hover:shadow-white/5">
+    <div className="bg-card group relative rounded-lg border p-3 transition-all hover:shadow-md hover:shadow-black/5 dark:hover:shadow-white/5">
       {item.featured && (
         <div className="absolute -top-2 -right-2">
           <div className="flex h-6 w-6 items-center justify-center rounded-full bg-yellow-100 dark:bg-yellow-900/30">
@@ -319,32 +270,15 @@ function BookmarkCard({
           <p className="text-muted-foreground mt-1 line-clamp-2 text-sm">
             {item.description}
           </p>
-
-          <div className="mt-3 flex flex-wrap gap-1">
-            {item.tags
-              ? item.tags.slice(0, 3).map((tag) => (
-                  <span
-                    key={tag}
-                    className="bg-secondary text-secondary-foreground inline-block rounded-md px-2 py-1 text-xs"
-                  >
-                    #{tag}
-                  </span>
-                ))
-              : null}
-            {item.tags && item.tags.length > 3 && (
-              <span className="bg-secondary text-secondary-foreground inline-block rounded-md px-2 py-1 text-xs">
-                +{item.tags.length - 3}
-              </span>
-            )}
-          </div>
         </div>
       </div>
 
       <Link
+        prefetch={false}
         href={item.url}
         target={item.url.startsWith("http") ? "_blank" : undefined}
         rel={item.url.startsWith("http") ? "noopener noreferrer" : undefined}
-        className="absolute inset-0 rounded-lg"
+        className="absolute inset-0 size-full rounded-lg"
         aria-label={`Open ${item.title}`}
       />
     </div>
