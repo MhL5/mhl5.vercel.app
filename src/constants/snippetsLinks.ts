@@ -46,6 +46,10 @@ export const snippetsLinks: Links[] = [
         "url": "/snippets/hooks/useDebouncedValue"
       },
       {
+        "title": "useEventListener",
+        "url": "/snippets/hooks/useEventListener"
+      },
+      {
         "title": "useIsMobile",
         "url": "/snippets/hooks/useIsMobile"
       },
