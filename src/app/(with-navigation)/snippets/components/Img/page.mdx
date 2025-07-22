@@ -1,0 +1,24 @@
+import InvalidExample from "./examples/InvalidExample";
+import ValidExample from "./examples/ValidExample";
+
+# Img
+
+A wrapper around Next.js's Image component that renders a fallback SVG if the image fails to load.
+
+<CodeBlockServer path="src/app/(with-navigation)/snippets/components/Img/index.tsx" />
+
+## Examples
+
+### valid url
+
+<CodePreview
+  preview={<ValidExample />}
+  codePath="src/app/(with-navigation)/snippets/components/Img/examples/ValidExample.tsx"
+/>
+
+### broken image url
+
+<CodePreview
+  preview={<InvalidExample />}
+  codePath="src/app/(with-navigation)/snippets/components/Img/examples/InvalidExample.tsx"
+/>

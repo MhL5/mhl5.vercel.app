@@ -24,6 +24,16 @@ export const snippetsLinks: Links[] = [
         "url": "/snippets/components/ClientOnly"
       },
       {
+        "title": "Img",
+        "url": "/snippets/components/Img",
+        "items": [
+          {
+            "title": "examples",
+            "url": "/snippets/components/Img/examples"
+          }
+        ]
+      },
+      {
         "title": "InputWithIcon",
         "url": "/snippets/components/InputWithIcon"
       },
