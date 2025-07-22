@@ -16,7 +16,7 @@ export default function CodePreview({ codePath, preview }: CodePreviewProps) {
       </TabsList>
 
       <TabsContent value="preview">
-        <div className="bg-background flex h-96 items-center justify-center overflow-auto rounded-lg border p-4">
+        <div className="bg-background flex h-96 items-center justify-center overflow-auto rounded-lg border">
           {preview}
         </div>
       </TabsContent>

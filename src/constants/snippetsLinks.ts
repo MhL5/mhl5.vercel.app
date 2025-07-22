@@ -24,6 +24,10 @@ export const snippetsLinks: Links[] = [
         "url": "/snippets/components/ClientOnly"
       },
       {
+        "title": "FadeShadow",
+        "url": "/snippets/components/FadeShadow"
+      },
+      {
         "title": "Img",
         "url": "/snippets/components/Img",
         "items": [
