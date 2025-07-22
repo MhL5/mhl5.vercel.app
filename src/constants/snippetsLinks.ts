@@ -24,6 +24,10 @@ export const snippetsLinks: Links[] = [
         "url": "/snippets/components/InputWithIcon"
       },
       {
+        "title": "MatchMedia",
+        "url": "/snippets/components/MatchMedia"
+      },
+      {
         "title": "ScrollToTopOnNavigation",
         "url": "/snippets/components/ScrollToTopOnNavigation"
       },
@@ -60,6 +64,10 @@ export const snippetsLinks: Links[] = [
       {
         "title": "useLocalStorageExternalStore",
         "url": "/snippets/hooks/useLocalStorageExternalStore"
+      },
+      {
+        "title": "useMediaQuery",
+        "url": "/snippets/hooks/useMediaQuery"
       },
       {
         "title": "useToggleState",
