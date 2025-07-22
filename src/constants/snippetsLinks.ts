@@ -60,6 +60,10 @@ export const snippetsLinks: Links[] = [
       {
         "title": "useLocalStorageExternalStore",
         "url": "/snippets/hooks/useLocalStorageExternalStore"
+      },
+      {
+        "title": "useToggleState",
+        "url": "/snippets/hooks/useToggleState"
       }
     ]
   },
