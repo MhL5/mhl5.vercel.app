@@ -92,6 +92,10 @@ export const snippetsLinks: Links[] = [
         "url": "/snippets/hooks/useMediaQuery"
       },
       {
+        "title": "useOnClickOutside",
+        "url": "/snippets/hooks/useOnClickOutside"
+      },
+      {
         "title": "useToggleState",
         "url": "/snippets/hooks/useToggleState"
       }
