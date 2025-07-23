@@ -104,6 +104,10 @@ export const snippetsLinks: Links[] = [
         "url": "/snippets/hooks/useStateWithValidation"
       },
       {
+        "title": "useTimeout",
+        "url": "/snippets/hooks/useTimeout"
+      },
+      {
         "title": "useToggleState",
         "url": "/snippets/hooks/useToggleState"
       }
