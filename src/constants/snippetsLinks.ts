@@ -16,145 +16,143 @@ type Links = {
 
 export const snippetsLinks: Links[] = [
   {
-    "title": "components",
-    "url": "/snippets/components",
-    "items": [
+    title: "components",
+    url: "/snippets/components",
+    items: [
       {
-        "title": "ClientOnly",
-        "url": "/snippets/components/ClientOnly"
+        title: "ClientOnly",
+        url: "/snippets/components/ClientOnly",
       },
       {
-        "title": "FadeShadow",
-        "url": "/snippets/components/FadeShadow"
+        title: "FadeShadow",
+        url: "/snippets/components/FadeShadow",
       },
       {
-        "title": "Img",
-        "url": "/snippets/components/Img",
-        "items": [
-          {
-            "title": "examples",
-            "url": "/snippets/components/Img/examples"
-          }
-        ]
+        title: "Img",
+        url: "/snippets/components/Img",
       },
       {
-        "title": "InputWithIcon",
-        "url": "/snippets/components/InputWithIcon"
+        title: "InputWithIcon",
+        url: "/snippets/components/InputWithIcon",
       },
       {
-        "title": "MatchMedia",
-        "url": "/snippets/components/MatchMedia"
+        title: "MatchMedia",
+        url: "/snippets/components/MatchMedia",
       },
       {
-        "title": "ScrollToTopOnNavigation",
-        "url": "/snippets/components/ScrollToTopOnNavigation"
+        title: "ScrollToTopOnNavigation",
+        url: "/snippets/components/ScrollToTopOnNavigation",
       },
       {
-        "title": "StructuredDataScript",
-        "url": "/snippets/components/StructuredDataScript"
+        title: "StructuredDataScript",
+        url: "/snippets/components/StructuredDataScript",
       },
       {
-        "title": "Typography",
-        "url": "/snippets/components/Typography"
-      }
-    ]
+        title: "Typography",
+        url: "/snippets/components/Typography",
+      },
+    ],
   },
   {
-    "title": "hooks",
-    "url": "/snippets/hooks",
-    "items": [
+    title: "hooks",
+    url: "/snippets/hooks",
+    items: [
       {
-        "title": "useDebouncedValue",
-        "url": "/snippets/hooks/useDebouncedValue"
+        title: "useCopyToClipboard",
+        url: "/snippets/hooks/useCopyToClipboard",
       },
       {
-        "title": "useEventListener",
-        "url": "/snippets/hooks/useEventListener"
+        title: "useDebouncedValue",
+        url: "/snippets/hooks/useDebouncedValue",
       },
       {
-        "title": "useIsMobile",
-        "url": "/snippets/hooks/useIsMobile"
+        title: "useEventListener",
+        url: "/snippets/hooks/useEventListener",
       },
       {
-        "title": "useIsMounted",
-        "url": "/snippets/hooks/useIsMounted"
+        title: "useIsMobile",
+        url: "/snippets/hooks/useIsMobile",
       },
       {
-        "title": "useIsVisible",
-        "url": "/snippets/hooks/useIsVisible"
+        title: "useIsMounted",
+        url: "/snippets/hooks/useIsMounted",
       },
       {
-        "title": "useLocalStorageExternalStore",
-        "url": "/snippets/hooks/useLocalStorageExternalStore"
+        title: "useIsVisible",
+        url: "/snippets/hooks/useIsVisible",
       },
       {
-        "title": "useMediaQuery",
-        "url": "/snippets/hooks/useMediaQuery"
+        title: "useLocalStorageExternalStore",
+        url: "/snippets/hooks/useLocalStorageExternalStore",
       },
       {
-        "title": "useOnClickOutside",
-        "url": "/snippets/hooks/useOnClickOutside"
+        title: "useMediaQuery",
+        url: "/snippets/hooks/useMediaQuery",
       },
       {
-        "title": "useSize",
-        "url": "/snippets/hooks/useSize"
+        title: "useOnClickOutside",
+        url: "/snippets/hooks/useOnClickOutside",
       },
       {
-        "title": "useStateWithValidation",
-        "url": "/snippets/hooks/useStateWithValidation"
+        title: "useSize",
+        url: "/snippets/hooks/useSize",
       },
       {
-        "title": "useTimeout",
-        "url": "/snippets/hooks/useTimeout"
+        title: "useStateWithValidation",
+        url: "/snippets/hooks/useStateWithValidation",
       },
       {
-        "title": "useToggleState",
-        "url": "/snippets/hooks/useToggleState"
-      }
-    ]
+        title: "useTimeout",
+        url: "/snippets/hooks/useTimeout",
+      },
+      {
+        title: "useToggleState",
+        url: "/snippets/hooks/useToggleState",
+      },
+    ],
   },
   {
-    "title": "types",
-    "url": "/snippets/types",
-    "items": [
+    title: "types",
+    url: "/snippets/types",
+    items: [
       {
-        "title": "AutoComplete",
-        "url": "/snippets/types/AutoComplete"
+        title: "AutoComplete",
+        url: "/snippets/types/AutoComplete",
       },
       {
-        "title": "LaravelPaginatedResourceType",
-        "url": "/snippets/types/LaravelPaginatedResourceType"
+        title: "LaravelPaginatedResourceType",
+        url: "/snippets/types/LaravelPaginatedResourceType",
       },
       {
-        "title": "PartialPick",
-        "url": "/snippets/types/PartialPick"
+        title: "PartialPick",
+        url: "/snippets/types/PartialPick",
       },
       {
-        "title": "RequiredPick",
-        "url": "/snippets/types/RequiredPick"
-      }
-    ]
+        title: "RequiredPick",
+        url: "/snippets/types/RequiredPick",
+      },
+    ],
   },
   {
-    "title": "utils",
-    "url": "/snippets/utils",
-    "items": [
+    title: "utils",
+    url: "/snippets/utils",
+    items: [
       {
-        "title": "groupByKey",
-        "url": "/snippets/utils/groupByKey"
+        title: "groupByKey",
+        url: "/snippets/utils/groupByKey",
       },
       {
-        "title": "isServer",
-        "url": "/snippets/utils/isServer"
+        title: "isServer",
+        url: "/snippets/utils/isServer",
       },
       {
-        "title": "objectKeysTyped",
-        "url": "/snippets/utils/objectKeysTyped"
+        title: "objectKeysTyped",
+        url: "/snippets/utils/objectKeysTyped",
       },
       {
-        "title": "stringFormatters",
-        "url": "/snippets/utils/stringFormatters"
-      }
-    ]
-  }
+        title: "stringFormatters",
+        url: "/snippets/utils/stringFormatters",
+      },
+    ],
+  },
 ];
