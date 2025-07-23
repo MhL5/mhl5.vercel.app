@@ -7,10 +7,6 @@ type Links = {
   items?: {
     title: string;
     url: string;
-    subItems?: {
-      title: string;
-      url: string;
-    }[];
   }[];
 };
 
@@ -62,8 +58,8 @@ export const snippetsLinks: Links[] = [
         url: "/snippets/hooks/useCopyToClipboard",
       },
       {
-        title: "useDebouncedValue",
-        url: "/snippets/hooks/useDebouncedValue",
+        title: "useDebounce",
+        url: "/snippets/hooks/useDebounce",
       },
       {
         title: "useEventListener",

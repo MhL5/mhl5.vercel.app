@@ -7,10 +7,6 @@ type Links = {
   items?: {
     title: string;
     url: string;
-    subItems?: {
-      title: string;
-      url: string;
-    }[];
   }[];
 };
 
@@ -68,10 +64,6 @@ type Links = {
   items?: {
     title: string;
     url: string;
-    subItems?: {
-      title: string;
-      url: string;
-    }[];
   }[];
 };
 
