@@ -34,3 +34,29 @@ const nextConfig: NextConfig = {
 "typecheck": "tsc --noEmit",
 "prettier": "prettier --write ."
 ```
+
+## prettier.rc
+
+```json
+{
+  "plugins": [
+    "@trivago/prettier-plugin-sort-imports",
+    "prettier-plugin-tailwindcss"
+  ],
+  "tailwindFunctions": ["cva"],
+  "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
+  "tailwindStylesheet": "./src/styles/globals.css",
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
+}
+```
+
+## eslint
+
+```ts
+ {
+  rules: {
+    "no-console":"warn"
+  }
+ }
+```
