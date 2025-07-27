@@ -35,6 +35,11 @@ export default function CodeBlockClient({
   if (!codeHTML) return <CodeBlockSkeleton />;
 
   return (
-    <CodeBlockShell codeHTML={codeHTML} className={className} {...props} />
+    <CodeBlockShell
+      code={code}
+      codeHTML={codeHTML}
+      className={className}
+      {...props}
+    />
   );
 }

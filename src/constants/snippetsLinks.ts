@@ -128,6 +128,10 @@ export const snippetsLinks: Links[] = [
     "url": "/snippets/types",
     "items": [
       {
+        "title": "AllOrNothing",
+        "url": "/snippets/types/AllOrNothing"
+      },
+      {
         "title": "AutoComplete",
         "url": "/snippets/types/AutoComplete"
       },
