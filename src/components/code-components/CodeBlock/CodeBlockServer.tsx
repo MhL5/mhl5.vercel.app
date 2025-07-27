@@ -40,6 +40,11 @@ async function Suspended({
   });
 
   return (
-    <CodeBlockShell codeHTML={codeHTML} className={className} {...props} />
+    <CodeBlockShell
+      code={code}
+      codeHTML={codeHTML}
+      className={className}
+      {...props}
+    />
   );
 }

@@ -139,6 +139,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 
         return (
           <CodeBlockShell
+            code={typeof children === "string" ? children : ""}
             className={className}
             {...props}
             codeHTML={codeHTML}
