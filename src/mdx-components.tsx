@@ -126,19 +126,22 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       if (className?.startsWith("language-")) {
         // If it's a code block
         const lang = className.replace("language-", ""); // Extract the language (e.g., ts, js)
-        const codeHTML = await codeToHtml(children as string, {
-          lang,
-          themes: {
-            light: "github-light",
-            dark: "github-dark",
+        const codeHTML = await codeToHtml(
+          typeof children === "string" ? children : "",
+          {
+            lang,
+            themes: {
+              light: "github-light",
+              dark: "github-dark",
+            },
           },
-        });
+        );
 
         return (
           <CodeBlockShell
-            codeHTML={codeHTML}
             className={className}
             {...props}
+            codeHTML={codeHTML}
           />
         );
       }
