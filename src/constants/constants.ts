@@ -1,5 +1,5 @@
 import { snippetsLinks } from "@/constants/snippetsLinks";
-import { Code2, Package, Wrench, Zap } from "lucide-react";
+import { Code2, Hammer, Package, Wrench, Zap } from "lucide-react";
 import type { JSX } from "react";
 
 export const snippetsCategoryConfig: Record<
@@ -21,6 +21,10 @@ export const snippetsCategoryConfig: Record<
   utils: {
     icon: Wrench,
     tailwindClass: "text-emerald-600 dark:text-emerald-400",
+  },
+  actions: {
+    icon: Hammer,
+    tailwindClass: "text-red-600 dark:text-red-400",
   },
 } as const;
 

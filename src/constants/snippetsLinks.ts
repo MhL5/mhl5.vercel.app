@@ -12,6 +12,16 @@ type Links = {
 
 export const snippetsLinks: Links[] = [
   {
+    "title": "actions",
+    "url": "/snippets/actions",
+    "items": [
+      {
+        "title": "writeFile",
+        "url": "/snippets/actions/writeFile"
+      }
+    ]
+  },
+  {
     "title": "components",
     "url": "/snippets/components",
     "items": [
