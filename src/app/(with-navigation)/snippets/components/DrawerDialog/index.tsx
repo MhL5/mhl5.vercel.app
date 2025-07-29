@@ -1,6 +1,6 @@
 "use client";
 
-import { useIsMobile } from "@/app/(with-navigation)/snippets/hooks/useIsMobile";
+import { useIsMobile } from "@/app/(with-navigation)/snippets/hooks/useMediaQuery";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import { cn } from "@/lib/utils";
