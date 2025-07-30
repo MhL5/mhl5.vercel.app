@@ -97,11 +97,11 @@
     }
   }
 
-  --animate-fade-in: fade-in 2s ease-in-out forwards;
-  --animate-title: title 2s ease-out forwards;
-  --animate-fade-left: fade-left 2s ease-in-out forwards;
-  --animate-fade-right: fade-right 2s ease-in-out forwards;
-  --animate-glow: glow 2s ease-in-out infinite;
+  --animate-fade-in: fade-in 1s ease-in-out forwards;
+  --animate-title: title 1s ease-out forwards;
+  --animate-fade-left: fade-left 1s ease-in-out forwards;
+  --animate-fade-right: fade-right 1s ease-in-out forwards;
+  --animate-glow: glow 1s ease-in-out infinite;
 
   /* 352px/16rem */
   --breakpoint-3xs: 16rem;

@@ -24,6 +24,10 @@ const links = [
     label: "Bookmarks",
     href: "/bookmarks",
   },
+  {
+    label: "Tools",
+    href: "/tools",
+  },
 ];
 
 export default function Header() {
@@ -32,12 +36,7 @@ export default function Header() {
   const isHome = pathname === "/";
   return (
     <>
-      <header
-        className={cn(
-          "bg-background/50 fixed top-0 z-50 h-13 w-dvw backdrop-blur-md",
-          isHome ? "animate-fade-in" : "",
-        )}
-      >
+      <header className="bg-background/50 fixed top-0 z-50 h-13 w-dvw backdrop-blur-md">
         <nav className="mx-auto flex h-full w-full items-center justify-between px-4">
           <div className="flex items-center gap-6">
             <LinkButton
@@ -49,11 +48,15 @@ export default function Header() {
             </LinkButton>
 
             {links.map(({ href, label }) => {
+              const isActive = pathname === href;
               return (
                 <LinkButton
                   key={href}
                   buttonProps={{ variant: "link" }}
-                  className="hidden font-medium lg:inline-block"
+                  className={cn(
+                    "hidden w-fit px-0 font-medium lg:inline-block",
+                    isActive && "underline",
+                  )}
                   href={href}
                 >
                   {label}
