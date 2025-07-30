@@ -1,19 +1,48 @@
 "use client";
 
-import { useCallback, useMemo, useState, type ReactNode } from "react";
+import { type ReactNode, useCallback, useMemo, useState } from "react";
 
 type useStepperOptions = {
   initialStep?: number;
   loop?: boolean;
 };
 
+type BaseReturnType = {
+  currentStep: number;
+  isFirstStep: boolean;
+  isLastStep: boolean;
+  goTo: (index: number) => void;
+  next: () => void;
+  back: () => void;
+};
+
+export function useStepper(
+  steps: number,
+  options?: useStepperOptions,
+): BaseReturnType;
+
 export function useStepper(
   steps: ReactNode[],
+  options?: useStepperOptions,
+): BaseReturnType & { step: ReactNode };
+
+/**
+ * a reusable hook for managing steps
+ *
+ * 0 based index
+ * @example
+ * const stepper = useStepper(3); // you get step 0 1 2
+ */
+export function useStepper(
+  steps: ReactNode[] | number,
   { initialStep = 0, loop = false }: useStepperOptions = {},
 ) {
   const [currentStep, setCurrentStep] = useState(initialStep);
 
-  const lastStep = useMemo(() => steps.length - 1, [steps.length]);
+  const lastStep = useMemo(() => {
+    if (Array.isArray(steps)) return steps.length - 1;
+    return steps;
+  }, [steps]);
   const isFirstStep = useMemo(() => currentStep === 0, [currentStep]);
   const isLastStep = useMemo(
     () => currentStep === lastStep,
@@ -48,14 +77,18 @@ export function useStepper(
     [lastStep],
   );
 
-  return {
-    currentStep,
-    isFirstStep,
-    isLastStep,
-    step: steps[currentStep],
+  const output = useMemo(
+    () => ({
+      currentStep,
+      isFirstStep,
+      isLastStep,
+      goTo,
+      next,
+      back,
+    }),
+    [back, currentStep, goTo, next, isFirstStep, isLastStep],
+  );
 
-    goTo,
-    next,
-    back,
-  };
+  if (Array.isArray(steps)) return { ...output, step: steps[currentStep] };
+  return output;
 }
