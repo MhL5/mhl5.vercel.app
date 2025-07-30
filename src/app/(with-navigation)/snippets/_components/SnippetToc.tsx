@@ -56,6 +56,7 @@ export default function SnippetToc({ className }: SnippetTocProps) {
       );
   }, [pathname]);
 
+  if (toc.length === 0) return null;
   return (
     <div
       className={cn(

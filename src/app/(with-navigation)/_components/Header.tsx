@@ -14,6 +14,8 @@ import {
 import { cn } from "@/lib/utils";
 import { MenuIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import SkipLink from "~/todos/SkipLink";
 
 const links = [
   {
@@ -30,15 +32,35 @@ const links = [
   },
 ];
 
-export default function Header() {
+// todo: temp solution, its better to hard code an array of pages that have a main id
+function usePageWithMainId() {
+  const [hasMainId, setHasMainId] = useState(false);
   const pathname = usePathname();
 
+  useEffect(() => {
+    const mainId = document.getElementById("#main");
+    if (mainId) setHasMainId(true);
+
+    return () => setHasMainId(false);
+  }, [pathname]);
+
+  return hasMainId;
+}
+
+export default function Header() {
+  const pathname = usePathname();
+  const hasMainId = usePageWithMainId();
+
   const isHome = pathname === "/";
+
   return (
     <>
       <header className="bg-background/50 fixed top-0 z-50 h-13 w-dvw backdrop-blur-md">
         <nav className="mx-auto flex h-full w-full items-center justify-between px-4">
           <div className="flex items-center gap-6">
+            {hasMainId && (
+              <SkipLink href="#main">Skip to main content</SkipLink>
+            )}
             <LinkButton
               buttonProps={{ variant: "link" }}
               href="/"

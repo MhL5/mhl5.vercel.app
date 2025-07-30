@@ -54,8 +54,8 @@ export const snippetsLinks: Links[] = [
         "url": "/snippets/components/MatchMedia"
       },
       {
-        "title": "ScrollToTopOnNavigation",
-        "url": "/snippets/components/ScrollToTopOnNavigation"
+        "title": "ScrollToTop",
+        "url": "/snippets/components/ScrollToTop"
       },
       {
         "title": "StructuredDataScript",
