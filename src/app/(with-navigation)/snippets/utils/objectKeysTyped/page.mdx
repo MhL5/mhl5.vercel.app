@@ -1,11 +1,5 @@
-# objectKeysTyped
+# ObjectKeysTyped
 
 `Object.keys()` but type-safe, returns a typed array of keys instead of `string[]`.
 
-```tsx
-export function ObjectKeysTyped<T extends Record<string, unknown>>(
-  obj: T,
-): Array<keyof T> {
-  return Object.keys(obj) as Array<keyof T>;
-}
-```
+<CodeBlockServer path="src/app/(with-navigation)/snippets/utils/ObjectKeysTyped/index.ts" />
