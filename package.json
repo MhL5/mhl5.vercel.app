@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 7777 --turbopack",
+    "dev:https": "next dev --port 7777 --experimental-https --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "next lint",
