@@ -12,8 +12,8 @@ type DrawerDialogProps = {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 
+  drawerContentClassName?: string;
   contentClassName?: string;
-  dialogBreakpoint?: number;
 };
 
 export function DrawerDialog({
@@ -22,6 +22,7 @@ export function DrawerDialog({
   onOpenChange,
   open,
   contentClassName,
+  drawerContentClassName,
 }: DrawerDialogProps) {
   const isMobile = useIsMobile();
 
@@ -43,7 +44,7 @@ export function DrawerDialog({
           {trigger}
         </DrawerTrigger>
 
-        <DrawerContent>
+        <DrawerContent className={drawerContentClassName}>
           <div
             className={cn("max-h-[90dvh] overflow-y-auto", contentClassName)}
           >
