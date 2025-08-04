@@ -34,6 +34,10 @@ export const snippetsLinks: Links[] = [
         "url": "/snippets/components/ClientOnly"
       },
       {
+        "title": "DebouncedInput",
+        "url": "/snippets/components/DebouncedInput"
+      },
+      {
         "title": "DrawerDialog",
         "url": "/snippets/components/DrawerDialog"
       },
