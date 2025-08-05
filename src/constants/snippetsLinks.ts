@@ -138,6 +138,10 @@ export const snippetsLinks: Links[] = [
       {
         "title": "useToggleState",
         "url": "/snippets/hooks/useToggleState"
+      },
+      {
+        "title": "useUrlState",
+        "url": "/snippets/hooks/useUrlState"
       }
     ]
   },

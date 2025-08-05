@@ -1,0 +1,66 @@
+import Example from "./Example";
+import { TriangleAlert } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+
+# useUrlState
+
+Simple hook for managing state in the url. it returns a tuple of the state and a function to update the state similar to `useState`.
+You will most likely want to use this hook with debounce since each url update triggers a page re render.
+
+<Alert variant="warning" className="not-prose my-5">
+  <TriangleAlert />
+  <AlertTitle>
+    You should wrap the component that uses this hook with a Suspense.
+  </AlertTitle>
+  <AlertDescription>
+    Reading search parameters through useSearchParams() without a Suspense
+    boundary will opt the entire page into client-side rendering. This could
+    cause your page to be blank until the client-side JavaScript has loaded.
+    <Button
+      variant="link"
+      asChild
+      className="text-info-text inline h-fit w-fit p-0 text-sm font-normal underline"
+    >
+      <Link href="https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming#suspense-and-streaming">
+        Learn more
+      </Link>
+    </Button>
+  </AlertDescription>
+</Alert>
+
+<CodePreview
+  preview={<Example />}
+  codePath="src/app/(with-navigation)/snippets/hooks/useUrlState/Example.tsx"
+/>
+
+## Usage
+
+### Basic Usage
+
+```tsx
+const [value, setValue] = useUrlState("name");
+```
+
+### With default value
+
+You can pass a value or a function to the `defaultValue` option to set the state initial value.
+
+```tsx
+const [value, setValue] = useUrlState("name", {
+  defaultValue: () => "default value",
+});
+```
+
+### With history replace
+
+```tsx
+const [value, setValue] = useUrlState("name", {
+  history: "replace",
+});
+```
+
+## Snippet
+
+<CodeBlockServer path="src/app/(with-navigation)/snippets/hooks/useUrlState/index.ts" />
