@@ -1,41 +1,87 @@
+"use client";
+
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import type { ComponentPropsWithoutRef, JSX } from "react";
+import { Slot } from "@radix-ui/react-slot";
+import {
+  createContext,
+  use,
+  useMemo,
+  type ComponentPropsWithoutRef,
+  type ReactNode,
+} from "react";
 
-type InputWithIconProps = {
-  icon: JSX.ElementType;
+type ContextType = {
   iconXPosition?: "right" | "left";
+};
 
-  iconProps?: ComponentPropsWithoutRef<"svg">;
-  inputProps?: ComponentPropsWithoutRef<typeof Input>;
-} & ComponentPropsWithoutRef<"div">;
+const Context = createContext<ContextType | null>(null);
 
-export default function InputWithIcon({
+type ContextProviderProps = {
+  children: ReactNode;
+} & ContextType;
+
+function ContextProvider({ children, iconXPosition }: ContextProviderProps) {
+  const values = useMemo(() => ({ iconXPosition }), [iconXPosition]);
+  return <Context value={values}>{children}</Context>;
+}
+
+function useContext() {
+  const context = use(Context);
+  if (!context)
+    throw new Error("useContext must be used within a ContextProvider");
+  return context;
+}
+
+type InputWithIconProps = ContextType & ComponentPropsWithoutRef<"div">;
+
+function InputWithIcon({
   className,
-  icon: Icon,
-  iconProps: { className: iconClassName, ...iconProps } = {},
-  inputProps: { className: inputClassName, ...inputProps } = {},
   iconXPosition = "left",
   ...props
 }: InputWithIconProps) {
   return (
-    <div className={cn("relative", className)} {...props}>
-      <Input
-        className={cn(
-          iconXPosition === "right" ? "pr-10" : "pl-10",
-          "h-[inherit] w-full",
-          iconClassName,
-        )}
-        {...inputProps}
-      />
-      <Icon
-        className={cn(
-          `absolute top-1/2 size-4 -translate-y-1/2 stroke-2`,
-          iconXPosition === "right" ? "right-4" : "left-4",
-          inputClassName,
-        )}
-        {...iconProps}
-      />
-    </div>
+    <ContextProvider iconXPosition={iconXPosition}>
+      <div className={cn("relative", className)} {...props} />
+    </ContextProvider>
   );
 }
+
+type InputWithIconInputProps = ComponentPropsWithoutRef<typeof Input>;
+
+function InputWithIconInput({ className, ...props }: InputWithIconInputProps) {
+  const { iconXPosition } = useContext();
+  return (
+    <Input
+      className={cn(
+        "h-[inherit] w-full",
+        iconXPosition === "right" ? "pr-8" : "pl-8",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
+type InputWithIconIconSlotProps = ComponentPropsWithoutRef<typeof Slot>;
+
+function InputWithIconIconSlot({
+  className,
+  ...props
+}: InputWithIconIconSlotProps) {
+  const { iconXPosition } = useContext();
+
+  return (
+    <Slot
+      data-slot="input-with-icon-icon"
+      className={cn(
+        "absolute top-1/2 size-4 -translate-y-1/2 stroke-2",
+        iconXPosition === "right" ? "right-2.5" : "left-2.5",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
+export { InputWithIcon, InputWithIconIconSlot, InputWithIconInput };

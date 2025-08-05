@@ -1,20 +1,36 @@
-import CodeBlockServer from "@/components/code-components/CodeBlock/CodeBlockServer";
-import CodePreview from "@/components/code-components/CodePreview";
-import Example from "@/app/(with-navigation)/snippets/components/InputWithIcon/Example";
+import Example from "./Example";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { TriangleAlert } from "lucide-react";
 
 <SnippetH1 heading={`InputWithIcon`} pageSlug="InputWithIcon" />
 
-The `InputWithIcon` component is a customizable input field that supports icons on either the left or right side. It's built on top of the base `Input` component.
+The `InputWithIcon` component is a flexible compound component for building input fields with an icon positioned on either the left or right side. It is composed of `InputWithIcon`, `InputWithIconIcon`, and `InputWithIconInput` sub components.
 
-Known issues:
-
-- Changing the container's padding will break the positioning
-
-<CodeBlockServer path="src/app/(with-navigation)/snippets/components/InputWithIcon/index.tsx" />
-
-## Examples
+<Alert variant="info" className="not-prose my-5">
+  <TriangleAlert />
+  <AlertTitle>We use a slot to pass the icon as a child.</AlertTitle>
+  <AlertDescription>
+    Passing icons as props requires a client component. Using{" "}
+    <code>react-slot</code> allows us to pass the icon as a child instead.
+  </AlertDescription>
+</Alert>
 
 <CodePreview
   preview={<Example />}
   codePath="src/app/(with-navigation)/snippets/components/InputWithIcon/Example.tsx"
 />
+
+## Usage
+
+```tsx
+<InputWithIcon>
+  <InputWithIconIconSlot>
+    <Search />
+  </InputWithIconIconSlot>
+  <InputWithIconInput placeholder="Search..." />
+</InputWithIcon>
+```
+
+## Snippet
+
+<CodeBlockServer path="src/app/(with-navigation)/snippets/components/InputWithIcon/index.tsx" />
