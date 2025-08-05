@@ -21,7 +21,10 @@ type ContextProviderProps = {
   children: ReactNode;
 } & ContextType;
 
-function ContextProvider({ children, iconXPosition }: ContextProviderProps) {
+function ContextProvider({
+  children,
+  iconXPosition = "left",
+}: ContextProviderProps) {
   const values = useMemo(() => ({ iconXPosition }), [iconXPosition]);
   return <Context value={values}>{children}</Context>;
 }
