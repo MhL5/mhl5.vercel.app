@@ -45,6 +45,6 @@
     "schema-dts": "^1.1.5",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.5",
-    "typescript": "^5"
+    "typescript": "^5.9.2"
   }
 }
