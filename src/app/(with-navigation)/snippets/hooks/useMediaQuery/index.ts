@@ -1,14 +1,17 @@
+import type { StringWithAutoComplete } from "@/app/(with-navigation)/snippets/types/AutoComplete";
 import { useEffect, useMemo, useState } from "react";
 
 type Direction = "max" | "min";
+type TailwindcssBreakpointsRemValue =
+  (typeof breakpoints)[keyof typeof breakpoints];
+type CssQueryString =
+  StringWithAutoComplete<`(${Direction}-width: ${TailwindcssBreakpointsRemValue}rem)`>;
 
-function useMediaQueryCore(breakpoint: number, direction: Direction) {
+function useMediaQueryCore(cssQueryString: CssQueryString) {
   const [matches, setMatches] = useState<boolean | undefined>(undefined);
 
   useEffect(() => {
-    const mediaQueryList = window.matchMedia(
-      `(${direction}-width: ${breakpoint}rem)`,
-    );
+    const mediaQueryList = window.matchMedia(cssQueryString);
 
     const handleChange = () => setMatches(mediaQueryList.matches);
 
@@ -16,28 +19,24 @@ function useMediaQueryCore(breakpoint: number, direction: Direction) {
     setMatches(mediaQueryList.matches);
 
     return () => mediaQueryList.removeEventListener("change", handleChange);
-  }, [direction, breakpoint]);
+  }, [cssQueryString]);
 
   return matches;
 }
 
 /**
- * Hook for custom breakpoint values
- * @param breakpoint - Numeric value in rem
- * @param direction - Whether to check for min-width or max-width (default: "min")
- * @returns boolean indicating if the media query matches
+ * Hook for custom breakpoint values.
+ *
+ * queries can be changed to any css query.
  * @example
  * ```tsx
- * const isLg = useMediaQuery(64, "min");
- * const isCustom = useMediaQuery(50, "min");
- * const isBelowCustom = useMediaQuery(75, "max");
+ * useMediaQuery("(min-width: 48rem)");
+ * useMediaQuery("(min-width: 50rem)");
+ * useMediaQuery("(max-width: 75rem)");
  * ```
  */
-export function useMediaQuery(
-  breakpoint: number,
-  direction: Direction = "min",
-) {
-  return useMediaQueryCore(breakpoint, direction);
+function useMediaQuery(cssQueryString: CssQueryString) {
+  return useMediaQueryCore(cssQueryString);
 }
 
 /**
@@ -57,9 +56,8 @@ const breakpoints = {
 
 /**
  * Hook for tailwind breakpoints
- * @param breakpoint - Tailwind breakpoint key
- * @param direction - Whether to check for min-width or max-width (default: "min")
- * @returns boolean indicating if the media query matches
+ * by default similar to tailwindcss it uses min-width
+ * you can swap the direction to `max` to check for the breakpoint and below
  * @example
  * ```tsx
  * const isMobile = useMediaQueryBreakpoint("sm");
@@ -67,22 +65,24 @@ const breakpoints = {
  * const isDesktop = useMediaQueryBreakpoint("lg","min");
  * ```
  */
-export function useMediaQueryBreakpoint(
+function useMediaQueryBreakpoint(
   breakpoint: keyof typeof breakpoints,
   direction: Direction = "min",
 ) {
   const valueInRem = useMemo(() => breakpoints[breakpoint], [breakpoint]);
-  return useMediaQueryCore(valueInRem, direction);
+  return useMediaQueryCore(`(${direction}-width: ${valueInRem}rem)`);
 }
 
 /**
- * Hook for mobile breakpoint
- * @returns boolean indicating if the media query matches
+ * returns true on `sm`/`640px`/`40rem` and below
+ *
  * @example
  * ```tsx
  * const isMobile = useIsMobile();
  * ```
  */
-export function useIsMobile() {
-  return useMediaQueryBreakpoint("md", "max");
+function useIsMobile() {
+  return useMediaQueryBreakpoint("sm", "max");
 }
+
+export { useIsMobile, useMediaQuery, useMediaQueryBreakpoint };

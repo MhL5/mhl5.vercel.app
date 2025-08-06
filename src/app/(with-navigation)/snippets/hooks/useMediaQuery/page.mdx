@@ -4,14 +4,14 @@ the `useMediaQuery` module provides hooks for working with responsive breakpoint
 
 this module provides 3 hooks:
 
-- `useMediaQuery` - for custom breakpoints (in rem units)
+- `useMediaQuery`: you can pass any css query string to this hook, it also supports auto complete.
 
   ```ts
-  const isLg = useMediaQuery(64, "min");
-  const isNotMd = useMediaQuery(48, "max");
+  const isLg = useMediaQuery("(min-width: 64rem)");
+  const isNotMd = useMediaQuery("(max-width: 48rem)");
   ```
 
-- `useMediaQueryBreakpoint` - based on Tailwind breakpoints for better developer experience
+- `useMediaQueryBreakpoint`: based on Tailwind breakpoints, by default similar to tailwindcss it uses mobile first approach and uses `min-width` you can swap the direction to `max` to check for the breakpoint and below
 
   ```ts
   const isMobile = useMediaQueryBreakpoint("sm");
@@ -19,7 +19,7 @@ this module provides 3 hooks:
   const isDesktop = useMediaQueryBreakpoint("lg", "min");
   ```
 
-- `useIsMobile` - super simple hook for checking if the screen is mobile
+- `useIsMobile`: returns true on `sm`/`640px`/`40rem` and below
 
   ```ts
   const isMobile = useIsMobile();
