@@ -10,9 +10,7 @@ export default function useStateWithValidation<T>(
   const setStateWithValidation = useCallback(
     (nextState: SetStateAction<T>) => {
       const value =
-        typeof nextState === "function"
-          ? (nextState as (prevState: T) => T)(state)
-          : nextState;
+        nextState instanceof Function ? nextState(state) : nextState;
 
       setState(value);
       setIsValid(validationFunc(value));
