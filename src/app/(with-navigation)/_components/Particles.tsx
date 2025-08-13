@@ -1,6 +1,7 @@
 "use client";
 
 import { useMousePosition } from "@/hooks/useMousePosition";
+import dynamic from "next/dynamic";
 import React, { useRef, useEffect, useCallback } from "react";
 
 type ParticlesProps = {
@@ -23,6 +24,13 @@ type Circle = {
   dy: number;
   magnetism: number;
 };
+
+export const ParticlesLazy = dynamic(
+  () => import("@/app/(with-navigation)/_components/Particles"),
+  {
+    ssr: false,
+  },
+);
 
 export default function Particles({
   className = "",
