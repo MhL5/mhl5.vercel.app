@@ -1,0 +1,49 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "alert",
+  "type": "registry:component",
+  "title": "Alert",
+  "description": " shadcn alert component with rich colors.",
+  "files": [
+    {
+      "path": "src/registry/new-york/alert/Alert.tsx",
+      "content": "import * as React from \"react\";\r\nimport { cva, type VariantProps } from \"class-variance-authority\";\r\nimport { cn } from \"@/lib/utils\";\r\n\r\nconst alertVariants = cva(\r\n  \"relative grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 rounded-lg border px-4 py-3 text-sm has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-3 [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current\",\r\n  {\r\n    variants: {\r\n      variant: {\r\n        default: \"bg-card text-card-foreground\",\r\n        destructive:\r\n          \"text-destructive bg-card *:data-[slot=alert-description]:text-destructive/90 [&>svg]:text-current\",\r\n        success:\r\n          \"border-success-border bg-success-background text-success-foreground *:data-[slot=alert-description]:text-success-foreground/90 [&>svg]:text-current\",\r\n        info: \"border-info-border bg-info-background text-info-foreground *:data-[slot=alert-description]:text-info-foreground/90 [&>svg]:text-current\",\r\n        warning:\r\n          \"border-warning-border bg-warning-background text-warning-foreground *:data-[slot=alert-description]:text-warning-foreground/90 [&>svg]:text-current\",\r\n        error:\r\n          \"border-error-border bg-error-background text-error-foreground *:data-[slot=alert-description]:text-error-foreground/90 [&>svg]:text-current\",\r\n      },\r\n    },\r\n    defaultVariants: {\r\n      variant: \"default\",\r\n    },\r\n  },\r\n);\r\n\r\nfunction Alert({\r\n  className,\r\n  variant,\r\n  ...props\r\n}: React.ComponentProps<\"div\"> & VariantProps<typeof alertVariants>) {\r\n  return (\r\n    <div\r\n      data-slot=\"alert\"\r\n      role=\"alert\"\r\n      className={cn(alertVariants({ variant }), className)}\r\n      {...props}\r\n    />\r\n  );\r\n}\r\n\r\nfunction AlertTitle({ className, ...props }: React.ComponentProps<\"div\">) {\r\n  return (\r\n    <div\r\n      data-slot=\"alert-title\"\r\n      className={cn(\r\n        \"col-start-2 line-clamp-1 min-h-4 font-medium tracking-tight\",\r\n        className,\r\n      )}\r\n      {...props}\r\n    />\r\n  );\r\n}\r\n\r\nfunction AlertDescription({\r\n  className,\r\n  ...props\r\n}: React.ComponentProps<\"div\">) {\r\n  return (\r\n    <div\r\n      data-slot=\"alert-description\"\r\n      className={cn(\r\n        \"text-muted-foreground col-start-2 grid justify-items-start gap-1 text-sm [&_p]:leading-relaxed\",\r\n        className,\r\n      )}\r\n      {...props}\r\n    />\r\n  );\r\n}\r\n\r\nexport { Alert, AlertTitle, AlertDescription };\r\n",
+      "type": "registry:component"
+    }
+  ],
+  "cssVars": {
+    "theme": {
+      "color-success-background": "var(--success-background)",
+      "color-success-border": "var(--success-border)",
+      "color-success-foreground": "var(--success-foreground)"
+    },
+    "light": {
+      "success-background": "oklch(97.949% 0.02128 158.883)",
+      "success-border": "oklch(94.045% 0.07759 159.386)",
+      "success-foreground": "oklch(55.157% 0.16568 146.625)",
+      "info-background": "oklch(97.515% 0.01276 244.483)",
+      "info-border": "oklch(92.71% 0.03191 266.188)",
+      "info-foreground": "oklch(56.29% 0.18149 255.001)",
+      "warning-background": "oklch(99.012% 0.01597 95.255)",
+      "warning-border": "oklch(94.506% 0.07889 97.528)",
+      "warning-foreground": "oklch(66.832% 0.16008 56.682)",
+      "error-background": "oklch(96.694% 0.01621 17.066)",
+      "error-border": "oklch(93.246% 0.03429 15.395)",
+      "error-foreground": "oklch(58.079% 0.23834 29.223)"
+    },
+    "dark": {
+      "success-background": "oklch(21.066% 0.04977 157.455)",
+      "success-border": "oklch(31.552% 0.0818 152.692)",
+      "success-foreground": "oklch(86.352% 0.16984 157.782)",
+      "info-background": "oklch(15.718% 0.04534 250.707)",
+      "info-border": "oklch(26.168% 0.05283 267.358)",
+      "info-foreground": "oklch(67.441% 0.15279 258.345)",
+      "warning-background": "oklch(22.938% 0.05121 113.206)",
+      "warning-border": "oklch(29.154% 0.06353 109.783)",
+      "warning-foreground": "oklch(86.347% 0.1414 92.293)",
+      "error-background": "oklch(19.941% 0.06431 23.545)",
+      "error-border": "oklch(26.884% 0.10326 25.303)",
+      "error-foreground": "oklch(79.847% 0.11592 17.944)"
+    }
+  }
+}
