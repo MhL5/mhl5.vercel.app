@@ -1,6 +1,7 @@
 import CodeBlockServer from "@/components/code-components/CodeBlock/CodeBlockServer";
 import CodeBlockShell from "@/components/code-components/CodeBlock/ui/Shell";
 import CodePreview from "@/components/code-components/CodePreview";
+import CliCommandCode from "@/components/mdx-components/CliCommandCode";
 import ComponentPreview from "@/components/mdx-components/ComponentPreview";
 import SnippetH1 from "@/components/mdx-components/SnippetH1";
 import { cn } from "@/lib/utils";
@@ -125,6 +126,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     CodePreview,
     SnippetH1,
     ComponentPreview,
+    CliCommandCode,
     ...components,
   };
 }

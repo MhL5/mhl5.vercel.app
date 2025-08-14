@@ -167,10 +167,14 @@
   --color-error-bg: var(--error-bg);
   --color-error-border: var(--error-border);
   --color-error-text: var(--error-text);
+
+  --color-code-background: var(--code-background);
 }
 
 :root {
   --radius: 0.65rem;
+
+  --code-background: var(--color-muted);
 
   --success-bg: oklch(97.949% 0.02128 158.883);
   --success-border: oklch(94.045% 0.07759 159.386);
@@ -223,6 +227,8 @@
 }
 
 .dark {
+  --code-background: #171717;
+
   --success-bg: oklch(21.066% 0.04977 157.455);
   --success-border: oklch(31.552% 0.0818 152.692);
   --success-text: oklch(86.352% 0.16984 157.782);
@@ -331,12 +337,12 @@
 html.dark .shiki,
 html.dark .shiki span {
   color: var(--shiki-dark) !important;
-  background-color: #171717 !important;
+  background-color: var(--code-background) !important;
 }
 
 html .shiki,
 html .shiki span {
-  background-color: var(--color-muted) !important;
+  background-color: var(--code-background) !important;
 }
 
 .no-visible-scrollbar {
