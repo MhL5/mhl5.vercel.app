@@ -39,6 +39,12 @@ const developmentBookmarks: Bookmark[] = [
     url: "https://next.unlighthouse.dev/",
     category: "Development",
   },
+  {
+    title: "Guarahooks",
+    description: "Hooks Library for Software Engineers",
+    url: "https://guarahooks.com",
+    category: "Development",
+  },
 ];
 const designBookmarks: Bookmark[] = [
   {
@@ -207,6 +213,47 @@ const uiBookmarks: Bookmark[] = [
     url: "https://reactbits.dev",
     category: "UI",
     featured: true,
+  },
+  {
+    title: "tailark",
+    description:
+      "Modern, Responsive, pre-built UI blocks designed for marketing websites.",
+    url: "https://tailark.com/",
+    category: "UI",
+  },
+  {
+    title: "ai Elements",
+    description:
+      "A comprehensive collection of React components designed for building modern AI chat interfaces.",
+    url: "https://ai-sdk.dev/elements/components",
+    category: "UI",
+  },
+  {
+    title: "components.work",
+    description: "collection of different blocks",
+    url: "https://components.work/",
+    category: "UI",
+  },
+  {
+    title: "reui",
+    description:
+      "Open-source collection of UI components and animated effects built with React, Typescript, Tailwind CSS, and Motion. Pairs beautifully with shadcn/ui.",
+    url: "https://reui.io/",
+    category: "UI",
+  },
+  {
+    title: "kokonut UI",
+    description:
+      "Beautiful, modern UI components built with Tailwind CSS, shadcn/ui & Motion.100+ open-source components designed for React & Next.js.",
+    url: "https://kokonutui.com/",
+    category: "UI",
+  },
+  {
+    title: "smoothui",
+    description:
+      "Highly customizable, production-ready UI blocks for building beautiful websites and apps that look and feel the way you mean it.",
+    url: "https://smoothui.dev/",
+    category: "UI",
   },
 ];
 
