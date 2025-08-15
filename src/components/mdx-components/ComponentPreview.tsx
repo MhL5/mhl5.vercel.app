@@ -28,6 +28,10 @@ const COMPONENT_PREVIEWS = {
     preview: lazyImportComponent("examples/alert-example"),
     source: "src/registry/new-york/mhl5-registry/alert/alert.tsx",
   },
+  alertExample: {
+    preview: lazyImportComponent("examples/alert-example"),
+    source: "src/registry/new-york/examples/alert-example.tsx",
+  },
 };
 
 type ComponentPreviewProps = {
