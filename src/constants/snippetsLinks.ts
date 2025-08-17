@@ -26,10 +26,6 @@ export const snippetsLinks: Links[] = [
     "url": "/snippets/components",
     "items": [
       {
-        "title": "Alert",
-        "url": "/snippets/components/Alert"
-      },
-      {
         "title": "ClientOnly",
         "url": "/snippets/components/ClientOnly"
       },

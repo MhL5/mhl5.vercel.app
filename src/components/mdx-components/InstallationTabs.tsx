@@ -1,15 +1,9 @@
-/*
-2 tabs
-
-cli and manual
-cli renders a cli command code component
-manual renders a manual installation guide 
-*/
 import { ManualInstallCodeCard } from "@/components/ManualInstallCodeCard";
 import CliCommandCode from "@/components/mdx-components/CliCommandCode";
 import ComponentSource from "@/components/mdx-components/ComponentSource";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { frontendDomain } from "@/constants/constants";
+import { ObjectKeysTyped } from "@/registry/utils/ObjectKeysTyped/ObjectKeysTyped";
 import type {
   RegistryFileType,
   RegistryItemSchema,
@@ -28,7 +22,7 @@ type InstallationTabsProps = {
 export default async function InstallationTabs({
   name,
 }: InstallationTabsProps) {
-  const { filesToCopy, npmModulesToInstall, registryDependencies } =
+  const { filesToCopy, cssVars, npmModulesToInstall, registryDependencies } =
     await getCodeModuleData(name);
 
   return (
@@ -66,6 +60,7 @@ export default async function InstallationTabs({
             </ul>
           </div>
         )}
+
         {npmModulesToInstall != null && npmModulesToInstall.length > 0 && (
           <div className="flex flex-col gap-4">
             <p>Install the following dependencies.</p>
@@ -85,6 +80,27 @@ export default async function InstallationTabs({
             ))}
           </div>
         )}
+        {cssVars != null && Object.keys(cssVars).length > 0 && (
+          <div className="flex flex-col gap-4">
+            <p>
+              Add the following variables to your <code>globals.css</code> file.
+            </p>
+            <ManualInstallCodeCard filePath="globals.css">
+              <ComponentSource
+                lang="css"
+                code={ObjectKeysTyped(cssVars)
+                  .map((key) => {
+                    return `@${key} {\n${Object.entries(cssVars[key] ?? {})
+                      .map(([k, v]) => `   --${k}: ${v};`)
+                      .join("\n")} \n}
+                  `;
+                  })
+                  .join("\n")
+                  .replaceAll('"', "")}
+              />
+            </ManualInstallCodeCard>
+          </div>
+        )}
 
         <p>Update the import paths to match your project setup.</p>
       </TabsContent>
@@ -95,6 +111,8 @@ export default async function InstallationTabs({
 async function getCodeModuleData(registryItem: string) {
   const registryJson = (await import(`~/public/r/${registryItem}.json`))
     ?.default as RegistryItemSchema;
+
+  const cssVars = registryJson?.cssVars || null;
 
   const filesToCopy = registryJson.files?.map((file) => {
     const pathFromType = getFileLocationFromType(file.type);
@@ -129,7 +147,7 @@ async function getCodeModuleData(registryItem: string) {
     })
     .filter((d) => d.name != null);
 
-  return { filesToCopy, npmModulesToInstall, registryDependencies };
+  return { filesToCopy, npmModulesToInstall, registryDependencies, cssVars };
 }
 
 function getFileLocationFromType(type: RegistryFileType) {

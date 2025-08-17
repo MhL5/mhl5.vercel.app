@@ -12,7 +12,16 @@
         "theme": {
           "color-success-background": "var(--success-background)",
           "color-success-border": "var(--success-border)",
-          "color-success-foreground": "var(--success-foreground)"
+          "color-success-foreground": "var(--success-foreground)",
+          "color-info-background": "var(--info-background)",
+          "color-info-border": "var(--info-border)",
+          "color-info-foreground": "var(--info-foreground)",
+          "color-warning-background": "var(--warning-background)",
+          "color-warning-border": "var(--warning-border)",
+          "color-warning-foreground": "var(--warning-foreground)",
+          "color-error-background": "var(--error-background)",
+          "color-error-border": "var(--error-border)",
+          "color-error-foreground": "var(--error-foreground)"
         },
         "light": {
           "success-background": "oklch(97.949% 0.02128 158.883)",
@@ -52,7 +61,8 @@
       "files": [
         {
           "path": "src/registry/new-york/items/alert/Alert.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "src/components/mhl5-registry/ui/alert.tsx"
         }
       ]
     },
@@ -66,7 +76,8 @@
       "files": [
         {
           "path": "src/registry/new-york/items/drawer-dialog/drawer-dialog.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "src/components/mhl5-registry/ui/drawer-dialog.tsx"
         }
       ]
     },

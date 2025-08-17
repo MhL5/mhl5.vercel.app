@@ -26,7 +26,7 @@ function lazyImportComponent(
 const COMPONENT_PREVIEWS = {
   alert: {
     preview: lazyImportComponent("examples/alert-example"),
-    source: "src/registry/new-york/mhl5-registry/alert/alert.tsx",
+    source: "src/registry/new-york/items/alert/alert.tsx",
   },
   alertExample: {
     preview: lazyImportComponent("examples/alert-example"),

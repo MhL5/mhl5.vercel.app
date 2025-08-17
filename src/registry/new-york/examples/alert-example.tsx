@@ -1,7 +1,11 @@
 "use client";
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from "@/registry/new-york/items/alert/alert";
 import { TriangleAlert } from "lucide-react";
 import { useState, type ComponentPropsWithoutRef } from "react";
 
@@ -18,16 +22,16 @@ const alertVariants: AlertVariant[] = [
   "destructive",
 ] as const;
 
-export default function PreviewExample() {
+export default function AlertExample() {
   const [selectedVariant, setSelectedVariant] =
     useState<AlertVariant>("success");
 
   return (
     <div className="not-prose mx-auto grid w-[calc(100%-3rem)] gap-5">
       <div>
-        <span className="mb-2.5 text-base font-medium">
+        <div className="mb-2.5 text-base font-medium">
           Click to Change Variant
-        </span>
+        </div>
         <div className="flex gap-2">
           {alertVariants.map((variant) => {
             const isActive = variant === selectedVariant;
