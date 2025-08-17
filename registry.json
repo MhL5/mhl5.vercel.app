@@ -51,7 +51,7 @@
       },
       "files": [
         {
-          "path": "src/registry/new-york/alert/Alert.tsx",
+          "path": "src/registry/new-york/items/alert/Alert.tsx",
           "type": "registry:component"
         }
       ]
@@ -62,11 +62,38 @@
       "title": "Drawer Dialog",
       "description": " shadcn drawer dialog component with rich colors.",
       "dependencies": [],
-      "registryDependencies": [""],
+      "registryDependencies": [],
       "files": [
         {
-          "path": "src/registry/new-york/drawer-dialog/drawer-dialog.tsx",
+          "path": "src/registry/new-york/items/drawer-dialog/drawer-dialog.tsx",
           "type": "registry:component"
+        }
+      ]
+    },
+
+    {
+      "name": "checks",
+      "type": "registry:lib",
+      "title": "Checks",
+      "description": "a collection of utility functions for checking the environment of the code is running on.",
+      "files": [
+        {
+          "path": "src/registry/utils/checks/checks.ts",
+          "type": "registry:lib",
+          "target": "src/utils/mhl5-registry/checks.ts"
+        }
+      ]
+    },
+    {
+      "name": "groupByKey",
+      "type": "registry:lib",
+      "title": "groupByKey",
+      "description": "a utility function for grouping an array of objects by a key.",
+      "files": [
+        {
+          "path": "src/registry/utils/groupByKey/groupByKey.ts",
+          "type": "registry:lib",
+          "target": "src/utils/mhl5-registry/groupByKey.ts"
         }
       ]
     }

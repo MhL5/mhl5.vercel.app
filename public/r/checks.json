@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checks",
+  "type": "registry:lib",
+  "title": "Checks",
+  "description": "a collection of utility functions for checking the environment of the code is running on.",
+  "files": [
+    {
+      "path": "src/registry/utils/checks/checks.ts",
+      "content": "export const isServer = () => typeof window === \"undefined\";\r\nexport const isClient = () => typeof window !== \"undefined\";\r\n\r\nexport const isDev = () => process.env.NODE_ENV === \"development\";\r\nexport const isProd = () => process.env.NODE_ENV === \"production\";\r\nexport const isTest = () => process.env.NODE_ENV === \"test\";\r\n\r\n// Next.js runtime checks\r\nexport const isNode = () => process.env.NEXT_RUNTIME === \"nodejs\";\r\nexport const isEdge = () => process.env.NEXT_RUNTIME === \"edge\";\r\n",
+      "type": "registry:lib",
+      "target": "src/utils/mhl5-registry/checks.ts"
+    }
+  ]
+}

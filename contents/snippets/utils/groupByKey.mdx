@@ -1,0 +1,19 @@
+soon we can just use javascript object group by method but until then this method is useful.right now its on [newly available](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/groupBy) in the latest version of javascript.
+
+<CodeBlockServer path="src/registry/utils/groupByKey/groupByKey.ts" />
+
+## Installation
+
+<InstallationTabs name="groupByKey" />
+
+## Usage
+
+```tsx
+import { groupByKey } from "@/utils/groupByKey";
+```
+
+<br />
+
+```tsx
+const grouped = groupByKey(arr, "key");
+```

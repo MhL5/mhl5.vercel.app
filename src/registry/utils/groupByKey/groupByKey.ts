@@ -1,8 +1,3 @@
-<SnippetH1 heading="groupByKey" />
-
-soon we can just use javascript object group by method but until then this method is useful.
-
-```ts
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function groupByKey<T extends Record<string, any>>(
   arr: T[],
@@ -20,4 +15,3 @@ export function groupByKey<T extends Record<string, any>>(
     {} as Record<string, T[]>,
   );
 }
-```

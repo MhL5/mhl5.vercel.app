@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "groupByKey",
+  "type": "registry:lib",
+  "title": "groupByKey",
+  "description": "a utility function for grouping an array of objects by a key.",
+  "files": [
+    {
+      "path": "src/registry/utils/groupByKey/groupByKey.ts",
+      "content": "// eslint-disable-next-line @typescript-eslint/no-explicit-any\r\nexport function groupByKey<T extends Record<string, any>>(\r\n  arr: T[],\r\n  key: keyof T,\r\n): Record<string, T[]> {\r\n  return arr.reduce(\r\n    (acc, item) => {\r\n      const groupKey = String(item[key]); // Ensure the key is a string\r\n      if (!acc[groupKey]) {\r\n        acc[groupKey] = [];\r\n      }\r\n      acc[groupKey].push(item);\r\n      return acc;\r\n    },\r\n    {} as Record<string, T[]>,\r\n  );\r\n}\r\n",
+      "type": "registry:lib",
+      "target": "src/utils/mhl5-registry/groupByKey.ts"
+    }
+  ]
+}
