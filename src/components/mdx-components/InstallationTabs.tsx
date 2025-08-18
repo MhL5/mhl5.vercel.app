@@ -3,8 +3,8 @@ import CliCommandCode from "@/components/mdx-components/CliCommandCode";
 import ComponentSource from "@/components/mdx-components/ComponentSource";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { frontendDomain } from "@/constants/constants";
-import { ObjectKeysTyped } from "@/registry/utils/ObjectKeysTyped/ObjectKeysTyped";
 import type {
+  CssVars,
   RegistryFileType,
   RegistryItemSchema,
 } from "@/types/shadcn-registry";
@@ -24,6 +24,7 @@ export default async function InstallationTabs({
 }: InstallationTabsProps) {
   const { filesToCopy, cssVars, npmModulesToInstall, registryDependencies } =
     await getCodeModuleData(name);
+  const formattedCssVars = getFormattedCssVars(cssVars);
 
   return (
     <Tabs className="not-prose" defaultValue={tabs.cli}>
@@ -80,45 +81,15 @@ export default async function InstallationTabs({
             ))}
           </div>
         )}
-        {cssVars != null && Object.keys(cssVars).length > 0 && (
-          <div className="flex flex-col gap-4">
-            <p>
-              Add the following variables to your <code>globals.css</code> file.
-            </p>
-            <ManualInstallCodeCard filePath="globals.css">
-              <ComponentSource
-                lang="css"
-                code={ObjectKeysTyped(cssVars)
-                  .map((key) => {
-                    let cssSelector = "";
-
-                    switch (key) {
-                      case "light":
-                        cssSelector = ":root";
-                        break;
-                      case "dark":
-                        cssSelector = ".dark";
-                        break;
-                      case "theme":
-                        cssSelector = "@theme inline";
-                        break;
-                      default:
-                        cssSelector = key;
-                        break;
-                    }
-
-                    return `${cssSelector} {\n${Object.entries(
-                      cssVars[key] ?? {},
-                    )
-                      .map(([k, v]) => `   --${k}: ${v};`)
-                      .join("\n")}\n}\n`;
-                  })
-                  .join("\n")
-                  .replaceAll('"', "")}
-              />
-            </ManualInstallCodeCard>
-          </div>
-        )}
+        {typeof formattedCssVars === "string" &&
+          formattedCssVars.trim().length > 0 && (
+            <div className="flex flex-col gap-4">
+              <p>Add the following colors to your CSS file</p>
+              <ManualInstallCodeCard filePath="globals.css">
+                <ComponentSource lang="css" code={formattedCssVars} />
+              </ManualInstallCodeCard>
+            </div>
+          )}
 
         <p>Update the import paths to match your project setup.</p>
       </TabsContent>
@@ -165,7 +136,46 @@ async function getCodeModuleData(registryItem: string) {
     })
     .filter((d) => d.name != null);
 
-  return { filesToCopy, npmModulesToInstall, registryDependencies, cssVars };
+  return {
+    filesToCopy,
+    npmModulesToInstall,
+    registryDependencies,
+    cssVars,
+  };
+}
+
+function getFormattedCssVars(cssVars: CssVars | null) {
+  if (cssVars == null) return null;
+
+  return Object.keys(cssVars)
+    .map((key) => {
+      const entries = Object.entries(
+        cssVars[key as keyof typeof cssVars] ?? {},
+      );
+      if (entries.length === 0) return "";
+
+      let cssSelector = "";
+      switch (key) {
+        case "light":
+          cssSelector = ":root";
+          break;
+        case "dark":
+          cssSelector = ".dark";
+          break;
+        case "theme":
+          cssSelector = "@theme inline";
+          break;
+        default:
+          cssSelector = key;
+          break;
+      }
+
+      return `${cssSelector} {\n${entries
+        .map(([k, v]) => `   --${k}: ${v};`)
+        .join("\n")}\n}\n`;
+    })
+    .join("\n")
+    .replaceAll('"', "");
 }
 
 function getFileLocationFromType(type: RegistryFileType) {
