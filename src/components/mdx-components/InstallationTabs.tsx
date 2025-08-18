@@ -90,10 +90,28 @@ export default async function InstallationTabs({
                 lang="css"
                 code={ObjectKeysTyped(cssVars)
                   .map((key) => {
-                    return `@${key} {\n${Object.entries(cssVars[key] ?? {})
+                    let cssSelector = "";
+
+                    switch (key) {
+                      case "light":
+                        cssSelector = ":root";
+                        break;
+                      case "dark":
+                        cssSelector = ".dark";
+                        break;
+                      case "theme":
+                        cssSelector = "@theme inline";
+                        break;
+                      default:
+                        cssSelector = key;
+                        break;
+                    }
+
+                    return `${cssSelector} {\n${Object.entries(
+                      cssVars[key] ?? {},
+                    )
                       .map(([k, v]) => `   --${k}: ${v};`)
-                      .join("\n")} \n}
-                  `;
+                      .join("\n")}\n}\n`;
                   })
                   .join("\n")
                   .replaceAll('"', "")}
