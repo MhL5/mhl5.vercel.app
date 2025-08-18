@@ -1,4 +1,4 @@
-import type { StringWithAutoComplete } from "@/app/(with-navigation)/snippets/types/AutoComplete";
+import type { StringWithAutoComplete } from "~/contents/snippets/types/AutoComplete/AutoComplete";
 import type { CodeBlockProps } from "@/components/code-components/CodeBlock/types/types";
 import CodeBlockShell from "@/components/code-components/CodeBlock/ui/Shell";
 import CodeBlockSkeleton from "@/components/code-components/CodeBlock/ui/Skeleton";

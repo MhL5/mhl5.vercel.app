@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "AllOrNothing",
+  "type": "registry:lib",
+  "title": "AllOrNothing",
+  "description": "a generic type that allows you to either pass in all the properties or none of them",
+  "files": [
+    {
+      "path": "src/registry/types/AllOrNothing/AllOrNothing.ts",
+      "content": "export type AllOrNothing<T> = T | { [K in keyof T]?: never };\r\n",
+      "type": "registry:lib",
+      "target": "src/types/mhl5-registry/AllOrNothing.ts"
+    }
+  ]
+}

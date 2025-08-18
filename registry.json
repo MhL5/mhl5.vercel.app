@@ -159,6 +159,20 @@
           "type": "registry:hook"
         }
       ]
+    },
+
+    {
+      "name": "AllOrNothing",
+      "type": "registry:lib",
+      "title": "AllOrNothing",
+      "description": "`AllOrNothing<T>` ensures that either **all** properties of `T` are present, or **none** of them are. This is useful when a group of related fields should always be provided together, or omitted entirely.",
+      "files": [
+        {
+          "path": "src/registry/types/AllOrNothing/AllOrNothing.ts",
+          "type": "registry:lib",
+          "target": "src/types/mhl5-registry/AllOrNothing.ts"
+        }
+      ]
     }
   ]
 }

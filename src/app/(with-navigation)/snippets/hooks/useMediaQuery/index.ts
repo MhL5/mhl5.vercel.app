@@ -1,4 +1,4 @@
-import type { StringWithAutoComplete } from "@/app/(with-navigation)/snippets/types/AutoComplete";
+import type { StringWithAutoComplete } from "~/contents/snippets/types/AutoComplete/AutoComplete";
 import { useEffect, useMemo, useState } from "react";
 
 type Direction = "max" | "min";
