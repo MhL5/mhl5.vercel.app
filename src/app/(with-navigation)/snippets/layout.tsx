@@ -1,12 +1,12 @@
-import { ScrollToTopOnNavigation } from "@/app/(with-navigation)/_snippets/components/ScrollToTop";
 import Aside from "@/app/(with-navigation)/snippets/_components/Aside";
 import SnippetToc from "@/app/(with-navigation)/snippets/_components/SnippetToc";
 import { navigationLinks } from "@/constants/constants";
+import ScrollToTop from "@/registry/new-york/items/ScrollToTop/ScrollToTop";
 
 export default function MdxLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <ScrollToTopOnNavigation />
+      <ScrollToTop variant="on-navigation" />
 
       <div className="mx-auto grid min-h-svh w-full lg:grid-cols-[14rem_1fr] xl:grid-cols-[17.875rem_1fr_15rem]">
         <Aside navigationLinks={navigationLinks} className="hidden lg:block" />
