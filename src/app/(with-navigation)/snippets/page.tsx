@@ -11,7 +11,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
-  const content = await fileReader("contents/snippets/snippets.md");
+  const content = await fileReader("contents/snippets/snippets.mdx");
 
   return (
     <>

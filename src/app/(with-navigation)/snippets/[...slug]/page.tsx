@@ -1,4 +1,5 @@
 import SnippetH1 from "@/components/mdx-components/SnippetH1";
+import { Badge } from "@/components/ui/badge";
 import { shadcnRegistry } from "@/constants/constants";
 import MDXRemoteComponent from "@/MDXRemote";
 import { isDev } from "@/registry/utils/checks/checks";
@@ -33,16 +34,32 @@ export default async function Page({ params }: PageProps) {
 
   if (!slug || slug.length === 0) return notFound();
 
-  const content = await fileReader(`contents/snippets/${slug.join("/")}.md`);
+  const content = await fileReader(`contents/snippets/${slug.join("/")}.mdx`);
   const item = shadcnRegistry.items.find((item) => item.name === slug.at(-1));
 
   if (!item) {
     if (isDev()) return "item not found inside shadcn registry";
     return notFound();
   }
+
+  const isNotPublished = content.includes("#not-published");
+  if (isNotPublished && !isDev()) return notFound();
+
   return (
     <div>
-      <SnippetH1 heading={item?.title} slug={slug.at(-1)} />
+      <SnippetH1
+        heading={
+          <div className="flex flex-wrap items-center gap-2">
+            {item.title}{" "}
+            {isNotPublished && (
+              <Badge className="text-base" variant="error">
+                not published
+              </Badge>
+            )}
+          </div>
+        }
+        slug={slug.at(-1)}
+      />
 
       <MDXRemoteComponent
         source={`

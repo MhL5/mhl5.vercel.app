@@ -1,4 +1,4 @@
-import { isProd } from "@/registry/utils/checks/checks";
+import { isDev, isProd } from "@/registry/utils/checks/checks";
 import { Code2, Hammer, Package, Wrench, Zap } from "lucide-react";
 import type { JSX } from "react";
 
@@ -60,6 +60,9 @@ function generateNavigationLinks(shadcnRegistry: ShadcnRegistry): Links[] {
   } as const;
   const categorizedItems = shadcnRegistry.items.reduce<DefaultCategorizedItems>(
     (acc, item) => {
+      const notPublished = item?.meta?.notPublished;
+      if (notPublished === true && !isDev()) return acc;
+
       // Get the first file path to determine category
       const firstFilePath = item.files?.[0]?.path || "";
 
@@ -72,7 +75,7 @@ function generateNavigationLinks(shadcnRegistry: ShadcnRegistry): Links[] {
       if (firstFilePath.includes("hooks/")) category = "hooks";
 
       acc[category as keyof DefaultCategorizedItems].push({
-        title: item.title,
+        title: `${item.title} ${notPublished ? " - not published" : ""}`,
         url: `/snippets/${category}/${item.name}`,
       });
 

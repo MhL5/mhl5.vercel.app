@@ -238,6 +238,23 @@
           "target": "src/types/mhl5-registry/RequiredPick.ts"
         }
       ]
+    },
+
+    {
+      "name": "writeFile",
+      "type": "registry:lib",
+      "title": "writeFile",
+      "description": "a server action that writes data to a temporary file with a unique filename.",
+      "meta": {
+        "notPublished": true
+      },
+      "files": [
+        {
+          "path": "src/registry/actions/writeFile/writeFile.ts",
+          "type": "registry:lib",
+          "target": "src/actions/mhl5-registry/writeFile.ts"
+        }
+      ]
     }
   ]
 }

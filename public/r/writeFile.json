@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "writeFile",
+  "type": "registry:lib",
+  "title": "writeFile",
+  "description": "a server action that writes data to a temporary file with a unique filename.",
+  "files": [
+    {
+      "path": "src/registry/actions/writeFile/writeFile.ts",
+      "content": "\"use server\";\r\n\r\nimport { isNode } from \"@/registry/utils/checks/checks\";\r\nimport { randomUUID } from \"crypto\";\r\nimport fs from \"fs/promises\";\r\nimport path from \"path\";\r\n\r\nconst getDirPath = (...paths: string[]) => path.join(process.cwd(), ...paths);\r\n\r\nasync function writeFile(data: string, filename: `${string}.${string}`) {\r\n  try {\r\n    if (!isNode())\r\n      throw new Error(\"This action is only available in Node.js runtime\");\r\n\r\n    const [name, extension] = filename.split(\".\");\r\n\r\n    const tempDir = getDirPath(\"temp\");\r\n\r\n    // Ensure the temp directory exists\r\n    try {\r\n      await fs.mkdir(tempDir, { recursive: true });\r\n    } catch (e) {\r\n      // Ignore error if directory already exists\r\n      if ((e as NodeJS.ErrnoException).code !== \"EEXIST\") throw e;\r\n    }\r\n\r\n    // Full path to the file\r\n    const filePath = path.join(tempDir, `${name}-${randomUUID()}.${extension}`);\r\n\r\n    // Write the data to the file\r\n    await fs.writeFile(filePath, data, \"utf8\");\r\n\r\n    // Return the full path\r\n    return filePath;\r\n  } catch (error) {\r\n    throw new Error(\r\n      `Failed to write temp file: ${error instanceof Error ? error.message : \"Unknown error\"}`,\r\n    );\r\n  }\r\n}\r\n\r\n/**\r\n * Writes data to a temporary file with a unique filename\r\n *\r\n * useful for writing big files to the file system like sitemap.xml and checking the output\r\n *\r\n * @param data - The content to write to the file\r\n * @param extension - The file extension (e.g., '.json', '.txt', '.js')\r\n * @returns The full path to the written file\r\n */\r\nexport async function writeTempFile(\r\n  data: string,\r\n  filename: `${string}.${string}`,\r\n): Promise<string> {\r\n  return writeFile(data, filename);\r\n}\r\n",
+      "type": "registry:lib",
+      "target": "src/actions/mhl5-registry/writeFile.ts"
+    }
+  ],
+  "meta": {
+    "notPublished": true
+  }
+}
