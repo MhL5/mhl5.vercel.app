@@ -1,4 +1,4 @@
-import StructuredDataScript from "@/app/(with-navigation)/_snippets/components/StructuredDataScript";
+import StructuredDataScript from "@/registry/new-york/items/StructuredDataScript/StructuredDataScript";
 import type { Article, WithContext } from "schema-dts";
 
 const articleData: WithContext<Article> = {

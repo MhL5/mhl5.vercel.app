@@ -79,21 +79,6 @@
         }
       ]
     },
-    {
-      "name": "drawer-dialog",
-      "type": "registry:component",
-      "title": "Drawer Dialog",
-      "description": " shadcn drawer dialog component with rich colors.",
-      "dependencies": [],
-      "registryDependencies": [],
-      "files": [
-        {
-          "path": "src/registry/new-york/items/drawer-dialog/drawer-dialog.tsx",
-          "type": "registry:component",
-          "target": "src/components/mhl5-registry/ui/drawer-dialog.tsx"
-        }
-      ]
-    },
 
     {
       "name": "checks",

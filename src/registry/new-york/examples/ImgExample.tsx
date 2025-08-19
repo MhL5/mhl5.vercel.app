@@ -1,4 +1,4 @@
-import Img from "@/app/(with-navigation)/_snippets/components/Img";
+import Img from "@/registry/new-york/items/Img/Img";
 
 export default function Example() {
   return (

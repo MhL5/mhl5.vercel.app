@@ -1,10 +1,10 @@
-import { DrawerDialog } from "@/app/(with-navigation)/_snippets/components/DrawerDialog";
 import { Button } from "@/components/ui/button";
 import {
   DialogClose,
   DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { DrawerDialog } from "@/registry/new-york/items/DrawerDialog/DrawerDialog";
 
 export default function Example() {
   return (

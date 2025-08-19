@@ -1,6 +1,6 @@
 "use client";
 
-import DebouncedInput from "@/app/(with-navigation)/_snippets/components/DebouncedInput";
+import DebouncedInput from "@/registry/new-york/items/DebouncedInput/DebouncedInput";
 import { useState } from "react";
 
 export default function Example() {

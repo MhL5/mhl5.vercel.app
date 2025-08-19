@@ -1,5 +1,5 @@
-import FadeShadow from "@/app/(with-navigation)/_snippets/components/FadeShadow";
 import Marquee from "@/components/ui/marquee";
+import FadeShadow from "@/registry/new-york/items/FadeShadow/FadeShadow";
 import { Star } from "lucide-react";
 
 export default function Example() {
