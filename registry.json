@@ -65,6 +65,7 @@
       "type": "registry:component",
       "title": "DebouncedInput",
       "description": "An input that debounces the input value.",
+      "registryDependencies": ["http://localhost:7777/r/useDebounce.json"],
       "files": [
         {
           "path": "src/registry/new-york/DebouncedInput/DebouncedInput.tsx",
@@ -171,6 +172,18 @@
       "files": [
         {
           "path": "src/registry/hooks/useIsMounted/useIsMounted.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "useDebounce",
+      "type": "registry:hook",
+      "title": "useDebounce",
+      "description": "A hook for debouncing a value.",
+      "files": [
+        {
+          "path": "src/registry/hooks/useDebounce/useDebounce.ts",
           "type": "registry:hook"
         }
       ]

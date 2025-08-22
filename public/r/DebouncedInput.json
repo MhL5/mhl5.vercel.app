@@ -4,10 +4,13 @@
   "type": "registry:component",
   "title": "DebouncedInput",
   "description": "An input that debounces the input value.",
+  "registryDependencies": [
+    "http://localhost:7777/r/useDebounce.json"
+  ],
   "files": [
     {
       "path": "src/registry/new-york/DebouncedInput/DebouncedInput.tsx",
-      "content": "\"use client\";\r\n\r\nimport { useDebounce } from \"@/registry/hooks/useDebounce\";\r\nimport { Input } from \"@/components/ui/input\";\r\nimport { useState, type ComponentPropsWithoutRef } from \"react\";\r\n\r\ntype DebouncedInputProps = {\r\n  initialValue?: string;\r\n  onDebouncedChange: (value: string) => void;\r\n  delay?: number;\r\n} & ComponentPropsWithoutRef<typeof Input>;\r\n\r\nexport default function DebouncedInput({\r\n  initialValue,\r\n  onDebouncedChange,\r\n  delay = 200,\r\n  ...props\r\n}: DebouncedInputProps) {\r\n  const [inputValue, setInputValue] = useState(initialValue || \"\");\r\n\r\n  useDebounce(\r\n    () => {\r\n      onDebouncedChange(inputValue);\r\n    },\r\n    delay,\r\n    [inputValue],\r\n  );\r\n\r\n  return (\r\n    <Input\r\n      value={inputValue}\r\n      onChange={(e) => setInputValue(e.target.value)}\r\n      {...props}\r\n    />\r\n  );\r\n}\r\n",
+      "content": "\"use client\";\r\n\r\nimport { useDebounce } from \"@/registry/hooks/useDebounce/useDebounce\";\r\nimport { Input } from \"@/components/ui/input\";\r\nimport { useState, type ComponentPropsWithoutRef } from \"react\";\r\n\r\ntype DebouncedInputProps = {\r\n  initialValue?: string;\r\n  onDebouncedChange: (value: string) => void;\r\n  delay?: number;\r\n} & ComponentPropsWithoutRef<typeof Input>;\r\n\r\nexport default function DebouncedInput({\r\n  initialValue,\r\n  onDebouncedChange,\r\n  delay = 200,\r\n  ...props\r\n}: DebouncedInputProps) {\r\n  const [inputValue, setInputValue] = useState(initialValue || \"\");\r\n\r\n  useDebounce(\r\n    () => {\r\n      onDebouncedChange(inputValue);\r\n    },\r\n    delay,\r\n    [inputValue],\r\n  );\r\n\r\n  return (\r\n    <Input\r\n      value={inputValue}\r\n      onChange={(e) => setInputValue(e.target.value)}\r\n      {...props}\r\n    />\r\n  );\r\n}\r\n",
       "type": "registry:component"
     }
   ]

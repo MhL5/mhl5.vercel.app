@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "useDebounce",
+  "type": "registry:hook",
+  "title": "useDebounce",
+  "description": "A hook for debouncing a value.",
+  "files": [
+    {
+      "path": "src/registry/hooks/useDebounce/useDebounce.ts",
+      "content": "\"use client\";\r\n\r\nimport useTimeout from \"@/registry/hooks/useTimeout\";\r\nimport { useEffect, useState } from \"react\";\r\n\r\nexport function useDebounce(\r\n  callback: () => void,\r\n  delay: number,\r\n  dependencies: unknown[],\r\n) {\r\n  const { reset, clear } = useTimeout(callback, delay);\r\n  useEffect(reset, [...dependencies, reset]);\r\n  useEffect(clear, [clear]);\r\n}\r\n\r\nexport function useDebouncedValue<T>(inputValue: T, delay: number) {\r\n  const [debouncedValue, setDebouncedValue] = useState(inputValue);\r\n\r\n  useDebounce(\r\n    () => {\r\n      setDebouncedValue(inputValue);\r\n    },\r\n    delay,\r\n    [inputValue],\r\n  );\r\n\r\n  return debouncedValue;\r\n}\r\n",
+      "type": "registry:hook"
+    }
+  ]
+}
