@@ -1,15 +1,13 @@
-import CopyButton from "@/components/buttons/CopyButton";
 import CliCommandCode from "@/components/mdx-components/CliCommandCode";
 import ComponentPreview from "@/components/mdx-components/ComponentPreview";
 import ComponentSource from "@/components/mdx-components/ComponentSource";
 import InstallationTabs from "@/components/mdx-components/InstallationTabs";
 import SnippetH1 from "@/components/mdx-components/SnippetH1";
-import { cn } from "@/lib/utils";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { cn } from "@/lib/utils";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
 import type { ComponentPropsWithoutRef } from "react";
-import { codeToHtml } from "shiki";
 
 type MDXRemoteProps = {
   source: string;
@@ -97,37 +95,13 @@ export default function MDXRemoteComponent({ source }: MDXRemoteProps) {
         }: ComponentPropsWithoutRef<"code">) => {
           if (className?.startsWith("language-")) {
             // If it's a code block
-            const lang = className.replace("language-", ""); // Extract the language (e.g., ts, js)
-            const codeHTML = await codeToHtml(
-              typeof children === "string" ? children : "",
-              {
-                lang,
-                themes: {
-                  light: "github-light",
-                  dark: "github-dark",
-                },
-              },
-            );
+            const lang = className.replace("language-", ""); // Extract the
 
             return (
-              <pre
-                className="not-prose relative h-fit max-w-full overflow-x-auto"
-                {...props}
-              >
-                <CopyButton
-                  content={typeof children === "string" ? children : ""}
-                  className="absolute top-3 right-3"
-                />
-
-                <code
-                  dangerouslySetInnerHTML={{ __html: codeHTML }}
-                  className={cn(
-                    "max-h-96 max-w-full overflow-auto text-sm leading-relaxed",
-                    className,
-                  )}
-                  {...props}
-                />
-              </pre>
+              <ComponentSource
+                code={typeof children === "string" ? children : ""}
+                lang={lang}
+              />
             );
           }
 
