@@ -46,7 +46,7 @@ export default async function Page({ params }: PageProps) {
   if (isNotPublished && !isDev()) return notFound();
 
   return (
-    <div>
+    <div id="#main">
       <SnippetH1
         heading={
           <div className="flex flex-wrap items-center gap-2">

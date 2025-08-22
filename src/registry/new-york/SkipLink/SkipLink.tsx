@@ -1,5 +1,6 @@
-import LinkButton from "@/components/buttons/LinkButton";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 import type { ReactNode } from "react";
 
 type SkipLinkProps = {
@@ -14,14 +15,16 @@ export default function SkipLink({
   className,
 }: SkipLinkProps) {
   return (
-    <LinkButton
-      href={href}
-      className={cn(
-        "fixed top-0 right-0 left-0 z-50 w-fit translate-x-0 -translate-y-full transition-all duration-100 ease-in focus:m-3 focus:translate-0",
-        className,
-      )}
-    >
-      {children}
-    </LinkButton>
+    <Button asChild>
+      <Link
+        href={href}
+        className={cn(
+          "fixed top-0 right-0 left-0 z-50 w-fit translate-x-0 -translate-y-full transition-all duration-100 ease-in focus:m-3 focus:translate-0",
+          className,
+        )}
+      >
+        {children}
+      </Link>
+    </Button>
   );
 }

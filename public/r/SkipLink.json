@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "SkipLink",
+  "type": "registry:component",
+  "title": "SkipLink",
+  "description": "Accessible skip link to the main content of the page. useful for users who use keyboard navigation.\n",
+  "registryDependencies": [
+    "button"
+  ],
+  "files": [
+    {
+      "path": "src/registry/new-york/SkipLink/SkipLink.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport Link from \"next/link\";\r\nimport type { ReactNode } from \"react\";\r\n\r\ntype SkipLinkProps = {\r\n  children: ReactNode;\r\n  href: `#${string}`;\r\n  className?: string;\r\n};\r\n\r\nexport default function SkipLink({\r\n  children,\r\n  href = \"#\",\r\n  className,\r\n}: SkipLinkProps) {\r\n  return (\r\n    <Button asChild>\r\n      <Link\r\n        href={href}\r\n        className={cn(\r\n          \"fixed top-0 right-0 left-0 z-50 w-fit translate-x-0 -translate-y-full transition-all duration-100 ease-in focus:m-3 focus:translate-0\",\r\n          className,\r\n        )}\r\n      >\r\n        {children}\r\n      </Link>\r\n    </Button>\r\n  );\r\n}\r\n",
+      "type": "registry:component",
+      "target": "src/components/utils/SkipLink.tsx"
+    }
+  ]
+}

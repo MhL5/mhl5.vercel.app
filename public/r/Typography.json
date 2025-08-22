@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "Typography",
+  "type": "registry:component",
+  "title": "Typography",
+  "description": "",
+  "files": [
+    {
+      "path": "src/registry/new-york/Typography/Typography.tsx",
+      "content": "import { cn } from \"@/lib/utils\";\r\nimport { cva, type VariantProps } from \"class-variance-authority\";\r\nimport React from \"react\";\r\n\r\nconst typographyVariants = cva(\"text-xl\", {\r\n  variants: {\r\n    variant: {\r\n      h1: \"scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl\",\r\n      h2: \"scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0\",\r\n      h3: \"scroll-m-20 text-2xl font-semibold tracking-tight\",\r\n      h4: \"scroll-m-20 text-xl font-semibold tracking-tight\",\r\n      p: \"leading-7 [&:not(:first-child)]:mt-6\",\r\n    },\r\n    effect: {\r\n      default: \"\",\r\n      lead: \"text-muted-foreground text-xl\",\r\n      large: \"text-lg font-semibold\",\r\n      small: \"text-sm leading-none font-medium\",\r\n      muted: \"text-muted-foreground text-sm\",\r\n      removePMargin: \"[&:not(:first-child)]:mt-0\",\r\n    },\r\n  },\r\n  defaultVariants: {\r\n    variant: \"h1\",\r\n    effect: \"default\",\r\n  },\r\n});\r\n\r\nexport type TypographyProps = React.HTMLAttributes<HTMLHeadingElement> &\r\n  VariantProps<typeof typographyVariants>;\r\n\r\nexport default function Typography({\r\n  className,\r\n  variant,\r\n  effect,\r\n  ...props\r\n}: TypographyProps) {\r\n  const Component = variant || \"p\";\r\n\r\n  return (\r\n    <Component\r\n      className={cn(typographyVariants({ variant, effect, className }))}\r\n      {...props}\r\n    />\r\n  );\r\n}\r\n",
+      "type": "registry:component",
+      "target": "src/components/utils/Typography.tsx"
+    }
+  ]
+}
