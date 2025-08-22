@@ -1,6 +1,5 @@
 "use client";
 
-import LinkButton from "@/components/buttons/LinkButton";
 import { Button } from "@/components/ui/button";
 import { navigationLinks, snippetsCategoryConfig } from "@/constants/constants";
 import { cn } from "@/lib/utils";
@@ -53,16 +52,12 @@ export default function Aside({ className, navigationLinks }: AsideProps) {
               key={`${title}-${url}`}
               className={title === "components" ? "capitalize" : ""}
             >
-              <LinkButton
-                href={url}
-                buttonProps={{
-                  variant: "ghost",
-                }}
-                className={`${config.tailwindClass} || mb-2 flex w-full items-center justify-start gap-2 px-2 text-sm font-semibold tracking-wider capitalize`}
+              <div
+                className={`${config.tailwindClass} || mb-2 flex h-8 w-full items-center justify-start gap-2 px-2 text-sm font-semibold tracking-wider capitalize`}
               >
                 {Icon ? <Icon className="size-4" /> : null}
                 {title}
-              </LinkButton>
+              </div>
               <div className="space-y-1 pl-0.5">
                 {items?.map((item, i) => {
                   const isActive = pathname.includes(item.url);
