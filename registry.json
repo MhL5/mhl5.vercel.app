@@ -62,7 +62,7 @@
     },
     {
       "name": "DebouncedInput",
-      "type": "registry:component",
+      "type": "registry:ui",
       "title": "DebouncedInput",
       "description": "An input that debounces the input value.",
       "registryDependencies": [
@@ -72,8 +72,25 @@
       "files": [
         {
           "path": "src/registry/new-york/DebouncedInput/DebouncedInput.tsx",
-          "type": "registry:component",
-          "target": "src/components/utils/DebouncedInput.tsx"
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "DrawerDialog",
+      "type": "registry:ui",
+      "title": "DrawerDialog",
+      "description": "a responsive dialog that renders a drawer on mobile (`max-width: 768px`) and a dialog on larger screens.",
+      "registryDependencies": [
+        "dialog",
+        "drawer",
+        "http://localhost:7777/r/useMediaQuery.json",
+        "http://localhost:7777/r/AutoComplete.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/new-york/DrawerDialog/DrawerDialog.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -200,6 +217,18 @@
       "files": [
         {
           "path": "src/registry/hooks/useTimeout/useTimeout.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "useMediaQuery",
+      "type": "registry:hook",
+      "title": "useMediaQuery",
+      "description": "the `useMediaQuery` module provides hooks for working with responsive breakpoints in React applications. its written using the `window.matchMedia` API and `facade` pattern.",
+      "files": [
+        {
+          "path": "src/registry/hooks/useMediaQuery/useMediaQuery.ts",
           "type": "registry:hook"
         }
       ]

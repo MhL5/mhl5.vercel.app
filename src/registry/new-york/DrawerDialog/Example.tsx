@@ -4,7 +4,7 @@ import {
   DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { DrawerDialog } from "@/registry/new-york/items/DrawerDialog/DrawerDialog";
+import { DrawerDialog } from "@/registry/new-york/DrawerDialog/DrawerDialog";
 
 export default function Example() {
   return (

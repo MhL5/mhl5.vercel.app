@@ -1,16 +1,35 @@
-import Example from "../../../src/registry/new-york/examples/DrawerDialogExample";
+<ComponentPreview name="DrawerDialog" />
 
-<SnippetH1 heading="DrawerDialog" />
+## Installation
 
-a responsive dialog that renders a drawer on mobile (`max-width: 768px`) and a dialog on larger screens.
+<InstallationTabs name="DrawerDialog" />
 
-<br />
+## Usage
 
-<CodePreview
-  preview={<Example />}
-  codePath="src/app/(with-navigation)/snippets/components/DrawerDialog/Example.tsx"
+```tsx
+import { DrawerDialog } from "@/components/ui/DrawerDialog";
+```
+
+```tsx
+<DrawerDialog
+  trigger={<Button>Open DrawerDialog</Button>}
+  content={
+    <div className="flex w-full flex-col gap-4 p-6">
+      <DialogTitle>DrawerDialog Example</DialogTitle>
+      <DialogDescription>
+        This is a description of the DrawerDialog Example.
+      </DialogDescription>
+
+      <div className="mt-3 flex items-center justify-end gap-3">
+        <DialogClose asChild>
+          <Button variant="outline">Cancel</Button>
+        </DialogClose>
+
+        <DialogClose asChild>
+          <Button>Submit</Button>
+        </DialogClose>
+      </div>
+    </div>
+  }
 />
-
-## Code
-
-<ComponentSource path="src/app/(with-navigation)/snippets/components/DrawerDialog/index.tsx" />
+```

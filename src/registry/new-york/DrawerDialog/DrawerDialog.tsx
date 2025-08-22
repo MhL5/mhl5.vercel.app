@@ -1,6 +1,6 @@
 "use client";
 
-import { useIsMobile } from "@/registry/hooks/useMediaQuery";
+import { useIsMobile } from "@/registry/hooks/useMediaQuery/useMediaQuery";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import { cn } from "@/lib/utils";
