@@ -1,3 +1,5 @@
+"use client";
+
 import { useDebounce } from "@/registry/hooks/useDebounce";
 import { Input } from "@/components/ui/input";
 import { useState, type ComponentPropsWithoutRef } from "react";

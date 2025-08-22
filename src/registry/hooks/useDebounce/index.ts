@@ -1,3 +1,5 @@
+"use client";
+
 import useTimeout from "@/registry/hooks/useTimeout";
 import { useEffect, useState } from "react";
 

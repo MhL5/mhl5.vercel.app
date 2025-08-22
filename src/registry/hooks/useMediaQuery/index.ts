@@ -1,3 +1,5 @@
+"use client";
+
 import type { StringWithAutoComplete } from "@/registry/types/AutoComplete/AutoComplete";
 import { useEffect, useMemo, useState } from "react";
 

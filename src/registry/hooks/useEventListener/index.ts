@@ -1,3 +1,5 @@
+"use client";
+
 import { isServer } from "@/registry/utils/checks/checks";
 import { useEffect, useRef } from "react";
 

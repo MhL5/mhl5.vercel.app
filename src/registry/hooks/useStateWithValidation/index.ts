@@ -1,3 +1,5 @@
+"use client";
+
 import { useCallback, useState, type SetStateAction } from "react";
 
 export default function useStateWithValidation<T>(
