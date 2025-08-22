@@ -1,4 +1,4 @@
-import LinkButton from "@/components/blocks/buttons/LinkButton";
+import LinkButton from "@/components/buttons/LinkButton";
 import { cn } from "@/lib/utils";
 import type { ReactNode } from "react";
 

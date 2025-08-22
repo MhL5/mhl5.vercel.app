@@ -1,6 +1,6 @@
 "use client";
 
-import LinkButton from "@/components/blocks/buttons/LinkButton";
+import LinkButton from "@/components/buttons/LinkButton";
 import { Button } from "@/components/ui/button";
 import { navigationLinks, snippetsCategoryConfig } from "@/constants/constants";
 import { cn } from "@/lib/utils";

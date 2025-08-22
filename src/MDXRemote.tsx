@@ -1,4 +1,4 @@
-import CopyButton from "@/components/blocks/buttons/CopyButton";
+import CopyButton from "@/components/buttons/CopyButton";
 import CliCommandCode from "@/components/mdx-components/CliCommandCode";
 import ComponentPreview from "@/components/mdx-components/ComponentPreview";
 import ComponentSource from "@/components/mdx-components/ComponentSource";

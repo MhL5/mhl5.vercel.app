@@ -1,6 +1,6 @@
 "use client";
 
-import CopyButton from "@/components/blocks/buttons/CopyButton";
+import CopyButton from "@/components/buttons/CopyButton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";

@@ -1,8 +1,8 @@
 "use client";
 
 import SkipLink from "@/registry/new-york/items/SkipLink/SkipLink";
-import LinkButton from "@/components/blocks/buttons/LinkButton";
-import { ThemeToggle } from "@/components/blocks/buttons/ThemeToggle";
+import LinkButton from "@/components/buttons/LinkButton";
+import { ThemeToggle } from "@/components/buttons/ThemeToggle";
 import {
   Sheet,
   SheetClose,

@@ -1,4 +1,4 @@
-import CopyButton from "@/components/blocks/buttons/CopyButton";
+import CopyButton from "@/components/buttons/CopyButton";
 import { cn } from "@/lib/utils";
 import { fileReader } from "@/utils/fileReader";
 import type { ComponentPropsWithoutRef } from "react";

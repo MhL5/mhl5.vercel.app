@@ -1,4 +1,4 @@
-import LinkButton from "@/components/blocks/buttons/LinkButton";
+import LinkButton from "@/components/buttons/LinkButton";
 import BreadCrumb from "@/components/BreadCrumb";
 import { Button } from "@/components/ui/button";
 import { navigationLinks } from "@/constants/constants";
