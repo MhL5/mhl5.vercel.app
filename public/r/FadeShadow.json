@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "FadeShadow",
+  "type": "registry:ui",
+  "title": "FadeShadow",
+  "description": "a component that fades the shadow of an element when the user scrolls down.",
+  "files": [
+    {
+      "path": "src/registry/new-york/FadeShadow/FadeShadow.tsx",
+      "content": "import { cn } from \"@/lib/utils\";\r\n\r\ntype FadeShadowProps = (\r\n  | {\r\n      orientation: \"vertical\";\r\n      positionY: \"top\" | \"bottom\";\r\n    }\r\n  | {\r\n      orientation: \"horizontal\";\r\n      positionX: \"left\" | \"right\";\r\n    }\r\n) & {\r\n  className?: string;\r\n};\r\n\r\nconst positionClassNames = {\r\n  left: \"left-0 bg-linear-to-r\",\r\n  right: \"right-0 bg-linear-to-l\",\r\n  top: \"top-0 bg-linear-to-b\",\r\n  bottom: \"bottom-0 bg-linear-to-t\",\r\n};\r\n\r\nexport default function FadeShadow(props: FadeShadowProps) {\r\n  const { className } = props;\r\n\r\n  let positionClassName = \"\";\r\n\r\n  if (props.orientation === \"horizontal\")\r\n    positionClassName = positionClassNames[props.positionX];\r\n  if (props.orientation === \"vertical\")\r\n    positionClassName = positionClassNames[props.positionY];\r\n\r\n  return (\r\n    <span\r\n      className={cn(\r\n        \"from-background pointer-events-none absolute to-transparent\",\r\n        props.orientation === \"horizontal\"\r\n          ? \"top-1/2 h-full w-14 -translate-y-1/2\"\r\n          : \"left-1/2 h-14 w-full -translate-x-1/2\",\r\n        positionClassName,\r\n        className,\r\n      )}\r\n    />\r\n  );\r\n}\r\n",
+      "type": "registry:ui"
+    }
+  ]
+}

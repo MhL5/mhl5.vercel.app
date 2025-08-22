@@ -39,6 +39,10 @@ const COMPONENT_PREVIEWS = {
     preview: lazyImportComponent("new-york/DrawerDialog/Example"),
     source: "src/registry/new-york/DrawerDialog/Example.tsx",
   },
+  FadeShadow: {
+    preview: lazyImportComponent("new-york/FadeShadow/Example"),
+    source: "src/registry/new-york/FadeShadow/Example.tsx",
+  },
 
   useIsMountedExample: {
     preview: lazyImportComponent("hooks/useIsMounted/Example"),

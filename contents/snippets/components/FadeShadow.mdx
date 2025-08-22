@@ -1,14 +1,30 @@
-import Example from "../../../src/registry/new-york/examples/FadeShadowExample";
+<ComponentPreview name="FadeShadow" />
 
-<SnippetH1 heading="FadeShadow" />
+## Installation
 
-A component that adds a fade shadow to an element.
+<InstallationTabs name="FadeShadow" />
 
-<CodePreview
-  preview={<Example />}
-  codePath="src/app/(with-navigation)/snippets/components/FadeShadow/Example.tsx"
-/>
+## usage
 
-## Snippet
+```tsx
+import FadeShadow from "@/components/ui/FadeShadow";
+```
 
-<ComponentSource path="src/app/(with-navigation)/snippets/components/FadeShadow/index.tsx" />
+<br />
+
+```tsx
+<section className="grid min-h-dvh w-full place-items-center">
+  <div className="relative mx-auto h-50 w-full max-w-xl border">
+    <FadeShadow
+      orientation="horizontal"
+      positionX="left"
+      className="absolute w-20 from-red-200"
+    />
+    <FadeShadow
+      orientation="horizontal"
+      positionX="right"
+      className="absolute w-20 from-red-200"
+    />
+  </div>
+</section>
+```

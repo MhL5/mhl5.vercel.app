@@ -2,6 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "DrawerDialog",
   "type": "registry:ui",
+  "title": "DrawerDialog",
   "description": "a responsive dialog that renders a drawer on mobile (`max-width: 768px`) and a dialog on larger screens.",
   "registryDependencies": [
     "dialog",
