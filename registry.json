@@ -4,10 +4,10 @@
   "homepage": "https://mhl5.vercel.app",
   "items": [
     {
-      "name": "alert",
+      "name": "colors",
       "type": "registry:component",
-      "title": "Alert",
-      "description": " shadcn alert component with rich colors.",
+      "title": "Colors",
+      "description": "This is not a component, it is a collection of colors for the theme.",
       "cssVars": {
         "theme": {
           "color-success-background": "var(--success-background)",
@@ -58,13 +58,7 @@
           "error-foreground": "oklch(79.847% 0.11592 17.944)"
         }
       },
-      "files": [
-        {
-          "path": "src/registry/new-york/items/alert/Alert.tsx",
-          "type": "registry:component",
-          "target": "src/components/mhl5-registry/ui/alert.tsx"
-        }
-      ]
+      "files": []
     },
     {
       "name": "ScrollToTop",

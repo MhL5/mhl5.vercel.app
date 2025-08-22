@@ -5,11 +5,7 @@ import ComponentSource from "@/components/mdx-components/ComponentSource";
 import InstallationTabs from "@/components/mdx-components/InstallationTabs";
 import SnippetH1 from "@/components/mdx-components/SnippetH1";
 import { cn } from "@/lib/utils";
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-} from "@/registry/new-york/items/alert/alert";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
 import type { ComponentPropsWithoutRef } from "react";

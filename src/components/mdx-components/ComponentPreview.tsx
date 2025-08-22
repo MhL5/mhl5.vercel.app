@@ -7,7 +7,7 @@ import { lazy, Suspense, type ComponentType } from "react";
 function lazyImportComponent(
   path:
     | `new-york/examples/${string}`
-    | `new-york/mhl5-registry/${string}`
+    | `new-york/${string}`
     | `hooks/${string}`,
 ) {
   return lazy(async () => {
@@ -27,10 +27,11 @@ function lazyImportComponent(
 }
 
 const COMPONENT_PREVIEWS = {
-  alert: {
-    preview: lazyImportComponent("new-york/examples/alert-example"),
-    source: "src/registry/new-york/items/alert/alert.tsx",
+  colors: {
+    preview: lazyImportComponent("new-york/colors/example"),
+    source: "src/registry/new-york/colors/example.tsx",
   },
+
   useIsMountedExample: {
     preview: lazyImportComponent("hooks/useIsMounted/Example"),
     source: "src/registry/hooks/useIsMounted/Example.tsx",
