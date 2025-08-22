@@ -25,6 +25,21 @@ export async function generateMetadata({
   };
 }
 
+export async function generateStaticParams() {
+  return shadcnRegistry.items.map((item) => {
+    // Try to infer the category from the first file path, fallback to "components"
+    const firstFilePath = item.files?.[0]?.path || "";
+    let category = "components";
+    if (firstFilePath.includes("hooks/")) category = "hooks";
+    else if (firstFilePath.includes("actions/")) category = "actions";
+    else if (firstFilePath.includes("utils/")) category = "utils";
+    else if (firstFilePath.includes("types/")) category = "types";
+    return {
+      slug: [category, item.name],
+    };
+  });
+}
+
 type PageProps = {
   params: Promise<{ slug: string[] }>;
 };

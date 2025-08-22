@@ -1,5 +1,5 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "useStepper",
   "type": "registry:hook",
   "title": "useStepper",
@@ -7,6 +7,7 @@
   "files": [
     {
       "path": "src/registry/hooks/useStepper/useStepper.ts",
+      "content": "\"use client\";\r\n\r\nimport { type ReactNode, useCallback, useMemo, useState } from \"react\";\r\n\r\ntype useStepperOptions = {\r\n  initialStep?: number;\r\n  loop?: boolean;\r\n};\r\n\r\ntype BaseReturnType = {\r\n  currentStep: number;\r\n  isFirstStep: boolean;\r\n  isLastStep: boolean;\r\n  goTo: (index: number) => void;\r\n  next: () => void;\r\n  back: () => void;\r\n};\r\n\r\nexport function useStepper(\r\n  steps: number,\r\n  options?: useStepperOptions,\r\n): BaseReturnType;\r\n\r\nexport function useStepper(\r\n  steps: ReactNode[],\r\n  options?: useStepperOptions,\r\n): BaseReturnType & { step: ReactNode };\r\n\r\n/**\r\n * a reusable hook for managing steps\r\n *\r\n * 0 based index\r\n * @example\r\n * const stepper = useStepper(3); // you get step 0 1 2\r\n */\r\nexport function useStepper(\r\n  steps: ReactNode[] | number,\r\n  { initialStep = 0, loop = false }: useStepperOptions = {},\r\n) {\r\n  const [currentStep, setCurrentStep] = useState(initialStep);\r\n\r\n  const lastStep = useMemo(() => {\r\n    if (Array.isArray(steps)) return steps.length - 1;\r\n    return steps;\r\n  }, [steps]);\r\n  const isFirstStep = useMemo(() => currentStep === 0, [currentStep]);\r\n  const isLastStep = useMemo(\r\n    () => currentStep === lastStep,\r\n    [currentStep, lastStep],\r\n  );\r\n\r\n  const next = useCallback(() => {\r\n    if (isLastStep) {\r\n      if (loop) setCurrentStep(0);\r\n      return;\r\n    }\r\n    setCurrentStep((step) => step + 1);\r\n  }, [isLastStep, loop]);\r\n\r\n  const back = useCallback(() => {\r\n    if (isFirstStep) {\r\n      if (loop) setCurrentStep(lastStep);\r\n      return;\r\n    }\r\n    setCurrentStep((step) => step - 1);\r\n  }, [isFirstStep, loop, lastStep]);\r\n\r\n  const goTo = useCallback(\r\n    (index: number) => {\r\n      if (index < 0 || index > lastStep) {\r\n        throw new Error(\r\n          `Invalid step index: ${index}. Must be between 0 and ${lastStep}`,\r\n        );\r\n      }\r\n      setCurrentStep(index);\r\n    },\r\n    [lastStep],\r\n  );\r\n\r\n  const output = useMemo(\r\n    () => ({\r\n      currentStep,\r\n      isFirstStep,\r\n      isLastStep,\r\n      goTo,\r\n      next,\r\n      back,\r\n    }),\r\n    [back, currentStep, goTo, next, isFirstStep, isLastStep],\r\n  );\r\n\r\n  if (Array.isArray(steps)) return { ...output, step: steps[currentStep] };\r\n  return output;\r\n}\r\n",
       "type": "registry:hook"
     }
   ]

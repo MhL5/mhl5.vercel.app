@@ -1,5 +1,5 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "useStateWithValidation",
   "type": "registry:hook",
   "title": "useStateWithValidation",
@@ -7,6 +7,7 @@
   "files": [
     {
       "path": "src/registry/hooks/useStateWithValidation/useStateWithValidation.ts",
+      "content": "\"use client\";\r\n\r\nimport { useCallback, useState, type SetStateAction } from \"react\";\r\n\r\nexport default function useStateWithValidation<T>(\r\n  validationFunc: (value: T) => boolean,\r\n  initialValue: T,\r\n) {\r\n  const [state, setState] = useState<T>(initialValue);\r\n  const [isValid, setIsValid] = useState(() => validationFunc(state));\r\n\r\n  const setStateWithValidation = useCallback(\r\n    (nextState: SetStateAction<T>) => {\r\n      const value =\r\n        nextState instanceof Function ? nextState(state) : nextState;\r\n\r\n      setState(value);\r\n      setIsValid(validationFunc(value));\r\n    },\r\n    [validationFunc, state],\r\n  );\r\n\r\n  return [state, setStateWithValidation, isValid] as const;\r\n}\r\n",
       "type": "registry:hook"
     }
   ]

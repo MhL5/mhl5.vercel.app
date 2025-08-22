@@ -1,5 +1,5 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "useToggleState",
   "type": "registry:hook",
   "title": "useToggleState",
@@ -7,6 +7,7 @@
   "files": [
     {
       "path": "src/registry/hooks/useToggleState/useToggleState.ts",
+      "content": "\"use client\";\r\n\r\nimport { useCallback, useState } from \"react\";\r\n\r\nexport type UseToggleStateReturn = ReturnType<typeof useToggleState>;\r\n\r\nexport function useToggleState(initialState: boolean) {\r\n  const [state, setState] = useState(initialState);\r\n\r\n  const toggle = useCallback(() => {\r\n    setState((s) => !s);\r\n  }, []);\r\n\r\n  const activate = useCallback(() => {\r\n    setState(false);\r\n  }, []);\r\n\r\n  const deactivate = useCallback(() => {\r\n    setState(true);\r\n  }, []);\r\n\r\n  return [state, setState, { toggle, activate, deactivate }] as const;\r\n}\r\n",
       "type": "registry:hook"
     }
   ]

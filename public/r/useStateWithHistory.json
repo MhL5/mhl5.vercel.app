@@ -1,5 +1,5 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "useStateWithHistory",
   "type": "registry:hook",
   "title": "useStateWithHistory",
@@ -7,6 +7,7 @@
   "files": [
     {
       "path": "src/registry/hooks/useStateWithHistory/useStateWithHistory.ts",
+      "content": "\"use client\";\r\n\r\nimport { useCallback, useRef, useState } from \"react\";\r\n\r\nexport function useStateWithHistory<T>(\r\n  defaultValue: T,\r\n  { capacity = 10 }: { capacity?: number } = {},\r\n) {\r\n  const [value, setValue] = useState(defaultValue);\r\n  const historyRef = useRef([value]);\r\n  const pointerRef = useRef(0);\r\n\r\n  const set = useCallback(\r\n    (v: T | ((v: T) => T)) => {\r\n      const resolvedValue =\r\n        typeof v === \"function\" ? (v as (v: T) => T)(value) : v;\r\n\r\n      if (historyRef.current[pointerRef.current] !== resolvedValue) {\r\n        if (pointerRef.current < historyRef.current.length - 1)\r\n          historyRef.current.splice(pointerRef.current + 1);\r\n\r\n        historyRef.current.push(resolvedValue);\r\n\r\n        while (historyRef.current.length > capacity) {\r\n          historyRef.current.shift();\r\n        }\r\n        pointerRef.current = historyRef.current.length - 1;\r\n      }\r\n\r\n      setValue(resolvedValue);\r\n    },\r\n    [capacity, value],\r\n  );\r\n\r\n  const back = useCallback(() => {\r\n    if (pointerRef.current <= 0) return;\r\n    pointerRef.current--;\r\n    setValue(historyRef.current[pointerRef.current]);\r\n  }, []);\r\n\r\n  const forward = useCallback(() => {\r\n    if (pointerRef.current >= historyRef.current.length - 1) return;\r\n    pointerRef.current++;\r\n    setValue(historyRef.current[pointerRef.current]);\r\n  }, []);\r\n\r\n  const go = useCallback((index: number) => {\r\n    if (index < 0 || index > historyRef.current.length - 1) return;\r\n    pointerRef.current = index;\r\n    setValue(historyRef.current[pointerRef.current]);\r\n  }, []);\r\n\r\n  return [\r\n    value,\r\n    set,\r\n    {\r\n      history: historyRef.current,\r\n      pointer: pointerRef.current,\r\n      back,\r\n      forward,\r\n      go,\r\n    },\r\n  ] as const;\r\n}\r\n",
       "type": "registry:hook"
     }
   ]

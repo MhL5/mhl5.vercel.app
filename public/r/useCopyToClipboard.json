@@ -1,5 +1,5 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "useCopyToClipboard",
   "type": "registry:hook",
   "title": "useCopyToClipboard",
@@ -7,6 +7,7 @@
   "files": [
     {
       "path": "src/registry/hooks/useCopyToClipboard/useCopyToClipboard.ts",
+      "content": "\"use client\";\r\n\r\nimport { useCallback, useEffect, useRef, useState } from \"react\";\r\n\r\nexport default function useCopyToClipboard(contentToCopy: string) {\r\n  const [hasCopied, setHasCopied] = useState(false);\r\n  const timeoutRef = useRef<NodeJS.Timeout | null>(null);\r\n\r\n  const handleCopy = useCallback(async () => {\r\n    if (timeoutRef.current) clearTimeout(timeoutRef.current);\r\n\r\n    await navigator.clipboard.writeText(contentToCopy);\r\n    setHasCopied(true);\r\n    // optional: you can use a toast library to show a success message\r\n    // toast.success(\"Copied to clipboard\");\r\n\r\n    timeoutRef.current = setTimeout(() => {\r\n      setHasCopied(false);\r\n    }, 2000);\r\n  }, [contentToCopy]);\r\n\r\n  useEffect(() => {\r\n    return () => {\r\n      if (timeoutRef.current) clearTimeout(timeoutRef.current);\r\n    };\r\n  }, []);\r\n\r\n  return { hasCopied, handleCopy };\r\n}\r\n",
       "type": "registry:hook"
     }
   ]

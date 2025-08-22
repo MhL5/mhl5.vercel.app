@@ -1,13 +1,16 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "useEventListener",
   "type": "registry:hook",
   "title": "useEventListener",
   "description": "A hook for adding event listeners with proper cleanup.",
-  "registryDependencies": ["http://localhost:7777/r/checks.json"],
+  "registryDependencies": [
+    "http://localhost:7777/r/checks.json"
+  ],
   "files": [
     {
       "path": "src/registry/hooks/useEventListener/useEventListener.ts",
+      "content": "\"use client\";\r\n\r\nimport { isServer } from \"@/registry/utils/checks/checks\";\r\nimport { useEffect, useRef } from \"react\";\r\n\r\n// Overload for Window events\r\nexport default function useEventListener<T extends keyof WindowEventMap>(\r\n  eventType: T,\r\n  callback: (e: WindowEventMap[T]) => void,\r\n  element?: Window | undefined,\r\n): void;\r\n\r\n// Overload for Document events\r\nexport default function useEventListener<T extends keyof DocumentEventMap>(\r\n  eventType: T,\r\n  callback: (e: DocumentEventMap[T]) => void,\r\n  element: Document | undefined,\r\n): void;\r\n\r\n// Overload for HTMLElement events\r\nexport default function useEventListener<T extends keyof HTMLElementEventMap>(\r\n  eventType: T,\r\n  callback: (e: HTMLElementEventMap[T]) => void,\r\n  element: HTMLElement | undefined,\r\n): void;\r\n\r\nexport default function useEventListener<\r\n  T extends keyof (WindowEventMap & DocumentEventMap & HTMLElementEventMap),\r\n>(\r\n  eventType: T,\r\n  callback: (e: Event) => void,\r\n  element: Window | Document | HTMLElement | undefined = undefined,\r\n): void {\r\n  const callbackRef = useRef(callback);\r\n\r\n  useEffect(() => {\r\n    callbackRef.current = callback;\r\n  }, [callback]);\r\n\r\n  useEffect(() => {\r\n    const defaultElement = element ?? (isServer() ? undefined : window);\r\n\r\n    if (!defaultElement) return;\r\n\r\n    const handler = (e: Event) => callbackRef.current(e);\r\n    defaultElement.addEventListener(eventType, handler as EventListener);\r\n\r\n    return () =>\r\n      defaultElement.removeEventListener(eventType, handler as EventListener);\r\n  }, [eventType, element]);\r\n}\r\n",
       "type": "registry:hook"
     }
   ]
