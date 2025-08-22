@@ -43,6 +43,10 @@ const COMPONENT_PREVIEWS = {
     preview: lazyImportComponent("new-york/FadeShadow/Example"),
     source: "src/registry/new-york/FadeShadow/Example.tsx",
   },
+  Img: {
+    preview: lazyImportComponent("new-york/Img/Example"),
+    source: "src/registry/new-york/Img/Example.tsx",
+  },
 
   useIsMountedExample: {
     preview: lazyImportComponent("hooks/useIsMounted/Example"),

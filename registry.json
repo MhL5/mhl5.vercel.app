@@ -107,13 +107,25 @@
       ]
     },
     {
+      "name": "Img",
+      "type": "registry:ui",
+      "title": "Img",
+      "description": "a component that renders an image with a fallback if the image fails to load.",
+      "files": [
+        {
+          "path": "src/registry/new-york/Img/Img.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "ScrollToTop",
       "type": "registry:component",
       "title": "ScrollToTop",
       "description": "A component for scrolling to the top of the page on navigation or mount.",
       "files": [
         {
-          "path": "src/registry/new-york/items/ScrollToTop/ScrollToTop.tsx",
+          "path": "src/registry/new-york/ScrollToTop/ScrollToTop.tsx",
           "type": "registry:component"
         }
       ]
