@@ -122,9 +122,18 @@ async function getCodeModuleData(registryItem: string) {
         // This is a non-shadcn/ui dependency that is hosted on our registry.
         // Currently other registry dependencies are not supported.
         const name = dep.split("/").pop()?.split(".")[0]?.replace("-", " ");
+
+        const firstFilePath = registryJson.files?.[0]?.path || "";
+        let category: string = "components";
+        if (firstFilePath.includes("components/")) category = "components";
+        if (firstFilePath.includes("actions/")) category = "actions";
+        if (firstFilePath.includes("utils/")) category = "utils";
+        if (firstFilePath.includes("types/")) category = "types";
+        if (firstFilePath.includes("hooks/")) category = "hooks";
+
         return {
           name,
-          href: `${frontendDomain}/components/${name}`,
+          href: `${frontendDomain}/snippets/${category}/${name}`,
         };
       } else {
         // This is a shadcn/ui dependency.
