@@ -60,7 +60,13 @@ function generateNavigationLinks(shadcnRegistry: ShadcnRegistry): Links[] {
   } as const;
   const categorizedItems = shadcnRegistry.items.reduce<DefaultCategorizedItems>(
     (acc, item) => {
-      const notPublished = item?.meta?.notPublished;
+      const notPublished =
+        "meta" in item &&
+        typeof item.meta === "object" &&
+        !!item.meta &&
+        "notPublished" in item.meta &&
+        item.meta.notPublished;
+
       if (notPublished === true && !isDev()) return acc;
 
       // Get the first file path to determine category
