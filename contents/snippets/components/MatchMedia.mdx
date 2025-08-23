@@ -1,8 +1,28 @@
 It uses a custom [useMediaQuery](/snippets/hooks/useMediaQuery) hook internally to determine whether the
 specified media conditions are met.
 
+im planning to add a lazy version of this component whenever i have time.
+
 <ComponentPreview name="MatchMedia" />
 
 ## Installation
 
 <InstallationTabs name="MatchMedia" />
+
+## Usage
+
+```tsx
+import { MatchMediaBreakpoint, MatchMedia } from "@/components/ui/MatchMedia";
+```
+
+<br />
+
+```tsx
+<MatchMediaBreakpoint breakpoint="sm">
+  <div>children&apos;s gets rendered on sm tailwindcss breakpoint</div>
+</MatchMediaBreakpoint>
+
+<MatchMedia query="(max-width:640px)" fallback={<div>fallback</div>}>
+  <div>children&apos;s gets rendered on max-width:640px</div>
+</MatchMedia>
+```

@@ -134,7 +134,7 @@
       "name": "ScrollToTop",
       "type": "registry:component",
       "title": "ScrollToTop",
-      "description": "A component for scrolling to the top of the page on navigation or mount.",
+      "description": "A component for scrolling to the top of the page on navigation or on mount.",
       "files": [
         {
           "path": "src/registry/new-york/ScrollToTop/ScrollToTop.tsx",
