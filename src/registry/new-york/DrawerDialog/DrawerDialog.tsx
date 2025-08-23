@@ -101,7 +101,7 @@ function DrawerDialogContent({
       <DialogContent
         data-slot="drawer-dialog-content"
         className={cn(
-          "[&:has([data-slot='drawer-dialog-scroll-area'])]:p-0",
+          "sm:[&:has([data-slot='drawer-dialog-scroll-area'])]:p-0",
           className,
         )}
         {...props}
@@ -213,7 +213,7 @@ function DrawerDialogPortal(props: DrawerDialogPortalProps) {
 type DrawerDialogScrollAreaProps = ComponentPropsWithoutRef<"div">;
 
 const drawerContentScrollAreaClassNames =
-  "max-h-[90dvh] overflow-y-auto p-0 sm:max-w-[80dvw]";
+  "max-h-[90dvh] overflow-y-auto sm:max-w-[80dvw]";
 const dialogContentScrollAreaClassNames =
   "max-h-[90dvh] w-[auto] overflow-y-auto p-6 sm:max-w-[80dvw]";
 

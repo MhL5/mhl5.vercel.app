@@ -18,8 +18,8 @@ export default function Example() {
       </DrawerDialogTrigger>
 
       <DrawerDialogContent>
-        <DrawerDialogScrollArea>
-          <div className="flex h-dvh w-full flex-col gap-4 p-6">
+        <DrawerDialogScrollArea className="not-sm:p-5">
+          <div className="flex w-full flex-col gap-4">
             <DrawerDialogTitle>DrawerDialog Example</DrawerDialogTitle>
             <DrawerDialogDescription>
               This is a description of the DrawerDialog Example.
