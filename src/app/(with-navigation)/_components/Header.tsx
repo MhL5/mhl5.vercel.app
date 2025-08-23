@@ -61,6 +61,43 @@ export default function Header() {
             {hasMainId && (
               <SkipLink href="#main">Skip to main content</SkipLink>
             )}
+            <Sheet>
+              <SheetTrigger className="lg:hidden">
+                <span className="sr-only">Menu</span>
+                <MenuIcon className="h-5 w-5" />
+              </SheetTrigger>
+              <SheetContent side="left" className="max-w-xs sm:max-w-xs">
+                <SheetHeader>
+                  <SheetTitle>
+                    <LinkButton
+                      buttonProps={{ variant: "link" }}
+                      href="/"
+                      className="font-nunito px-0 text-xl font-bold md:px-4"
+                    >
+                      MhL
+                    </LinkButton>
+                  </SheetTitle>
+                  <SheetDescription className="sr-only">
+                    main page navigation menu for mobile devices
+                  </SheetDescription>
+                </SheetHeader>
+
+                {links.map(({ href, label }, i) => {
+                  return (
+                    <SheetClose key={`${href}-${label}-${i}`} asChild>
+                      <LinkButton
+                        buttonProps={{ variant: "link" }}
+                        className="justify-start font-medium"
+                        href={href}
+                      >
+                        {label}
+                      </LinkButton>
+                    </SheetClose>
+                  );
+                })}
+              </SheetContent>
+            </Sheet>
+
             <LinkButton
               buttonProps={{ variant: "link" }}
               href="/"
@@ -105,43 +142,6 @@ export default function Header() {
               </svg>
             </LinkButton>
             <ThemeToggle />
-
-            <Sheet>
-              <SheetTrigger className="lg:hidden">
-                <span className="sr-only">Menu</span>
-                <MenuIcon className="h-5 w-5" />
-              </SheetTrigger>
-              <SheetContent className="max-w-xs sm:max-w-xs">
-                <SheetHeader>
-                  <SheetTitle>
-                    <LinkButton
-                      buttonProps={{ variant: "link" }}
-                      href="/"
-                      className="font-nunito px-0 text-xl font-bold md:px-4"
-                    >
-                      MhL
-                    </LinkButton>
-                  </SheetTitle>
-                  <SheetDescription className="sr-only">
-                    main page navigation menu for mobile devices
-                  </SheetDescription>
-                </SheetHeader>
-
-                {links.map(({ href, label }, i) => {
-                  return (
-                    <SheetClose key={`${href}-${label}-${i}`} asChild>
-                      <LinkButton
-                        buttonProps={{ variant: "link" }}
-                        className="justify-start font-medium"
-                        href={href}
-                      >
-                        {label}
-                      </LinkButton>
-                    </SheetClose>
-                  );
-                })}
-              </SheetContent>
-            </Sheet>
           </div>
         </nav>
       </header>
