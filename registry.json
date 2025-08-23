@@ -183,72 +183,6 @@
     },
 
     {
-      "name": "checks",
-      "type": "registry:lib",
-      "title": "Checks",
-      "description": "a collection of utility functions for checking the environment of the code is running on.",
-      "files": [
-        {
-          "path": "src/registry/utils/checks/checks.ts",
-          "type": "registry:lib",
-          "target": "src/utils/checks.ts"
-        }
-      ]
-    },
-    {
-      "name": "groupByKey",
-      "type": "registry:lib",
-      "title": "groupByKey",
-      "description": "a utility function for grouping an array of objects by a key.",
-      "files": [
-        {
-          "path": "src/registry/utils/groupByKey/groupByKey.ts",
-          "type": "registry:lib",
-          "target": "src/utils/groupByKey.ts"
-        }
-      ]
-    },
-    {
-      "name": "ObjectKeysTyped",
-      "type": "registry:lib",
-      "title": "ObjectKeysTyped",
-      "description": "Same as `Object.keys()` but type-safe, returns a typed array of keys instead of `string[]`.",
-      "files": [
-        {
-          "path": "src/registry/utils/ObjectKeysTyped/ObjectKeysTyped.ts",
-          "type": "registry:lib",
-          "target": "src/utils/ObjectKeysTyped.ts"
-        }
-      ]
-    },
-    {
-      "name": "stringFormatters",
-      "type": "registry:lib",
-      "title": "stringFormatters",
-      "description": "A collection of string formatters.",
-      "files": [
-        {
-          "path": "src/registry/utils/stringFormatters/stringFormatters.ts",
-          "type": "registry:lib",
-          "target": "src/utils/stringFormatters.ts"
-        }
-      ]
-    },
-    {
-      "name": "wait",
-      "type": "registry:lib",
-      "title": "wait",
-      "description": "A collection of wait functions for simulating a delay.",
-      "files": [
-        {
-          "path": "src/registry/utils/wait/wait.ts",
-          "type": "registry:lib",
-          "target": "src/utils/wait.ts"
-        }
-      ]
-    },
-
-    {
       "name": "useCopyToClipboard",
       "type": "registry:hook",
       "title": "useCopyToClipboard",
@@ -513,6 +447,72 @@
           "path": "src/registry/types/RequiredPick/RequiredPick.ts",
           "type": "registry:lib",
           "target": "src/types/RequiredPick.ts"
+        }
+      ]
+    },
+
+    {
+      "name": "checks",
+      "type": "registry:lib",
+      "title": "Checks",
+      "description": "a collection of utility functions for checking the environment of the code is running on.",
+      "files": [
+        {
+          "path": "src/registry/utils/checks/checks.ts",
+          "type": "registry:lib",
+          "target": "src/utils/checks.ts"
+        }
+      ]
+    },
+    {
+      "name": "groupByKey",
+      "type": "registry:lib",
+      "title": "groupByKey",
+      "description": "a utility function for grouping an array of objects by a key.",
+      "files": [
+        {
+          "path": "src/registry/utils/groupByKey/groupByKey.ts",
+          "type": "registry:lib",
+          "target": "src/utils/groupByKey.ts"
+        }
+      ]
+    },
+    {
+      "name": "ObjectKeysTyped",
+      "type": "registry:lib",
+      "title": "ObjectKeysTyped",
+      "description": "Same as `Object.keys()` but type-safe, returns a typed array of keys instead of `string[]`.",
+      "files": [
+        {
+          "path": "src/registry/utils/ObjectKeysTyped/ObjectKeysTyped.ts",
+          "type": "registry:lib",
+          "target": "src/utils/ObjectKeysTyped.ts"
+        }
+      ]
+    },
+    {
+      "name": "stringFormatters",
+      "type": "registry:lib",
+      "title": "stringFormatters",
+      "description": "A collection of string formatters.",
+      "files": [
+        {
+          "path": "src/registry/utils/stringFormatters/stringFormatters.ts",
+          "type": "registry:lib",
+          "target": "src/utils/stringFormatters.ts"
+        }
+      ]
+    },
+    {
+      "name": "wait",
+      "type": "registry:lib",
+      "title": "wait",
+      "description": "A collection of wait functions for simulating a delay.",
+      "files": [
+        {
+          "path": "src/registry/utils/wait/wait.ts",
+          "type": "registry:lib",
+          "target": "src/utils/wait.ts"
         }
       ]
     }
