@@ -1,4 +1,4 @@
-import ErrorBoundary from "@/registry/new-york/ErrorBoundary/ErrorBoundary";
+import { ErrorBoundary } from "@/registry/new-york/ErrorBoundary/ErrorBoundary";
 
 export default function Example() {
   return (

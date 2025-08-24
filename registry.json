@@ -101,7 +101,8 @@
       "files": [
         {
           "path": "src/registry/new-york/ErrorBoundary/ErrorBoundary.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "src/components/utils/ErrorBoundary.tsx"
         }
       ]
     },

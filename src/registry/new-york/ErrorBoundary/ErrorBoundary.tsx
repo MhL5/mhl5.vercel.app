@@ -16,10 +16,7 @@ type ErrorBoundaryState = {
   error: Error | null;
 };
 
-export default class ErrorBoundary extends Component<
-  ErrorBoundaryProps,
-  ErrorBoundaryState
-> {
+class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false, error: null };
@@ -66,7 +63,7 @@ type ErrorBoundaryFallbackProps = {
   onRetry: () => void;
 };
 
-export function ErrorBoundaryFallback({
+function ErrorBoundaryFallback({
   className,
   label,
   error,
@@ -110,3 +107,5 @@ export function ErrorBoundaryFallback({
     </div>
   );
 }
+
+export { ErrorBoundary, ErrorBoundaryFallback };
