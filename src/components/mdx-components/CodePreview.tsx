@@ -27,6 +27,7 @@ const CodePreviewSources = {
   Colors: "new-york/Colors/example.tsx",
   DebouncedInput: "new-york/DebouncedInput/example.tsx",
   DrawerDialog: "new-york/DrawerDialog/example.tsx",
+  ErrorBoundary: "new-york/ErrorBoundary/example.tsx",
   FadeShadow: "new-york/FadeShadow/example.tsx",
   Img: "new-york/Img/example.tsx",
   MatchMedia: "new-york/MatchMedia/example.tsx",

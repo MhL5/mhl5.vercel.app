@@ -76,7 +76,6 @@ export function ErrorBoundaryFallback({
 
   async function handleRetry() {
     startTransition(async () => {
-      await new Promise((res) => setTimeout(res, 7000));
       onRetry();
     });
   }

@@ -94,6 +94,18 @@
       ]
     },
     {
+      "name": "ErrorBoundary",
+      "type": "registry:ui",
+      "title": "ErrorBoundary",
+      "description": "a React boundary component that renders a fallback UI when an error occurs.",
+      "files": [
+        {
+          "path": "src/registry/new-york/ErrorBoundary/ErrorBoundary.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "FadeShadow",
       "type": "registry:ui",
       "title": "FadeShadow",
