@@ -1,0 +1,61 @@
+with `try` and `catch`
+
+```tsx
+try {
+  const user = await getUser();
+} catch (error) {
+  // handle the error
+}
+```
+
+<br />
+
+with `errorCatcher`:
+
+the return type is a tuple: either `[error, undefined]` or `[undefined, data]`. This enforces type safety by requiring you to handle potential errors before accessing the data.
+
+```tsx
+const [error, data] = await errorCatcher(getUser());
+
+if (error) {
+  // handle the error
+}
+
+// data is the user object
+data.name;
+```
+
+## Installation
+
+<InstallationTabs name="errorCatcher" />
+
+## Usage
+
+### errorCatcher
+
+```tsx
+type User = {
+  name: string;
+};
+
+type Error = {
+  errorMessage: string;
+};
+
+const [error, user] = errorCatcher<User, Error>(getUser());
+
+if (error) {
+  // handle the error
+  console.log(error.errorMessage);
+}
+
+user.name;
+```
+
+### errorCatcherSync
+
+```tsx
+const [error, data] = ErrorCatcherSync(
+  new Intl.NumberFormat(locale).format(count),
+);
+```

@@ -478,6 +478,19 @@
       ]
     },
     {
+      "name": "errorCatcher",
+      "type": "registry:lib",
+      "title": "errorCatcher",
+      "description": "utility function for catching errors, it aims to replace `try-catch` blocks.",
+      "files": [
+        {
+          "path": "src/registry/utils/errorCatcher/errorCatcher.ts",
+          "type": "registry:lib",
+          "target": "src/utils/errorCatcher.ts"
+        }
+      ]
+    },
+    {
       "name": "groupByKey",
       "type": "registry:lib",
       "title": "groupByKey",

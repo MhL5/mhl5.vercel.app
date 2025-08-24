@@ -78,7 +78,7 @@ export default async function Page({ params }: PageProps) {
 
       <MDXRemoteComponent
         source={`
-        ${item?.description}
+        ${item?.description}\n
         ${content}
         `}
       />

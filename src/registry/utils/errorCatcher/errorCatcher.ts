@@ -1,8 +1,5 @@
 // import { HTTPError } from "ky";
 
-// const isHTTPError = (error: unknown): error is HTTPError =>
-//   (error as { name: string })?.name === "HTTPError";
-
 type Result<T, E> = [undefined, T] | [E, undefined];
 
 export async function errorCatcher<T, E = Error>(
@@ -21,6 +18,8 @@ export async function errorCatcher<T, E = Error>(
     const err = error as E;
 
     // Optional: for parsing ky library http errors
+    // const isHTTPError = (error: unknown): error is HTTPError =>
+    //   (error as { name: string })?.name === "HTTPError";
     // if (isHTTPError(error)) {
     //   try {
     //     err = await error?.response?.json();

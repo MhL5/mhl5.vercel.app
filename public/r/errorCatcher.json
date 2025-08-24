@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "errorCatcher",
+  "type": "registry:lib",
+  "title": "errorCatcher",
+  "description": "utility function for catching errors, it aims to replace `try-catch` blocks.",
+  "files": [
+    {
+      "path": "src/registry/utils/errorCatcher/errorCatcher.ts",
+      "content": "// import { HTTPError } from \"ky\";\r\n\r\ntype Result<T, E> = [undefined, T] | [E, undefined];\r\n\r\nexport async function errorCatcher<T, E = Error>(\r\n  promise: Promise<T>,\r\n  options: {\r\n    mutateData?: (data: T) => T;\r\n    mutateError?: (error: E) => E;\r\n  } = {},\r\n): Promise<Result<T, E>> {\r\n  try {\r\n    const data = await promise;\r\n    const mutatedData = options?.mutateData ? options.mutateData(data) : data;\r\n\r\n    return [undefined, mutatedData];\r\n  } catch (error) {\r\n    const err = error as E;\r\n\r\n    // Optional: for parsing ky library http errors\r\n    // const isHTTPError = (error: unknown): error is HTTPError =>\r\n    //   (error as { name: string })?.name === \"HTTPError\";\r\n    // if (isHTTPError(error)) {\r\n    //   try {\r\n    //     err = await error?.response?.json();\r\n    //   } catch {\r\n    //     // error.response can be an invalid JSON and we end up in this catch\r\n    //     err = error as E;\r\n    //   }\r\n    // }\r\n\r\n    const mutatedError = options?.mutateError ? options.mutateError(err) : err;\r\n\r\n    return [mutatedError, undefined];\r\n  }\r\n}\r\n\r\nexport function errorCatcherSync<T, E = Error>(data: T): Result<T, E> {\r\n  try {\r\n    return [undefined, data];\r\n  } catch (error) {\r\n    return [error as E, undefined];\r\n  }\r\n}\r\n",
+      "type": "registry:lib",
+      "target": "src/utils/errorCatcher.ts"
+    }
+  ]
+}
