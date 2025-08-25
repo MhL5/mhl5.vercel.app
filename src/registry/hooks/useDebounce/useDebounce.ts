@@ -1,6 +1,6 @@
 "use client";
 
-import useTimer from "@/registry/hooks/useTimer/useTimer";
+import { useTimeout } from "@/registry/hooks/useTimer/useTimer";
 import { useEffect, useState } from "react";
 
 export function useDebounce(
@@ -8,7 +8,7 @@ export function useDebounce(
   delay: number,
   dependencies: unknown[],
 ) {
-  const { reset, clear } = useTimer(callback, delay, "timeout");
+  const { reset, clear } = useTimeout(callback, delay);
   useEffect(reset, [...dependencies, reset]);
   useEffect(clear, [clear]);
 }

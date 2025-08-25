@@ -2,8 +2,10 @@
 
 import { useCallback, useEffect, useRef } from "react";
 
-export default function useTimer(
-  callback: () => void,
+type Callback = () => void;
+
+function useTimerCore(
+  callback: Callback,
   delay: number,
   type: "timeout" | "interval",
 ) {
@@ -40,3 +42,11 @@ export default function useTimer(
 
   return { reset, clear };
 }
+
+const useInterval = (callback: Callback, delay: number) =>
+  useTimerCore(callback, delay, "interval");
+
+const useTimeout = (callback: Callback, delay: number) =>
+  useTimerCore(callback, delay, "timeout");
+
+export { useInterval, useTimeout };

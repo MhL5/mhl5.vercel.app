@@ -1,6 +1,6 @@
 "use client";
 
-import useTimer from "@/registry/hooks/useTimer/useTimer";
+import { useTimeout } from "@/registry/hooks/useTimer/useTimer";
 import { ErrorBoundary } from "@/registry/new-york/ErrorBoundary/ErrorBoundary";
 import { useState } from "react";
 
@@ -14,13 +14,9 @@ export default function Example() {
 
 function Component() {
   const [error, setError] = useState(false);
-  useTimer(
-    () => {
-      setError(true);
-    },
-    2000,
-    "timeout",
-  );
+  useTimeout(() => {
+    setError(true);
+  }, 2000);
 
   if (error) throw Error("Error thrown");
   return <div>I will throw an error in 2 seconds</div>;
