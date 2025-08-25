@@ -2,21 +2,61 @@
 
 import { Button } from "@/components/ui/button";
 import { navigationLinks, snippetsCategoryConfig } from "@/constants/constants";
+import { cn } from "@/lib/utils";
+import useUrlState from "@/registry/hooks/useUrlState/useUrlState";
 import { AutoGrid } from "@/registry/new-york/AutoGrid/AutoGrid";
 import DebouncedInput from "@/registry/new-york/DebouncedInput/DebouncedInput";
 import Typography from "@/registry/new-york/Typography/Typography";
 import Link from "next/link";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 export default function SnippetsList() {
+  const [categoryFiler, setCategoryFilter] = useUrlState("category", {
+    history: "replace",
+  });
   const [search, setSearch] = useState("");
 
   return (
-    <section className="not-prose mt-8">
+    <section id="search" className="not-prose mt-8">
       <header className="mb-4 flex flex-col items-start justify-between gap-5">
-        <Typography variant="h2" className="text-start">
-          Snippets
-        </Typography>
+        <div className="flex w-full flex-wrap items-center justify-between gap-2">
+          <Typography variant="h2" className="text-start">
+            Snippets
+          </Typography>
+
+          <div className="flex flex-wrap items-center gap-2 capitalize">
+            {navigationLinks.map((link) => {
+              const isActive = categoryFiler === link.title;
+              const config =
+                snippetsCategoryConfig[
+                  link.title as keyof typeof snippetsCategoryConfig
+                ];
+              return (
+                <Button
+                  key={link.title}
+                  variant={isActive ? "default" : "secondary"}
+                  size="sm"
+                  className={cn(
+                    "capitalize",
+                    isActive ? "" : config?.tailwindClass || "text-gray-600",
+                  )}
+                  onClick={() => setCategoryFilter(link.title)}
+                >
+                  {link.title}
+                </Button>
+              );
+            })}
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => {
+                setCategoryFilter("");
+              }}
+            >
+              Clear filters
+            </Button>
+          </div>
+        </div>
         <DebouncedInput
           initialValue={search}
           onDebouncedChange={setSearch}
@@ -28,13 +68,22 @@ export default function SnippetsList() {
       <AutoGrid
         uniqueId={`SnippetsList`}
         grid={{
-          maxColCount: 2,
+          maxColCount: 3,
           minColSize: 10,
-          gap: 3,
+          gap: 1,
         }}
         className="mx-auto max-w-4xl"
       >
         {navigationLinks.map((link) => {
+          if (
+            categoryFiler &&
+            !link.title
+              .trim()
+              .toLowerCase()
+              .includes(categoryFiler.trim().toLowerCase())
+          )
+            return null;
+
           const config =
             snippetsCategoryConfig[
               link.title as keyof typeof snippetsCategoryConfig
@@ -45,27 +94,21 @@ export default function SnippetsList() {
           );
 
           if (filteredItems?.length === 0) return null;
+
           return (
-            <div key={link.title} className="mb-8">
-              <div
-                className={`${config?.tailwindClass || "text-gray-600"} mb-4 flex h-10 w-full items-center justify-start gap-3 px-3 text-lg font-semibold tracking-wider capitalize`}
-              >
-                {Icon && <Icon className="size-5" />}
-                {link.title}
-              </div>
-              <div className="space-y-2 pl-2">
-                {filteredItems?.map((item) => (
-                  <Button key={item.title} variant="ghost" asChild>
-                    <Link
-                      href={item.url}
-                      className="h-10 w-full justify-start text-base"
-                    >
-                      {item.title}
-                    </Link>
-                  </Button>
-                ))}
-              </div>
-            </div>
+            <Fragment key={link.title}>
+              {filteredItems?.map((item) => (
+                <Button key={item.title} variant="ghost" asChild>
+                  <Link
+                    href={item.url}
+                    className={`${config?.tailwindClass || "text-gray-600"} h-10 w-full justify-start text-base`}
+                  >
+                    {Icon && <Icon className="size-5" />}
+                    {item.title}
+                  </Link>
+                </Button>
+              ))}
+            </Fragment>
           );
         })}
       </AutoGrid>

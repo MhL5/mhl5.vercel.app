@@ -1,4 +1,4 @@
-import SnippetH1 from "@/components/mdx-components/SnippetH1";
+import SnippetH1 from "@/app/(with-navigation)/snippets/[...slug]/_components/SnippetH1";
 import { Badge } from "@/components/ui/badge";
 import { shadcnRegistry } from "@/constants/constants";
 import MDXRemoteComponent from "@/MDXRemote";
@@ -61,7 +61,7 @@ export default async function Page({ params }: PageProps) {
   if (isNotPublished && !isDev()) return notFound();
 
   return (
-    <div id="#main">
+    <div id="main">
       <SnippetH1
         heading={
           <div className="flex flex-wrap items-center gap-2">

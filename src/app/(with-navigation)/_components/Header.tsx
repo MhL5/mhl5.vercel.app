@@ -39,7 +39,7 @@ function usePageWithMainId() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const mainId = document.getElementById("#main");
+    const mainId = document.getElementById("main");
     if (mainId) setHasMainId(true);
 
     return () => setHasMainId(false);

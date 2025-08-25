@@ -2,6 +2,7 @@ import SnippetsList from "@/app/(with-navigation)/snippets/_components/SnippetsL
 import MDXRemoteComponent from "@/MDXRemote";
 import { fileReader } from "@/utils/fileReader";
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -18,7 +19,9 @@ export default async function Page() {
     <>
       <MDXRemoteComponent source={content} />
 
-      <SnippetsList />
+      <Suspense>
+        <SnippetsList />
+      </Suspense>
     </>
   );
 }

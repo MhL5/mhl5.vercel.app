@@ -1,4 +1,4 @@
-import BreadCrumb from "@/components/BreadCrumb";
+import SnippetBreadCrumb from "@/app/(with-navigation)/snippets/[...slug]/_components/SnippetBreadCrumb";
 import { Button } from "@/components/ui/button";
 import { navigationLinks } from "@/constants/constants";
 import { cn } from "@/lib/utils";
@@ -34,7 +34,7 @@ export default function SnippetH1({ heading, slug }: SnippetH1Props) {
 
   return (
     <div className="grid gap-7">
-      <BreadCrumb />
+      <SnippetBreadCrumb />
 
       <div className="mb-2 flex flex-wrap items-center justify-between gap-3">
         <h1

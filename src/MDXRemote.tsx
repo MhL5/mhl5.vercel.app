@@ -2,7 +2,6 @@ import CliCommandCode from "@/components/mdx-components/CliCommandCode";
 import CodePreview from "@/components/mdx-components/CodePreview";
 import ComponentSource from "@/components/mdx-components/ComponentSource";
 import InstallationTabs from "@/components/mdx-components/InstallationTabs";
-import SnippetH1 from "@/components/mdx-components/SnippetH1";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { cn } from "@/lib/utils";
 import { MDXRemote } from "next-mdx-remote/rsc";
@@ -116,7 +115,6 @@ export default function MDXRemoteComponent({ source }: MDXRemoteProps) {
             </code>
           );
         },
-        SnippetH1,
         CodePreview,
         CliCommandCode,
         InstallationTabs,
