@@ -1,20 +1,32 @@
 "use client";
 
-import { useEffect, useState, type RefObject } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 type useIsVisibleOptions = {
   rootMargin?: IntersectionObserverInit["rootMargin"];
   once?: boolean;
+  initialState?: boolean | (() => boolean);
 };
 
-export default function useIsVisible(
-  ref: RefObject<HTMLElement | null>,
-  { rootMargin = "0px", once = false }: useIsVisibleOptions = {},
-) {
-  const [isVisible, setIsVisible] = useState(false);
+export type useIsVisibleRef = ReturnType<typeof useIsVisible>["ref"];
+
+export default function useIsVisible({
+  rootMargin = "0px",
+  once = false,
+  initialState = false,
+}: useIsVisibleOptions = {}) {
+  const [isVisible, setIsVisible] = useState(() => {
+    if (initialState instanceof Function) return initialState();
+    return initialState;
+  });
+  // refCallback automatically triggers when the element changes, while useRef doesn't
+  // using useRef can break the logic specially if the component gets rendered with a delay due to fetching ...
+  const [element, setElement] = useState<HTMLElement | null>(null);
+  const refCallback = useCallback((node: HTMLElement | null) => {
+    setElement(node);
+  }, []);
 
   useEffect(() => {
-    const element = ref.current;
     if (!element) return;
 
     // IntersectionObserver is async and callback can even run after the component is unmounted
@@ -37,7 +49,7 @@ export default function useIsVisible(
       observer.unobserve(element);
       isMounted = false;
     };
-  }, [ref, rootMargin, once]);
+  }, [element, rootMargin, once]);
 
-  return isVisible;
+  return { isVisible, ref: refCallback };
 }
