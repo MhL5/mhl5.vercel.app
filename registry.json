@@ -375,18 +375,6 @@
       ]
     },
     {
-      "name": "useToggleState",
-      "type": "registry:hook",
-      "title": "useToggleState",
-      "description": "A hook for toggling boolean state with additional helper functions.",
-      "files": [
-        {
-          "path": "src/registry/hooks/useToggleState/useToggleState.ts",
-          "type": "registry:hook"
-        }
-      ]
-    },
-    {
       "name": "useUrlState",
       "type": "registry:hook",
       "title": "useUrlState",
