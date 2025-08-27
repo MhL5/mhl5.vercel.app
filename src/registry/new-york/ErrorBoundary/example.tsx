@@ -19,5 +19,10 @@ function Component() {
   }, 2000);
 
   if (error) throw Error("Error thrown");
-  return <div>I will throw an error in 2 seconds</div>;
+  return (
+    <div>
+      I will throw an error in 2 seconds,the error will be caught by the
+      ErrorBoundary
+    </div>
+  );
 }
