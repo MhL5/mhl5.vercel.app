@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     template: "%s | MhL",
   },
   description:
-    "I'm a software engineer with a passion for building products that help people live better lives.",
+    "a Software engineer passionate about building user-friendly and efficient web applications.",
 };
 
 export default function RootLayout({

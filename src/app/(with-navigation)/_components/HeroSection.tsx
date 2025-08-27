@@ -21,8 +21,8 @@ export default function HeroSection({
 
       <div className="animate-fade-in mt-3 px-5 text-center">
         <h2 className="text-muted-foreground text-base tracking-wide sm:text-lg">
-          I&apos;m a software engineer with a passion for building products that
-          help people live better lives.
+          a Software engineer passionate about building user-friendly and
+          efficient web applications.
         </h2>
       </div>
 
