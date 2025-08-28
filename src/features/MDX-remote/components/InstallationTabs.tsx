@@ -1,8 +1,8 @@
-import { ManualInstallCodeCard } from "@/components/ManualInstallCodeCard";
-import CliCommandCode from "@/components/mdx-components/CliCommandCode";
-import ComponentSource from "@/components/mdx-components/ComponentSource";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { frontendDomain } from "@/constants/constants";
+import CliCommandCode from "@/features/MDX-remote/components/CliCommandCode";
+import CollapsibleCodeCard from "@/features/MDX-remote/components/CollapsibleCodeCard";
+import ComponentSource from "@/features/MDX-remote/components/ComponentSource";
 import type {
   CssVars,
   RegistryFileType,
@@ -75,9 +75,9 @@ export default async function InstallationTabs({
           <div className="flex flex-col gap-4">
             <p>Copy and paste the following code into your project.</p>
             {filesToCopy.map((file) => (
-              <ManualInstallCodeCard key={file.path} filePath={file.path}>
+              <CollapsibleCodeCard key={file.path} filePath={file.path}>
                 <ComponentSource code={file.content} />
-              </ManualInstallCodeCard>
+              </CollapsibleCodeCard>
             ))}
           </div>
         )}
@@ -85,9 +85,9 @@ export default async function InstallationTabs({
           formattedCssVars.trim().length > 0 && (
             <div className="flex flex-col gap-4">
               <p>Add the following colors to your CSS file</p>
-              <ManualInstallCodeCard filePath="globals.css">
+              <CollapsibleCodeCard filePath="globals.css">
                 <ComponentSource lang="css" code={formattedCssVars} />
-              </ManualInstallCodeCard>
+              </CollapsibleCodeCard>
             </div>
           )}
 

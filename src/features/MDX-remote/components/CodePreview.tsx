@@ -1,4 +1,4 @@
-import ComponentSource from "@/components/mdx-components/ComponentSource";
+import ComponentSource from "@/features/MDX-remote/components/ComponentSource";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Loader2Icon } from "lucide-react";

@@ -1,19 +1,22 @@
-import CliCommandCode from "@/components/mdx-components/CliCommandCode";
-import CodePreview from "@/components/mdx-components/CodePreview";
-import ComponentSource from "@/components/mdx-components/ComponentSource";
-import InstallationTabs from "@/components/mdx-components/InstallationTabs";
-import MdxCode from "@/components/mdx-components/MdxCode";
-import MdxHeading from "@/components/mdx-components/MdxHeading";
-import MdxLink from "@/components/mdx-components/MdxLink";
-import MdxPre from "@/components/mdx-components/MdxPre";
+import CliCommandCode from "./components/CliCommandCode";
+import CodePreview from "./components/CodePreview";
+import ComponentSource from "./components/ComponentSource";
+import InstallationTabs from "./components/InstallationTabs";
+import MdxCode from "./components/MdxCode";
+import MdxHeading from "./components/MdxHeading";
+import MdxLink from "./components/MdxLink";
+import MdxPre from "./components/MdxPre";
+
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { MDXRemote } from "next-mdx-remote/rsc";
 
-type MDXRemoteProps = {
+type MDXRemoteComponentProps = {
   source: string;
 };
 
-export default function MDXRemoteComponent({ source }: MDXRemoteProps) {
+export default function MDXRemoteComponent({
+  source,
+}: MDXRemoteComponentProps) {
   return (
     <MDXRemote
       source={source}

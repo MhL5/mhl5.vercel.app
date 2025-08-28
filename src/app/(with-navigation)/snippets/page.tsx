@@ -1,5 +1,5 @@
 import SnippetsList from "@/app/(with-navigation)/snippets/_components/SnippetsList";
-import MDXRemoteComponent from "@/MDXRemote";
+import MDXRemoteComponent from "@/features/MDX-remote/MDXRemoteComponent";
 import { fileReader } from "@/utils/fileReader";
 import type { Metadata } from "next";
 import { Suspense } from "react";

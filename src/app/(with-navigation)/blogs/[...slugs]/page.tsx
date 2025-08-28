@@ -1,4 +1,4 @@
-import MDXRemoteComponent from "@/MDXRemote";
+import MDXRemoteComponent from "@/features/MDX-remote/MDXRemoteComponent";
 import { isDev } from "@/registry/utils/checks/checks";
 import { fileReader } from "@/utils/fileReader";
 import { notFound, redirect } from "next/navigation";

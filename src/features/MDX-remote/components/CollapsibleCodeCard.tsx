@@ -8,13 +8,15 @@ import { cn } from "@/lib/utils";
 import { CodeIcon } from "lucide-react";
 import { useState, type ReactNode } from "react";
 
-export function ManualInstallCodeCard({
-  filePath,
-  children,
-}: {
+type CollapsibleCodeCardProps = {
   filePath: string;
   children: ReactNode;
-}) {
+};
+
+export default function CollapsibleCodeCard({
+  filePath,
+  children,
+}: CollapsibleCodeCardProps) {
   const Icon = getIcon(filePath);
   const [isExpanded, setIsExpanded] = useState(false);
 

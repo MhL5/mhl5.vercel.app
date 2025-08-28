@@ -1,7 +1,7 @@
 import SnippetH1 from "@/app/(with-navigation)/snippets/[...slug]/_components/SnippetH1";
 import { Badge } from "@/components/ui/badge";
 import { shadcnRegistry } from "@/constants/constants";
-import MDXRemoteComponent from "@/MDXRemote";
+import MDXRemoteComponent from "@/features/MDX-remote/MDXRemoteComponent";
 import { isDev } from "@/registry/utils/checks/checks";
 import { fileReader } from "@/utils/fileReader";
 import type { Metadata } from "next";
