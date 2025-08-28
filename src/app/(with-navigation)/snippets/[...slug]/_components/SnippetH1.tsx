@@ -38,6 +38,7 @@ export default function SnippetH1({ heading, slug }: SnippetH1Props) {
 
       <div className="mb-2 flex flex-wrap items-center justify-between gap-3">
         <h1
+          id="overview"
           className={cn(
             "mb-0 break-all",
             typeof heading === "string" &&

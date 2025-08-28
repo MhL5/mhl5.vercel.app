@@ -46,14 +46,19 @@ export default function SnippetToc({ className }: SnippetTocProps) {
   useEffect(() => {
     const headings = document.querySelectorAll("h2, h3");
 
-    if (headings)
+    const overview = document.getElementById("overview");
+    if (headings) {
+      const tocHeadings = Array.from(headings).map((heading) => ({
+        title: heading.textContent ?? "",
+        id: heading.id,
+        depth: heading.tagName.toLowerCase() === "h2" ? 2 : 3,
+      }));
       setToc(
-        Array.from(headings).map((heading) => ({
-          title: heading.textContent ?? "",
-          id: heading.id,
-          depth: heading.tagName.toLowerCase() === "h2" ? 2 : 3,
-        })),
+        overview
+          ? [{ title: "Overview", id: "overview", depth: 1 }, ...tocHeadings]
+          : tocHeadings,
       );
+    }
   }, [pathname]);
 
   if (toc.length <= 1) return null;
