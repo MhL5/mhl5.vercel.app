@@ -7,7 +7,7 @@
     "dev:https": "next dev --port 7777 --experimental-https --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "typecheck": "next typegen && tsc --noEmit",
     "registry:build": "shadcn build"
   },
