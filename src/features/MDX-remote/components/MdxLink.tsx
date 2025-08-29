@@ -1,3 +1,4 @@
+import type { Route } from "next";
 import Link from "next/link";
 import type { ComponentProps } from "react";
 
@@ -8,7 +9,7 @@ export default function MdxLink({
 }: ComponentProps<"a">) {
   if (href?.startsWith("/"))
     return (
-      <Link href={href} {...props}>
+      <Link href={href as Route} {...props}>
         {children}
       </Link>
     );

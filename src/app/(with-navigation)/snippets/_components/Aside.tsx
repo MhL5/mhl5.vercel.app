@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { navigationLinks, snippetsCategoryConfig } from "@/constants/constants";
 import { cn } from "@/lib/utils";
+import type { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -27,7 +28,7 @@ const NavItem = ({
     size={isSubItem ? "xs" : "sm"}
     className={cn("w-full justify-start transition-all", className)}
   >
-    <Link href={url}>{title}</Link>
+    <Link href={url as Route}>{title}</Link>
   </Button>
 );
 

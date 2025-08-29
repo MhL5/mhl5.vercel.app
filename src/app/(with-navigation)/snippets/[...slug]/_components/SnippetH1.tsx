@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { navigationLinks } from "@/constants/constants";
 import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
+import type { Route } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
@@ -73,7 +74,10 @@ export default function SnippetH1({ heading, slug }: SnippetH1Props) {
                 variant="secondary"
                 asChild
               >
-                <Link href={item?.url || "#"} className="size-8 xl:size-9">
+                <Link
+                  href={(item?.url as Route) || "#"}
+                  className="size-8 xl:size-9"
+                >
                   <H1PrevNextChildren index={index} />
                 </Link>
               </Button>

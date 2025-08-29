@@ -14,6 +14,7 @@ import useUrlState from "@/registry/hooks/useUrlState/useUrlState";
 import { AutoGrid } from "@/registry/new-york/AutoGrid/AutoGrid";
 import DebouncedInput from "@/registry/new-york/DebouncedInput/DebouncedInput";
 import Typography from "@/registry/new-york/Typography/Typography";
+import type { Route } from "next";
 import Link from "next/link";
 import { Fragment, useState } from "react";
 
@@ -105,7 +106,7 @@ export default function SnippetsList() {
               {filteredItems?.map((item) => (
                 <Button key={item.title} variant="ghost" asChild>
                   <Link
-                    href={item.url}
+                    href={item.url as Route}
                     className={`${config?.tailwindClass || "text-gray-600"} h-10 w-full justify-start text-base`}
                   >
                     {Icon && <Icon className="size-5" />}

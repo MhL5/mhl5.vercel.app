@@ -12,7 +12,7 @@ import Link from "next/link";
 
 export type ProjectCardProps = {
   title: string;
-  href?: string;
+  href?: `https://${string}`;
   description: string;
   dates: string;
   technologies: string[];
@@ -20,7 +20,7 @@ export type ProjectCardProps = {
   links?: {
     icon: React.ReactNode;
     type: string;
-    href: string;
+    href: `https://${string}` | `http://${string}`;
   }[];
   className?: string;
 } & (

@@ -1,5 +1,6 @@
 "use client";
 
+import type { Route } from "next";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, useTransition } from "react";
 
@@ -47,7 +48,7 @@ export default function useUrlState(name: string, options: Options = {}) {
         if (optionsRef.current.shallow)
           return window.history[`${historyMethod}State`](null, "", newPath);
 
-        router[historyMethod](newPath, {
+        router[historyMethod](newPath as Route, {
           scroll: false,
         });
       });

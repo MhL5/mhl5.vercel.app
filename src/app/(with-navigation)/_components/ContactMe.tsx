@@ -6,7 +6,7 @@ import type { ComponentPropsWithoutRef } from "react";
 const links = {
   telegram: "https://t.me/mhl_5",
   discord: "https://discord.com/users/649998586154844160",
-};
+} as const;
 
 export default function ContactMe({
   className,

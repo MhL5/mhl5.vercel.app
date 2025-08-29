@@ -4,7 +4,7 @@ import { Book, Code2, Globe, Palette } from "lucide-react";
 export type Bookmark = {
   title: string;
   description: string;
-  url: string;
+  url: `https://${string}`;
   category: "UI" | "Design" | "Tools" | "Development" | "Learning-Resources";
   featured?: boolean;
 };

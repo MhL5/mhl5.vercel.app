@@ -31,7 +31,7 @@ const links = [
     label: "Tools",
     href: "/tools",
   },
-];
+] as const;
 
 // todo: temp solution, its better to hard code an array of pages that have a main id
 function usePageWithMainId() {

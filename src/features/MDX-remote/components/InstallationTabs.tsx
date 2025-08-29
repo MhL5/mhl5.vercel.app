@@ -8,6 +8,7 @@ import type {
   RegistryFileType,
   RegistryItemSchema,
 } from "@/types/shadcn-registry";
+import type { Route } from "next";
 import Link from "next/link";
 
 const tabs = {
@@ -49,7 +50,7 @@ export default async function InstallationTabs({
               {registryDependencies.map((dep) => (
                 <li key={dep.name}>
                   <Link
-                    href={dep.href}
+                    href={dep.href as Route}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="capitalize underline underline-offset-3"
