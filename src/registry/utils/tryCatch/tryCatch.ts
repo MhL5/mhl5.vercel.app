@@ -2,7 +2,7 @@
 
 type Result<T, E> = [undefined, T] | [E, undefined];
 
-export async function errorCatcher<T, E = Error>(
+export async function tryCatch<T, E = Error>(
   promise: Promise<T>,
   options: {
     mutateData?: (data: T) => T;
@@ -35,7 +35,7 @@ export async function errorCatcher<T, E = Error>(
   }
 }
 
-export function errorCatcherSync<T, E = Error>(data: T): Result<T, E> {
+export function tryCatchSync<T, E = Error>(data: T): Result<T, E> {
   try {
     return [undefined, data];
   } catch (error) {
