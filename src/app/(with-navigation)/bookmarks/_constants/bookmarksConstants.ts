@@ -271,6 +271,12 @@ const uiBookmarks: Bookmark[] = [
     url: "https://smoothui.dev/",
     category: "UI",
   },
+  {
+    title: "shadcn blocks",
+    description: "The ultimate block set for Shadcn UI & Tailwind.",
+    url: "https://www.shadcnblocks.com",
+    category: "UI",
+  },
 ];
 
 export const allBookmarks: Bookmark[] = [
