@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/sonner";
 import ThemeProvider from "@/providers/ThemeProvider";
 import type { ReactNode } from "react";
 
@@ -6,5 +7,11 @@ type ProvidersProps = {
 };
 
 export default function Providers({ children }: ProvidersProps) {
-  return <ThemeProvider>{children}</ThemeProvider>;
+  return (
+    <ThemeProvider>
+      <Toaster />
+
+      {children}
+    </ThemeProvider>
+  );
 }
