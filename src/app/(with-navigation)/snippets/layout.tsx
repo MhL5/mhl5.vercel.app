@@ -8,7 +8,7 @@ export default function MdxLayout({ children }: LayoutProps<"/snippets">) {
     <>
       <ScrollToTop variant="on-navigation" />
 
-      <div className="mx-auto grid min-h-svh w-full lg:grid-cols-[14rem_1fr] xl:grid-cols-[17.875rem_1fr_15rem]">
+      <div className="mx-auto grid min-h-svh w-full max-w-[1950px] lg:grid-cols-[14rem_1fr] xl:grid-cols-[17.875rem_1fr_15rem]">
         <Aside navigationLinks={navigationLinks} className="hidden lg:block" />
 
         <main
