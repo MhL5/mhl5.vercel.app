@@ -17,5 +17,8 @@
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
+  "registries": {
+    "@mhl5-registry": "https://mhl5.vercel.app/r/{name}.json"
+  },
   "iconLibrary": "lucide"
 }
