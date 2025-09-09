@@ -1,5 +1,6 @@
 "use client";
 
+import LinkIndicator from "@/components/LinkIndicator";
 import { Button } from "@/components/ui/button";
 import { navigationLinks, snippetsCategoryConfig } from "@/constants/constants";
 import { cn } from "@/lib/utils";
@@ -26,9 +27,12 @@ const NavItem = ({
     asChild
     variant={isActive ? "secondary" : "ghost"}
     size={isSubItem ? "xs" : "sm"}
-    className={cn("w-full justify-start transition-all", className)}
+    className={cn("w-full justify-between transition-all", className)}
   >
-    <Link href={url as Route}>{title}</Link>
+    <Link href={url as Route}>
+      {title}
+      <LinkIndicator />
+    </Link>
   </Button>
 );
 
