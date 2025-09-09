@@ -1,6 +1,7 @@
-import ComponentSource from "@/features/MDX-remote/components/ComponentSource";
+import { OpenInV0Button } from "@/components/buttons/OpenInV0Button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import ComponentSource from "@/features/MDX-remote/components/ComponentSource";
 import { Loader2Icon } from "lucide-react";
 import { lazy, Suspense, type ComponentType } from "react";
 
@@ -64,10 +65,14 @@ export default function CodePreview({ name }: CodePreviewProps) {
 
   return (
     <Tabs defaultValue="preview" className="not-prose w-full">
-      <TabsList className="flex w-fit">
-        <TabsTrigger value="preview">Preview</TabsTrigger>
-        <TabsTrigger value="code">Code</TabsTrigger>
-      </TabsList>
+      <div className="flex items-center justify-between gap-2">
+        <TabsList className="flex w-fit">
+          <TabsTrigger value="preview">Preview</TabsTrigger>
+          <TabsTrigger value="code">Code</TabsTrigger>
+        </TabsList>
+
+        <OpenInV0Button name={name} />
+      </div>
 
       <Card className="h-[450px] overflow-y-auto rounded-lg bg-transparent p-0 [scrollbar-color:var(--muted-foreground)_var(--code-background)]">
         <CardContent className="h-full p-0">
