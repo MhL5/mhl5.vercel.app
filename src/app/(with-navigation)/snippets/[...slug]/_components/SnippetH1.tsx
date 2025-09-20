@@ -72,6 +72,7 @@ export default function SnippetH1({ heading, slug }: SnippetH1Props) {
                 size="icon"
                 disabled={!item}
                 variant="secondary"
+                className="size-8 xl:size-9"
                 asChild
               >
                 <Link

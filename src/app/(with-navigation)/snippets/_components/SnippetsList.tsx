@@ -108,13 +108,17 @@ export default function SnippetsList() {
           return (
             <Fragment key={link.title}>
               {filteredItems?.map((item) => (
-                <Button key={item.title} variant="ghost" asChild>
-                  <Link
-                    href={item.url as Route}
-                    className={`${config?.tailwindClass || "text-muted-foreground"} h-10 w-full justify-start text-base`}
-                  >
-                    {Icon && <Icon className="size-5" />}
-                    {item.title}
+                <Button
+                  key={item.title}
+                  variant="ghost"
+                  className={`${config?.tailwindClass || "text-muted-foreground"} h-10 w-full justify-start overflow-hidden`}
+                  asChild
+                >
+                  <Link href={item.url as Route}>
+                    {Icon && (
+                      <Icon className="hidden md:inline-block md:size-5" />
+                    )}
+                    <span className="truncate">{item.title}</span>
                   </Link>
                 </Button>
               ))}
