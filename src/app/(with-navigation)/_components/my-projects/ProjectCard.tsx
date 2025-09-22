@@ -17,7 +17,7 @@ export type ProjectCardProps = {
   description: string;
   dates: string;
   technologies: string[];
-  isOngoing?: boolean;
+  status: "in progress" | "completed" | "coming soon";
   links?: {
     icon: React.ReactNode;
     type: string;
@@ -41,7 +41,7 @@ export default function ProjectCard({
   technologies,
   links,
   className,
-  isOngoing = false,
+  status,
   ...props
 }: ProjectCardProps) {
   return (
@@ -76,9 +76,19 @@ export default function ProjectCard({
         <div className="space-y-1">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <CardTitle className="text-xl">{title}</CardTitle>
-            {isOngoing && (
-              <Badge variant="warning" className="text-sm">
-                in progress
+            {status === "in progress" && (
+              <Badge variant="warning" className="text-sm capitalize">
+                {status}
+              </Badge>
+            )}
+            {status === "completed" && (
+              <Badge variant="success" className="text-sm capitalize">
+                {status}
+              </Badge>
+            )}
+            {status === "coming soon" && (
+              <Badge variant="info" className="text-sm capitalize">
+                {status}
               </Badge>
             )}
           </div>

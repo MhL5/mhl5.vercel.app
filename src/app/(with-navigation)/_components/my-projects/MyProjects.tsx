@@ -1,8 +1,8 @@
 import anywriteImg from "@/app/(with-navigation)/_components/my-projects/assets/anywrite.png";
 import appleAppsImg from "@/app/(with-navigation)/_components/my-projects/assets/apple-apps.png";
 import kafshMeImg from "@/app/(with-navigation)/_components/my-projects/assets/kafsh-me.png";
-import vsimImg from "@/app/(with-navigation)/_components/my-projects/assets/vsim.png";
 import synclineImg from "@/app/(with-navigation)/_components/my-projects/assets/syncline.png";
+import vsimImg from "@/app/(with-navigation)/_components/my-projects/assets/vsim.png";
 import ProjectCard, {
   type ProjectCardProps,
 } from "@/app/(with-navigation)/_components/my-projects/ProjectCard";
@@ -16,6 +16,7 @@ const projects: ProjectCardProps[] = [
       "Official website for a anywrite application, a smart-keyboard tool that helps you write faster, smarter, and more efficiently.",
     href: "https://anywrite.ai",
     dates: "August 20, 2024",
+    status: "completed",
     technologies: [
       "NextJs 15",
       "Typescript",
@@ -32,6 +33,7 @@ const projects: ProjectCardProps[] = [
     description: "Official website for a Vsim, a sms verification service.",
     href: "https://vsimapp.com",
     dates: "September 18, 2024",
+    status: "completed",
     technologies: [
       "NextJs 15",
       "Typescript",
@@ -51,7 +53,7 @@ const projects: ProjectCardProps[] = [
       "platform for downloading applications,Not affiliated with Apple Inc. ",
     href: "https://apple-apss.vercel.app/",
     dates: "June 22, 2025",
-    isOngoing: true,
+    status: "coming soon",
     technologies: [
       "NextJs 15",
       "Typescript",
@@ -68,7 +70,7 @@ const projects: ProjectCardProps[] = [
       "An e-commerce website for a KafshMe, a platform for buying and selling high quality Shoes.",
     href: "https://kafsh.me",
     dates: "December 08, 2024",
-    isOngoing: true,
+    status: "coming soon",
     technologies: [
       "NextJs 15",
       "Typescript",
@@ -86,7 +88,7 @@ const projects: ProjectCardProps[] = [
       "The first CRM that imports your WhatsApp & Telegram history and makes every chat instantly searchable",
     href: "https://app.syncline.ai",
     dates: "September 01, 2025",
-    isOngoing: true,
+    status: "in progress",
     technologies: [
       "NextJs 15",
       "Typescript",
