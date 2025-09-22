@@ -27,14 +27,6 @@ const links = [
     label: "Bookmarks",
     href: "/bookmarks",
   },
-  {
-    label: "Blogs",
-    href: "/blogs",
-  },
-  {
-    label: "Tools",
-    href: "/tools",
-  },
 ] as const;
 
 // todo: temp solution, its better to hard code an array of pages that have a main id
@@ -63,20 +55,21 @@ export default function Header() {
       <header className="bg-background/50 border-border/30 fixed top-0 z-50 h-13 w-full border-b backdrop-blur-md">
         <nav className="max-w-8xl mx-auto flex h-full w-full items-center px-4">
           <Sheet>
-            <SheetTrigger className="lg:hidden">
-              <span className="sr-only">Menu</span>
-              <MenuIcon className="h-5 w-5" />
+            <SheetTrigger className="lg:hidden" asChild>
+              <Button variant="ghost">
+                <span className="sr-only">Menu</span>
+                <MenuIcon className="h-5 w-5" />
+              </Button>
             </SheetTrigger>
             <SheetContent side="left" className="max-w-xs sm:max-w-xs">
               <SheetHeader>
                 <SheetTitle>
-                  <Button variant="link" asChild>
-                    <Link
-                      href="/"
-                      className="font-nunito px-0 text-xl font-bold md:px-4"
-                    >
-                      MhL
-                    </Link>
+                  <Button
+                    variant="link"
+                    asChild
+                    className="font-nunito px-0 text-xl font-bold"
+                  >
+                    <Link href="/">MhL</Link>
                   </Button>
                 </SheetTitle>
                 <SheetDescription className="sr-only">
@@ -84,19 +77,22 @@ export default function Header() {
                 </SheetDescription>
               </SheetHeader>
 
-              {links.map(({ href, label }, i) => {
-                return (
-                  <SheetClose key={`${href}-${label}-${i}`} asChild>
-                    <Button variant="link" asChild>
-                      <Link className="justify-start font-medium" href={href}>
-                        {label}
-                      </Link>
-                    </Button>
-                  </SheetClose>
-                );
-              })}
+              <div className="flex flex-col gap-1">
+                {links.map(({ href, label }, i) => {
+                  return (
+                    <SheetClose key={`${href}-${label}-${i}`} asChild>
+                      <Button variant="link" asChild>
+                        <Link className="justify-start font-medium" href={href}>
+                          {label}
+                        </Link>
+                      </Button>
+                    </SheetClose>
+                  );
+                })}
+              </div>
             </SheetContent>
           </Sheet>
+
           <div className="mr-auto flex items-center gap-6">
             {hasMainId && (
               <SkipLink href="#main">Skip to main content</SkipLink>

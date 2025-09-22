@@ -7,7 +7,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import Image, { type StaticImageData } from "next/image";
+import Img from "@/registry/new-york/Img/Img";
+import { type StaticImageData } from "next/image";
 import Link from "next/link";
 
 export type ProjectCardProps = {
@@ -63,11 +64,11 @@ export default function ProjectCard({
           className="pointer-events-none mx-auto h-50 w-full object-cover object-top" // needed because random black line at bottom of video
         />
       ) : (
-        <Image
+        <Img
           src={props.imageSrc}
           alt={title}
-          width={500}
-          height={300}
+          width={1000}
+          height={500}
           className="h-50 w-full overflow-hidden object-cover object-top"
         />
       )}

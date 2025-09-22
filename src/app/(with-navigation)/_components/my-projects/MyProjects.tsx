@@ -2,6 +2,7 @@ import anywriteImg from "@/app/(with-navigation)/_components/my-projects/assets/
 import appleAppsImg from "@/app/(with-navigation)/_components/my-projects/assets/apple-apps.png";
 import kafshMeImg from "@/app/(with-navigation)/_components/my-projects/assets/kafsh-me.png";
 import vsimImg from "@/app/(with-navigation)/_components/my-projects/assets/vsim.png";
+import synclineImg from "@/app/(with-navigation)/_components/my-projects/assets/syncline.png";
 import ProjectCard, {
   type ProjectCardProps,
 } from "@/app/(with-navigation)/_components/my-projects/ProjectCard";
@@ -78,6 +79,23 @@ const projects: ProjectCardProps[] = [
     ],
 
     imageSrc: kafshMeImg,
+  },
+  {
+    title: "SyncLine",
+    description:
+      "The first CRM that imports your WhatsApp & Telegram history and makes every chat instantly searchable",
+    href: "https://app.syncline.ai",
+    dates: "September 01, 2025",
+    isOngoing: true,
+    technologies: [
+      "NextJs 15",
+      "Typescript",
+      "TailwindCSS",
+      "Shadcn UI",
+      "Tanstack query",
+      "next-mdx-remote",
+    ],
+    imageSrc: synclineImg,
   },
 ];
 

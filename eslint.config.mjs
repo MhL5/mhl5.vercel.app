@@ -28,6 +28,7 @@ const eslintConfig = [
         {
           name: "next/image",
           message: "Please import from `@/components/ui/Img` instead.",
+          importNames: ["default"],
         },
       ],
     },
