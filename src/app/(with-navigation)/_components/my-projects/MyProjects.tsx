@@ -53,7 +53,7 @@ const projects: ProjectCardProps[] = [
       "platform for downloading applications,Not affiliated with Apple Inc. ",
     href: "https://apple-apss.vercel.app/",
     dates: "June 22, 2025",
-    status: "coming soon",
+    status: "in progress",
     technologies: [
       "NextJs 15",
       "Typescript",
