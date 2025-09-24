@@ -3,13 +3,13 @@
 import useEventListener from "@/registry/hooks/useEventListener/useEventListener";
 import { isServer } from "@/registry/utils/checks/checks";
 
-type useKeyProps = {
+type UseKeyProps = {
   key: KeyboardEvent["key"];
   eventName: "keydown" | "keyup" | "keypress";
   handler: () => void;
 };
 
-export function useKey({ eventName, key, handler }: useKeyProps) {
+export function useKey({ eventName, key, handler }: UseKeyProps) {
   useEventListener(
     eventName,
     (e) => {

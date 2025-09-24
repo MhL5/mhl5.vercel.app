@@ -2,7 +2,7 @@
 
 import { type ReactNode, useCallback, useMemo, useState } from "react";
 
-type useStepperOptions = {
+type UseStepperOptions = {
   initialStep?: number;
   loop?: boolean;
 };
@@ -18,12 +18,12 @@ type BaseReturnType = {
 
 export function useStepper(
   steps: number,
-  options?: useStepperOptions,
+  options?: UseStepperOptions,
 ): BaseReturnType;
 
 export function useStepper(
   steps: ReactNode[],
-  options?: useStepperOptions,
+  options?: UseStepperOptions,
 ): BaseReturnType & { step: ReactNode };
 
 /**
@@ -35,7 +35,7 @@ export function useStepper(
  */
 export function useStepper(
   steps: ReactNode[] | number,
-  { initialStep = 0, loop = false }: useStepperOptions = {},
+  { initialStep = 0, loop = false }: UseStepperOptions = {},
 ) {
   const [currentStep, setCurrentStep] = useState(initialStep);
 

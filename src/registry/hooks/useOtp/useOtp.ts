@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-type otpContent = CredentialRequestOptions & {
+type OtpContent = CredentialRequestOptions & {
   otp: { transport: ["sms"] };
 };
 
@@ -18,7 +18,7 @@ export function useOtp(callback: (code: string) => void) {
         const content = await navigator.credentials.get({
           otp: { transport: ["sms"] },
           signal: abortController.signal,
-        } as otpContent);
+        } as OtpContent);
 
         if (content && "code" in content && typeof content.code === "string")
           callbackRef.current(content.code);

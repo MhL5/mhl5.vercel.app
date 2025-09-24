@@ -2,19 +2,19 @@
 
 import { useCallback, useEffect, useState } from "react";
 
-type useIsVisibleOptions = {
+type UseIsVisibleOptions = {
   rootMargin?: IntersectionObserverInit["rootMargin"];
   once?: boolean;
   initialState?: boolean | (() => boolean);
 };
 
-export type useIsVisibleRef = ReturnType<typeof useIsVisible>["ref"];
+export type UseIsVisibleRef = ReturnType<typeof useIsVisible>["ref"];
 
 export default function useIsVisible({
   rootMargin = "0px",
   once = false,
   initialState = false,
-}: useIsVisibleOptions = {}) {
+}: UseIsVisibleOptions = {}) {
   const [isVisible, setIsVisible] = useState(() => {
     if (initialState instanceof Function) return initialState();
     return initialState;
