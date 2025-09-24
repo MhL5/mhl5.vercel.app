@@ -52,8 +52,8 @@ export default function Header() {
 
   return (
     <>
-      <header className="bg-background/50 border-border/30 fixed top-0 z-50 h-13 w-full border-b backdrop-blur-md">
-        <nav className="max-w-8xl mx-auto flex h-full w-full items-center px-4">
+      <header className="fixed top-0 z-50 h-13 w-[calc(100%-var(--removed-body-scroll-bar-size,0px))] border-b border-border/30 bg-background/50 backdrop-blur-md">
+        <nav className="mx-auto flex h-full w-full max-w-8xl items-center px-4">
           <Sheet>
             <SheetTrigger className="lg:hidden" asChild>
               <Button variant="ghost">

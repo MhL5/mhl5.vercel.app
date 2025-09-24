@@ -292,15 +292,11 @@
 }
 
 @layer base {
-  html {
-    scrollbar-gutter: stable;
-  }
-
   * {
-    @apply border-border outline-ring/50 scroll-smooth;
+    @apply scroll-smooth border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground mx-auto w-full;
+    @apply mx-auto bg-background text-foreground;
   }
 
   [id] {
