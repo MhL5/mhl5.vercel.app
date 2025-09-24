@@ -1,6 +1,5 @@
 "use client";
 
-import { isServer } from "@/registry/utils/checks/checks";
 import { useEffect, useRef } from "react";
 
 // Overload for Window events
@@ -43,14 +42,12 @@ export default function useEventListener<
   }, [callback]);
 
   useEffect(() => {
-    const defaultElement = element ?? (isServer() ? undefined : element);
-
-    if (!defaultElement) return;
+    if (!element) return;
 
     const handler = (e: Event) => callbackRef.current(e);
-    defaultElement.addEventListener(eventType, handler as EventListener);
+    element.addEventListener(eventType, handler as EventListener);
 
     return () =>
-      defaultElement.removeEventListener(eventType, handler as EventListener);
+      element.removeEventListener(eventType, handler as EventListener);
   }, [eventType, element]);
 }

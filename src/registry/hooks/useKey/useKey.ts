@@ -1,7 +1,7 @@
 "use client";
 
 import useEventListener from "@/registry/hooks/useEventListener/useEventListener";
-import { isServer } from "@/registry/utils/checks/checks";
+import { isDocumentAvailable, isServer } from "@/registry/utils/checks/checks";
 
 type UseKeyProps = {
   key: KeyboardEvent["key"];
@@ -16,6 +16,6 @@ export function useKey({ eventName, key, handler }: UseKeyProps) {
       if (!(e instanceof KeyboardEvent)) return;
       if (e.key.toLowerCase() === key.toLowerCase()) handler();
     },
-    isServer() ? undefined : document,
+    isDocumentAvailable() ? document : undefined,
   );
 }
