@@ -17,11 +17,11 @@ export default function useEventListener<T extends keyof DocumentEventMap>(
   element: Document | undefined,
 ): void;
 
-// Overload for HTMLElement events
+// Overload for HTMLElement and EventTarget (ref.current) events
 export default function useEventListener<T extends keyof HTMLElementEventMap>(
   eventType: T,
   callback: (e: HTMLElementEventMap[T]) => void,
-  element: HTMLElement | undefined,
+  element: HTMLElement | EventTarget | undefined,
 ): void;
 
 export default function useEventListener<
@@ -29,7 +29,12 @@ export default function useEventListener<
 >(
   eventType: T,
   callback: (e: Event) => void,
-  element: Window | Document | HTMLElement | undefined = undefined,
+  element:
+    | Window
+    | Document
+    | HTMLElement
+    | EventTarget
+    | undefined = undefined,
 ): void {
   const callbackRef = useRef(callback);
 
@@ -38,7 +43,7 @@ export default function useEventListener<
   }, [callback]);
 
   useEffect(() => {
-    const defaultElement = element ?? (isServer() ? undefined : window);
+    const defaultElement = element ?? (isServer() ? undefined : element);
 
     if (!defaultElement) return;
 
