@@ -1,3 +1,5 @@
+### Compare with try-catch
+
 with `try` and `catch`
 
 ```tsx
@@ -12,8 +14,6 @@ try {
 
 with `tryCatch`:
 
-the return type is a tuple: either `[error, undefined]` or `[undefined, data]`. This enforces type safety by requiring you to handle potential errors before accessing the data.
-
 ```tsx
 const [error, data] = await tryCatch(getUser());
 
@@ -22,6 +22,33 @@ if (error) {
 }
 
 // data is the user object
+data.name;
+```
+
+the return type is a tuple: either `[error, undefined]` or `[undefined, data]`. This enforces type safety by requiring you to handle potential errors before accessing the data.
+
+### typescript example
+
+You can also add type arguments to the `tryCatch` function to enforce type safety. the first type argument is the type of the data, the second type argument is the type of the error.
+
+```tsx
+type User = {
+  name: string;
+};
+
+type Error = {
+  message: string;
+  status: number;
+};
+
+const [error, data] = await tryCatch<User, Error>(getUser());
+
+if (error) {
+  // handle the error, error is of type Error defined above
+  console.log(error.message);
+}
+
+// data is the user object, it is of type User defined above
 data.name;
 ```
 

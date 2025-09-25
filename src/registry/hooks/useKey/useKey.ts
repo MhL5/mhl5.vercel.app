@@ -1,7 +1,7 @@
 "use client";
 
 import useEventListener from "@/registry/hooks/useEventListener/useEventListener";
-import { isDocumentAvailable, isServer } from "@/registry/utils/checks/checks";
+import { isDocumentAvailable } from "@/registry/utils/checks/checks";
 
 type UseKeyProps = {
   key: KeyboardEvent["key"];
