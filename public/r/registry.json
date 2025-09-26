@@ -483,15 +483,15 @@
       ]
     },
     {
-      "name": "stringFormatters",
+      "name": "formatters",
       "type": "registry:lib",
-      "title": "stringFormatters",
-      "description": "A collection of string formatters.",
+      "title": "formatters",
+      "description": "A collection of formatters for strings, dates, numbers and currencies.",
       "files": [
         {
-          "path": "src/registry/utils/stringFormatters/stringFormatters.ts",
+          "path": "src/registry/utils/formatters/formatters.ts",
           "type": "registry:lib",
-          "target": "src/utils/stringFormatters.ts"
+          "target": "src/utils/formatters.ts"
         }
       ]
     },
