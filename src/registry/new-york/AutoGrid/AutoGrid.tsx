@@ -1,8 +1,6 @@
-import { cn } from "@/lib/utils";
-import type { ComponentProps } from "react";
+import { type ComponentProps, useMemo } from "react";
 
 type AutoGridProps = {
-  uniqueId: string;
   grid: {
     maxColCount: Options["maxColCount"];
     minColSize: Options["minColSize"];
@@ -39,17 +37,11 @@ function generateCssVariables(options: Options): string {
   `;
 }
 
-// todo: refactor and add this component to the registry
-export function AutoGrid({
-  grid,
-  className,
-  uniqueId,
-  ...props
-}: AutoGridProps) {
+export function AutoGrid({ grid, ...props }: AutoGridProps) {
   const { gap, maxColCount, minColSize } = grid;
   const baseVariables = generateCssVariables({ maxColCount, minColSize, gap });
 
-  const uniqueClassName = `AutoGrid-${uniqueId}`;
+  const uniqueId = useMemo(() => `AutoGrid-${crypto.randomUUID()}`, []);
 
   const mediaQueryStyles =
     grid &&
@@ -61,7 +53,7 @@ export function AutoGrid({
 
         return `
           @media (width >= ${breakpoint}) {
-            .${uniqueClassName} {
+            #${uniqueId} {
               ${generateCssVariables(options)}
             }
           }
@@ -73,33 +65,28 @@ export function AutoGrid({
     <>
       <style>
         {`
-          .${uniqueClassName} {
+          #${uniqueId} {
             ${baseVariables}
             
             /* calculations, do not touch */
             --grid-col-size-calc: calc(
               (100% - var(--grid-gap) * var(--grid-max-col-count)) /
-              var(--grid-max-col-count)
-              );
-              --grid-col-min-size-calc: min(
-                100%,
-                max(var(--grid-min-col-size), var(--grid-col-size-calc))
-                );
-                
-                display: grid;
-                gap: var(--grid-gap);
-                
-                grid-template-columns: repeat(
-                  auto-fit,
-                  minmax(var(--grid-col-min-size-calc), 1fr)
-                  );
-                  }
-                  
-                  ${mediaQueryStyles || ""}
-                  `}
+                var(--grid-max-col-count)
+            );
+            --grid-col-min-size-calc: min(
+              100%,
+              max(var(--grid-min-col-size), var(--grid-col-size-calc))
+            );
+            display: grid;
+            gap: var(--grid-gap);
+            grid-template-columns: repeat(
+              auto-fit,
+              minmax(var(--grid-col-min-size-calc), 1fr)
+            );
+              ${mediaQueryStyles || ""}`}
       </style>
 
-      <div className={cn(uniqueClassName, className)} {...props} />
+      <div id={uniqueId} {...props} />
     </>
   );
 }
