@@ -48,7 +48,7 @@ async function writeFile(data: string, filename: `${string}.${string}`) {
  * @param extension - The file extension (e.g., '.json', '.txt', '.js')
  * @returns The full path to the written file
  */
-export async function writeTempFile(
+export async function writeTempFileAction(
   data: string,
   filename: `${string}.${string}`,
 ): Promise<string> {
