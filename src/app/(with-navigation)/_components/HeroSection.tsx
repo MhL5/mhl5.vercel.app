@@ -14,7 +14,7 @@ export default function HeroSection({
       {...props}
     >
       <div className="h-px w-full animate-fade-left bg-gradient-to-r from-zinc-300/0 via-muted to-zinc-300/0" />
-      <h1 className="text-edge-outline z-10 mx-2 animate-title cursor-default bg-foreground bg-clip-text px-0.5 py-3.5 font-space-grotesk text-4xl font-semibold whitespace-nowrap text-transparent duration-300 sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl">
+      <h1 className="z-10 mx-2 animate-title cursor-default bg-foreground bg-clip-text px-0.5 py-3.5 font-space-grotesk text-4xl font-semibold whitespace-nowrap text-transparent duration-300 sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl">
         Mohammad Lashani
       </h1>
       <div className="h-px w-full animate-fade-right bg-gradient-to-r from-zinc-300/0 via-muted to-zinc-300/0" />
