@@ -1,34 +1,36 @@
-// async function getNoteSlugs(dir: string) {
-//   const entries = await fs.readdir(dir, {
-//     recursive: true,
-//     withFileTypes: true,
-//   });
-//   return entries
-//     .filter((entry) => entry.isFile() && entry.name === "page.mdx")
-//     .map((entry) => {
-//       const relativePath = path.relative(
-//         dir,
-//         path.join(entry.parentPath, entry.name),
-//       );
-//       return path.dirname(relativePath);
-//     })
-//     .map((slug) => slug.replace(/\\/g, "/"));
-// }
+import { shadcnRegistry } from "@/constants/constants";
+import { absoluteUrl } from "@/utils";
+import type { MetadataRoute } from "next";
 
-export default async function sitemap() {
-  // const notesDirectory = path.join(process.cwd(), 'app', 'n');
-  // const slugs = await getNoteSlugs(notesDirectory);
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const snippetPages: MetadataRoute.Sitemap = shadcnRegistry.items.map(
+    (item) => ({
+      url: absoluteUrl(`/snippets/${item.name}`),
+      lastModified: new Date().toISOString(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    }),
+  );
 
-  // const notes = slugs.map((slug) => ({
-  //   url: `https://leerob.com/n/${slug}`,
-  //   lastModified: new Date().toISOString(),
-  // }));
-
-  // const routes = ['', '/work'].map((route) => ({
-  //   url: `https://leerob.com${route}`,
-  //   lastModified: new Date().toISOString(),
-  // }));
-
-  // return [...routes, ...notes];
-  return [];
+  return [
+    {
+      url: absoluteUrl("/"),
+      lastModified: new Date().toISOString(),
+      changeFrequency: "monthly",
+      priority: 1,
+    },
+    {
+      url: absoluteUrl("/snippets"),
+      lastModified: new Date().toISOString(),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: absoluteUrl("/bookmarks"),
+      lastModified: new Date().toISOString(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    ...snippetPages,
+  ];
 }
