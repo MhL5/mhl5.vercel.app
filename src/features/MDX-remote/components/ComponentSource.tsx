@@ -32,7 +32,7 @@ export default async function ComponentSource({
   });
 
   return (
-    <pre className="not-prose relative max-w-full">
+    <pre className="not-prose relative h-full max-w-full bg-code-background">
       <CopyButton content={code} className="absolute top-3 right-3" />
 
       <code
