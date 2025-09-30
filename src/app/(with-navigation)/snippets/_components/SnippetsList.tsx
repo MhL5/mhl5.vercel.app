@@ -11,7 +11,7 @@ import {
 import { navigationLinks, snippetsCategoryConfig } from "@/constants/constants";
 import { cn } from "@/lib/utils";
 import useUrlState from "@/registry/hooks/useUrlState/useUrlState";
-import { AutoGrid } from "@/registry/new-york/AutoGrid/AutoGrid";
+import AutoGrid from "@/registry/new-york/AutoGrid/AutoGrid";
 import DebouncedInput from "@/registry/new-york/DebouncedInput/DebouncedInput";
 import Typography from "@/registry/new-york/Typography/Typography";
 import type { Route } from "next";
@@ -76,11 +76,9 @@ export default function SnippetsList() {
       </header>
 
       <AutoGrid
-        grid={{
-          maxColCount: 3,
-          minColSize: 10,
-          gap: 1,
-        }}
+        maxColCount={3}
+        minColSize={10}
+        gap={1}
         className="mx-auto max-w-4xl"
       >
         {navigationLinks.map((link) => {

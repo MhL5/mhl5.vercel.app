@@ -1,15 +1,13 @@
-import { type ComponentProps, useMemo } from "react";
+import { type ComponentProps, useCallback, useMemo } from "react";
 
 type AutoGridProps = {
-  grid: {
-    maxColCount: Options["maxColCount"];
-    minColSize: Options["minColSize"];
-    gap: Options["gap"];
+  maxColCount: Options["maxColCount"];
+  minColSize: Options["minColSize"];
+  gap: Options["gap"];
 
-    sm?: Options;
-    md?: Options;
-    lg?: Options;
-  };
+  sm?: Options;
+  md?: Options;
+  lg?: Options;
 } & ComponentProps<"div">;
 
 type Options = {
@@ -29,6 +27,7 @@ const breakpoints = {
   md: "48rem",
   lg: "64rem",
 };
+
 function generateCssVariables(options: Options): string {
   return `
     --grid-max-col-count: ${options.maxColCount || defaultOptions.maxColCount};
@@ -37,29 +36,52 @@ function generateCssVariables(options: Options): string {
   `;
 }
 
-export function AutoGrid({ grid, ...props }: AutoGridProps) {
-  const { gap, maxColCount, minColSize } = grid;
+/**
+ * AutoGrid is a component that automatically adjusts the grid columns based on the screen size.
+ *
+ * @param maxColCount - The maximum number of columns the grid can have.
+ * @param minColSize - The minimum size of each column in **rem**.
+ * @param gap - The gap between each column in **rem**.
+ * @param sm - The options for the small screen size.
+ * @param md - The options for the medium screen size.
+ * @param lg - The options for the large screen size.
+ * @param props - Also accepts the HTML div props for the component.
+ *
+ */
+export default function AutoGrid({
+  gap,
+  maxColCount,
+  minColSize,
+  sm,
+  md,
+  lg,
+  ...props
+}: AutoGridProps) {
   const baseVariables = generateCssVariables({ maxColCount, minColSize, gap });
-
   const uniqueId = useMemo(() => `AutoGrid-${crypto.randomUUID()}`, []);
-
-  const mediaQueryStyles =
-    grid &&
-    (["sm", "md", "lg"] as const)
-      .map((key) => {
-        const breakpoint = breakpoints[key];
-        const options = grid[key];
-        if (!breakpoint || !options) return "";
-
-        return `
+  const generateMediaQueries = useCallback(
+    () =>
+      [sm, md, lg]
+        .map((options, index) => {
+          if (!options) return "";
+          const breakpoint = Object.values(breakpoints)[index];
+          return `
           @media (width >= ${breakpoint}) {
             #${uniqueId} {
-              ${generateCssVariables(options)}
+              --grid-max-col-count: ${options.maxColCount || maxColCount};
+              --grid-min-col-size: ${options.minColSize || minColSize}rem;
+              --grid-gap: ${options.gap || gap}rem;
             }
           }
         `;
-      })
-      .join("\n");
+        })
+        .join("\n"),
+    [gap, maxColCount, minColSize, uniqueId, sm, md, lg],
+  );
+  const mediaQueries = useMemo(
+    () => generateMediaQueries(),
+    [generateMediaQueries],
+  );
 
   return (
     <>
@@ -83,7 +105,7 @@ export function AutoGrid({ grid, ...props }: AutoGridProps) {
               auto-fit,
               minmax(var(--grid-col-min-size-calc), 1fr)
             );
-              ${mediaQueryStyles || ""}`}
+            ${mediaQueries || ""}`}
       </style>
 
       <div id={uniqueId} {...props} />
