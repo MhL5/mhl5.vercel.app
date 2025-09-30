@@ -26,13 +26,20 @@ export const metadata: Metadata = {
   },
   description:
     "a Software engineer passionate about building user-friendly and efficient web applications.",
+  authors: [{ name: "Mohammad Lashani", url: "https://mhl5.vercel.app/" }],
+  creator: "Mohammad Lashani",
+  publisher: "Mohammad Lashani",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <meta
+        name="google-site-verification"
+        content="g7HzkDJ_qyLAOSKx-K1cerilM6AQwiMrEgROLkMDyLA"
+      />
       <body
-        className={`${spaceGrotesk.variable} ${figtree.variable} font-figtree min-w-xs antialiased`}
+        className={`${spaceGrotesk.variable} ${figtree.variable} min-w-xs font-figtree antialiased`}
       >
         <Providers>{children}</Providers>
       </body>
