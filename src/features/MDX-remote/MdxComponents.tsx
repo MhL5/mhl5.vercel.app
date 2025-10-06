@@ -3,11 +3,6 @@ import Iframe from "@/features/MDX-remote/components/Iframe";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import type { ComponentProps } from "react";
 
-import CliCommandCode from "./components/CliCommandCode";
-import CodePreview from "./components/CodePreview";
-import ComponentSource from "./components/ComponentSource";
-import InstallationTabs from "./components/InstallationTabs";
-import MdxCode from "./components/MdxCode";
 import MdxHeading from "./components/MdxHeading";
 import MdxLink from "./components/MdxLink";
 import MdxPre from "./components/MdxPre";
@@ -21,11 +16,6 @@ export const mdxComponents: ComponentProps<typeof MDXRemote>["components"] = {
   h5: (props) => <MdxHeading heading="h5" {...props} />,
   h6: (props) => <MdxHeading heading="h6" {...props} />,
   pre: MdxPre,
-  code: MdxCode,
-  CodePreview,
-  CliCommandCode,
-  InstallationTabs,
-  ComponentSource,
   Alert,
   AlertDescription,
   AlertTitle,
