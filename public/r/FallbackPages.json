@@ -4,10 +4,7 @@
   "type": "registry:component",
   "title": "FallbackPages",
   "description": "loading, error and not found pages.",
-  "registryDependencies": [
-    "https://mhl5.vercel.app/r/checks.json",
-    "button"
-  ],
+  "registryDependencies": ["https://mhl5.vercel.app/r/checks.json", "button"],
   "files": [
     {
       "path": "src/registry/new-york/FallbackPages/FallbackPages.tsx",

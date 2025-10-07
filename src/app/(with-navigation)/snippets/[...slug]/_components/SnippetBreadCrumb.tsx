@@ -2,39 +2,39 @@
 
 import { usePathname } from "next/navigation";
 import {
-	Breadcrumb,
-	BreadcrumbItem,
-	BreadcrumbLink,
-	BreadcrumbList,
-	BreadcrumbPage,
-	BreadcrumbSeparator,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
 export default function BreadCrumb() {
-	const pathname = usePathname();
+  const pathname = usePathname();
 
-	const links = pathname.split("/");
+  const links = pathname.split("/");
 
-	if (links.length === 1) return null;
-	return (
-		<Breadcrumb className="not-prose">
-			<BreadcrumbList className="flex items-center p-0 capitalize sm:gap-1.5">
-				<BreadcrumbItem>
-					<BreadcrumbLink href="/snippets">Snippets</BreadcrumbLink>
-				</BreadcrumbItem>
-				<BreadcrumbSeparator />
+  if (links.length === 1) return null;
+  return (
+    <Breadcrumb className="not-prose">
+      <BreadcrumbList className="flex items-center p-0 capitalize sm:gap-1.5">
+        <BreadcrumbItem>
+          <BreadcrumbLink href="/snippets">Snippets</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
 
-				<BreadcrumbItem>
-					<BreadcrumbLink href={`/snippets?category=${links?.[2]}`}>
-						{links?.[2]}
-					</BreadcrumbLink>
-				</BreadcrumbItem>
-				<BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbLink href={`/snippets?category=${links?.[2]}`}>
+            {links?.[2]}
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
 
-				<BreadcrumbItem>
-					<BreadcrumbPage>{links?.[3]}</BreadcrumbPage>
-				</BreadcrumbItem>
-			</BreadcrumbList>
-		</Breadcrumb>
-	);
+        <BreadcrumbItem>
+          <BreadcrumbPage>{links?.[3]}</BreadcrumbPage>
+        </BreadcrumbItem>
+      </BreadcrumbList>
+    </Breadcrumb>
+  );
 }

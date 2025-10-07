@@ -10,28 +10,21 @@
     "indentStyle": "space",
     "indentWidth": 2
   },
- "linter": {
+  "linter": {
     "enabled": true,
     "rules": {
       "recommended": true,
       "suspicious": {
         "noUnknownAtRules": "off",
-        "noConsole":"warn"
+        "noConsole": "warn"
       },
       "nursery": {
         "useSortedClasses": {
           "level": "warn",
-          "fix":"safe",
+          "fix": "safe",
           "options": {
-            "attributes": [
-              "classList"
-            ],
-            "functions": [
-              "clsx",
-              "cva",
-              "tw",
-              "tw.*"
-            ]
+            "attributes": ["classList"],
+            "functions": ["clsx", "cva", "tw", "tw.*"]
           }
         }
       },
@@ -54,7 +47,7 @@
         "noRestrictedImports": {
           "level": "error",
           "options": {
-             "paths": {
+            "paths": {
               "next/image": {
                 "message": "Please import from `@/components/ui/Img` instead.",
                 "importNames": ["default"]
@@ -73,7 +66,7 @@
   "assist": {
     "enabled": true,
     "actions": {
-      "source": { "organizeImports": "on"}
+      "source": { "organizeImports": "on" }
     }
   }
 }

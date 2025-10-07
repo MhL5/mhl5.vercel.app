@@ -4,10 +4,7 @@
   "type": "registry:ui",
   "title": "ErrorBoundary",
   "description": "a React boundary component that renders a fallback UI when an error occurs.",
-  "registryDependencies": [
-    "button",
-    "https://mhl5.vercel.app/r/checks.json"
-  ],
+  "registryDependencies": ["button", "https://mhl5.vercel.app/r/checks.json"],
   "files": [
     {
       "path": "src/registry/new-york/ErrorBoundary/ErrorBoundary.tsx",

@@ -4,9 +4,7 @@
   "type": "registry:hook",
   "title": "useDebounce",
   "description": "A hook for debouncing a value.",
-  "registryDependencies": [
-    "https://mhl5.vercel.app/r/useTimer.json"
-  ],
+  "registryDependencies": ["https://mhl5.vercel.app/r/useTimer.json"],
   "files": [
     {
       "path": "src/registry/hooks/useDebounce/useDebounce.ts",

@@ -4,9 +4,7 @@
   "type": "registry:component",
   "title": "StructuredDataScript",
   "description": "A type-safe component for adding structured data to the page.",
-  "devDependencies": [
-    "schema-dts"
-  ],
+  "devDependencies": ["schema-dts"],
   "files": [
     {
       "path": "src/registry/new-york/StructuredDataScript/StructuredDataScript.tsx",
