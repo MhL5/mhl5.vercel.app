@@ -1,8 +1,8 @@
+import type { ComponentProps } from "react";
+import { codeToHtml } from "shiki";
 import CopyButton from "@/components/buttons/CopyButton";
 import { cn } from "@/lib/utils";
 import { fileReader } from "@/utils/fileReader";
-import type { ComponentProps } from "react";
-import { codeToHtml } from "shiki";
 
 type ComponentSourceProps = {
   lang?: string;
@@ -23,7 +23,7 @@ export default async function ComponentSource({
   ...props
 }: ComponentSourceProps) {
   const code = "code" in props ? props.code : await fileReader(props.path);
-  const codeHTML = await codeToHtml(code, {
+  const codeHtml = await codeToHtml(code, {
     lang,
     themes: {
       light: "github-light",
@@ -36,7 +36,8 @@ export default async function ComponentSource({
       <CopyButton content={code} className="absolute top-3 right-3" />
 
       <code
-        dangerouslySetInnerHTML={{ __html: codeHTML }}
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: this is safe because the codeHtml variables comes from my own documents and are not user-generated
+        dangerouslySetInnerHTML={{ __html: codeHtml }}
         className={cn("w-full max-w-full text-sm leading-relaxed", className)}
         {...props}
       />

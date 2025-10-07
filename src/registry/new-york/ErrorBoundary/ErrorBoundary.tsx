@@ -111,7 +111,7 @@ function ErrorBoundaryFallback({
     >
       <p
         data-slot="ErrorBoundaryFallbackMessage"
-        className="text-destructive !line-clamp-2"
+        className="!line-clamp-2 text-destructive"
       >
         {label ? `${label}: ` : error?.name ? `${error.name}: ` : ""}
         {error?.message || "Something went wrong!"}

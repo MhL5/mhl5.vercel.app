@@ -13,7 +13,7 @@ export function useOtp(callback: (code: string) => void) {
     if (!("OTPCredential" in window)) return;
     const abortController = new AbortController();
 
-    async function getOTP() {
+    async function getOtp() {
       try {
         const content = await navigator.credentials.get({
           otp: { transport: ["sms"] },
@@ -24,7 +24,7 @@ export function useOtp(callback: (code: string) => void) {
           callbackRef.current(content.code);
       } catch {}
     }
-    getOTP();
+    getOtp();
 
     return () => abortController.abort();
   }, []);

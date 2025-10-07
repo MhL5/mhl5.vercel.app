@@ -65,9 +65,9 @@ export function CliCommandCodeInternal({
           onValueChange={setSelectedTab}
           className="gap-0"
         >
-          <div className="border-input flex items-center border-b px-3 py-1">
-            <div className="bg-foreground/40 mr-2 flex size-4 items-center justify-center">
-              <TerminalIcon className="text-code size-3" />
+          <div className="flex items-center border-input border-b px-3 py-1">
+            <div className="mr-2 flex size-4 items-center justify-center bg-foreground/40">
+              <TerminalIcon className="size-3 text-code" />
             </div>
             <TabsList className="bg-code-background font-mono">
               {commands.map((command, index) => (
@@ -93,7 +93,7 @@ export function CliCommandCodeInternal({
               <TabsContent
                 key={command.label}
                 value={command.label}
-                className="no-scrollbar text-muted-foreground overflow-x-auto py-3.5"
+                className="no-scrollbar overflow-x-auto py-3.5 text-muted-foreground"
               >
                 <pre>
                   <code className="px-4">{command.code}</code>

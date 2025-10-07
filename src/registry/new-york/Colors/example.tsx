@@ -40,31 +40,31 @@ export default function AlertExample() {
       </div>
 
       <div className="flex gap-2">
-        <Badge className="bg-success-background text-success-foreground border-success-border h-7 text-sm">
+        <Badge className="h-7 border-success-border bg-success-background text-sm text-success-foreground">
           Success
         </Badge>
-        <Badge className="bg-error-background text-error-foreground border-error-border h-7 text-sm">
+        <Badge className="h-7 border-error-border bg-error-background text-error-foreground text-sm">
           Info
         </Badge>
-        <Badge className="bg-info-background text-info-foreground border-info-border h-7 text-sm">
+        <Badge className="h-7 border-info-border bg-info-background text-info-foreground text-sm">
           Warning
         </Badge>
-        <Badge className="bg-warning-background text-warning-foreground border-warning-border h-7 text-sm">
+        <Badge className="h-7 border-warning-border bg-warning-background text-sm text-warning-foreground">
           Error
         </Badge>
       </div>
 
       <div className="flex gap-2">
-        <Button className="bg-success-background text-success-foreground hover:bg-success-background/80 border-success-border border">
+        <Button className="border border-success-border bg-success-background text-success-foreground hover:bg-success-background/80">
           Success
         </Button>
-        <Button className="bg-error-background text-error-foreground hover:bg-error-background/80 border-error-border border">
+        <Button className="border border-error-border bg-error-background text-error-foreground hover:bg-error-background/80">
           Error
         </Button>
-        <Button className="bg-info-background text-info-foreground hover:bg-info-background/80 border-info-border border">
+        <Button className="border border-info-border bg-info-background text-info-foreground hover:bg-info-background/80">
           Info
         </Button>
-        <Button className="bg-warning-background text-warning-foreground hover:bg-warning-background/80 border-warning-border border">
+        <Button className="border border-warning-border bg-warning-background text-warning-foreground hover:bg-warning-background/80">
           Warning
         </Button>
       </div>

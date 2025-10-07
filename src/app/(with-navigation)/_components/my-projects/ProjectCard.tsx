@@ -1,3 +1,5 @@
+import type { StaticImageData } from "next/image";
+import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import {
   CardClassName,
@@ -8,8 +10,6 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import Img from "@/registry/new-york/Img/Img";
-import { type StaticImageData } from "next/image";
-import Link from "next/link";
 
 export type ProjectCardProps = {
   title: string;
@@ -93,7 +93,7 @@ export default function ProjectCard({
             )}
           </div>
           <time className="mb-2 inline-block text-sm">{dates}</time>
-          <p className="text-muted-foreground max-w-full text-sm text-pretty">
+          <p className="max-w-full text-pretty text-muted-foreground text-sm">
             {description}
           </p>
         </div>
@@ -115,8 +115,12 @@ export default function ProjectCard({
         {links && links.length > 0 && (
           <div className="flex flex-row flex-wrap items-start gap-1">
             {links?.map((link, idx) => (
-              <Link href={link?.href} key={idx} target="_blank">
-                <Badge key={idx} className="flex gap-2 px-2 py-1 text-[10px]">
+              <Link
+                href={link?.href}
+                key={`${link.type}-${idx}`}
+                target="_blank"
+              >
+                <Badge className="flex gap-2 px-2 py-1 text-[10px]">
                   {link.icon}
                   {link.type}
                 </Badge>

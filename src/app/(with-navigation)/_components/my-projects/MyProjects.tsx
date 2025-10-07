@@ -111,7 +111,7 @@ export default function MyProjects({
       {...props}
     >
       <header className="mb-10 space-y-6 text-center">
-        <h2 className="text-5xl font-semibold tracking-tight md:text-6xl">
+        <h2 className="font-semibold text-5xl tracking-tight md:text-6xl">
           Check out my latest work
         </h2>
         <p className="text-muted-foreground md:text-lg">

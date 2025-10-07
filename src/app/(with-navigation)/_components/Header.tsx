@@ -52,7 +52,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed top-0 z-50 h-13 w-[calc(100%-var(--removed-body-scroll-bar-size,0px))] border-b border-border/30 bg-background/50 backdrop-blur-md">
+      <header className="fixed top-0 z-50 h-13 w-[calc(100%-var(--removed-body-scroll-bar-size,0px))] border-border/30 border-b bg-background/50 backdrop-blur-md">
         <nav className="mx-auto flex h-full w-full max-w-8xl items-center px-4">
           <Sheet>
             <SheetTrigger className="lg:hidden" asChild>
@@ -67,7 +67,7 @@ export default function Header() {
                   <Button
                     variant="link"
                     asChild
-                    className="font-nunito px-0 text-xl font-bold"
+                    className="px-0 font-bold font-nunito text-xl"
                   >
                     <Link href="/">MhL</Link>
                   </Button>
@@ -101,7 +101,7 @@ export default function Header() {
             <Button variant="link" asChild>
               <Link
                 href="/"
-                className="font-nunito px-0 text-xl font-bold md:px-4"
+                className="px-0 font-bold font-nunito text-xl md:px-4"
               >
                 MhL
               </Link>

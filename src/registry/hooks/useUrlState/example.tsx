@@ -65,7 +65,7 @@ function ExampleSuspended() {
 
         <div className="mt-5">
           <div>Shallow mode:</div>
-          <p className="text-muted-foreground mb-1 text-sm">
+          <p className="mb-1 text-muted-foreground text-sm">
             Enabling shallow mode updates the URL in the browser without causing
             a full server-side re-render.
           </p>

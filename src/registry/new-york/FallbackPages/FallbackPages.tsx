@@ -58,8 +58,8 @@ function FallbackPages(props: FallbackPagesProps) {
 
           <Logo className="z-10 col-start-1 row-start-1 size-19 animate-loadingFadeIn rounded-full bg-primary p-1 opacity-0 starting:opacity-0" />
 
-          <div className="col-start-1 col-end-1 row-start-1 row-end-1 h-20 w-20 animate-pingMd rounded-full bg-primary/80 delay-1000 starting:opacity-0" />
-          <div className="col-start-1 col-end-1 row-start-1 row-end-1 h-20 w-20 animate-pingSm rounded-full bg-primary/80 delay-1000 starting:opacity-0" />
+          <div className="col-start-1 col-end-1 row-start-1 row-end-1 h-20 w-20 animate-pingMd rounded-full bg-primary/80 starting:opacity-0 delay-1000" />
+          <div className="col-start-1 col-end-1 row-start-1 row-end-1 h-20 w-20 animate-pingSm rounded-full bg-primary/80 starting:opacity-0 delay-1000" />
         </div>
       </section>
     );
@@ -74,11 +74,11 @@ function FallbackPages(props: FallbackPagesProps) {
             className={`mx-auto mb-4 size-16 ${props.variant === "not-found" ? "text-foreground" : "text-destructive"}`}
           />
 
-          <h1 className="mb-3 text-2xl font-semibold text-foreground">
+          <h1 className="mb-3 font-semibold text-2xl text-foreground">
             {fallbackPagesData[props.variant].title}
           </h1>
           <p
-            className="leading-relaxed text-pretty text-muted-foreground"
+            className="text-pretty text-muted-foreground leading-relaxed"
             role="alert"
             aria-live="polite"
           >
@@ -120,7 +120,7 @@ function FallbackPages(props: FallbackPagesProps) {
           )}
         </nav>
 
-        <footer className="text-sm text-muted-foreground">
+        <footer className="text-muted-foreground text-sm">
           Need help?{" "}
           <Button
             variant="link"

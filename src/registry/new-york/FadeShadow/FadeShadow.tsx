@@ -35,8 +35,8 @@ export default function FadeShadow(props: FadeShadowProps) {
       className={cn(
         "pointer-events-none absolute from-background to-transparent transition-all duration-200",
         props.orientation === "horizontal"
-          ? "top-1/2 h-full w-14 -translate-y-1/2"
-          : "left-1/2 h-14 w-full -translate-x-1/2",
+          ? "-translate-y-1/2 top-1/2 h-full w-14"
+          : "-translate-x-1/2 left-1/2 h-14 w-full",
         positionClassName,
         className,
       )}
