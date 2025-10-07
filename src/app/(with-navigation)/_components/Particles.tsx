@@ -1,8 +1,8 @@
 "use client";
 
-import { useMousePosition } from "@/hooks/useMousePosition";
 import dynamic from "next/dynamic";
-import React, { useRef, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useRef } from "react";
+import { useMousePosition } from "@/hooks/useMousePosition";
 
 type ParticlesProps = {
   className?: string;
@@ -119,16 +119,10 @@ export default function Particles({
     [dpr],
   );
 
-  const clearContext = () => {
-    if (context.current) {
-      context.current.clearRect(
-        0,
-        0,
-        canvasSize.current.w,
-        canvasSize.current.h,
-      );
-    }
-  };
+  const clearContext = useCallback(() => {
+    if (!context.current) return;
+    context.current.clearRect(0, 0, canvasSize.current.w, canvasSize.current.h);
+  }, []);
 
   const drawParticles = useCallback(() => {
     clearContext();
@@ -137,24 +131,27 @@ export default function Particles({
       const circle = circleParams();
       drawCircle(circle);
     }
-  }, [circleParams, drawCircle, quantity]);
+  }, [circleParams, drawCircle, quantity, clearContext]);
 
   const initCanvas = useCallback(() => {
     resizeCanvas();
     drawParticles();
   }, [drawParticles, resizeCanvas]);
 
-  const remapValue = (
-    value: number,
-    start1: number,
-    end1: number,
-    start2: number,
-    end2: number,
-  ): number => {
-    const remapped =
-      ((value - start1) * (end2 - start2)) / (end1 - start1) + start2;
-    return remapped > 0 ? remapped : 0;
-  };
+  const remapValue = useCallback(
+    (
+      value: number,
+      start1: number,
+      end1: number,
+      start2: number,
+      end2: number,
+    ): number => {
+      const remapped =
+        ((value - start1) * (end2 - start2)) / (end1 - start1) + start2;
+      return remapped > 0 ? remapped : 0;
+    },
+    [],
+  );
 
   const animate = useCallback(() => {
     clearContext();
@@ -214,7 +211,7 @@ export default function Particles({
       }
     });
     window.requestAnimationFrame(animate);
-  }, [circleParams, drawCircle, ease, staticity]);
+  }, [circleParams, remapValue, drawCircle, ease, staticity, clearContext]);
 
   useEffect(() => {
     if (canvasRef.current) {
@@ -229,10 +226,12 @@ export default function Particles({
     };
   }, [animate, initCanvas]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: we need to run this on mousePosition change
   useEffect(() => {
     onMouseMove();
   }, [mousePosition.x, mousePosition.y, onMouseMove]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: we need to run this on refresh change
   useEffect(() => {
     initCanvas();
   }, [refresh, initCanvas]);

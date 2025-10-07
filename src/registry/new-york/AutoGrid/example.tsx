@@ -1,8 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { Slider } from "@/components/ui/slider";
 import AutoGrid from "@/registry/new-york/AutoGrid/AutoGrid";
-import { useState } from "react";
 
 export default function Example() {
   const [size, setSize] = useState(350);
@@ -33,7 +33,10 @@ export default function Example() {
         }}
       >
         {Array.from({ length: 4 }).map((_, index) => (
-          <div className="w-full rounded border p-2" key={index}>
+          <div
+            className="w-full rounded border p-2"
+            key={`Column-${index + 1}`}
+          >
             Column {index + 1}
           </div>
         ))}

@@ -1,4 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// biome-ignore lint/suspicious/noExplicitAny: we need to use any to allow for any grouped values
 export function groupByKey<T extends Record<string, any>>(
   arr: T[],
   key: keyof T,

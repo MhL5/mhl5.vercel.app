@@ -1,7 +1,7 @@
 "use client";
 
-import { useTimeout } from "@/registry/hooks/useTimer/useTimer";
 import { useEffect, useState } from "react";
+import { useTimeout } from "@/registry/hooks/useTimer/useTimer";
 
 export function useDebounce(
   callback: () => void,
@@ -9,7 +9,9 @@ export function useDebounce(
   dependencies: unknown[],
 ) {
   const { reset, clear } = useTimeout(callback, delay);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: we need to run this on dependencies change
   useEffect(reset, [...dependencies, reset]);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: we need to run this on dependencies change
   useEffect(clear, [clear]);
 }
 

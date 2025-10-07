@@ -35,6 +35,7 @@ function useTimerCore(
     callbackRef.current = callback;
   }, [callback]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: we need to run this on delay change
   useEffect(() => {
     set();
     return clear;

@@ -32,7 +32,6 @@
         "useAltText": "on"
       },
       "style": {
-        "useNamingConvention": "info",
         "noRestrictedImports": {
           "level": "error",
           "options": {
