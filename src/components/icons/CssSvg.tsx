@@ -1,8 +1,10 @@
 import type { SVGProps } from "react";
 
-export function CSSIcon(props: SVGProps<SVGSVGElement>) {
+export default function CssSvg(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
+      role="img"
+      aria-label="CSS Logo"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       stroke="none"

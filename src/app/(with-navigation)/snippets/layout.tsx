@@ -1,9 +1,9 @@
+import type { Metadata } from "next";
 import Aside from "@/app/(with-navigation)/snippets/_components/Aside";
 import SnippetToc from "@/app/(with-navigation)/snippets/_components/SnippetToc";
 import Prose from "@/components/Prose";
 import { navigationLinks } from "@/constants/constants";
 import ScrollToTop from "@/registry/new-york/ScrollToTop/ScrollToTop";
-import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
@@ -46,7 +46,7 @@ export default function MdxLayout({ children }: LayoutProps<"/snippets">) {
       <div className="mx-auto grid min-h-svh w-full max-w-8xl lg:grid-cols-[14rem_1fr] xl:grid-cols-[17.875rem_1fr_15rem]">
         <Aside navigationLinks={navigationLinks} className="hidden lg:block" />
 
-        <Prose As="main" id="main" className="">
+        <Prose as="main" id="main" className="">
           {children}
         </Prose>
 

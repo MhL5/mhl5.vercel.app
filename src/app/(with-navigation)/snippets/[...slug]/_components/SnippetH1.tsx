@@ -1,11 +1,11 @@
-import SnippetBreadCrumb from "@/app/(with-navigation)/snippets/[...slug]/_components/SnippetBreadCrumb";
-import { Button } from "@/components/ui/button";
-import { navigationLinks } from "@/constants/constants";
-import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 import type { Route } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import SnippetBreadCrumb from "@/app/(with-navigation)/snippets/[...slug]/_components/SnippetBreadCrumb";
+import { Button } from "@/components/ui/button";
+import { navigationLinks } from "@/constants/constants";
+import { cn } from "@/lib/utils";
 
 type SnippetH1Props = {
   heading: ReactNode;
@@ -56,9 +56,9 @@ export default function SnippetH1({ heading, slug }: SnippetH1Props) {
             if (!item)
               return (
                 <Button
-                  key={`h1-link-button${index}`}
+                  key={`h1-link-button-disabled-${index + 1}`}
                   size="icon"
-                  disabled={!item}
+                  disabled
                   variant="secondary"
                   className="size-8 xl:size-9"
                 >
@@ -68,7 +68,7 @@ export default function SnippetH1({ heading, slug }: SnippetH1Props) {
 
             return (
               <Button
-                key={`h1-link-button${index}`}
+                key={`h1-link-button-${item.title}-${index}`}
                 size="icon"
                 disabled={!item}
                 variant="secondary"

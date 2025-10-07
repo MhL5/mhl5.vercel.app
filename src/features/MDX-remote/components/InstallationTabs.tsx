@@ -1,3 +1,5 @@
+import type { Route } from "next";
+import Link from "next/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { frontendDomain } from "@/constants/constants";
 import CliCommandCode from "@/features/MDX-remote/components/CliCommandCode";
@@ -8,8 +10,6 @@ import type {
   RegistryFileType,
   RegistryItemSchema,
 } from "@/types/shadcn-registry";
-import type { Route } from "next";
-import Link from "next/link";
 
 const tabs = {
   cli: "cli",

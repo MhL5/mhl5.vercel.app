@@ -1,10 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import CopyButton from "@/components/buttons/CopyButton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
 
 type TailwindCssCalcProps = {
   className?: string;
@@ -18,8 +18,8 @@ export default function TailwindCssCalc({ className }: TailwindCssCalcProps) {
 
   const result =
     type === "px"
-      ? (isNaN(numericValue) ? 0 : numericValue / 16) * 4
-      : (isNaN(numericValue) ? 0 : numericValue) * 4;
+      ? (Number.isNaN(numericValue) ? 0 : numericValue / 16) * 4
+      : (Number.isNaN(numericValue) ? 0 : numericValue) * 4;
 
   return (
     <div className={cn("flex items-center justify-center gap-2", className)}>

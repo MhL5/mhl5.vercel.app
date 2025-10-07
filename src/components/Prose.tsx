@@ -1,16 +1,16 @@
-import { cn } from "@/lib/utils";
 import type { ComponentProps, JSX } from "react";
+import { cn } from "@/lib/utils";
 
 type ProseProps<T extends keyof JSX.IntrinsicElements> = {
-  As: T;
+  as: T;
 } & ComponentProps<T>;
 
 export default function Prose<T extends keyof JSX.IntrinsicElements>({
-  As,
+  as,
   className,
   ...props
 }: ProseProps<T>) {
-  const Component = As as JSX.ElementType;
+  const Component = as as JSX.ElementType;
 
   return (
     <Component

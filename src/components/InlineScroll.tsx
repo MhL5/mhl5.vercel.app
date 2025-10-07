@@ -1,9 +1,15 @@
 "use client";
 
+import type { ComponentProps, PropsWithChildren } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import FadeShadow from "@/registry/new-york/FadeShadow/FadeShadow";
-import type { ComponentProps, PropsWithChildren } from "react";
-import { useEffect, useRef, useState } from "react";
+
+type HandleScrollFn = (params: {
+  scrollLeft: number;
+  scrollWidth: number;
+  clientWidth: number;
+}) => void;
 
 type InlineScrollProps = PropsWithChildren<{
   fadeShadowClassNames?: string;
@@ -21,24 +27,19 @@ export default function InlineScroll({
   const [showLeftShadow, setShowLeftShadow] = useState(false);
   const [showRightShadow, setShowRightShadow] = useState(false);
 
-  const handleScroll = ({
-    scrollLeft,
-    scrollWidth,
-    clientWidth,
-  }: {
-    scrollLeft: number;
-    scrollWidth: number;
-    clientWidth: number;
-  }) => {
-    const isAtStart = scrollLeft === 0;
-    const isAtEnd = scrollLeft + clientWidth >= scrollWidth - 1; // -1 for rounding issues
+  const handleScroll: HandleScrollFn = useCallback(
+    ({ scrollLeft, scrollWidth, clientWidth }) => {
+      const isAtStart = scrollLeft === 0;
+      const isAtEnd = scrollLeft + clientWidth >= scrollWidth - 1; // -1 for rounding issues
 
-    const isScrollableContent = scrollWidth > clientWidth;
-    if (!isScrollableContent) return;
+      const isScrollableContent = scrollWidth > clientWidth;
+      if (!isScrollableContent) return;
 
-    setShowLeftShadow(!isAtStart);
-    setShowRightShadow(!isAtEnd);
-  };
+      setShowLeftShadow(!isAtStart);
+      setShowRightShadow(!isAtEnd);
+    },
+    [],
+  );
 
   useEffect(() => {
     if (!scrollRef.current) return;
@@ -48,7 +49,7 @@ export default function InlineScroll({
       scrollWidth: scrollRef.current.scrollWidth,
       clientWidth: scrollRef.current.clientWidth,
     });
-  }, []);
+  }, [handleScroll]);
 
   return (
     <div className="group relative overflow-hidden">

@@ -2,8 +2,8 @@
 
 import { CodeIcon } from "lucide-react";
 import { type ReactNode, useState } from "react";
-import { CSSIcon } from "@/components/icons/css-icon";
-import { TypeScriptIcon } from "@/components/icons/typescript-icon";
+import CssSvg from "@/components/icons/CssSvg";
+import TypeScriptSvg from "@/components/icons/TypeScriptSvg";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -58,11 +58,8 @@ export default function CollapsibleCodeCard({
 }
 
 function getIcon(filePath: string) {
-  if (filePath.endsWith(".ts") || filePath.endsWith(".tsx")) {
-    return TypeScriptIcon;
-  }
-  if (filePath.endsWith(".css")) {
-    return CSSIcon;
-  }
+  if (filePath.endsWith(".ts") || filePath.endsWith(".tsx"))
+    return TypeScriptSvg;
+  if (filePath.endsWith(".css")) return CssSvg;
   return CodeIcon;
 }

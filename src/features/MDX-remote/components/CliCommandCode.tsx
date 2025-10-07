@@ -1,10 +1,10 @@
 "use client";
 
+import { TerminalIcon } from "lucide-react";
 import CopyButton from "@/components/buttons/CopyButton";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLocalStorage } from "@/registry/hooks/useStorage/useStorage";
-import { TerminalIcon } from "lucide-react";
 
 const PackageManagersActions = {
   install: {
@@ -31,16 +31,14 @@ export default function CliCommandCode({
   action = "run",
 }: CliCommandCodeProps) {
   return (
-    <>
-      <CliCommandCodeInternal
-        commands={Object.entries(PackageManagersActions[action]).map(
-          ([label, code]) => ({
-            label,
-            code: `${code} ${command}`,
-          }),
-        )}
-      />
-    </>
+    <CliCommandCodeInternal
+      commands={Object.entries(PackageManagersActions[action]).map(
+        ([label, code]) => ({
+          label,
+          code: `${code} ${command}`,
+        }),
+      )}
+    />
   );
 }
 
@@ -72,7 +70,7 @@ export function CliCommandCodeInternal({
             <TabsList className="bg-code-background font-mono">
               {commands.map((command, index) => (
                 <TabsTrigger
-                  key={index}
+                  key={`${command.label}-${index}`}
                   value={command.label}
                   className="data-[state=active]:border-input data-[state=active]:bg-muted/50"
                 >

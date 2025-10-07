@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import SnippetH1 from "@/app/(with-navigation)/snippets/[...slug]/_components/SnippetH1";
 import { Badge } from "@/components/ui/badge";
 import { shadcnRegistry } from "@/constants/constants";
-import MdxRemoteServer from "@/features/MDX-remote/MDXRemoteServer";
+import MdxRemoteServer from "@/features/MDX-remote/MdxRemoteServer";
 import { isDev } from "@/registry/utils/checks/checks";
 import { fileReader } from "@/utils/fileReader";
 

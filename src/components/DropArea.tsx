@@ -51,8 +51,8 @@ export default function DropArea({
   }
 
   return (
-    <div
-      role="button"
+    <button
+      type="button"
       onClick={handleClick}
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
@@ -60,7 +60,7 @@ export default function DropArea({
       onDrop={handleDrop}
       data-disabled={disabled}
       data-dragging={isDragging}
-      className="flex min-h-45 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-primary p-6 transition-colors hover:bg-primary/10 has-disabled:pointer-events-none has-disabled:opacity-50 has-[input:focus]:border-ring has-[input:focus]:ring-[3px] has-[input:focus]:ring-ring/50 data-[disabled=true]:opacity-50 data-[dragging=true]:border-solid data-[dragging=true]:bg-primary/10"
+      className="flex min-h-45 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-primary border-dashed p-6 transition-colors hover:bg-primary/10 has-disabled:pointer-events-none has-[input:focus]:border-ring has-disabled:opacity-50 has-[input:focus]:ring-[3px] has-[input:focus]:ring-ring/50 data-[dragging=true]:border-solid data-[dragging=true]:bg-primary/10 data-[disabled=true]:opacity-50"
     >
       <input
         type="file"
@@ -80,7 +80,7 @@ export default function DropArea({
           <FileUpIcon className="size-5" />
         </div>
 
-        <p className="text-sm font-medium">title</p>
+        <p className="font-medium text-sm">title</p>
 
         <div className="my-2 flex w-full items-center justify-center gap-3">
           <div className="h-px w-20 shrink-0 bg-muted" />
@@ -88,10 +88,10 @@ export default function DropArea({
           <div className="h-px w-20 shrink-0 bg-muted" />
         </div>
 
-        <p className="h-7 rounded-md border border-primary px-3 py-1.5 text-xs font-semibold text-primary">
+        <p className="h-7 rounded-md border border-primary px-3 py-1.5 font-semibold text-primary text-xs">
           browseFiles
         </p>
       </div>
-    </div>
+    </button>
   );
 }

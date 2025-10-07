@@ -1,9 +1,11 @@
-import { cn } from "@/lib/utils";
 import type { ComponentProps } from "react";
+import { cn } from "@/lib/utils";
 
 export default function V0Svg({ className, ...props }: ComponentProps<"svg">) {
   return (
     <svg
+      role="img"
+      aria-label="V0 Logo"
       viewBox="0 0 40 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

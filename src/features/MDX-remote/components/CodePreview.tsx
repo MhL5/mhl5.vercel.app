@@ -1,9 +1,9 @@
+import { Loader2Icon } from "lucide-react";
+import { type ComponentType, lazy, Suspense } from "react";
 import { OpenInV0Button } from "@/components/buttons/OpenInV0Button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ComponentSource from "@/features/MDX-remote/components/ComponentSource";
-import { Loader2Icon } from "lucide-react";
-import { type ComponentType, Suspense, lazy } from "react";
 
 function lazyImportComponent(path: string) {
   return lazy(async () => {

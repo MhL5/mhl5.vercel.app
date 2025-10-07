@@ -1,7 +1,7 @@
+import type { MDXRemote } from "next-mdx-remote/rsc";
+import type { ComponentProps } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import Iframe from "@/features/MDX-remote/components/Iframe";
-import { MDXRemote } from "next-mdx-remote/rsc";
-import type { ComponentProps } from "react";
 
 import MdxHeading from "./components/MdxHeading";
 import MdxLink from "./components/MdxLink";

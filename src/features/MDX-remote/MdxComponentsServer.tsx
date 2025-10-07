@@ -1,4 +1,4 @@
-import { MDXRemote } from "next-mdx-remote/rsc";
+import type { MDXRemote } from "next-mdx-remote/rsc";
 import type { ComponentProps } from "react";
 
 import CliCommandCode from "./components/CliCommandCode";
