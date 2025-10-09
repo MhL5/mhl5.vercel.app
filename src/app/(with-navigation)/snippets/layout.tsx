@@ -6,10 +6,7 @@ import { navigationLinks } from "@/constants/constants";
 import ScrollToTop from "@/registry/new-york/ScrollToTop/ScrollToTop";
 
 export const metadata: Metadata = {
-  title: {
-    default: "Code Snippets Collection",
-    template: "%s | MhL",
-  },
+  title: "Code Snippets Collection",
   description: "A collection of reusable React and Next.js code snippets",
   keywords: [
     "React snippets",
