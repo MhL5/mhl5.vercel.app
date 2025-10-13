@@ -6,6 +6,7 @@ import {
   type ComponentProps,
   type FocusEvent,
   type KeyboardEvent,
+  useRef,
   useState,
 } from "react";
 import { Button } from "@/components/ui/button";
@@ -15,7 +16,7 @@ import { cn } from "@/lib/utils";
 type TagsInputProps = {
   value: string[];
   onChange: (tags: string[]) => void;
-} & Omit<ComponentProps<typeof Input>, "value" | "onChange">;
+} & Omit<ComponentProps<typeof Input>, "value" | "onChange" | "ref" | "type">;
 
 export function TagsInput({
   value = [],
@@ -29,6 +30,7 @@ export function TagsInput({
   ...props
 }: TagsInputProps) {
   const [inputValue, setInputValue] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
 
   function addTag(tag: string) {
     const trimmedTag = tag.trim();
@@ -91,20 +93,23 @@ export function TagsInput({
   }
 
   return (
-    <div
-      className={cn(
-        "min-h-10.5 w-full cursor-text rounded-lg border bg-background px-3 py-2 text-sm",
-        "flex flex-wrap items-center gap-2 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
-        "[&:has([aria-invalid=true])]:border-destructive [&:has([aria-invalid=true])]:ring-destructive/20 dark:[&:has([aria-invalid=true])]:ring-destructive/40",
-      )}
+    // biome-ignore lint/a11y/useKeyWithClickEvents: we only need to focus the input when the user clicks on the fieldset, this fieldset looks like an input but it's not, the events are handled by the input element
+    <fieldset
+      aria-label="Tags input"
+      className={
+        "flex w-full cursor-text flex-wrap items-center gap-2 rounded-lg border bg-background px-3 py-2 text-sm disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 [&:has(:focus-visible)]:border-ring [&:has(:focus-visible)]:ring-[3px] [&:has(:focus-visible)]:ring-ring/50 [&:has([aria-invalid=true])]:border-destructive [&:has([aria-invalid=true])]:ring-destructive/20 dark:[&:has([aria-invalid=true])]:ring-destructive/40"
+      }
+      onClick={() => {
+        inputRef.current?.focus();
+      }}
     >
-      {value.map((tag, index) => (
-        <span
-          key={tag + index.toString()}
-          className="group inline-flex items-center gap-2 rounded-md bg-primary/10 py-1 pr-1 pl-2.5 font-medium text-primary text-sm transition-colors hover:bg-primary/20"
-        >
-          <span>{tag}</span>
-          {!disabled && (
+      {value.length > 0 &&
+        value.map((tag, index) => (
+          <div
+            key={tag + index.toString()}
+            className="group inline-flex items-center gap-2 rounded-md bg-primary/10 py-1 pr-1 pl-2.5 font-medium text-primary text-sm transition-colors hover:bg-primary/20"
+          >
+            <span>{tag}</span>
             <Button
               variant="destructiveGhost"
               size="icon"
@@ -114,13 +119,13 @@ export function TagsInput({
                 removeTag(index);
               }}
               className="size-5"
+              disabled={disabled}
               title={`click to remove "${tag}" tag`}
             >
               <X />
             </Button>
-          )}
-        </span>
-      ))}
+          </div>
+        ))}
 
       <Input
         type="text"
@@ -129,14 +134,14 @@ export function TagsInput({
         onKeyDown={handleKeyDown}
         onBlur={handleBlur}
         onPaste={handlePaste}
-        disabled={disabled}
         placeholder={placeholder}
         className={cn(
           "h-auto min-w-[120px] flex-1 rounded-none border-none bg-transparent p-0 outline-none placeholder:text-muted-foreground focus-visible:border-none focus-visible:ring-0 disabled:cursor-not-allowed dark:bg-transparent",
           className,
         )}
         {...props}
+        ref={inputRef}
       />
-    </div>
+    </fieldset>
   );
 }
