@@ -1,8 +1,9 @@
+import "@/styles/globals.css";
+
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import { frontendDomain } from "@/constants/constants";
 import Providers from "@/providers/Providers";
-import "@/styles/globals.css";
-import localFont from "next/font/local";
 
 const figtree = localFont({
   src: "./fonts/Figtree/Figtree-VariableFont_wght.ttf",
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   title: {
-    default: "MhL - Software Engineer Portfolio",
+    default: "MhL",
     template: "%s | MhL",
   },
   description:
