@@ -2,74 +2,172 @@
 
 import { X } from "lucide-react";
 import {
+  type ChangeEvent,
   type ClipboardEvent,
   type ComponentProps,
+  createContext,
   type FocusEvent,
   type KeyboardEvent,
-  useRef,
+  type ReactNode,
+  use,
   useState,
 } from "react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
-type TagsInputProps = {
+type TagsInputContextType = {
   value: string[];
   onChange: (tags: string[]) => void;
-} & Omit<ComponentProps<typeof Input>, "value" | "onChange" | "ref" | "type">;
 
-export function TagsInput({
-  value = [],
+  inputValue: string;
+  setInputValue: (value: string) => void;
+
+  addTag: (tag: string) => void;
+  addTags: (tags: string[]) => void;
+  removeTag: (indexToRemove: number) => void;
+  disabled?: boolean;
+};
+
+const TagsInputContext = createContext<TagsInputContextType | null>(null);
+
+type TagsInputProviderProps = {
+  value: TagsInputContextType["value"];
+  onChange: TagsInputContextType["onChange"];
+  disabled: TagsInputContextType["disabled"];
+  children: ReactNode;
+
+  validate?: (tag: string) => boolean;
+  maxTags?: number;
+};
+
+function TagsInput({
+  value,
   onChange,
-  onBlur,
-  onKeyDown,
-  onPaste,
-  className,
+  children,
   disabled,
-  placeholder = "Press Enter or a comma to add a tag",
-  ...props
-}: TagsInputProps) {
+  validate,
+  maxTags,
+}: TagsInputProviderProps) {
   const [inputValue, setInputValue] = useState("");
-  const inputRef = useRef<HTMLInputElement>(null);
 
-  function addTag(tag: string) {
+  const addTag: TagsInputContextType["addTag"] = (tag) => {
     const trimmedTag = tag.trim();
     if (!trimmedTag) return;
 
+    // Check max tags limit
+    if (maxTags && value.length >= maxTags) {
+      toast.error(`You have reached the maximum number of tags (${maxTags})`);
+      return setInputValue("");
+    }
+
     // Check for duplicates
-    if (value.includes(trimmedTag)) return setInputValue("");
+    if (value.includes(trimmedTag)) {
+      toast.error("Tag already exists");
+      return setInputValue("");
+    }
+
+    // Validate tag if validate function is provided
+    if (validate && !validate(trimmedTag)) {
+      toast.error("Invalid tag");
+      return setInputValue("");
+    }
 
     onChange?.([...value, trimmedTag]);
     setInputValue("");
-  }
+  };
 
-  function addTags(tags: string[]) {
+  const addTags: TagsInputContextType["addTags"] = (tags) => {
+    if (!tags.length) return;
+
     const trimmedTags = tags.map((tag) => tag.trim());
     if (!trimmedTags.length) return;
-    // Check for duplicates
-    const newTags = trimmedTags.filter((tag) => !value.includes(tag));
-    if (!newTags.length) return;
+
+    // Filter empty strings, duplicates, and invalid tags
+    let newTags = trimmedTags.filter((tag) => tag && !value.includes(tag));
+    // Apply validation if provided
+    if (validate) newTags = newTags.filter(validate);
+
+    if (!newTags.length) return toast.error("No valid tags to add");
+
+    if (maxTags) {
+      const remainingSlots = maxTags - value.length;
+      newTags = newTags.slice(0, remainingSlots);
+      if (!newTags.length)
+        return toast.error(
+          `You have reached the maximum number of tags (${maxTags})`,
+        );
+    }
 
     onChange?.([...value, ...newTags]);
     setInputValue("");
-  }
+  };
 
-  function removeTag(indexToRemove: number) {
+  const removeTag: TagsInputContextType["removeTag"] = (indexToRemove) => {
     onChange?.([
       ...value.slice(0, indexToRemove),
       ...value.slice(indexToRemove + 1),
     ]);
+  };
+
+  return (
+    <TagsInputContext
+      value={{
+        value,
+        onChange,
+        inputValue,
+        setInputValue,
+        addTag,
+        addTags,
+        removeTag,
+        disabled,
+      }}
+    >
+      {children}
+    </TagsInputContext>
+  );
+}
+
+function useTagsInput() {
+  const context = use(TagsInputContext);
+  if (!context)
+    throw new Error("useTagsInput must be used within a TagsInputProvider");
+  return context;
+}
+
+function TagsInputInput({
+  onKeyDown,
+  onBlur,
+  onPaste,
+  onChange,
+  disabled: disabledProp,
+  ...props
+}: ComponentProps<typeof Input>) {
+  const {
+    inputValue,
+    setInputValue,
+    addTag,
+    addTags,
+    removeTag,
+    value,
+    disabled,
+  } = useTagsInput();
+
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    setInputValue(e.target.value);
+    onChange?.(e);
   }
 
   function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Backspace" && !inputValue && value.length > 0) {
+      removeTag(value.length - 1);
+    }
+
     if (e.key === "Enter" || e.key === ",") {
       e.preventDefault();
       addTag(inputValue);
-      return;
     }
-
-    if (e.key === "Backspace" && !inputValue && value.length > 0)
-      return removeTag(value.length - 1);
 
     onKeyDown?.(e);
   }
@@ -83,65 +181,82 @@ export function TagsInput({
   function handlePaste(e: ClipboardEvent<HTMLInputElement>) {
     e.preventDefault();
     e.stopPropagation();
-    const text = e.clipboardData.getData("text");
-    if (!text || typeof text !== "string") return;
-    const tags = text.split(",");
-    if (!tags.length) return;
-    addTags(tags);
 
+    const text = e.clipboardData.getData("text");
+    if (!text) return;
+
+    addTags(text.split(","));
     onPaste?.(e);
   }
 
   return (
-    // biome-ignore lint/a11y/useKeyWithClickEvents: we only need to focus the input when the user clicks on the fieldset, this fieldset looks like an input but it's not, the events are handled by the input element
-    <fieldset
-      aria-label="Tags input"
-      className={
-        "flex w-full cursor-text flex-wrap items-center gap-2 rounded-lg border bg-background px-3 py-2 text-sm disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 [&:has(:focus-visible)]:border-ring [&:has(:focus-visible)]:ring-[3px] [&:has(:focus-visible)]:ring-ring/50 [&:has([aria-invalid=true])]:border-destructive [&:has([aria-invalid=true])]:ring-destructive/20 dark:[&:has([aria-invalid=true])]:ring-destructive/40"
-      }
-      onClick={() => {
-        inputRef.current?.focus();
-      }}
-    >
-      {value.length > 0 &&
-        value.map((tag, index) => (
-          <div
-            key={tag + index.toString()}
-            className="group inline-flex items-center gap-2 rounded-md bg-primary/10 py-1 pr-1 pl-2.5 font-medium text-primary text-sm transition-colors hover:bg-primary/20"
-          >
-            <span>{tag}</span>
-            <Button
-              variant="destructiveGhost"
-              size="icon"
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                removeTag(index);
-              }}
-              className="size-5"
-              disabled={disabled}
-              title={`click to remove "${tag}" tag`}
-            >
-              <X />
-            </Button>
-          </div>
-        ))}
-
-      <Input
-        type="text"
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        onKeyDown={handleKeyDown}
-        onBlur={handleBlur}
-        onPaste={handlePaste}
-        placeholder={placeholder}
-        className={cn(
-          "h-auto min-w-[120px] flex-1 rounded-none border-none bg-transparent p-0 outline-none placeholder:text-muted-foreground focus-visible:border-none focus-visible:ring-0 disabled:cursor-not-allowed dark:bg-transparent",
-          className,
-        )}
-        {...props}
-        ref={inputRef}
-      />
-    </fieldset>
+    <Input
+      {...props}
+      disabled={disabled || disabledProp}
+      value={inputValue}
+      onChange={handleChange}
+      onKeyDown={handleKeyDown}
+      onBlur={handleBlur}
+      onPaste={handlePaste}
+    />
   );
 }
+
+type TagsInputListProps = {
+  children: (value: string[]) => ReactNode;
+} & Omit<ComponentProps<"ul">, "children">;
+
+function TagsInputList({ children, className, ...props }: TagsInputListProps) {
+  const { value } = useTagsInput();
+
+  return (
+    <ul className={cn("flex flex-wrap gap-2", className)} {...props}>
+      {children(value)}
+    </ul>
+  );
+}
+
+type TagsInputTagProps = {
+  value: TagsInputContextType["value"][number];
+} & ComponentProps<"li">;
+
+function TagsInputTag({
+  children,
+  value,
+  className,
+  ...props
+}: TagsInputTagProps) {
+  const { removeTag, value: contextValue, disabled } = useTagsInput();
+
+  function handleClick() {
+    const valueIndex = contextValue.indexOf(value);
+    if (valueIndex === -1) return;
+    removeTag(valueIndex);
+  }
+
+  return (
+    <li
+      className={cn(
+        "group inline-flex items-center gap-2 rounded-md bg-primary/10 py-1 pr-1 pl-2.5 font-medium text-primary text-sm transition-colors hover:bg-primary/20",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+
+      <Button
+        variant="destructiveGhost"
+        size="icon"
+        disabled={disabled}
+        type="button"
+        onClick={handleClick}
+        className="size-5"
+        title={`click to remove the tag`}
+      >
+        <X />
+      </Button>
+    </li>
+  );
+}
+
+export { TagsInput, TagsInputInput, TagsInputList, TagsInputTag };
