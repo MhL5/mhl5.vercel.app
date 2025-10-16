@@ -12,7 +12,6 @@ import {
   use,
   useState,
 } from "react";
-import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Kbd } from "@/components/ui/kbd";
@@ -29,6 +28,7 @@ type TagsInputContextType = {
 
   inputValue: string;
   setInputValue: (value: string) => void;
+  error: string | null;
 
   addTag: (tag: string) => void;
   addTags: (tags: string[]) => void;
@@ -41,10 +41,12 @@ const TagsInputContext = createContext<TagsInputContextType | null>(null);
 type TagsInputProviderProps = {
   value: TagsInputContextType["value"];
   onChange: TagsInputContextType["onChange"];
+
   disabled: TagsInputContextType["disabled"];
   children: ReactNode;
 
   validate?: (tag: string) => boolean;
+  validateMessage?: (tag: string | string[]) => string;
   maxTags?: number;
 };
 
@@ -52,11 +54,13 @@ function TagsInput({
   value,
   onChange,
   children,
-  disabled,
   validate,
+  validateMessage,
+  disabled,
   maxTags,
 }: TagsInputProviderProps) {
   const [inputValue, setInputValue] = useState("");
+  const [error, setError] = useState<string | null>(null);
 
   const addTag: TagsInputContextType["addTag"] = (tag) => {
     const trimmedTag = tag.trim();
@@ -64,23 +68,30 @@ function TagsInput({
 
     // Check max tags limit
     if (maxTags && value.length >= maxTags) {
-      toast.error(`You have reached the maximum number of tags (${maxTags})`);
+      setError(
+        `You can add up to ${maxTags} tag${maxTags === 1 ? "" : "s"} only`,
+      );
       return setInputValue("");
     }
 
     // Check for duplicates
     if (value.includes(trimmedTag)) {
-      toast.error("Tag already exists");
+      setError(`"${trimmedTag}" already exists`);
       return setInputValue("");
     }
 
     // Validate tag if validate function is provided
     if (validate && !validate(trimmedTag)) {
-      toast.error("Invalid tag");
+      setError(
+        validateMessage
+          ? validateMessage(trimmedTag)
+          : `"${trimmedTag}" is invalid`,
+      );
       return setInputValue("");
     }
 
-    onChange?.([...value, trimmedTag]);
+    setError(null);
+    onChange?.([trimmedTag, ...value]);
     setInputValue("");
   };
 
@@ -93,20 +104,30 @@ function TagsInput({
     // Filter empty strings, duplicates, and invalid tags
     let newTags = trimmedTags.filter((tag) => tag && !value.includes(tag));
     // Apply validation if provided
-    if (validate) newTags = newTags.filter(validate);
+    const invalidTags: string[] = [];
+    if (validate)
+      newTags = newTags.filter((tag) => {
+        if (validate(tag)) return true;
+        invalidTags.push(tag);
+        return false;
+      });
 
-    if (!newTags.length) return toast.error("No valid tags to add");
+    if (!newTags.length)
+      return setError(
+        validateMessage ? validateMessage(invalidTags) : "No valid tags to add",
+      );
 
     if (maxTags) {
       const remainingSlots = maxTags - value.length;
       newTags = newTags.slice(0, remainingSlots);
       if (!newTags.length)
-        return toast.error(
+        return setError(
           `You have reached the maximum number of tags (${maxTags})`,
         );
     }
 
-    onChange?.([...value, ...newTags]);
+    onChange?.([...newTags, ...value]);
+    setError(null);
     setInputValue("");
   };
 
@@ -128,6 +149,7 @@ function TagsInput({
         addTags,
         removeTag,
         disabled,
+        error,
       }}
     >
       {children}
@@ -214,11 +236,9 @@ function TagsInputInput({
           </Button>
         </TooltipTrigger>
 
-        {inputValue && (
-          <TooltipContent>
-            <p>Click to add tag "{inputValue}"</p>
-          </TooltipContent>
-        )}
+        <TooltipContent>
+          <p>Click to add tag "{inputValue}"</p>
+        </TooltipContent>
       </Tooltip>
     </div>
   );
@@ -298,10 +318,26 @@ function TagsInputInfo() {
   );
 }
 
+function TagsInputErrorMessage() {
+  const { error } = useTagsInput();
+
+  if (!error) return null;
+  return (
+    <p
+      className="font-medium text-destructive text-sm"
+      role="alert"
+      aria-live="polite"
+    >
+      {error}
+    </p>
+  );
+}
+
 export {
   TagsInput,
+  TagsInputErrorMessage,
+  TagsInputInfo,
   TagsInputInput,
   TagsInputList,
   TagsInputTag,
-  TagsInputInfo,
 };
