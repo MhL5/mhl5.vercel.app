@@ -1,13 +1,12 @@
+import type { ComponentProps } from "react";
 import anywriteImg from "@/app/(with-navigation)/_components/my-projects/assets/anywrite.png";
 import appleAppsImg from "@/app/(with-navigation)/_components/my-projects/assets/apple-apps.png";
 import kafshMeImg from "@/app/(with-navigation)/_components/my-projects/assets/kafsh-me.png";
-import synclineImg from "@/app/(with-navigation)/_components/my-projects/assets/syncline.png";
 import vsimImg from "@/app/(with-navigation)/_components/my-projects/assets/vsim.png";
 import ProjectCard, {
   type ProjectCardProps,
 } from "@/app/(with-navigation)/_components/my-projects/ProjectCard";
 import { cn } from "@/lib/utils";
-import type { ComponentProps } from "react";
 
 const projects: ProjectCardProps[] = [
   {
@@ -82,23 +81,23 @@ const projects: ProjectCardProps[] = [
 
     imageSrc: kafshMeImg,
   },
-  {
-    title: "SyncLine",
-    description:
-      "The first CRM that imports your WhatsApp & Telegram history and makes every chat instantly searchable",
-    href: "https://app.syncline.ai",
-    dates: "September 01, 2025",
-    status: "in progress",
-    technologies: [
-      "NextJs 15",
-      "Typescript",
-      "TailwindCSS",
-      "Shadcn UI",
-      "Tanstack query",
-      "next-mdx-remote",
-    ],
-    imageSrc: synclineImg,
-  },
+  // {
+  //   title: "SyncLine",
+  //   description:
+  //     "The first CRM that imports your WhatsApp & Telegram history and makes every chat instantly searchable",
+  //   href: "https://app.syncline.ai",
+  //   dates: "September 01, 2025",
+  //   status: "in progress",
+  //   technologies: [
+  //     "NextJs 15",
+  //     "Typescript",
+  //     "TailwindCSS",
+  //     "Shadcn UI",
+  //     "Tanstack query",
+  //     "next-mdx-remote",
+  //   ],
+  //   imageSrc: synclineImg,
+  // },
 ];
 
 export default function MyProjects({
