@@ -1,7 +1,7 @@
+import Link from "next/link";
 import V0Svg from "@/components/icons/V0Svg";
 import { Button } from "@/components/ui/button";
 import { frontendDomain } from "@/constants/constants";
-import Link from "next/link";
 
 type OpenInV0ButtonProps = {
   name: string;

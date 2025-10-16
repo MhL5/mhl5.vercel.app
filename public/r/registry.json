@@ -288,6 +288,20 @@
       ]
     },
     {
+      "name": "TagsInput",
+      "type": "registry:component",
+      "title": "TagsInput",
+      "description": "A component for inputting tags.",
+      "registryDependencies": ["button","input","tooltip","kbd"],
+      "dependencies": ["lucide-react"],
+      "files": [
+        {
+          "path": "src/registry/new-york/TagsInput/TagsInput.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "Typography",
       "type": "registry:component",
       "title": "Typography",

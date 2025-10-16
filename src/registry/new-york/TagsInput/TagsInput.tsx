@@ -237,7 +237,7 @@ function TagsInputInput({
         </TooltipTrigger>
 
         <TooltipContent>
-          <p>Click to add tag "{inputValue}"</p>
+          <p>Click to add tag &quot;{inputValue}&quot;</p>
         </TooltipContent>
       </Tooltip>
     </div>
@@ -287,7 +287,7 @@ function TagsInputTag({
       {children}
 
       <Button
-        variant="destructiveGhost"
+        variant="destructive"
         size="icon"
         disabled={disabled}
         type="button"

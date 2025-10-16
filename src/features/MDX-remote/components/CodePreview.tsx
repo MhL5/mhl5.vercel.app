@@ -38,6 +38,7 @@ const CodePreviewSources = {
   FallbackPagesError: "new-york/FallbackPages/ErrorExample.tsx",
   FallbackPagesNotFound: "new-york/FallbackPages/NotFoundExample.tsx",
   FallbackPagesLoading: "new-york/FallbackPages/LoadingExample.tsx",
+  TagsInput: "new-york/TagsInput/example.tsx",
 };
 const CODE_PREVIEWS = Object.entries(CodePreviewSources).reduce(
   (acc, [key, value]) => {

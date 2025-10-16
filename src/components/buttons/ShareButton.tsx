@@ -1,9 +1,9 @@
 "use client";
 
+import { toast } from "sonner";
 import { Button, type ButtonProps } from "@/components/ui/button";
 import { frontendDomain } from "@/constants/constants";
 import type { RequiredPick } from "@/registry/types/RequiredPick/RequiredPick";
-import { toast } from "sonner";
 
 type ShareButtonProps = {
   shareOptions: RequiredPick<ShareData, "title" | "url">;
