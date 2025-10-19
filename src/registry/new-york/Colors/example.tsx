@@ -1,72 +1,80 @@
 "use client";
 
+import { CheckCircle, Info, TriangleAlert, XCircle } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { TriangleAlert } from "lucide-react";
+
+const variants = ["success", "error", "warning", "info"] as const;
+const alertsExamples = [
+  {
+    variant: variants[0],
+    title: variants[0],
+    description: "Successfully completed the task.",
+    icon: CheckCircle,
+  },
+  {
+    variant: variants[1],
+    title: variants[1],
+    description: "An error occurred while processing the request.",
+    icon: XCircle,
+  },
+  {
+    variant: variants[2],
+    title: variants[2],
+    description: "A warning message to inform you about the potential issue.",
+    icon: TriangleAlert,
+  },
+  {
+    variant: variants[3],
+    title: variants[3],
+    description: "This is an informational message to keep you updated.",
+    icon: Info,
+  },
+] as const;
+
+const badgesExamples = variants.map((variant) => {
+  return {
+    variant,
+    title: variant,
+    icon:
+      variant === "success"
+        ? CheckCircle
+        : variant === "error"
+          ? XCircle
+          : variant === "warning"
+            ? TriangleAlert
+            : Info,
+  };
+});
 
 export default function AlertExample() {
   return (
     <div className="not-prose mx-auto grid w-[calc(100%-3rem)] gap-5">
       <div className="grid grid-cols-2 gap-2">
-        <Alert variant="success">
-          <TriangleAlert />
-          <AlertTitle className="mb-1.5">Lorem, ipsum dolor.</AlertTitle>
-          <AlertDescription>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
-          </AlertDescription>
-        </Alert>
-        <Alert variant="error">
-          <TriangleAlert />
-          <AlertTitle className="mb-1.5">Lorem, ipsum dolor.</AlertTitle>
-          <AlertDescription>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
-          </AlertDescription>
-        </Alert>
-        <Alert variant="warning">
-          <TriangleAlert />
-          <AlertTitle className="mb-1.5">Lorem, ipsum dolor.</AlertTitle>
-          <AlertDescription>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
-          </AlertDescription>
-        </Alert>
-        <Alert variant="info">
-          <TriangleAlert />
-          <AlertTitle className="mb-1.5">Lorem, ipsum dolor.</AlertTitle>
-          <AlertDescription>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
-          </AlertDescription>
-        </Alert>
+        {alertsExamples.map(({ description, icon: Icon, title, variant }) => {
+          return (
+            <Alert key={`${variant}-${title}`} variant={variant}>
+              <Icon />
+              <AlertTitle>{title}</AlertTitle>
+              <AlertDescription>{description}</AlertDescription>
+            </Alert>
+          );
+        })}
       </div>
 
       <div className="flex gap-2">
-        <Badge className="h-7 border-success-border bg-success-background text-sm text-success-foreground">
-          Success
-        </Badge>
-        <Badge className="h-7 border-error-border bg-error-background text-error-foreground text-sm">
-          Info
-        </Badge>
-        <Badge className="h-7 border-info-border bg-info-background text-info-foreground text-sm">
-          Warning
-        </Badge>
-        <Badge className="h-7 border-warning-border bg-warning-background text-sm text-warning-foreground">
-          Error
-        </Badge>
-      </div>
-
-      <div className="flex gap-2">
-        <Button className="border border-success-border bg-success-background text-success-foreground hover:bg-success-background/80">
-          Success
-        </Button>
-        <Button className="border border-error-border bg-error-background text-error-foreground hover:bg-error-background/80">
-          Error
-        </Button>
-        <Button className="border border-info-border bg-info-background text-info-foreground hover:bg-info-background/80">
-          Info
-        </Button>
-        <Button className="border border-warning-border bg-warning-background text-warning-foreground hover:bg-warning-background/80">
-          Warning
-        </Button>
+        {badgesExamples.map(({ icon: Icon, title, variant }) => {
+          return (
+            <Badge
+              key={`${variant}-${title}`}
+              className="px-2 py-1 text-sm shadow-none"
+              variant={variant}
+            >
+              <Icon />
+              {title}
+            </Badge>
+          );
+        })}
       </div>
     </div>
   );

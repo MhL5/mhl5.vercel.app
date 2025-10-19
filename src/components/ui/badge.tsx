@@ -1,6 +1,6 @@
-import type * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
+import type * as React from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -19,12 +19,12 @@ const badgeVariants = cva(
           "text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
 
         success:
-          "border-success-border bg-success-background text-success-foreground *:data-[slot=alert-description]:text-success-foreground/90 [&>svg]:text-current",
-        info: "border-info-border bg-info-background text-info-foreground *:data-[slot=alert-description]:text-info-foreground/90 [&>svg]:text-current",
+          "border-text-foreground/10 bg-success-background text-success-foreground *:data-[slot=alert-description]:text-success-foreground/90 [&>svg]:text-current",
+        info: "border-text-foreground/10 bg-info-background text-info-foreground *:data-[slot=alert-description]:text-info-foreground/90 [&>svg]:text-current",
         warning:
-          "border-warning-border bg-warning-background text-warning-foreground *:data-[slot=alert-description]:text-warning-foreground/90 [&>svg]:text-current",
+          "border-text-foreground/10 bg-warning-background text-warning-foreground *:data-[slot=alert-description]:text-warning-foreground/90 [&>svg]:text-current",
         error:
-          "border-error-border bg-error-background text-error-foreground *:data-[slot=alert-description]:text-error-foreground/90 [&>svg]:text-current",
+          "border-text-foreground/10 bg-error-background text-error-foreground *:data-[slot=alert-description]:text-error-foreground/90 [&>svg]:text-current",
       },
     },
     defaultVariants: {

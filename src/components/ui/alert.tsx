@@ -1,6 +1,6 @@
-import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import type * as React from "react";
+import { cn } from "@/lib/utils";
 
 const alertVariants = cva(
   "relative grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 rounded-lg border px-4 py-3 text-sm has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-3 [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current",
@@ -11,12 +11,12 @@ const alertVariants = cva(
         destructive:
           "bg-card text-destructive *:data-[slot=alert-description]:text-destructive/90 [&>svg]:text-current",
         success:
-          "border-success-border bg-success-background text-success-foreground *:data-[slot=alert-description]:text-success-foreground/90 [&>svg]:text-current",
-        info: "border-info-border bg-info-background text-info-foreground *:data-[slot=alert-description]:text-info-foreground/90 [&>svg]:text-current",
+          "border-none bg-success-background text-success-foreground *:data-[slot=alert-description]:text-success-foreground/90 [&>svg]:text-current",
+        info: "border-none bg-info-background text-info-foreground *:data-[slot=alert-description]:text-info-foreground/90 [&>svg]:text-current",
         warning:
-          "border-warning-border bg-warning-background text-warning-foreground *:data-[slot=alert-description]:text-warning-foreground/90 [&>svg]:text-current",
+          "border-none bg-warning-background text-warning-foreground *:data-[slot=alert-description]:text-warning-foreground/90 [&>svg]:text-current",
         error:
-          "border-error-border bg-error-background text-error-foreground *:data-[slot=alert-description]:text-error-foreground/90 [&>svg]:text-current",
+          "border-none bg-error-background text-error-foreground *:data-[slot=alert-description]:text-error-foreground/90 [&>svg]:text-current",
       },
     },
     defaultVariants: {
