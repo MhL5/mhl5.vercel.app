@@ -19,12 +19,12 @@ const badgeVariants = cva(
           "text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
 
         success:
-          "border-text-foreground/10 bg-success-background text-success-foreground *:data-[slot=alert-description]:text-success-foreground/90 [&>svg]:text-current",
-        info: "border-text-foreground/10 bg-info-background text-info-foreground *:data-[slot=alert-description]:text-info-foreground/90 [&>svg]:text-current",
+          "border-text-foreground/10 bg-success text-success-foreground *:data-[slot=alert-description]:text-success-foreground/90 [&>svg]:text-current",
+        info: "border-text-foreground/10 bg-info text-info-foreground *:data-[slot=alert-description]:text-info-foreground/90 [&>svg]:text-current",
         warning:
-          "border-text-foreground/10 bg-warning-background text-warning-foreground *:data-[slot=alert-description]:text-warning-foreground/90 [&>svg]:text-current",
+          "border-text-foreground/10 bg-warning text-warning-foreground *:data-[slot=alert-description]:text-warning-foreground/90 [&>svg]:text-current",
         error:
-          "border-text-foreground/10 bg-error-background text-error-foreground *:data-[slot=alert-description]:text-error-foreground/90 [&>svg]:text-current",
+          "border-text-foreground/10 bg-error text-error-foreground *:data-[slot=alert-description]:text-error-foreground/90 [&>svg]:text-current",
       },
     },
     defaultVariants: {

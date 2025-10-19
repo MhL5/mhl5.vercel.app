@@ -44,9 +44,9 @@ export default function CopyButton({
       </TooltipTrigger>
       <TooltipContent
         className={cn(
-          "border-text-foreground/10 bg-success-background text-success-foreground [&_svg]:bg-success-background [&_svg]:fill-success-background",
+          "border-text-foreground/10 bg-success text-success-foreground [&_svg]:bg-success [&_svg]:fill-success",
           copyState === "error" &&
-            "border-text-foreground/10 bg-error-background text-error-foreground [&_svg]:bg-error-background [&_svg]:fill-error-background",
+            "border-text-foreground/10 bg-error text-error-foreground [&_svg]:bg-error [&_svg]:fill-error",
         )}
         side={side}
       >
