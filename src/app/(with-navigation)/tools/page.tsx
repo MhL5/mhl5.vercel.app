@@ -1,5 +1,5 @@
-import TailwindCssCalc from "@/app/(with-navigation)/tools/_components/tailwindCssCalc";
 import ToolCard from "@/app/(with-navigation)/tools/_components/ToolCard/ToolCard";
+import TailwindCssCalc from "@/app/(with-navigation)/tools/_components/tailwindCssCalc";
 
 export default function ToolsPage() {
   return (

@@ -2,17 +2,20 @@
 
 import { FileUpIcon } from "lucide-react";
 import { type ChangeEvent, type DragEvent, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 
 type DropAreaProps = {
   onDrop: (e: DragEvent<HTMLElement>) => void;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   disabled: boolean;
+  className?: string;
 };
 
 export default function DropArea({
   onDrop,
   onChange,
   disabled,
+  className,
 }: DropAreaProps) {
   const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -60,7 +63,10 @@ export default function DropArea({
       onDrop={handleDrop}
       data-disabled={disabled}
       data-dragging={isDragging}
-      className="flex min-h-45 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-primary border-dashed p-6 transition-colors hover:bg-primary/10 has-disabled:pointer-events-none has-[input:focus]:border-ring has-disabled:opacity-50 has-[input:focus]:ring-[3px] has-[input:focus]:ring-ring/50 data-[dragging=true]:border-solid data-[dragging=true]:bg-primary/10 data-[disabled=true]:opacity-50"
+      className={cn(
+        "flex min-h-45 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-primary border-dashed p-6 transition-colors hover:bg-primary/10 has-disabled:pointer-events-none has-[input:focus]:border-ring has-disabled:opacity-50 has-[input:focus]:ring-[3px] has-[input:focus]:ring-ring/50 data-[dragging=true]:border-solid data-[dragging=true]:bg-primary/10 data-[disabled=true]:opacity-50",
+        className,
+      )}
     >
       <input
         type="file"
