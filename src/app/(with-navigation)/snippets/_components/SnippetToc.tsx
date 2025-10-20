@@ -95,7 +95,7 @@ export default function SnippetToc({ className, tocDepth }: SnippetTocProps) {
         <a
           key={`${item.id}-${index}-${item.title}`}
           href={`#${item.id}`}
-          className="text-[0.8rem] text-muted-foreground no-underline transition-colors hover:text-foreground data-[depth=3]:pl-4 data-[depth=4]:pl-6 data-[depth=5]:pl-8 data-[depth=6]:pl-10 data-[active=true]:text-foreground"
+          className="text-[0.8rem] text-muted-foreground no-underline transition-all hover:text-foreground data-[depth=3]:pl-4 data-[depth=4]:pl-6 data-[depth=5]:pl-8 data-[depth=6]:pl-10 data-[active=true]:font-semibold data-[active=true]:text-foreground"
           data-active={item.id === `${activeHeading}`}
           data-depth={item.depth}
         >

@@ -18,7 +18,7 @@ export default function MarkdownRenderer() {
   }
 
   return (
-    <div className="mx-auto min-h-svh w-full max-w-7xl">
+    <div className="mx-auto min-h-svh w-full max-w-7xl px-5">
       {!md ? (
         <DropArea
           className="my-8 w-full"
@@ -31,13 +31,13 @@ export default function MarkdownRenderer() {
           disabled={false}
         />
       ) : (
-        <section className="mx-auto grid min-h-dvh w-full max-w-8xl overflow-x-hidden pt-8 2xl:grid-cols-[1fr_15rem]">
+        <section className="mx-auto grid min-h-dvh w-full max-w-8xl pt-8 2xl:grid-cols-[1fr_15rem]">
           <Prose as="div">
             <ReactMarkdown markdown={md} />
           </Prose>
-          <div className="hidden 2xl:block">
+          <aside className="hidden pt-8 pb-2 2xl:flex 2xl:flex-col">
             <SnippetToc tocDepth={6} />
-          </div>
+          </aside>
         </section>
       )}
     </div>

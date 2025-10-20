@@ -80,22 +80,14 @@ export default function DropArea({
 
       <div className="flex flex-col items-center justify-center text-center">
         <div
-          className="mb-2 flex size-10 shrink-0 items-center justify-center rounded-md bg-muted text-foreground"
+          className="mb-2 flex size-11 shrink-0 items-center justify-center rounded-full border bg-background"
           aria-hidden="true"
         >
-          <FileUpIcon className="size-5" />
+          <FileUpIcon className="size-4 opacity-60" />
         </div>
-
-        <p className="font-medium text-sm">title</p>
-
-        <div className="my-2 flex w-full items-center justify-center gap-3">
-          <div className="h-px w-20 shrink-0 bg-muted" />
-          <span className="text-xs">or</span>
-          <div className="h-px w-20 shrink-0 bg-muted" />
-        </div>
-
-        <p className="h-7 rounded-md border border-primary px-3 py-1.5 font-semibold text-primary text-xs">
-          browseFiles
+        <p className="mb-1.5 font-medium text-sm">Upload files</p>
+        <p className="mb-2 text-muted-foreground text-xs">
+          Drag & drop or click to browse
         </p>
       </div>
     </button>
