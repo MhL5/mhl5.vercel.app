@@ -2,7 +2,6 @@
 
 import { toast } from "sonner";
 import { Button, type ButtonProps } from "@/components/ui/button";
-import { frontendDomain } from "@/constants/constants";
 import type { RequiredPick } from "@/registry/types/RequiredPick/RequiredPick";
 
 type ShareButtonProps = {
@@ -20,7 +19,7 @@ export default function ShareButton({
     } catch {
       await navigator.clipboard.writeText(`
                     ${shareOptions.title}
-                    ${frontendDomain}${shareOptions.url}
+                    ${shareOptions.url}
                     `);
       toast.success("Copied to clipboard");
     }

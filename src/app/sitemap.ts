@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { shadcnRegistry } from "@/constants/constants";
-import { absoluteUrl } from "@/utils";
+import { absoluteUrl } from "@/utils/urls";
 
 export const revalidate = 259200; // 3 days
 

@@ -1,7 +1,7 @@
 import type { Route } from "next";
 import Link from "next/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { frontendDomain, shadcnRegistry } from "@/constants/constants";
+import { shadcnRegistry } from "@/constants/constants";
 import CliCommandCode from "@/features/MDX-remote/components/CliCommandCode";
 import CollapsibleCodeCard from "@/features/MDX-remote/components/CollapsibleCodeCard";
 import ComponentSource from "@/features/MDX-remote/components/ComponentSource";
@@ -10,7 +10,7 @@ import type {
   RegistryFileType,
   RegistryItemSchema,
 } from "@/types/shadcn-registry";
-import { absoluteUrl } from "@/utils";
+import { absoluteUrl } from "@/utils/urls";
 
 const tabs = {
   cli: "cli",
@@ -36,7 +36,7 @@ export default async function InstallationTabs({
       </TabsList>
       <TabsContent value={tabs.cli} className="pt-3">
         <CliCommandCode
-          command={`shadcn@latest add ${frontendDomain}/r/${name}.json`}
+          command={`shadcn@latest add ${absoluteUrl(`/r/${name}.json`)}`}
           action="run"
         />
       </TabsContent>

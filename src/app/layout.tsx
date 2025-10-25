@@ -2,8 +2,8 @@ import "@/styles/globals.css";
 
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { frontendDomain } from "@/constants/constants";
 import Providers from "@/providers/Providers";
+import { domainUrl } from "@/utils/urls";
 
 const figtree = localFont({
   src: "./fonts/Figtree/Figtree-VariableFont_wght.ttf",
@@ -18,7 +18,7 @@ const spaceGrotesk = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(frontendDomain),
+  metadataBase: new URL(domainUrl),
   alternates: {
     canonical: "/",
   },
@@ -44,10 +44,10 @@ export const metadata: Metadata = {
     "کدهای MhL5",
   ],
   authors: [
-    { name: "Mohammad Lashani", url: frontendDomain },
+    { name: "Mohammad Lashani", url: domainUrl },
     {
       name: "محمد لشنی",
-      url: frontendDomain,
+      url: domainUrl,
     },
   ],
   creator: "Mohammad Lashani",

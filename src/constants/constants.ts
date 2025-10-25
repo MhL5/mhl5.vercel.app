@@ -1,7 +1,7 @@
-import { Code2, Hammer, Package, Wrench } from "lucide-react";
+import { Code2, Package, Wrench } from "lucide-react";
 import type { JSX } from "react";
 import HookSvg from "@/components/icons/HookSvg";
-import { isDev, isProd } from "@/registry/utils/checks/checks";
+import { isDev } from "@/registry/utils/checks/checks";
 
 export const snippetsCategoryConfig: Record<
   string,
@@ -23,20 +23,12 @@ export const snippetsCategoryConfig: Record<
     icon: Wrench,
     tailwindClass: "text-emerald-600 dark:text-emerald-400",
   },
-  actions: {
-    icon: Hammer,
-    tailwindClass: "text-red-600 dark:text-red-400",
-  },
 } as const;
 
 export type ShadcnRegistry = typeof shadcnRegistry;
 export const shadcnRegistry = await import("~/registry.json").then(
   (res) => res.default,
 );
-
-export const frontendDomain = isProd()
-  ? `${process.env.NEXT_PUBLIC_FRONTEND_DOMAIN}`
-  : `http://localhost:${process.env.PORT || 7777}`;
 
 type Links = {
   title: string;
