@@ -413,6 +413,27 @@ html .shiki  span {
   }
 }
 
+.scrollbar-on-hover {
+  &:hover, &:focus-visible {
+    scrollbar-width: thin;
+    -ms-overflow-style: auto;
+    -webkit-overflow-scrolling: auto;
+    
+    scrollbar-color: var(--muted-foreground) transparent;
+    &::-webkit-scrollbar {
+      display: block;
+    }
+  }
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @layer components {
   .spinner {
     opacity: 0;

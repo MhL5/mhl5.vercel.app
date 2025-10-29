@@ -2,6 +2,7 @@
 
 import { CodeIcon } from "lucide-react";
 import { type ReactNode, useState } from "react";
+import InlineScroll from "@/components/InlineScroll";
 import CssSvg from "@/components/icons/CssSvg";
 import TypeScriptSvg from "@/components/icons/TypeScriptSvg";
 import { Button } from "@/components/ui/button";
@@ -24,8 +25,13 @@ export default function CollapsibleCodeCard({
     <Card className="not-content overflow-hidden bg-code-background p-0">
       <CardContent className="p-0">
         <div className="flex items-center border-input border-b px-3 py-1">
-          <Icon className="mr-2 size-4 text-muted-foreground" />
-          <div className="font-mono text-muted-foreground">{filePath}</div>
+          <Icon className="mr-2 size-4 shrink-0 text-muted-foreground" />
+          <InlineScroll
+            fadeShadowClassNames="from-code-background"
+            className="font-mono text-muted-foreground"
+          >
+            {filePath}
+          </InlineScroll>
           <Button
             variant="ghost"
             size="sm"

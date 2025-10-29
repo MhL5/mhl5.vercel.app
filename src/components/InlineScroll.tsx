@@ -82,7 +82,7 @@ export default function InlineScroll({
           onScroll?.(e);
         }}
         className={cn(
-          "no-visible-scrollbar overflow-x-auto whitespace-nowrap",
+          "scrollbar-on-hover overflow-x-auto whitespace-nowrap",
           className,
         )}
         {...props}
