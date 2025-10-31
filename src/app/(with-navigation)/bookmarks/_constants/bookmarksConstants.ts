@@ -348,6 +348,12 @@ const uiBookmarks: Bookmark[] = [
     category: "ui",
     title: "Shadcn Studio",
   },
+  {
+    url: "https://efferd.com",
+    category: "ui",
+    title: "Efferd",
+    description: "Beautiful Shadcn Blocks.",
+  },
 ];
 
 export const allBookmarks: Bookmark[] = [
