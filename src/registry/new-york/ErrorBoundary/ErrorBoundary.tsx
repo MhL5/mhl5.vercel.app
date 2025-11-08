@@ -57,24 +57,25 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 
   render() {
-    if (this.state.hasError && this.state.error) {
-      if ("fallback" in this.props && this.props.fallback)
-        return this.props.fallback instanceof Function
-          ? this.props.fallback({
-              error: this.state.error,
-              onRetry: this.handleRetry,
-            })
-          : this.props.fallback;
+    const capturedError = this.state.hasError && this.state.error;
 
+    if (!capturedError) return this.props.children;
+
+    if (this.props.fallback === undefined)
       return (
         <ErrorBoundaryFallback
-          error={this.state.error}
+          error={capturedError}
           onRetry={this.handleRetry}
         />
       );
-    }
 
-    return this.props.children;
+    if (this.props.fallback instanceof Function)
+      return this.props.fallback({
+        error: capturedError,
+        onRetry: this.handleRetry,
+      });
+
+    return this.props.fallback;
   }
 }
 

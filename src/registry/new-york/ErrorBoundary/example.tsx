@@ -1,8 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { useTimeout } from "@/registry/hooks/useTimer/useTimer";
 import { ErrorBoundary } from "@/registry/new-york/ErrorBoundary/ErrorBoundary";
-import { useState } from "react";
 
 export default function Example() {
   return (
