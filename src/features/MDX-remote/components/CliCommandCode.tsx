@@ -1,7 +1,7 @@
 "use client";
 
 import { TerminalIcon } from "lucide-react";
-import CopyButton from "@/components/buttons/CopyButton";
+import { CopyButton } from "@/components/buttons/CopyButton";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLocalStorage } from "@/registry/hooks/useStorage/useStorage";
@@ -80,10 +80,12 @@ export function CliCommandCodeInternal({
             </TabsList>
 
             <CopyButton
-              content={
+              contentToCopy={
                 commands.find((cmd) => cmd.label === selectedTab)?.code || ""
               }
               className="ml-auto"
+              aria-label="Copy Code"
+              side="left"
             />
           </div>
           <div>

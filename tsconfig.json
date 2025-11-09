@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -23,12 +19,8 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "~/*": [
-        "./*"
-      ]
+      "@/*": ["./src/*"],
+      "~/*": ["./*"]
     },
     "pretty": true,
     "noFallthroughCasesInSwitch": true,
@@ -36,6 +28,7 @@
     "allowUnusedLabels": false,
     "allowUnreachableCode": false,
     "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "verbatimModuleSyntax": true
   },
   "include": [
@@ -48,8 +41,5 @@
     ".next\\dev/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "todos"
-  ]
+  "exclude": ["node_modules", "todos"]
 }

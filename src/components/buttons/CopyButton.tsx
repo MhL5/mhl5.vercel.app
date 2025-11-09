@@ -1,7 +1,7 @@
 "use client";
 
 import { CheckIcon, ClipboardIcon, XIcon } from "lucide-react";
-import type { ComponentProps } from "react";
+import { type ComponentProps, createContext, useContext } from "react";
 import { Button, type ButtonProps } from "@/components/ui/button";
 import {
   Tooltip,
@@ -11,36 +11,60 @@ import {
 import { cn } from "@/lib/utils";
 import useCopyToClipboard from "@/registry/hooks/useCopyToClipboard/useCopyToClipboard";
 
+type CopyButtonContextType = {
+  contentToCopy: string;
+  side: ComponentProps<typeof TooltipContent>["side"];
+} & ButtonProps &
+  ReturnType<typeof useCopyToClipboard>;
+
+const CopyButtonContext = createContext<CopyButtonContextType | null>(null);
+
 type CopyButtonProps = {
-  content: string;
-  side?: ComponentProps<typeof TooltipContent>["side"];
+  contentToCopy: CopyButtonContextType["contentToCopy"];
+  side: CopyButtonContextType["side"];
 } & ButtonProps;
 
-export default function CopyButton({
-  content,
-  className,
-  side = "left",
+function CopyButton({
+  contentToCopy,
+  side,
+  children,
   ...props
 }: CopyButtonProps) {
-  const { handleCopy, copyState } = useCopyToClipboard(content);
+  const copyToClipboard = useCopyToClipboard(contentToCopy);
+  const { handleCopy } = copyToClipboard;
+
+  return (
+    <CopyButtonContext value={{ contentToCopy, side, ...copyToClipboard }}>
+      <Button onClick={handleCopy} variant="ghost" {...props}>
+        {children === undefined ? <CopyButtonIcon /> : children}
+      </Button>
+    </CopyButtonContext>
+  );
+}
+
+function useCopyButtonContext() {
+  const context = useContext(CopyButtonContext);
+  if (!context)
+    throw new Error("useCopyButton must be used within a CopyButtonProvider");
+  return context;
+}
+
+function CopyButtonIcon({ className, ...props }: ComponentProps<"svg">) {
+  const { copyState, side } = useCopyButtonContext();
 
   return (
     <Tooltip open={copyState !== "idle"}>
       <TooltipTrigger asChild>
-        <Button
-          onClick={handleCopy}
-          variant="ghost"
-          className={cn("size-8 text-muted-foreground", className)}
-          {...props}
-        >
-          {copyState === "copied" ? (
-            <CheckIcon className="text-success-foreground" />
-          ) : copyState === "error" ? (
-            <XIcon className="text-destructive" />
-          ) : (
-            <ClipboardIcon />
-          )}
-        </Button>
+        {copyState === "copied" ? (
+          <CheckIcon
+            className={cn("text-success-foreground", className)}
+            {...props}
+          />
+        ) : copyState === "error" ? (
+          <XIcon className={cn("text-destructive", className)} {...props} />
+        ) : (
+          <ClipboardIcon className={className} {...props} />
+        )}
       </TooltipTrigger>
       <TooltipContent
         className={cn(
@@ -55,3 +79,5 @@ export default function CopyButton({
     </Tooltip>
   );
 }
+
+export { CopyButton, CopyButtonIcon };

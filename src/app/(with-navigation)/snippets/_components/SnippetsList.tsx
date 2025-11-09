@@ -71,7 +71,7 @@ export default function SnippetsList() {
           </div>
         </div>
         <DebouncedInput
-          initialValue={search}
+          value={search}
           onDebouncedChange={setSearch}
           placeholder="Search snippets"
           delay={300}

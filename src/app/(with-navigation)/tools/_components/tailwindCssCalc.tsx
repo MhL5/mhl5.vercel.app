@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import CopyButton from "@/components/buttons/CopyButton";
+import { CopyButton } from "@/components/buttons/CopyButton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -48,9 +48,10 @@ export default function TailwindCssCalc({ className }: TailwindCssCalcProps) {
       </Button>
       <CopyButton
         variant="secondary"
-        content={result.toString()}
+        contentToCopy={result.toString()}
         className="size-9 shrink-0"
         side="top"
+        aria-label="Copy result"
       />
 
       <p>{result}</p>

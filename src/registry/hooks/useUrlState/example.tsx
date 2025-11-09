@@ -58,7 +58,7 @@ function ExampleSuspended() {
             delay={500}
             className="min-w-xs"
             placeholder="Enter a value to update url state"
-            initialValue={value}
+            value={value}
             onDebouncedChange={(value) => setValue(value)}
           />
         </div>

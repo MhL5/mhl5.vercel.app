@@ -1,8 +1,9 @@
 "use client";
 
-import { type ComponentProps, useEffect, useState } from "react";
+import { type ComponentProps, Suspense, use } from "react";
 import { codeToHtml } from "shiki";
-import CopyButton from "@/components/buttons/CopyButton";
+import { CopyButton, CopyButtonIcon } from "@/components/buttons/CopyButton";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 
 type ComponentSourceProps = {
@@ -11,32 +12,44 @@ type ComponentSourceProps = {
   code: string;
 } & ComponentProps<"code">;
 
-export default function ComponentSourceClient({
+export default function ComponentSourceClient(props: ComponentSourceProps) {
+  return (
+    <Suspense
+      fallback={
+        <Skeleton className="h-10 max-w-full rounded-xl bg-code-background" />
+      }
+    >
+      <ContentSuspended {...props} />
+    </Suspense>
+  );
+}
+
+function ContentSuspended({
   lang = "tsx",
   className,
   code,
   ...props
 }: ComponentSourceProps) {
-  const [codeHtml, setCodeHtml] = useState("");
-
-  useEffect(() => {
-    async function getCodeHtml() {
-      const codeHtml = await codeToHtml(code, {
-        lang,
-        themes: {
-          light: "github-light",
-          dark: "github-dark",
-        },
-      });
-
-      setCodeHtml(codeHtml);
-    }
-    getCodeHtml();
-  }, [code, lang]);
+  const codeHtml = use(
+    codeToHtml(code, {
+      lang,
+      themes: {
+        light: "github-light",
+        dark: "github-dark",
+      },
+    }),
+  );
 
   return (
     <pre className="not-prose relative h-full max-w-full rounded-xl bg-code-background">
-      <CopyButton content={code} className="absolute top-3 right-3" />
+      <CopyButton
+        contentToCopy={code}
+        side="left"
+        aria-label="Copy Code"
+        className="absolute top-3 right-3"
+      >
+        <CopyButtonIcon />
+      </CopyButton>
 
       <code
         // biome-ignore lint/security/noDangerouslySetInnerHtml: this is safe because the codeHtml variables comes from my own documents and are not user-generated

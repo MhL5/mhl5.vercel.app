@@ -1,6 +1,6 @@
 import type { ComponentProps } from "react";
 import { codeToHtml } from "shiki";
-import CopyButton from "@/components/buttons/CopyButton";
+import { CopyButton } from "@/components/buttons/CopyButton";
 import { cn } from "@/lib/utils";
 import { fileReader } from "@/utils/fileReader";
 
@@ -33,7 +33,12 @@ export default async function ComponentSource({
 
   return (
     <pre className="not-prose relative h-full max-w-full rounded-xl bg-code-background">
-      <CopyButton content={code} className="absolute top-3 right-3" />
+      <CopyButton
+        contentToCopy={code}
+        side="left"
+        aria-label="Copy Code"
+        className="absolute top-3 right-3"
+      />
 
       <code
         // biome-ignore lint/security/noDangerouslySetInnerHtml: this is safe because the codeHtml variables comes from my own documents and are not user-generated
