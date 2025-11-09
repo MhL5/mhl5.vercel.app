@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { ReactNode } from "react";
 import { Toaster } from "@/components/ui/sonner";
@@ -10,12 +11,13 @@ type ProvidersProps = {
 export default function Providers({ children }: ProvidersProps) {
   return (
     <>
-      <SpeedInsights />
-
       <ThemeProvider>
         <Toaster />
         {children}
       </ThemeProvider>
+
+      <SpeedInsights />
+      <Analytics />
     </>
   );
 }
