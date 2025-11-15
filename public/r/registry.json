@@ -24,7 +24,7 @@
         "theme": {
           "color-success": "var(--success)",
           "color-success-foreground": "var(--success-foreground)",
-          
+
           "color-info": "var(--info)",
           "color-info-foreground": "var(--info-foreground)",
 
@@ -226,7 +226,7 @@
         }
       ]
     },
-    
+
     {
       "name": "ScrollToTop",
       "type": "registry:component",
@@ -271,7 +271,7 @@
       "type": "registry:component",
       "title": "TagsInput",
       "description": "A component for inputting tags.",
-      "registryDependencies": ["button","input","tooltip","kbd"],
+      "registryDependencies": ["button", "input", "tooltip", "kbd"],
       "dependencies": ["lucide-react"],
       "files": [
         {
@@ -432,13 +432,25 @@
       ]
     },
     {
-      "name": "useStorage",
+      "name": "useSessionStorage",
       "type": "registry:hook",
-      "title": "useStorage",
-      "description": "Hooks for localStorage and sessionStorage with React state synchronization.",
+      "title": "useSessionStorage",
+      "description": "A hook for managing session storage.",
       "files": [
         {
-          "path": "src/registry/hooks/useStorage/useStorage.ts",
+          "path": "src/registry/hooks/useSessionStorage/useSessionStorage.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "useLocalStorage",
+      "type": "registry:hook",
+      "title": "useLocalStorage",
+      "description": "A hook for managing local storage.",
+      "files": [
+        {
+          "path": "src/registry/hooks/useLocalStorage/useLocalStorage.ts",
           "type": "registry:hook"
         }
       ]

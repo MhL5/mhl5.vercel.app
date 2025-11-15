@@ -1,14 +1,9 @@
 "use client";
 
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-  useSyncExternalStore,
-} from "react";
+import { useCallback, useMemo, useSyncExternalStore } from "react";
+import { isDev } from "@/registry/utils/checks/checks";
 
-function useLocalStorage<T>(key: string, defaultValue: T | (() => T)) {
+export function useLocalStorage<T>(key: string, defaultValue: T | (() => T)) {
   const defaultVal = useMemo(() => {
     return defaultValue instanceof Function ? defaultValue() : defaultValue;
   }, [defaultValue]);
@@ -30,18 +25,6 @@ function useLocalStorage<T>(key: string, defaultValue: T | (() => T)) {
   return [value, setValue] as const;
 }
 
-function useSessionStorage<T>(key: string, defaultValue: T | (() => T)) {
-  const [value, setValue] = useState<T>(() =>
-    _getSnapshot(key, defaultValue, sessionStorage),
-  );
-
-  useEffect(() => {
-    sessionStorage.setItem(key, JSON.stringify(value));
-  }, [key, value]);
-
-  return [value, setValue] as const;
-}
-
 function _subscribe(key: string, callback: () => void) {
   const handler = (e: StorageEvent) => {
     if (e.key === key) callback();
@@ -57,12 +40,9 @@ function _getSnapshot<T>(key: string, defaultValue: T, storageObject: Storage) {
     if (defaultValue instanceof Function) return defaultValue();
     return defaultValue;
   } catch (error) {
-    // optional error handling for development
-    if (process.env.NODE_ENV === "development")
+    if (isDev())
       throw new Error(error instanceof Error ? error.message : "Unknown error");
 
     return defaultValue;
   }
 }
-
-export { useLocalStorage, useSessionStorage };
