@@ -4,11 +4,20 @@
   "type": "registry:hook",
   "title": "useSessionStorage",
   "description": "A hook for managing session storage.",
+  "registryDependencies": [
+    "https://mhl5.vercel.app/r/checks.json"
+  ],
   "files": [
     {
       "path": "src/registry/hooks/useSessionStorage/useSessionStorage.ts",
-      "content": "\"use client\";\r\n\r\nimport { useEffect, useState } from \"react\";\r\nimport { isDev } from \"@/registry/utils/checks/checks\";\r\n\r\nexport function useSessionStorage<T>(key: string, defaultValue: T | (() => T)) {\r\n  const [value, setValue] = useState<T>(() => _getSnapshot(key, defaultValue));\r\n\r\n  useEffect(() => {\r\n    sessionStorage.setItem(key, JSON.stringify(value));\r\n  }, [key, value]);\r\n\r\n  return [value, setValue] as const;\r\n}\r\n\r\nfunction _getSnapshot<T>(key: string, defaultValue: T) {\r\n  try {\r\n    const item = sessionStorage.getItem(key);\r\n    if (item) return JSON.parse(item);\r\n\r\n    if (defaultValue instanceof Function) return defaultValue();\r\n    return defaultValue;\r\n  } catch (error) {\r\n    if (isDev())\r\n      throw new Error(error instanceof Error ? error.message : \"Unknown error\");\r\n    return defaultValue;\r\n  }\r\n}\r\n",
+      "content": "\"use client\";\r\n\r\nimport { useEffect, useState } from \"react\";\r\nimport { readStorageJsonValue } from \"@/utils/readStorageJson\";\r\n\r\nexport function useSessionStorage<T>(key: string, defaultValue: T | (() => T)) {\r\n  const [value, setValue] = useState<T>(() =>\r\n    readStorageJsonValue(key, defaultValue, sessionStorage),\r\n  );\r\n\r\n  useEffect(() => {\r\n    sessionStorage.setItem(key, JSON.stringify(value));\r\n  }, [key, value]);\r\n\r\n  return [value, setValue] as const;\r\n}\r\n",
       "type": "registry:hook"
+    },
+    {
+      "path": "src/utils/readStorageJson.ts",
+      "content": "import { isDev } from \"@/registry/utils/checks/checks\";\r\n\r\nconst INVALID_VALUES = [\"\", \"undefined\", \"null\"];\r\n\r\nexport function readStorageJsonValue<T>(\r\n  key: string,\r\n  defaultValue: T,\r\n  storageObject: Storage,\r\n) {\r\n  try {\r\n    const item = storageObject.getItem(key);\r\n\r\n    if (item !== null && item !== undefined && !INVALID_VALUES.includes(item))\r\n      return JSON.parse(item);\r\n\r\n    return _handleDefaultValue(defaultValue);\r\n  } catch (error) {\r\n    if (isDev())\r\n      throw new Error(error instanceof Error ? error.message : \"Unknown error\");\r\n\r\n    return _handleDefaultValue(defaultValue);\r\n  }\r\n}\r\n\r\nconst _handleDefaultValue = <T>(defaultValue: T | (() => T)) =>\r\n  defaultValue instanceof Function ? defaultValue() : defaultValue;\r\n",
+      "type": "registry:lib",
+      "target": "src/utils/readStorageJson.ts"
     }
   ]
 }

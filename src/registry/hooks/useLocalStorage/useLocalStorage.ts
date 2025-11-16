@@ -1,22 +1,31 @@
 "use client";
 
-import { useCallback, useMemo, useSyncExternalStore } from "react";
-import { isDev } from "@/registry/utils/checks/checks";
+import { useCallback, useMemo, useRef, useSyncExternalStore } from "react";
+import { readStorageJsonValue } from "@/utils/readStorageJson";
 
 export function useLocalStorage<T>(key: string, defaultValue: T | (() => T)) {
-  const defaultVal = useMemo(() => {
-    return defaultValue instanceof Function ? defaultValue() : defaultValue;
-  }, [defaultValue]);
-
-  const value = useSyncExternalStore(
-    (cb) => _subscribe(key, cb),
-    () => _getSnapshot(key, defaultVal, localStorage),
-    () => defaultVal,
+  const defaultVal = useMemo(
+    () => (defaultValue instanceof Function ? defaultValue() : defaultValue),
+    [defaultValue],
   );
 
+  const value: T = useSyncExternalStore(
+    (cb) => _subscribe(key, cb),
+    () => readStorageJsonValue(key, defaultVal, localStorage),
+    () => defaultVal,
+  );
+  const valueRef = useRef(value);
+  valueRef.current = value;
+
   const setValue = useCallback(
-    (newValue: T) => {
-      localStorage.setItem(key, JSON.stringify(newValue));
+    (newValue: T | ((prev: T) => T)) => {
+      const nextValue =
+        newValue instanceof Function ? newValue(valueRef.current) : newValue;
+
+      if (nextValue === undefined || nextValue === null)
+        localStorage.removeItem(key);
+      else localStorage.setItem(key, JSON.stringify(nextValue));
+
       window.dispatchEvent(new StorageEvent("storage", { key }));
     },
     [key],
@@ -31,18 +40,4 @@ function _subscribe(key: string, callback: () => void) {
   };
   window.addEventListener("storage", handler);
   return () => window.removeEventListener("storage", handler);
-}
-
-function _getSnapshot<T>(key: string, defaultValue: T, storageObject: Storage) {
-  try {
-    const item = storageObject.getItem(key);
-    if (item) return JSON.parse(item);
-    if (defaultValue instanceof Function) return defaultValue();
-    return defaultValue;
-  } catch (error) {
-    if (isDev())
-      throw new Error(error instanceof Error ? error.message : "Unknown error");
-
-    return defaultValue;
-  }
 }
