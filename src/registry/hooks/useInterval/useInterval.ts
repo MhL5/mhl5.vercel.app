@@ -4,16 +4,18 @@ import { useCallback, useEffect, useRef } from "react";
 
 export function useInterval(callback: () => void, delay: number) {
   const callbackRef = useRef(callback);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const set = useCallback(() => {
-    timerRef.current = setInterval(() => callbackRef.current(), delay);
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => callbackRef.current(), delay);
   }, [delay]);
 
   const clear = useCallback(() => {
-    if (!timerRef.current) return;
+    if (!intervalRef.current) return;
 
-    clearInterval(timerRef.current);
+    clearInterval(intervalRef.current);
+    intervalRef.current = null;
   }, []);
 
   const reset = useCallback(() => {
