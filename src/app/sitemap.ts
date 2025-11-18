@@ -1,19 +1,9 @@
 import type { MetadataRoute } from "next";
-import { shadcnRegistry } from "@/constants/constants";
 import { absoluteUrl } from "@/utils/urls";
 
 export const revalidate = 259200; // 3 days
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const snippetPages: MetadataRoute.Sitemap = shadcnRegistry.items.map(
-    (item) => ({
-      url: absoluteUrl(`/snippets/${item.name}`),
-      lastModified: new Date().toISOString(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    }),
-  );
-
   return [
     {
       url: absoluteUrl("/"),
@@ -33,6 +23,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.7,
     },
-    ...snippetPages,
   ];
 }
