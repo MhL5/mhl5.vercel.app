@@ -1,4 +1,5 @@
-// useLocalStorage.ts
+"use client";
+
 import { useSyncExternalStore } from "react";
 
 type Serializer<T> = (value: T) => string;
