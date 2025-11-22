@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --port 7777",
     "dev:https": "next dev --port 7777 --experimental-https",
+    "node:test": "tsx --test  src/utils/urls.test.ts",
     "build": "next build",
     "start": "next start",
     "biome:check": "biome check",
@@ -63,6 +64,7 @@
     "schema-dts": "^1.1.5",
     "shadcn": "^3.3.1",
     "tailwindcss": "^4",
+    "tsx": "^4.20.6",
     "tw-animate-css": "^1.3.5",
     "typescript": "^5.9.2"
   },
