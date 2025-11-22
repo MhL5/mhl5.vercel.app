@@ -1,7 +1,7 @@
 import Link from "next/link";
 import V0Svg from "@/components/icons/V0Svg";
 import { Button } from "@/components/ui/button";
-import { absoluteUrl } from "@/utils/urls";
+import { absoluteUrl } from "@/utils/absoluteUrl";
 
 type OpenInV0ButtonProps = {
   name: string;

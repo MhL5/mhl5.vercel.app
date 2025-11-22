@@ -10,7 +10,7 @@ import type {
   RegistryFileType,
   RegistryItemSchema,
 } from "@/types/shadcn-registry";
-import { absoluteUrl } from "@/utils/urls";
+import { absoluteUrl } from "@/utils/absoluteUrl";
 
 const tabs = {
   cli: "cli",

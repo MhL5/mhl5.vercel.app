@@ -1,6 +1,6 @@
 import assert from "node:assert";
 import { describe, it } from "node:test";
-import { absoluteUrl } from "@/utils/urls";
+import { absoluteUrl } from "@/utils/absoluteUrl";
 
 describe("absoluteUrl", () => {
   describe("development mode", () => {

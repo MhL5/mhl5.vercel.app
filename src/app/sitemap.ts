@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { absoluteUrl } from "@/utils/urls";
+import { absoluteUrl } from "@/utils/absoluteUrl";
 
 export const revalidate = 259200; // 3 days
 

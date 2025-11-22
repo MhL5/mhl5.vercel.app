@@ -3,7 +3,7 @@ import "@/styles/globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Providers from "@/providers/Providers";
-import { domainUrl } from "@/utils/urls";
+import { domainUrl } from "@/utils/absoluteUrl";
 
 const figtree = localFont({
   src: "./fonts/Figtree/Figtree-VariableFont_wght.ttf",
