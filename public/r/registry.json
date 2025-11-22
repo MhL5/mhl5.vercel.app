@@ -16,54 +16,6 @@
       ]
     },
     {
-      "name": "Colors",
-      "type": "registry:component",
-      "title": "Colors",
-      "description": "a collection of colors I use with shadcn colors.",
-      "cssVars": {
-        "theme": {
-          "color-success": "var(--success)",
-          "color-success-foreground": "var(--success-foreground)",
-
-          "color-info": "var(--info)",
-          "color-info-foreground": "var(--info-foreground)",
-
-          "color-warning": "var(--warning)",
-          "color-warning-foreground": "var(--warning-foreground)",
-
-          "color-error": "var(--error)",
-          "color-error-foreground": "var(--error-foreground)"
-        },
-        "light": {
-          "success": "oklch(95.5% 0.025 158.883)",
-          "success-foreground": "oklch(35% 0.18 146.625)",
-
-          "info": "oklch(95% 0.015 244.483)",
-          "info-foreground": "oklch(35% 0.19 255.001)",
-
-          "warning": "oklch(97% 0.02 95.255)",
-          "warning-foreground": "oklch(45% 0.18 56.682)",
-
-          "error": "oklch(95% 0.02 17.066)",
-          "error-foreground": "oklch(40% 0.25 29.223)"
-        },
-        "dark": {
-          "success": "oklch(21.066% 0.04977 157.455)",
-          "success-foreground": "oklch(86.352% 0.16984 157.782)",
-
-          "info": "oklch(15.718% 0.04534 250.707)",
-          "info-foreground": "oklch(67.441% 0.15279 258.345)",
-
-          "warning": "oklch(22.938% 0.05121 113.206)",
-          "warning-foreground": "oklch(86.347% 0.1414 92.293)",
-
-          "error": "oklch(19.941% 0.06431 23.545)",
-          "error-foreground": "oklch(79.847% 0.11592 17.944)"
-        }
-      },
-      "files": []
-    },
-    {
       "name": "DebouncedInput",
       "type": "registry:ui",
       "title": "DebouncedInput",
@@ -226,20 +178,6 @@
         }
       ]
     },
-
-    {
-      "name": "ScrollToTop",
-      "type": "registry:component",
-      "title": "ScrollToTop",
-      "description": "A component for scrolling to the top of the page on navigation or on mount.",
-      "files": [
-        {
-          "path": "src/registry/new-york/ScrollToTop/ScrollToTop.tsx",
-          "type": "registry:component",
-          "target": "src/components/utils/ScrollToTop.tsx"
-        }
-      ]
-    },
     {
       "name": "SkipLink",
       "type": "registry:component",
@@ -276,18 +214,6 @@
       "files": [
         {
           "path": "src/registry/new-york/TagsInput/TagsInput.tsx",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "Typography",
-      "type": "registry:component",
-      "title": "Typography",
-      "description": "A reusable component for typography.",
-      "files": [
-        {
-          "path": "src/registry/new-york/Typography/Typography.tsx",
           "type": "registry:component"
         }
       ]

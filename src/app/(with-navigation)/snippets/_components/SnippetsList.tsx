@@ -16,7 +16,6 @@ import { cn } from "@/lib/utils";
 import useUrlState from "@/registry/hooks/useUrlState/useUrlState";
 import AutoGrid from "@/registry/new-york/AutoGrid/AutoGrid";
 import DebouncedInput from "@/registry/new-york/DebouncedInput/DebouncedInput";
-import Typography from "@/registry/new-york/Typography/Typography";
 
 export default function SnippetsList() {
   const [categoryFiler, setCategoryFilter] = useUrlState("category", {
@@ -35,9 +34,9 @@ export default function SnippetsList() {
     <section id="search" className="not-prose mt-8 min-h-svh">
       <header className="mb-4 flex flex-col items-start justify-between gap-5">
         <div className="flex w-full flex-wrap items-center justify-between gap-2">
-          <Typography variant="h2" className="text-start">
+          <h2 className="scroll-m-20 text-start font-semibold text-3xl tracking-tight">
             Snippets
-          </Typography>
+          </h2>
 
           <div className="flex flex-wrap items-center gap-2 capitalize">
             <Select

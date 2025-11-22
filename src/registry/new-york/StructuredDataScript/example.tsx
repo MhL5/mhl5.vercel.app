@@ -1,5 +1,5 @@
-import StructuredDataScript from "@/registry/new-york/StructuredDataScript/StructuredDataScript";
 import type { Article, WithContext } from "schema-dts";
+import StructuredDataScript from "@/registry/new-york/StructuredDataScript/StructuredDataScript";
 
 const articleData: WithContext<Article> = {
   "@context": "https://schema.org",
@@ -13,10 +13,5 @@ const articleData: WithContext<Article> = {
 };
 
 export default function Example() {
-  return (
-    <>
-      <StructuredDataScript data={articleData} />
-      {/* Your page content */}
-    </>
-  );
+  return <StructuredDataScript data={articleData} />;
 }

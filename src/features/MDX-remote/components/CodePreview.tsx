@@ -24,7 +24,6 @@ function lazyImportComponent(path: string) {
 
 // without @/registry/
 const previewSourceCodes = {
-  Colors: "new-york/Colors/example.tsx",
   DebouncedInput: "new-york/DebouncedInput/example.tsx",
   DrawerDialog: "new-york/DrawerDialog/example.tsx",
   ErrorBoundary: "new-york/ErrorBoundary/example.tsx",

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Aside from "@/app/(with-navigation)/snippets/_components/Aside";
+import ScrollToTop from "@/components/utils/ScrollToTop";
 import { navigationLinks } from "@/constants/constants";
-import ScrollToTop from "@/registry/new-york/ScrollToTop/ScrollToTop";
 
 export const metadata: Metadata = {
   title: "Code Snippets Collection",

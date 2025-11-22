@@ -11,10 +11,18 @@ export const domainUrl = isProd()
  * @example absoluteUrl("/blogs") => "https://mhl5.vercel.app/blogs"
  */
 export const absoluteUrl = (path: `/${string}`) =>
-  _removeEndingSlash(new URL(_normalizePath(path), domainUrl).href);
+  removeEndingSlash(new URL(normalizePath(path), domainUrl).href);
 
-const _normalizePath = (path: `/${string}`) =>
+/**
+ * Removes duplicate slashes
+ * @example normalizePath("/path//to//resource") => "/path/to/resource"
+ */
+const normalizePath = (path: `/${string}`) =>
   path === "/" ? "" : path.replace(/\/{2,}/g, "/");
 
-const _removeEndingSlash = (path: string) =>
+/**
+ * Removes ending slash
+ * @example removeEndingSlash("https://example.com/") => "https://example.com"
+ */
+const removeEndingSlash = (path: string) =>
   path.endsWith("/") ? path.slice(0, -1) : path;
