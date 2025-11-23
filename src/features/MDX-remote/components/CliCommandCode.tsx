@@ -13,6 +13,12 @@ const PackageManagersActions = {
     yarn: `yarn add`,
     bun: `bun add`,
   },
+  devInstall: {
+    pnpm: `pnpm add -D`,
+    npm: `npm install -D`,
+    yarn: `yarn add -D`,
+    bun: `bun add -D`,
+  },
   run: {
     pnpm: `pnpm dlx`,
     npm: `npx`,

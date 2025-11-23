@@ -24,8 +24,13 @@ type InstallationTabsProps = {
 export default async function InstallationTabs({
   name,
 }: InstallationTabsProps) {
-  const { filesToCopy, cssVars, npmModulesToInstall, registryDependencies } =
-    await getCodeModuleData(name);
+  const {
+    filesToCopy,
+    cssVars,
+    npmModulesToInstall,
+    registryDependencies,
+    npmDevModulesToInstall,
+  } = await getCodeModuleData(name);
   const formattedCssVars = getFormattedCssVars(cssVars);
 
   return (
@@ -64,15 +69,25 @@ export default async function InstallationTabs({
           </div>
         )}
 
-        {npmModulesToInstall != null && npmModulesToInstall.length > 0 && (
+        {(npmModulesToInstall != null || npmDevModulesToInstall != null) && (
           <div className="flex flex-col gap-4">
             <p>Install the following dependencies.</p>
-            <CliCommandCode
-              action="install"
-              command={npmModulesToInstall.join(" ")}
-            />
+            {npmModulesToInstall != null && npmModulesToInstall.length > 0 && (
+              <CliCommandCode
+                action="install"
+                command={npmModulesToInstall.join(" ")}
+              />
+            )}
+            {npmDevModulesToInstall != null &&
+              npmDevModulesToInstall.length > 0 && (
+                <CliCommandCode
+                  action="devInstall"
+                  command={npmDevModulesToInstall.join(" ")}
+                />
+              )}
           </div>
         )}
+
         {filesToCopy != null && filesToCopy.length > 0 && (
           <div className="flex flex-col gap-4">
             <p>Copy and paste the following code into your project.</p>
@@ -115,6 +130,7 @@ async function getCodeModuleData(registryItem: string) {
   });
 
   const npmModulesToInstall = registryJson.dependencies;
+  const npmDevModulesToInstall = registryJson.devDependencies;
 
   const registryDependencies = registryJson.registryDependencies
     ?.map((dep) => {
@@ -147,6 +163,7 @@ async function getCodeModuleData(registryItem: string) {
     filesToCopy,
     npmModulesToInstall,
     registryDependencies,
+    npmDevModulesToInstall,
     cssVars,
   };
 }
