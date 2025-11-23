@@ -102,6 +102,12 @@ const designBookmarks: Bookmark[] = [
     url: "https://tabler.io/icons",
     category: "design",
   },
+  {
+    title: "3d icons",
+    description: "Beautifully Crafted Free & Premium 3D Icons",
+    url: "https://3dicons.co/",
+    category: "design",
+  },
 ];
 const uiBookmarks: Bookmark[] = [
   {
