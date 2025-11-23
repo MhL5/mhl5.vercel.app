@@ -65,7 +65,7 @@ function FallbackPages(props: FallbackPagesProps) {
   const Icon = props.variant === "not-found" ? FileQuestion : AlertTriangle;
 
   return (
-    <section className="grid min-h-svh place-items-center bg-background p-4">
+    <section className="grid min-h-svh place-items-center p-4">
       <div className="max-w-md space-y-6 text-center">
         <header>
           <Icon
