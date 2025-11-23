@@ -49,7 +49,7 @@ export default function SnippetToc({ className, toc }: SnippetTocProps) {
         className,
       )}
     >
-      <p className="sticky top-0 h-6 bg-background text-muted-foreground text-xs">
+      <p className="sticky top-0 h-6 text-muted-foreground text-xs">
         On This Page
       </p>
 
