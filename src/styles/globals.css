@@ -240,6 +240,7 @@
 :root {
   --radius: 0.65rem;
 
+  --site-header-height: 3.25rem;
   --code-background: var(--color-muted);
 
   --success: oklch(95.5% 0.025 158.883);

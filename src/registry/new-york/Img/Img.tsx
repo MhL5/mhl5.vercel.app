@@ -24,7 +24,6 @@ export default function Img({
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: the state should be reset when the src changes
   useEffect(() => {
-    console.log("\x1b[35m" + `test Img` + "\x1b[0m");
     setImageState("default");
   }, [src]);
 

@@ -8,7 +8,7 @@ export default function HeroSection({
   return (
     <section
       className={cn(
-        "relative flex h-svh w-full flex-col items-center justify-center",
+        "relative flex h-[calc(100svh-var(--site-header-height))] w-full flex-col items-center justify-center",
         className,
       )}
       {...props}

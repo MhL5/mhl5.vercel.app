@@ -368,6 +368,20 @@ const uiBookmarks: Bookmark[] = [
     description:
       "A fully animated, open-source React component distribution. Browse a list of animated primitives, components and icons you can install and use in your projects.",
   },
+  {
+    url: "https://ui.elevenlabs.io/docs",
+    category: "ui",
+    title: "ElevenLabs UI",
+    description:
+      "ElevenLabs UI is a component library and custom registry built on top of shadcn/ui to help you build multimodal agentic experiences faster.",
+  },
+  {
+    url: "https://blocks.so/",
+    category: "ui",
+    title: "Blocks.so",
+    description:
+      "Clean, modern building blocks. Copy and paste into your apps. Works with all React frameworks. Open Source. Free forever.",
+  },
 ];
 
 export const allBookmarks: Bookmark[] = [

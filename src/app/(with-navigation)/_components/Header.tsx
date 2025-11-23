@@ -32,7 +32,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed top-0 z-50 h-13 w-[calc(100%-var(--removed-body-scroll-bar-size,0px))] border-border/20 border-b bg-background/20 backdrop-blur-md dark:border-border/30">
+      <header className="fixed top-0 z-50 h-[var(--site-header-height)] w-[calc(100%-var(--removed-body-scroll-bar-size,0px))] border-border/20 border-b bg-background/20 backdrop-blur-md dark:border-border/30">
         <nav className="mx-auto flex h-full w-full max-w-8xl items-center px-4">
           <Sheet>
             <SheetTrigger className="lg:hidden" asChild>
