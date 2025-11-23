@@ -66,18 +66,6 @@
       ]
     },
     {
-      "name": "FadeShadow",
-      "type": "registry:ui",
-      "title": "FadeShadow",
-      "description": "a component that fades the shadow of an element when the user scrolls down.",
-      "files": [
-        {
-          "path": "src/registry/new-york/FadeShadow/FadeShadow.tsx",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
       "name": "FallbackPages",
       "type": "registry:component",
       "title": "FallbackPages",

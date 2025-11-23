@@ -2,8 +2,8 @@
 
 import type { ComponentProps, PropsWithChildren } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import FadeShadow from "@/components/FadeShadow";
 import { cn } from "@/lib/utils";
-import FadeShadow from "@/registry/new-york/FadeShadow/FadeShadow";
 
 type HandleScrollFn = (params: {
   scrollLeft: number;

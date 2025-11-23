@@ -27,7 +27,6 @@ const previewSourceCodes = {
   DebouncedInput: "new-york/DebouncedInput/example.tsx",
   DrawerDialog: "new-york/DrawerDialog/example.tsx",
   ErrorBoundary: "new-york/ErrorBoundary/example.tsx",
-  FadeShadow: "new-york/FadeShadow/example.tsx",
   Img: "new-york/Img/example.tsx",
   useCopyToClipboard: "hooks/useCopyToClipboard/example.tsx",
   useIsMounted: "hooks/useIsMounted/example.tsx",
