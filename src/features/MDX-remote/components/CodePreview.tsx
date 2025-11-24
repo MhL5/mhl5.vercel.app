@@ -28,6 +28,7 @@ const previewSourceCodes = {
   DrawerDialog: "new-york/DrawerDialog/example.tsx",
   ErrorBoundary: "new-york/ErrorBoundary/example.tsx",
   Img: "new-york/Img/example.tsx",
+  useLocalStorage: "hooks/useLocalStorage/example.tsx",
   useCopyToClipboard: "hooks/useCopyToClipboard/example.tsx",
   useIsMounted: "hooks/useIsMounted/example.tsx",
   useUrlState: "hooks/useUrlState/example.tsx",

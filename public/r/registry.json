@@ -330,17 +330,12 @@
       "name": "useLocalStorage",
       "type": "registry:hook",
       "title": "useLocalStorage",
-      "description": "A hook for managing local storage.",
+      "description": "A React hook built on top of `useSyncExternalStore` that synchronizes state with `localStorage`, providing reactive updates across browser tabs and windows.",
       "registryDependencies": ["https://mhl5.vercel.app/r/checks.json"],
       "files": [
         {
           "path": "src/registry/hooks/useLocalStorage/useLocalStorage.ts",
           "type": "registry:hook"
-        },
-        {
-          "path": "src/utils/readStorageJson.ts",
-          "type": "registry:lib",
-          "target": "src/utils/readStorageJson.ts"
         }
       ]
     },
