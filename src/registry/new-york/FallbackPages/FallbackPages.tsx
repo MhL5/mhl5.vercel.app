@@ -76,7 +76,7 @@ function FallbackPages(props: FallbackPagesProps) {
             {fallbackPagesData[props.variant].title}
           </h1>
           <p
-            className="text-pretty text-muted-foreground leading-relaxed"
+            className="line-clamp-6 text-pretty text-muted-foreground leading-relaxed"
             role="alert"
             aria-live="polite"
           >

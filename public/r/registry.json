@@ -312,17 +312,12 @@
       "name": "useSessionStorage",
       "type": "registry:hook",
       "title": "useSessionStorage",
-      "description": "A hook for managing session storage.",
+      "description": "A React hook built on top of `useSyncExternalStore` for managing state with `sessionStorage`.",
       "registryDependencies": ["https://mhl5.vercel.app/r/checks.json"],
       "files": [
         {
           "path": "src/registry/hooks/useSessionStorage/useSessionStorage.ts",
           "type": "registry:hook"
-        },
-        {
-          "path": "src/utils/readStorageJson.ts",
-          "type": "registry:lib",
-          "target": "src/utils/readStorageJson.ts"
         }
       ]
     },
