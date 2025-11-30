@@ -24,6 +24,13 @@ const learningResourcesBookmarks: Bookmark[] = [
     url: "https://tkdodo.eu/blog",
     category: "learningResources",
   },
+  {
+    url: "https://nextjsweekly.com/",
+    title: "Stay up-to-date on Next.js",
+    description:
+      "A weekly newsletter with the most interesting Next.js News, Tutorials, Projects, and Tools. The easiest way to keep up with what’s happening in the ecosystem.",
+    category: "learningResources",
+  },
 ];
 
 const toolsBookmarks: Bookmark[] = [
