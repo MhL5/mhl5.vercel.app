@@ -4,6 +4,8 @@ import { useCallback, useEffect, useState } from "react";
 
 type UseIsVisibleOptions = {
   rootMargin?: IntersectionObserverInit["rootMargin"];
+  root?: IntersectionObserverInit["root"];
+  threshold?: IntersectionObserverInit["threshold"];
   once?: boolean;
   initialState?: boolean | (() => boolean);
 };
@@ -12,6 +14,8 @@ export type UseIsVisibleRef = ReturnType<typeof useIsVisible>["ref"];
 
 export default function useIsVisible({
   rootMargin = "0px",
+  root,
+  threshold,
   once = false,
   initialState = false,
 }: UseIsVisibleOptions = {}) {
@@ -40,7 +44,7 @@ export default function useIsVisible({
         setIsVisible(entry.isIntersecting);
         if (once && entry.isIntersecting) observer.disconnect();
       },
-      { rootMargin },
+      { rootMargin, root, threshold },
     );
 
     observer.observe(element);
@@ -49,7 +53,7 @@ export default function useIsVisible({
       observer.unobserve(element);
       isMounted = false;
     };
-  }, [element, rootMargin, once]);
+  }, [element, rootMargin, once, root, threshold]);
 
   return { isVisible, ref: refCallback };
 }
