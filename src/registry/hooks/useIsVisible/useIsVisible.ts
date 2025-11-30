@@ -50,6 +50,7 @@ export default function useIsVisible({
     observer.observe(element);
 
     return () => {
+      observer.disconnect();
       observer.unobserve(element);
       isMounted = false;
     };
