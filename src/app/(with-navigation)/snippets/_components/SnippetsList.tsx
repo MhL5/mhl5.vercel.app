@@ -3,6 +3,7 @@
 import type { Route } from "next";
 import Link from "next/link";
 import { Fragment, useState } from "react";
+import LinkIndicator from "@/components/LinkIndicator";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -111,14 +112,16 @@ export default function SnippetsList() {
                 <Button
                   key={item.title}
                   variant="ghost"
-                  className={`${config?.tailwindClass || "text-muted-foreground"} h-10 w-full justify-start overflow-hidden`}
+                  className={`${config?.tailwindClass || "text-muted-foreground"} h-10 w-full overflow-hidden`}
                   asChild
                 >
                   <Link href={item.url as Route}>
                     {Icon && (
                       <Icon className="hidden md:inline-block md:size-5" />
                     )}
-                    <span className="truncate">{item.title}</span>
+                    <span className="mr-auto truncate">{item.title}</span>
+
+                    <LinkIndicator className="ml-auto" />
                   </Link>
                 </Button>
               ))}
