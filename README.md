@@ -2,8 +2,6 @@
 
 A modern, open-source portfolio website built with Next.js 16, React 19, and TypeScript. Features a collection of reusable components, hooks, and utilities that can be installed via a custom registry system.
 
-![Snippets Screenshot](./public/snippets-screenshot.png)
-
 ## ✨ Features
 
 - **Portfolio Showcase**: Display your projects, skills, and contact information

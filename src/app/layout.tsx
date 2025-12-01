@@ -65,15 +65,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         className={`${spaceGrotesk.variable} ${figtree.variable} min-w-xs font-figtree antialiased`}
       >
         {/* Azure Depths */}
-        <div
-          className="-z-10 fixed inset-0 h-full w-full dark:bg-[radial-gradient(125%_125%_at_50%_100%,var(--background)_40%,#010133_100%)]"
-          style={
-            {
-              // background:
-              //   "radial-gradient(125% 125% at 50% 100%, var(--background) 40%, #010133 100%)",
-            }
-          }
-        />
+        <div className="-z-10 fixed inset-0 h-full w-full dark:bg-[radial-gradient(125%_125%_at_50%_100%,var(--background)_40%,#010133_100%)]" />
 
         <Providers>{children}</Providers>
       </body>
