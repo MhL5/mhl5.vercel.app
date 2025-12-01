@@ -2,7 +2,7 @@
 
 A modern, open-source portfolio website built with Next.js 16, React 19, and TypeScript. Features a collection of reusable components, hooks, and utilities that can be installed via a custom registry system.
 
-<img src="/public//snippets-screenshot.png" width="100%" style="max-width:600px;object-fit:cover" height="500px">
+![Snippets Screenshot](./public/snippets-screenshot.png)
 
 ## ✨ Features
 
