@@ -33,7 +33,7 @@ export function useSessionStorage<T>(key: string, defaultValue: T | (() => T)) {
    * because if the parsed value is an object, it will cause an infinite loop
    * we will only return a string snapshot and parse it after (string is a primitive value)
    */
-  const snapshotString = useSyncExternalStore(
+  const jsonSnapshot = useSyncExternalStore(
     subscribe,
     getSnapshot,
     getServerSnapshot,
@@ -43,7 +43,7 @@ export function useSessionStorage<T>(key: string, defaultValue: T | (() => T)) {
     const resolvedInitialValue =
       defaultValue instanceof Function ? defaultValue() : defaultValue;
     try {
-      return snapshotString ? JSON.parse(snapshotString) : resolvedInitialValue;
+      return jsonSnapshot ? JSON.parse(jsonSnapshot) : resolvedInitialValue;
     } catch (error) {
       if (isDev())
         // biome-ignore lint/suspicious/noConsole: only logs on development
@@ -53,7 +53,7 @@ export function useSessionStorage<T>(key: string, defaultValue: T | (() => T)) {
         );
       return resolvedInitialValue;
     }
-  }, [snapshotString, defaultValue, key]);
+  }, [jsonSnapshot, defaultValue, key]);
 
   const setData = useCallback(
     (value: T | ((prev: T) => T)) => {
