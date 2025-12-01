@@ -7,7 +7,7 @@
   "files": [
     {
       "path": "src/registry/utils/checks/checks.ts",
-      "content": "export const isServer = () => typeof window === \"undefined\";\nexport const isClient = () => typeof window !== \"undefined\";\n\nexport const isDocumentAvailable = () => typeof document !== \"undefined\";\n\nexport const isDev = () => process.env.NODE_ENV === \"development\";\nexport const isProd = () => process.env.NODE_ENV === \"production\";\nexport const isTest = () => process.env.NODE_ENV === \"test\";\n\n// Next.js runtime checks\nexport const isNode = () => process.env.NEXT_RUNTIME === \"nodejs\";\nexport const isEdge = () => process.env.NEXT_RUNTIME === \"edge\";\n",
+      "content": "export const isServer = () => typeof window === \"undefined\";\nexport const isClient = () => typeof window !== \"undefined\";\n\nexport const isDOMAvailable = () => typeof document !== \"undefined\";\n\nexport const isDev = () => process.env.NODE_ENV === \"development\";\nexport const isProd = () => process.env.NODE_ENV === \"production\";\nexport const isTest = () => process.env.NODE_ENV === \"test\";\n\n// Next.js runtime checks\nexport const isNode = () => process.env.NEXT_RUNTIME === \"nodejs\";\nexport const isEdge = () => process.env.NEXT_RUNTIME === \"edge\";\n",
       "type": "registry:lib",
       "target": "src/utils/checks.ts"
     }
