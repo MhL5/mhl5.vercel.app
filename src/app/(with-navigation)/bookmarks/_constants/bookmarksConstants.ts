@@ -395,6 +395,13 @@ const uiBookmarks: Bookmark[] = [
     description:
       "Clean, modern building blocks. Copy and paste into your apps. Works with all React frameworks. Open Source. Free forever.",
   },
+  {
+    url: "https://www.solaceui.com/",
+    category: "ui",
+    title: "Solace UI",
+    description:
+      "Production-ready sections, animated components, and full-page templates for Next.js, Tailwind CSS & Framer Motion",
+  },
 ];
 
 export const allBookmarks: Bookmark[] = [
