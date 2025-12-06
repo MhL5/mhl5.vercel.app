@@ -456,11 +456,12 @@ html .shiki  span {
   }
 }
 
-body:before {
+@layer components {
+  body:before {
     content: "";
     z-index: 1;
     pointer-events: none;
-    opacity: .2;
+    opacity: 0.5;
     filter: url(#grain);
     background: var(--background);
     width: 100%;
@@ -468,10 +469,11 @@ body:before {
     position: fixed;
     top: 0;
     left: 0;
-}
-svg.grain-noise{
-  z-index:-1;
-  width:0;
-  height:0;
-  position: absolute;
+  }
+  svg.grain-noise{
+    z-index:-1;
+    width:0;
+    height:0;
+    position: absolute;
+  }
 }
