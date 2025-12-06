@@ -11,6 +11,19 @@ const nextConfig: NextConfig = {
     turbopackFileSystemCacheForDev: true,
     typedEnv: true,
   },
+
+  async rewrites() {
+    return [
+      {
+        source: "/js/script.js",
+        destination: "https://measured-one.vercel.app/js/script.js",
+      },
+      {
+        source: "/api/session",
+        destination: "https://measured-one.vercel.app/api/session",
+      },
+    ];
+  },
 };
 
 export default nextConfig;

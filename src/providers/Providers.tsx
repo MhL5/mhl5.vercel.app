@@ -15,7 +15,7 @@ export default function Providers({ children }: ProvidersProps) {
       <Script
         strategy="lazyOnload"
         data-site-id="site_c7mmmzvdmiuh35v2"
-        src="https://measured-one.vercel.app/js/script.js"
+        src="/js/script.js"
         defer
       />
       <ThemeProvider>
