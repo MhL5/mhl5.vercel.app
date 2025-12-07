@@ -461,7 +461,7 @@ html .shiki  span {
     content: "";
     z-index: 1;
     pointer-events: none;
-    opacity: 0.1;
+    opacity: .2;
     filter: url(#grain);
     background: var(--background);
     width: 100%;
