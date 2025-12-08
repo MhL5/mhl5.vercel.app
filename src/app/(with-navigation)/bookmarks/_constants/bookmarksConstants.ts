@@ -1,4 +1,4 @@
-import { Book, Code2, Globe, Palette } from "lucide-react";
+import { Book, Code2, Palette } from "lucide-react";
 import { snippetsCategoryConfig } from "@/constants/constants";
 
 export type Bookmark = {
@@ -419,7 +419,6 @@ export const bookmarkCategoryConfig = {
     icon: snippetsCategoryConfig.utils.icon,
     color: snippetsCategoryConfig.utils.tailwindClass,
   },
-  general: { icon: Globe, color: "text-gray-600 dark:text-gray-400" },
   ui: {
     icon: snippetsCategoryConfig.components.icon,
     color: snippetsCategoryConfig.components.tailwindClass,
