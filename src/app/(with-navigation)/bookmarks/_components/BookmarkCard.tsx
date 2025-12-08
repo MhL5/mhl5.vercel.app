@@ -12,7 +12,7 @@ export default function BookmarkCard({ item }: { item: Bookmark }) {
   const categoryInfo =
     bookmarkCategoryConfig[
       item.category as keyof typeof bookmarkCategoryConfig
-    ] || bookmarkCategoryConfig.general;
+    ];
   const CategoryIcon = categoryInfo.icon;
 
   return (
