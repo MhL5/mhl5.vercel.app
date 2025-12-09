@@ -104,7 +104,7 @@ export default function Header() {
           <div className="flex items-center gap-2 px-2">
             <Button variant="ghost" asChild>
               <Link
-                href="https://github.com/MhL5"
+                href="https://github.com/MhL5/mhl5.vercel.app"
                 target="_blank"
                 prefetch={false}
               >
