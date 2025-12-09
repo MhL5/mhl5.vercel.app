@@ -3,6 +3,9 @@ import { useEffect, useMemo, useRef } from "react";
 /**
  * A custom hook that converts a callback to a ref to avoid triggering re-renders when passed as a
  * prop or avoid re-executing effects when passed as a dependency
+ *
+ * credit: radix/ui
+ * IMPORTANT: in react 19.2 you should use useEffectEvent
  */
 // biome-ignore lint/suspicious/noExplicitAny: we need to use any to allow for any callback
 export function useCallbackRef<T extends (...args: any[]) => any>(
