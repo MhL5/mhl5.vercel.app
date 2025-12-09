@@ -65,7 +65,7 @@ function formatPhoneNumber(phone: string) {
     const firstGroup = cleaned.slice(3, 6);
     const remaining = cleaned.slice(6);
     // Group remaining digits in chunks of 3
-    const grouped = remaining.match(/.{1,3}/g)?.join(" ") || remaining;
+    const grouped = remaining.match(/.{1,4}/g)?.join(" ") || remaining;
     return `${countryCode} ${firstGroup} ${grouped}`;
   }
 

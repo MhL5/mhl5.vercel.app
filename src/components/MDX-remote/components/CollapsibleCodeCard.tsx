@@ -2,7 +2,7 @@
 
 import { CodeIcon } from "lucide-react";
 import { type ReactNode, useState } from "react";
-import InlineScroll from "@/components/InlineScroll";
+import InlineScroll from "@/components/experimental/InlineScroll";
 import CssSvg from "@/components/icons/CssSvg";
 import TypeScriptSvg from "@/components/icons/TypeScriptSvg";
 import { Button } from "@/components/ui/button";
