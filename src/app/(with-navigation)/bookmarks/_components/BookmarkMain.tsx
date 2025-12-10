@@ -8,6 +8,7 @@ import {
   bookmarkCategoryConfig,
 } from "@/app/(with-navigation)/bookmarks/_constants/bookmarksConstants";
 import { Button } from "@/components/ui/button";
+import DebouncedInput from "@/registry/new-york/DebouncedInput/DebouncedInput";
 import { toSentenceCase } from "@/registry/utils/formatters/formatters";
 
 export default function BookmarkMain() {
@@ -26,7 +27,6 @@ export default function BookmarkMain() {
       </div>
 
       <BookmarkMainHeader />
-      {/* <SearchableLayoutGrid {...props} /> */}
     </section>
   );
 }
@@ -41,12 +41,12 @@ function BookmarkMainHeader() {
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="relative max-w-md flex-1">
           <Search className="-translate-y-1/2 absolute top-1/2 left-3 h-4 w-4 text-muted-foreground" />
-          <input
+          <DebouncedInput
             type="text"
             placeholder="Search bookmarks..."
-            onChange={(e) => {
+            onDebouncedChange={(value) => {
               startTransition(() => {
-                const searchQuery = e.target.value.toLowerCase().trim();
+                const searchQuery = value.toLowerCase().trim();
 
                 const filteredBookmarks = allBookmarks.filter((bookmark) => {
                   const bookmarkTitle = bookmark.title.toLowerCase().trim();
@@ -63,7 +63,7 @@ function BookmarkMainHeader() {
                 setBookmarks(filteredBookmarks);
               });
             }}
-            className="w-full rounded-lg border bg-background py-2 pr-4 pl-10 text-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-ring"
+            className="py-2 pr-4 pl-10 text-sm"
           />
         </div>
 
