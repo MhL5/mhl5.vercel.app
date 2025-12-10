@@ -22,7 +22,7 @@
       "description": "An input that debounces the input value.",
       "registryDependencies": [
         "https://mhl5.vercel.app/r/useDebounce.json",
-        "https://mhl5.vercel.app/r/useTimers.json"
+        "https://mhl5.vercel.app/r/useTimeout.json"
       ],
       "files": [
         {
@@ -211,7 +211,7 @@
       "type": "registry:hook",
       "title": "useDebounce",
       "description": "A hook for debouncing a value.",
-      "registryDependencies": ["https://mhl5.vercel.app/r/useTimers.json"],
+      "registryDependencies": ["https://mhl5.vercel.app/r/useTimeout.json"],
       "files": [
         {
           "path": "src/registry/hooks/useDebounce/useDebounce.ts",
