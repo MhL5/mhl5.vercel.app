@@ -42,7 +42,7 @@ export default function AutoGrid<T extends keyof HTMLElementTagNameMap>({
   const Component = as || "div";
 
   return (
-    // @ts-expect-error
+    // @ts-expect-error - typescript is not able to infer the type of the component
     <Component
       className={cn(
         "grid grid-cols-[repeat(auto-fit,minmax(var(--grid-col-min-size-calc),1fr))] gap-(--grid-gap)",

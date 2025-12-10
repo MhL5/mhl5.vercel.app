@@ -7,7 +7,7 @@
   "files": [
     {
       "path": "src/registry/utils/groupByKey/groupByKey.ts",
-      "content": "// biome-ignore lint/suspicious/noExplicitAny: we need to use any to allow for any grouped values\nexport function groupByKey<T extends Record<string, any>>(\n  arr: T[],\n  key: keyof T,\n): Record<string, T[]> {\n  return arr.reduce(\n    (acc, item) => {\n      const groupKey = String(item[key]); // Ensure the key is a string\n      if (!acc[groupKey]) {\n        acc[groupKey] = [];\n      }\n      acc[groupKey].push(item);\n      return acc;\n    },\n    {} as Record<string, T[]>,\n  );\n}\n",
+      "content": "export function groupByKey<T extends Record<string, unknown>>(\n  arr: T[],\n  key: keyof T,\n): Record<string, T[]> {\n  return arr.reduce(\n    (acc, item) => {\n      const groupKey = String(item[key]);\n      if (!acc[groupKey]) acc[groupKey] = [];\n      acc[groupKey].push(item);\n      return acc;\n    },\n    {} as Record<string, T[]>,\n  );\n}\n",
       "type": "registry:lib",
       "target": "src/utils/groupByKey.ts"
     }
