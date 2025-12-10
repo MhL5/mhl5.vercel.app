@@ -16,20 +16,6 @@ describe("parsePageSearchParam", () => {
     expect(parsePageSearchParam("99.99")).toBe(99);
   });
 
-  test("should return 1 for zero", () => {
-    expect(parsePageSearchParam("0")).toBe(1);
-  });
-
-  test("should return 1 for negative numbers", () => {
-    expect(parsePageSearchParam("-1")).toBe(1);
-    expect(parsePageSearchParam("-5")).toBe(1);
-    expect(parsePageSearchParam("-10.5")).toBe(1);
-  });
-
-  test("should return 1 for null", () => {
-    expect(parsePageSearchParam(null)).toBe(1);
-  });
-
   test("should handle array of strings", () => {
     expect(parsePageSearchParam([`12`])).toBe(12);
     expect(parsePageSearchParam([`0`])).toBe(1);
@@ -37,7 +23,7 @@ describe("parsePageSearchParam", () => {
     expect(parsePageSearchParam([`12`, "131"])).toBe(1);
   });
 
-  test("should return 1 for falsy values", () => {
+  test("should return 1 for incorrect values", () => {
     expect(parsePageSearchParam(undefined)).toBe(1);
     expect(parsePageSearchParam(null)).toBe(1);
     expect(parsePageSearchParam("")).toBe(1);
@@ -49,20 +35,27 @@ describe("parsePageSearchParam", () => {
     expect(parsePageSearchParam(`-Infinity`)).toBe(1);
     expect(parsePageSearchParam([])).toBe(1);
     expect(parsePageSearchParam(`{}`)).toBe(1);
-  });
 
-  test("should return 1 for invalid strings", () => {
+    // negative numbers
+    expect(parsePageSearchParam("-1")).toBe(1);
+    expect(parsePageSearchParam("-5")).toBe(1);
+    expect(parsePageSearchParam("-10.5")).toBe(1);
+
+    // invalid strings
     expect(parsePageSearchParam("abc")).toBe(1);
     expect(parsePageSearchParam("not-a-number")).toBe(1);
     expect(parsePageSearchParam("12abc")).toBe(1);
     expect(parsePageSearchParam("abc123")).toBe(1);
+
+    // whitespace strings
+    expect(parsePageSearchParam("   ")).toBe(1);
   });
 
-  test("should handle whitespace strings", () => {
-    expect(parsePageSearchParam("   ")).toBe(1);
+  test("should parse page from string with whitespace", () => {
     expect(parsePageSearchParam(" 5 ")).toBe(5);
-    expect(parsePageSearchParam("1 ")).toBe(1);
-    expect(parsePageSearchParam(" 1")).toBe(1);
+    expect(parsePageSearchParam("2 ")).toBe(2);
+    expect(parsePageSearchParam(" 11 ")).toBe(11);
+    expect(parsePageSearchParam(" 7")).toBe(7);
   });
 
   test("should handle very large numbers", () => {
