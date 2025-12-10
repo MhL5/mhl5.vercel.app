@@ -18,14 +18,13 @@ export default function CollapsibleCodeCard({
   filePath,
   children,
 }: CollapsibleCodeCardProps) {
-  const Icon = getIcon(filePath);
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <Card className="not-content overflow-hidden bg-code-background p-0">
       <CardContent className="p-0">
         <div className="flex items-center border-input border-b px-3 py-1">
-          <Icon className="mr-2 size-4 shrink-0 text-muted-foreground" />
+          <Icon filePath={filePath} />
           <InlineScroll
             fadeShadowClassNames="from-code-background"
             className="font-mono text-muted-foreground"
@@ -63,9 +62,11 @@ export default function CollapsibleCodeCard({
   );
 }
 
-function getIcon(filePath: string) {
+const IconClassName = "mr-2 size-4 shrink-0 text-muted-foreground";
+
+function Icon({ filePath }: { filePath: string }) {
   if (filePath.endsWith(".ts") || filePath.endsWith(".tsx"))
-    return TypeScriptSvg;
-  if (filePath.endsWith(".css")) return CssSvg;
-  return CodeIcon;
+    return <TypeScriptSvg className={IconClassName} />;
+  if (filePath.endsWith(".css")) return <CssSvg className={IconClassName} />;
+  return <CodeIcon className={IconClassName} />;
 }

@@ -20,9 +20,9 @@ export default function BookmarkMain() {
         </h1>
 
         <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
-          A curated collection of interesting links, articles, and resources
-          I've saved. From development tools to design inspiration, these are
-          the digital gems I keep coming back to.
+          A collection of interesting links, articles, and resources I&rsquo;ve
+          saved. From development tools to design inspiration, these are the
+          digital gems I keep coming back to.
         </p>
       </div>
 
