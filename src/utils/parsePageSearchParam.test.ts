@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { parsePageSearchParam } from "@/utils/parsePageParam";
+import { parsePageSearchParam } from "@/utils/parsePageSearchParam";
 
 describe("parsePageSearchParam", () => {
   test("should return valid positive integers as-is", () => {
