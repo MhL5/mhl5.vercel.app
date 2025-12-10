@@ -55,7 +55,7 @@ export function useLocalStorage<T>(key: string, initialValue: T | (() => T)) {
       return jsonSnapshot ? JSON.parse(jsonSnapshot) : resolvedInitialValue;
     } catch (error) {
       if (isDev())
-        // biome-ignore lint/suspicious/noConsole: only logs on development
+        // eslint-disable-next-line no-console
         console.error(`Error parsing value for ${key} in localStorage`, error);
       return resolvedInitialValue;
     }

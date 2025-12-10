@@ -7,7 +7,7 @@ import { useEffect, useMemo, useRef } from "react";
  * credit: radix/ui
  * IMPORTANT: in react 19.2 you should use useEffectEvent
  */
-// biome-ignore lint/suspicious/noExplicitAny: we need to use any to allow for any callback
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function useCallbackRef<T extends (...args: any[]) => any>(
   callback: T,
 ): T {

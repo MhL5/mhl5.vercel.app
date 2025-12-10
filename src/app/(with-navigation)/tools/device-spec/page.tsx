@@ -3,6 +3,7 @@
 import { type ReactNode, useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { useIsMounted } from "@/registry/hooks/useIsMounted/useIsMounted";
 
 type DeviceInfo = {
   "screen Width": string;
@@ -13,28 +14,36 @@ type DeviceInfo = {
   "color Depth": number;
 };
 
-export default function DeviceSpec() {
-  const [deviceInfo, setDeviceInfo] = useState<DeviceInfo | null>(null);
+function getDeviceInfo() {
+  return {
+    "screen Width": `${window.screen.width} px`,
+    "screen Height": `${window.screen.height} px`,
+    "viewport Width": `${window.innerWidth} px`,
+    "viewport Height": `${window.innerHeight} px`,
+    "device Pixel Ratio": window.devicePixelRatio,
+    "color Depth": window.screen.colorDepth,
+  } as const;
+}
+
+export default function Page() {
+  const isMounted = useIsMounted();
+
+  return (
+    <div className="min-h-[calc(100vh-9rem)]">
+      {isMounted && <DeviceInfo />}
+    </div>
+  );
+}
+
+function DeviceInfo() {
+  const [deviceInfo, setDeviceInfo] = useState<DeviceInfo | null>(() =>
+    getDeviceInfo(),
+  );
 
   useEffect(() => {
-    const getDeviceInfo = (): DeviceInfo => {
-      const info: DeviceInfo = {
-        "screen Width": `${window.screen.width}px`,
-        "screen Height": `${window.screen.height}px`,
-        "viewport Width": `${window.innerWidth}px`,
-        "viewport Height": `${window.innerHeight}px`,
-        "device Pixel Ratio": window.devicePixelRatio,
-        "color Depth": window.screen.colorDepth,
-      };
-
-      return info;
-    };
-
-    setDeviceInfo(getDeviceInfo());
-
-    const handleResize = () => {
+    function handleResize() {
       setDeviceInfo(getDeviceInfo());
-    };
+    }
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);

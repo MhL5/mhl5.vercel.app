@@ -3,7 +3,7 @@
   "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**", "!node_modules", "!.next", "!dist", "!build","!todos"]
+    "includes": ["**", "!node_modules", "!.next", "!dist", "!build", "!todos"]
   },
   "formatter": {
     "enabled": true,
@@ -13,11 +13,7 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true,
-      "suspicious": {
-        "noUnknownAtRules": "off",
-        "noConsole": "warn"
-      },
+      "recommended": false,
       "nursery": {
         "useSortedClasses": {
           "level": "warn",
@@ -30,19 +26,6 @@
       },
       "a11y": {
         "useAltText": "on"
-      },
-      "style": {
-        "noRestrictedImports": {
-          "level": "error",
-          "options": {
-            "paths": {
-              "next/image": {
-                "message": "Please import from `@/components/ui/Img` instead.",
-                "importNames": ["default"]
-              }
-            }
-          }
-        }
       }
     },
     "domains": {

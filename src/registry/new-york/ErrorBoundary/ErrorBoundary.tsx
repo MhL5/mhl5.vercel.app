@@ -38,17 +38,17 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     // this is an example of how to log errors in here
     if (!isDev()) return;
 
-    // biome-ignore lint/suspicious/noConsole: we need to log errors in here
+    // eslint-disable-next-line no-console
     console.groupCollapsed("ErrorBoundary caught an error");
-    // biome-ignore lint/suspicious/noConsole: we need to log errors in here
+    // eslint-disable-next-line no-console
     console.log("\x1b[35m" + `Error:` + "\x1b[0m");
-    // biome-ignore lint/suspicious/noConsole: we need to log errors in here
+    // eslint-disable-next-line no-console
     console.dir(_error, { depth: Infinity });
-    // biome-ignore lint/suspicious/noConsole: we need to log errors in here
+    // eslint-disable-next-line no-console
     console.log("\x1b[35m" + `ErrorInfo:` + "\x1b[0m");
-    // biome-ignore lint/suspicious/noConsole: we need to log errors in here
+    // eslint-disable-next-line no-console
     console.dir(_errorInfo, { depth: Infinity });
-    // biome-ignore lint/suspicious/noConsole: we need to log errors in here
+    // eslint-disable-next-line no-console
     console.groupEnd();
   }
 

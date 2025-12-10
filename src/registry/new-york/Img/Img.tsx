@@ -1,6 +1,6 @@
 "use client";
 
-// biome-ignore lint: we need to import next/image here since Img is a wrapper around it
+// eslint-disable-next-line no-restricted-imports
 import Image from "next/image";
 import { type ComponentProps, useState } from "react";
 

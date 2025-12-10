@@ -143,12 +143,9 @@ async function getCodeModuleData(registryItem: string) {
           return `https://mhl5.vercel.app/r/${item.name}.json` === dep;
         });
 
-        let type = depRegistry?.type.split(":")[1];
-        if (type === "lib") type = "util";
-
         return {
           name,
-          href: absoluteUrl(`/snippets/${type}s/${name}`),
+          href: depRegistry?.meta.url,
         };
       } else {
         // This is a shadcn/ui dependency.
