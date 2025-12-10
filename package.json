@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 7777",
+    "dev:webpack": "next dev --webpack --port 7777",
     "dev:https": "next dev --port 7777 --experimental-https",
     "test": "bun test",
     "build": "next build",

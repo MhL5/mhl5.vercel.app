@@ -6,12 +6,12 @@
   "description": "An input that debounces the input value.",
   "registryDependencies": [
     "https://mhl5.vercel.app/r/useDebounce.json",
-    "https://mhl5.vercel.app/r/useTimers.json"
+    "https://mhl5.vercel.app/r/useTimeout.json"
   ],
   "files": [
     {
       "path": "src/registry/new-york/DebouncedInput/DebouncedInput.tsx",
-      "content": "\"use client\";\r\n\r\nimport { type ComponentProps, useEffect, useState } from \"react\";\r\nimport { Input } from \"@/components/ui/input\";\r\nimport { useDebounce } from \"@/registry/hooks/useDebounce/useDebounce\";\r\n\r\ntype DebouncedInputProps = {\r\n  onDebouncedChange: (value: string) => void;\r\n  value?: string;\r\n  delay?: number;\r\n} & Omit<ComponentProps<typeof Input>, \"value\">;\r\n\r\nexport default function DebouncedInput({\r\n  value,\r\n  onDebouncedChange,\r\n  delay = 200,\r\n  onChange,\r\n  ...props\r\n}: DebouncedInputProps) {\r\n  const [inputValue, setInputValue] = useState(value || \"\");\r\n\r\n  useDebounce(\r\n    () => {\r\n      onDebouncedChange(inputValue);\r\n    },\r\n    delay,\r\n    [inputValue],\r\n  );\r\n\r\n  // keeps internal state in sync with the value prop\r\n  useEffect(() => {\r\n    setInputValue(value || \"\");\r\n  }, [value]);\r\n\r\n  return (\r\n    <Input\r\n      value={inputValue}\r\n      onChange={(e) => {\r\n        onChange?.(e);\r\n        setInputValue(e.target.value);\r\n      }}\r\n      {...props}\r\n    />\r\n  );\r\n}\r\n",
+      "content": "\"use client\";\r\n\r\nimport { type ComponentProps, useEffect, useState } from \"react\";\r\nimport { Input } from \"@/components/ui/input\";\r\nimport { useDebounce } from \"@/registry/hooks/useDebounce/useDebounce\";\r\n\r\ntype DebouncedInputProps = {\r\n  onDebouncedChange: (value: string) => void;\r\n  value?: string;\r\n  delay?: number;\r\n} & Omit<ComponentProps<typeof Input>, \"value\">;\r\n\r\nexport default function DebouncedInput({\r\n  value,\r\n  onDebouncedChange,\r\n  delay = 200,\r\n  onChange,\r\n  ...props\r\n}: DebouncedInputProps) {\r\n  const [inputValue, setInputValue] = useState(value || \"\");\r\n\r\n  useDebounce(\r\n    () => {\r\n      onDebouncedChange(inputValue);\r\n    },\r\n    delay,\r\n    [inputValue],\r\n  );\r\n\r\n  useEffect(() => {\r\n    // eslint-disable-next-line react-hooks/set-state-in-effect\r\n    setInputValue(value || \"\"); // keeps internal state in sync with the value prop\r\n  }, [value]);\r\n\r\n  return (\r\n    <Input\r\n      value={inputValue}\r\n      onChange={(e) => {\r\n        onChange?.(e);\r\n        setInputValue(e.target.value);\r\n      }}\r\n      {...props}\r\n    />\r\n  );\r\n}\r\n",
       "type": "registry:ui"
     }
   ]

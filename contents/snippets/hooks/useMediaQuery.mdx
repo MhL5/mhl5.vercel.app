@@ -1,25 +1,16 @@
-this module provides 3 hooks:
+`useMediaQuery` returns `false` on the server (SSR) and the actual match result on the client. It accepts CSS media query strings with auto-complete support. 
 
-- `useMediaQuery`: you can pass any css query string to this hook, it also supports auto complete.
+## Usage
+  
+```ts
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+```
 
-  ```ts
-  const isLg = useMediaQuery("(min-width: 64rem)");
-  const isNotMd = useMediaQuery("(max-width: 48rem)");
-  ```
+<br/>
 
-- `useMediaQueryBreakpoint`: based on Tailwind breakpoints, by default similar to tailwindcss it uses mobile first approach and uses `min-width` you can swap the direction to `max` to check for the breakpoint and below
-
-  ```ts
-  const isMobile = useMediaQueryBreakpoint("sm");
-  const isTablet = useMediaQueryBreakpoint("md", "max");
-  const isDesktop = useMediaQueryBreakpoint("lg", "min");
-  ```
-
-- `useIsMobile`: returns true on `sm`/`640px`/`40rem` and below
-
-  ```ts
-  const isMobile = useIsMobile();
-  ```
+```ts
+const isMobile = useMediaQuery("(min-width: 640px)");
+```
 
 ## Installation
 

@@ -5,12 +5,12 @@
   "title": "useDebounce",
   "description": "A hook for debouncing a value.",
   "registryDependencies": [
-    "https://mhl5.vercel.app/r/useTimers.json"
+    "https://mhl5.vercel.app/r/useTimeout.json"
   ],
   "files": [
     {
       "path": "src/registry/hooks/useDebounce/useDebounce.ts",
-      "content": "\"use client\";\r\n\r\nimport { useEffect, useState } from \"react\";\r\nimport { useTimeout } from \"@/registry/hooks/useTimers/useTimers\";\r\n\r\nexport function useDebounce(\r\n  callback: () => void,\r\n  delay: number,\r\n  dependencies: unknown[],\r\n) {\r\n  const { reset, clear } = useTimeout(callback, delay);\r\n  // biome-ignore lint/correctness/useExhaustiveDependencies: we need to run this on dependencies change\r\n  useEffect(reset, [...dependencies, reset]);\r\n  // biome-ignore lint/correctness/useExhaustiveDependencies: we need to run this on dependencies change\r\n  useEffect(clear, [clear]);\r\n}\r\n\r\nexport function useDebouncedValue<T>(value: T, delay: number) {\r\n  const [debouncedValue, setDebouncedValue] = useState(value);\r\n\r\n  useDebounce(\r\n    () => {\r\n      setDebouncedValue(value);\r\n    },\r\n    delay,\r\n    [value],\r\n  );\r\n\r\n  return debouncedValue;\r\n}\r\n",
+      "content": "\"use client\";\r\n\r\nimport { useEffect, useState } from \"react\";\r\nimport { useTimeout } from \"@/registry/hooks/useTimeout/useTimeout\";\r\n\r\nexport function useDebounce(\r\n  callback: () => void,\r\n  delay: number,\r\n  dependencies: unknown[],\r\n) {\r\n  const { reset, clear } = useTimeout(callback, delay);\r\n  // biome-ignore lint/correctness/useExhaustiveDependencies: we need to run this on dependencies change\r\n  useEffect(reset, [...dependencies, reset]);\r\n  // biome-ignore lint/correctness/useExhaustiveDependencies: we need to run this on dependencies change\r\n  useEffect(clear, [clear]);\r\n}\r\n\r\nexport function useDebouncedValue<T>(value: T, delay: number) {\r\n  const [debouncedValue, setDebouncedValue] = useState(value);\r\n\r\n  useDebounce(\r\n    () => {\r\n      setDebouncedValue(value);\r\n    },\r\n    delay,\r\n    [value],\r\n  );\r\n\r\n  return debouncedValue;\r\n}\r\n",
       "type": "registry:hook"
     }
   ]
