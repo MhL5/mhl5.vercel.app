@@ -11,5 +11,8 @@
       "type": "registry:lib",
       "target": "src/types/RequiredPick.ts"
     }
-  ]
+  ],
+  "meta": {
+    "url": "/snippets/types/RequiredPick"
+  }
 }

@@ -10,5 +10,8 @@
       "content": "\"use client\";\n\nimport { useCallback, useEffect, useRef, useState } from \"react\";\n\ntype CopyState = \"idle\" | \"copied\" | \"error\";\n\nexport default function useCopyToClipboard(contentToCopy: string) {\n  const [copyState, setCopyState] = useState<CopyState>(\"idle\");\n  const timeoutRef = useRef<NodeJS.Timeout | null>(null);\n\n  const handleCopy = useCallback(async () => {\n    try {\n      if (timeoutRef.current) clearTimeout(timeoutRef.current);\n\n      await navigator.clipboard.writeText(contentToCopy);\n      setCopyState(\"copied\");\n\n      timeoutRef.current = setTimeout(() => {\n        setCopyState(\"idle\");\n      }, 2000);\n    } catch {\n      setCopyState(\"error\");\n    }\n  }, [contentToCopy]);\n\n  useEffect(() => {\n    return () => {\n      if (timeoutRef.current) clearTimeout(timeoutRef.current);\n    };\n  }, []);\n\n  return { copyState, handleCopy };\n}\n",
       "type": "registry:hook"
     }
-  ]
+  ],
+  "meta": {
+    "url": "/snippets/hooks/useCopyToClipboard"
+  }
 }

@@ -90,5 +90,8 @@
         "opacity": "1"
       }
     }
+  },
+  "meta": {
+    "url": "/snippets/components/FallbackPages"
   }
 }

@@ -10,5 +10,8 @@
       "content": "\"use client\";\n\nimport { useEffect, useRef } from \"react\";\n\n// Overload for Window events\nexport default function useEventListener<T extends keyof WindowEventMap>(\n  eventType: T,\n  callback: (e: WindowEventMap[T]) => void,\n  element?: Window | undefined,\n): void;\n\n// Overload for Document events\nexport default function useEventListener<T extends keyof DocumentEventMap>(\n  eventType: T,\n  callback: (e: DocumentEventMap[T]) => void,\n  element: Document | undefined,\n): void;\n\n// Overload for HTMLElement and EventTarget (ref.current) events\nexport default function useEventListener<T extends keyof HTMLElementEventMap>(\n  eventType: T,\n  callback: (e: HTMLElementEventMap[T]) => void,\n  element: HTMLElement | EventTarget | undefined,\n): void;\n\nexport default function useEventListener<\n  T extends keyof (WindowEventMap & DocumentEventMap & HTMLElementEventMap),\n>(\n  eventType: T,\n  callback: (e: Event) => void,\n  element:\n    | Window\n    | Document\n    | HTMLElement\n    | EventTarget\n    | undefined = undefined,\n): void {\n  const callbackRef = useRef(callback);\n\n  useEffect(() => {\n    callbackRef.current = callback;\n  }, [callback]);\n\n  useEffect(() => {\n    if (!element) return;\n\n    const handler = (e: Event) => callbackRef.current(e);\n    element.addEventListener(eventType, handler as EventListener);\n\n    return () =>\n      element.removeEventListener(eventType, handler as EventListener);\n  }, [eventType, element]);\n}\n",
       "type": "registry:hook"
     }
-  ]
+  ],
+  "meta": {
+    "url": "/snippets/hooks/useEventListener"
+  }
 }

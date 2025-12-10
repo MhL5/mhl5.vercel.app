@@ -10,5 +10,8 @@
       "content": "\"use client\";\r\n\r\nimport { useCallback, useEffect, useRef } from \"react\";\r\n\r\nexport function useInterval(callback: () => void, delay: number) {\r\n  const callbackRef = useRef(callback);\r\n  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);\r\n\r\n  const set = useCallback(() => {\r\n    if (intervalRef.current) clearInterval(intervalRef.current);\r\n    intervalRef.current = setInterval(() => callbackRef.current(), delay);\r\n  }, [delay]);\r\n\r\n  const clear = useCallback(() => {\r\n    if (!intervalRef.current) return;\r\n\r\n    clearInterval(intervalRef.current);\r\n    intervalRef.current = null;\r\n  }, []);\r\n\r\n  const reset = useCallback(() => {\r\n    clear();\r\n    set();\r\n  }, [clear, set]);\r\n\r\n  useEffect(() => {\r\n    callbackRef.current = callback;\r\n  }, [callback]);\r\n\r\n  useEffect(() => {\r\n    set();\r\n    return clear;\r\n  }, [set, clear]);\r\n\r\n  return { reset, clear };\r\n}\r\n",
       "type": "registry:hook"
     }
-  ]
+  ],
+  "meta": {
+    "url": "/snippets/hooks/useInterval"
+  }
 }

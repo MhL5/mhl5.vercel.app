@@ -8,6 +8,9 @@
       "type": "registry:component",
       "title": "AutoGrid",
       "description": "a component that automatically adjusts the grid columns without relying on breakpoints.",
+      "meta": {
+        "url": "/snippets/components/AutoGrid"
+      },
       "files": [
         {
           "path": "src/registry/new-york/AutoGrid/AutoGrid.tsx",
@@ -20,6 +23,9 @@
       "type": "registry:ui",
       "title": "DebouncedInput",
       "description": "An input that debounces the input value.",
+      "meta": {
+        "url": "/snippets/components/DebouncedInput"
+      },
       "registryDependencies": [
         "https://mhl5.vercel.app/r/useDebounce.json",
         "https://mhl5.vercel.app/r/useTimeout.json"
@@ -36,6 +42,9 @@
       "type": "registry:ui",
       "title": "DrawerDialog",
       "description": "a responsive dialog that renders a drawer (`max-width: 640px`) and a dialog on larger screens.",
+      "meta": {
+        "url": "/snippets/components/DrawerDialog"
+      },
       "registryDependencies": [
         "dialog",
         "drawer",
@@ -53,6 +62,9 @@
       "type": "registry:ui",
       "title": "ErrorBoundary",
       "description": "a React boundary component that renders a fallback UI when an error occurs.",
+      "meta": {
+        "url": "/snippets/components/ErrorBoundary"
+      },
       "registryDependencies": [
         "button",
         "https://mhl5.vercel.app/r/checks.json"
@@ -70,6 +82,9 @@
       "type": "registry:component",
       "title": "FallbackPages",
       "description": "loading, error and not found pages.",
+      "meta": {
+        "url": "/snippets/components/FallbackPages"
+      },
       "registryDependencies": [
         "https://mhl5.vercel.app/r/checks.json",
         "button"
@@ -159,6 +174,9 @@
       "type": "registry:ui",
       "title": "Img",
       "description": "a component that renders an image with a fallback if the image fails to load.",
+      "meta": {
+        "url": "/snippets/components/Img"
+      },
       "files": [
         {
           "path": "src/registry/new-york/Img/Img.tsx",
@@ -171,6 +189,9 @@
       "type": "registry:component",
       "title": "StructuredDataScript",
       "description": "A type-safe component for adding structured data to the page.",
+      "meta": {
+        "url": "/snippets/components/StructuredDataScript"
+      },
       "devDependencies": ["schema-dts"],
       "files": [
         {
@@ -184,6 +205,9 @@
       "type": "registry:component",
       "title": "TagsInput",
       "description": "A component for inputting tags.",
+      "meta": {
+        "url": "/snippets/components/TagsInput"
+      },
       "registryDependencies": ["button", "input", "tooltip", "kbd"],
       "dependencies": ["lucide-react"],
       "files": [
@@ -199,6 +223,9 @@
       "type": "registry:hook",
       "title": "useCopyToClipboard",
       "description": "A hook for copying content to clipboard.",
+      "meta": {
+        "url": "/snippets/hooks/useCopyToClipboard"
+      },
       "files": [
         {
           "path": "src/registry/hooks/useCopyToClipboard/useCopyToClipboard.ts",
@@ -211,6 +238,9 @@
       "type": "registry:hook",
       "title": "useDebounce",
       "description": "A hook for debouncing a value.",
+      "meta": {
+        "url": "/snippets/hooks/useDebounce"
+      },
       "registryDependencies": ["https://mhl5.vercel.app/r/useTimeout.json"],
       "files": [
         {
@@ -224,6 +254,9 @@
       "type": "registry:hook",
       "title": "useEventListener",
       "description": "A hook for adding event listeners with proper cleanup.",
+      "meta": {
+        "url": "/snippets/hooks/useEventListener"
+      },
       "files": [
         {
           "path": "src/registry/hooks/useEventListener/useEventListener.ts",
@@ -236,6 +269,9 @@
       "type": "registry:hook",
       "title": "useIsMounted",
       "description": "A hook for checking if the component is mounted.",
+      "meta": {
+        "url": "/snippets/hooks/useIsMounted"
+      },
       "files": [
         {
           "path": "src/registry/hooks/useIsMounted/useIsMounted.ts",
@@ -248,6 +284,9 @@
       "type": "registry:hook",
       "title": "useIsVisible",
       "description": "A hook for checking if an element is visible in the viewport using Intersection Observer API.",
+      "meta": {
+        "url": "/snippets/hooks/useIsVisible"
+      },
       "files": [
         {
           "path": "src/registry/hooks/useIsVisible/useIsVisible.ts",
@@ -260,6 +299,9 @@
       "type": "registry:hook",
       "title": "useMediaQuery",
       "description": "`useMediaQuery` uses `useSyncExternalStore` to reactively track media query matches.",
+      "meta": {
+        "url": "/snippets/hooks/useMediaQuery"
+      },
       "registryDependencies": ["https://mhl5.vercel.app/r/AutoComplete.json"],
       "files": [
         {
@@ -273,6 +315,9 @@
       "type": "registry:hook",
       "title": "useOnClickOutside",
       "description": "A hook to handle clicks outside of a component.",
+      "meta": {
+        "url": "/snippets/hooks/useOnClickOutside"
+      },
       "registryDependencies": [
         "https://mhl5.vercel.app/r/useEventListener.json",
         "https://mhl5.vercel.app/r/checks.json"
@@ -289,6 +334,9 @@
       "type": "registry:hook",
       "title": "useOtp",
       "description": "A hook for grabbing OTP codes from the user device.",
+      "meta": {
+        "url": "/snippets/hooks/useOtp"
+      },
       "files": [
         {
           "path": "src/registry/hooks/useOtp/useOtp.ts",
@@ -301,6 +349,9 @@
       "type": "registry:hook",
       "title": "useStepper",
       "description": "A hook for managing step-based navigation logic.",
+      "meta": {
+        "url": "/snippets/hooks/useStepper"
+      },
       "files": [
         {
           "path": "src/registry/hooks/useStepper/useStepper.ts",
@@ -313,6 +364,9 @@
       "type": "registry:hook",
       "title": "useSessionStorage",
       "description": "A React hook built on top of `useSyncExternalStore` for managing state with `sessionStorage`.",
+      "meta": {
+        "url": "/snippets/hooks/useSessionStorage"
+      },
       "registryDependencies": ["https://mhl5.vercel.app/r/checks.json"],
       "files": [
         {
@@ -326,6 +380,9 @@
       "type": "registry:hook",
       "title": "useLocalStorage",
       "description": "A React hook built on top of `useSyncExternalStore` that synchronizes state with `localStorage`, providing reactive updates across browser tabs and windows.",
+      "meta": {
+        "url": "/snippets/hooks/useLocalStorage"
+      },
       "registryDependencies": ["https://mhl5.vercel.app/r/checks.json"],
       "files": [
         {
@@ -339,6 +396,9 @@
       "type": "registry:hook",
       "title": "useTimeout",
       "description": "A hook for setting a timeout.",
+      "meta": {
+        "url": "/snippets/hooks/useTimeout"
+      },
       "files": [
         {
           "path": "src/registry/hooks/useTimeout/useTimeout.ts",
@@ -351,6 +411,9 @@
       "type": "registry:hook",
       "title": "useInterval",
       "description": "A hook for setting an interval.",
+      "meta": {
+        "url": "/snippets/hooks/useInterval"
+      },
       "files": [
         {
           "path": "src/registry/hooks/useInterval/useInterval.ts",
@@ -363,6 +426,9 @@
       "type": "registry:hook",
       "title": "useUrlState",
       "description": "A hook for managing state in the URL search parameters.",
+      "meta": {
+        "url": "/snippets/hooks/useUrlState"
+      },
       "files": [
         {
           "path": "src/registry/hooks/useUrlState/useUrlState.ts",
@@ -376,6 +442,9 @@
       "type": "registry:lib",
       "title": "AutoComplete",
       "description": "a generic type that allows you to autocomplete the string or number",
+      "meta": {
+        "url": "/snippets/types/AutoComplete"
+      },
       "files": [
         {
           "path": "src/registry/types/AutoComplete/AutoComplete.ts",
@@ -389,6 +458,9 @@
       "type": "registry:lib",
       "title": "PartialPick",
       "description": "by default, the partial makes everything optional, but you can use this type to make a partial pick of a type.",
+      "meta": {
+        "url": "/snippets/types/PartialPick"
+      },
       "files": [
         {
           "path": "src/registry/types/PartialPick/PartialPick.ts",
@@ -402,6 +474,9 @@
       "type": "registry:lib",
       "title": "RequiredPick",
       "description": "by default, the required makes everything required, but you can use this type to make a required pick of a type.",
+      "meta": {
+        "url": "/snippets/types/RequiredPick"
+      },
       "files": [
         {
           "path": "src/registry/types/RequiredPick/RequiredPick.ts",
@@ -416,6 +491,9 @@
       "type": "registry:lib",
       "title": "Checks",
       "description": "a collection of utility functions for checking the environment of the code is running on.",
+      "meta": {
+        "url": "/snippets/utils/checks"
+      },
       "files": [
         {
           "path": "src/registry/utils/checks/checks.ts",
@@ -429,6 +507,9 @@
       "type": "registry:lib",
       "title": "tryCatch",
       "description": "utility function for catching errors, it aims to replace `try-catch` blocks. it returns a tuple of `[error, data]` and its fully type safe.",
+      "meta": {
+        "url": "/snippets/utils/tryCatch"
+      },
       "files": [
         {
           "path": "src/registry/utils/tryCatch/tryCatch.ts",
@@ -442,6 +523,9 @@
       "type": "registry:lib",
       "title": "groupByKey",
       "description": "a utility function for grouping an array of objects by a key.",
+      "meta": {
+        "url": "/snippets/utils/groupByKey"
+      },
       "files": [
         {
           "path": "src/registry/utils/groupByKey/groupByKey.ts",
@@ -455,6 +539,9 @@
       "type": "registry:lib",
       "title": "formatters",
       "description": "A collection of formatters for strings, dates, numbers and currencies.",
+      "meta": {
+        "url": "/snippets/utils/formatters"
+      },
       "files": [
         {
           "path": "src/registry/utils/formatters/formatters.ts",
@@ -468,6 +555,9 @@
       "type": "registry:lib",
       "title": "wait",
       "description": "A collection of wait functions for simulating a delay.",
+      "meta": {
+        "url": "/snippets/utils/wait"
+      },
       "files": [
         {
           "path": "src/registry/utils/wait/wait.ts",

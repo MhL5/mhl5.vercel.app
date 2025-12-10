@@ -11,5 +11,8 @@
       "type": "registry:lib",
       "target": "src/utils/tryCatch.ts"
     }
-  ]
+  ],
+  "meta": {
+    "url": "/snippets/utils/tryCatch"
+  }
 }

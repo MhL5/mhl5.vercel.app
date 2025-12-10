@@ -10,5 +10,8 @@
       "content": "\"use client\";\n\nimport { useSyncExternalStore } from \"react\";\n\nconst subscribe = (onStoreChange: () => void) => () => onStoreChange();\nconst getSnapshot = () => true;\nconst getServerSnapshot = () => false;\n\nexport const useIsMounted = () =>\n  useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);\n",
       "type": "registry:hook"
     }
-  ]
+  ],
+  "meta": {
+    "url": "/snippets/hooks/useIsMounted"
+  }
 }

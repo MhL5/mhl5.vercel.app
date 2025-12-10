@@ -11,5 +11,8 @@
       "type": "registry:lib",
       "target": "src/types/AutoComplete.ts"
     }
-  ]
+  ],
+  "meta": {
+    "url": "/snippets/types/AutoComplete"
+  }
 }

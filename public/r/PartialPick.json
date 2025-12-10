@@ -11,5 +11,8 @@
       "type": "registry:lib",
       "target": "src/types/PartialPick.ts"
     }
-  ]
+  ],
+  "meta": {
+    "url": "/snippets/types/PartialPick"
+  }
 }

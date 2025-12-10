@@ -10,5 +10,8 @@
       "content": "\"use client\";\r\n\r\nimport { useCallback, useEffect, useRef } from \"react\";\r\n\r\nexport function useTimeout(callback: () => void, delay: number) {\r\n  const callbackRef = useRef(callback);\r\n  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);\r\n\r\n  const set = useCallback(() => {\r\n    if (timeoutRef.current) clearTimeout(timeoutRef.current);\r\n    timeoutRef.current = setTimeout(() => callbackRef.current(), delay);\r\n  }, [delay]);\r\n\r\n  const clear = useCallback(() => {\r\n    if (!timeoutRef.current) return;\r\n\r\n    clearTimeout(timeoutRef.current);\r\n    timeoutRef.current = null;\r\n  }, []);\r\n\r\n  const reset = useCallback(() => {\r\n    clear();\r\n    set();\r\n  }, [clear, set]);\r\n\r\n  useEffect(() => {\r\n    callbackRef.current = callback;\r\n  }, [callback]);\r\n\r\n  useEffect(() => {\r\n    set();\r\n    return clear;\r\n  }, [set, clear]);\r\n\r\n  return { reset, clear };\r\n}\r\n",
       "type": "registry:hook"
     }
-  ]
+  ],
+  "meta": {
+    "url": "/snippets/hooks/useTimeout"
+  }
 }
