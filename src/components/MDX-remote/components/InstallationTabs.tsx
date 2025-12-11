@@ -1,14 +1,13 @@
 import type { Route } from "next";
 import Link from "next/link";
+import { getShadcnRegistry } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { shadcnRegistry } from "@/constants/constants";
 import type {
   CssVars,
   RegistryFileType,
   RegistryItemSchema,
 } from "@/types/shadcn-registry";
 import { absoluteUrl } from "@/utils/absoluteUrl";
-
 import CliCommandCode from "./CliCommandCode";
 import CollapsibleCodeCard from "./CollapsibleCodeCard";
 import ComponentSource from "./ComponentSource";
@@ -118,6 +117,7 @@ export default async function InstallationTabs({
 async function getCodeModuleData(registryItem: string) {
   const registryJson = (await import(`~/public/r/${registryItem}.json`))
     ?.default as RegistryItemSchema;
+  const shadcnRegistry = await getShadcnRegistry();
 
   const cssVars = registryJson?.cssVars || null;
 

@@ -3,6 +3,8 @@
 import type { Route } from "next";
 import Link from "next/link";
 import { Fragment, useState } from "react";
+import { snippetsCategoryConfig } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
+import { useSnippetsLinks } from "@/app/(with-navigation)/snippets/_context/SnippetsLinksContext";
 import LinkIndicator from "@/components/LinkIndicator";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,7 +14,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { navigationLinks, snippetsCategoryConfig } from "@/constants/constants";
 import { cn } from "@/lib/utils";
 import useUrlState from "@/registry/hooks/useUrlState/useUrlState";
 import AutoGrid from "@/registry/new-york/AutoGrid/AutoGrid";
@@ -25,6 +26,7 @@ export default function SnippetsList() {
     shallow: true,
   });
   const [search, setSearch] = useState("");
+  const links = useSnippetsLinks();
 
   const categoryClassName =
     snippetsCategoryConfig?.[
@@ -55,7 +57,7 @@ export default function SnippetsList() {
                 <SelectItem value="all" className="capitalize">
                   All
                 </SelectItem>
-                {navigationLinks.map((link) => {
+                {links.map((link) => {
                   return (
                     <SelectItem
                       key={link.title}
@@ -85,7 +87,7 @@ export default function SnippetsList() {
         className="mx-auto max-w-4xl"
         as="div"
       >
-        {navigationLinks.map((link) => {
+        {links.map((link) => {
           if (
             categoryFiler !== "all" &&
             !link.title
