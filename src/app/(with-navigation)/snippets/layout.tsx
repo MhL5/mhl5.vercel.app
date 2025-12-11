@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Aside from "@/app/(with-navigation)/snippets/_components/Aside";
+import { getSnippetsLinks } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
+import { SnippetsLinksProvider } from "@/app/(with-navigation)/snippets/_context/SnippetsLinksContext";
 import ScrollToTop from "@/components/utils/ScrollToTop";
-import { navigationLinks } from "@/constants/constants";
 
 export const metadata: Metadata = {
   title: "Code Snippets Collection",
@@ -33,15 +34,19 @@ export const metadata: Metadata = {
   category: "technology",
 };
 
-export default function MdxLayout({ children }: LayoutProps<"/snippets">) {
+export default function Layout({ children }: LayoutProps<"/snippets">) {
+  const snippetsLinksPromise = getSnippetsLinks();
+
   return (
     <>
       <ScrollToTop variant="on-navigation" />
 
       <div className="mx-auto grid min-h-svh w-full max-w-8xl lg:grid-cols-[14rem_1fr] xl:grid-cols-[17.875rem_1fr]">
-        <Aside navigationLinks={navigationLinks} className="hidden lg:block" />
+        <SnippetsLinksProvider linksPromise={snippetsLinksPromise}>
+          <Aside className="hidden lg:block" />
 
-        {children}
+          {children}
+        </SnippetsLinksProvider>
       </div>
     </>
   );

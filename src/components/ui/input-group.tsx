@@ -9,7 +9,6 @@ import { cn } from "@/lib/utils";
 
 function InputGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
-    // biome-ignore lint/a11y/useSemanticElements: it should be a div
     <div
       data-slot="input-group"
       role="group"

@@ -1,5 +1,5 @@
 import { Book, Code2, Palette } from "lucide-react";
-import { snippetsCategoryConfig } from "@/constants/constants";
+import { snippetsCategoryConfig } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
 
 export type Bookmark = {
   title: string;
