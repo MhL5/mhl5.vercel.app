@@ -45,7 +45,7 @@ function DrawerDialogProvider({
   isOpen,
   setIsOpen,
 }: DrawerDialogProviderProps) {
-  const isSm = useMediaQuery("(min-width: 42rem)");
+  const isSm = useMediaQuery("(min-width: 40rem)");
 
   return (
     <DrawerDialogContext value={{ isSm }}>
