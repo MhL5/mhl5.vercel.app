@@ -63,7 +63,6 @@ function InputGroupAddon({
   ...props
 }: React.ComponentProps<"div"> & VariantProps<typeof inputGroupAddonVariants>) {
   return (
-    // biome-ignore lint/a11y/useSemanticElements: it should be a div
     <div
       role="group"
       data-slot="input-group-addon"

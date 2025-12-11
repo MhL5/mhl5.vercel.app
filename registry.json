@@ -489,7 +489,7 @@
     {
       "name": "checks",
       "type": "registry:lib",
-      "title": "Checks",
+      "title": "checks",
       "description": "a collection of utility functions for checking the environment of the code is running on.",
       "meta": {
         "url": "/snippets/utils/checks"
