@@ -2,7 +2,7 @@
 
 // eslint-disable-next-line no-restricted-imports
 import Image from "next/image";
-import { type ComponentProps, useState } from "react";
+import { type ComponentProps, useEffect, useState } from "react";
 
 // the image is also in the public folder https://mhl5.vercel.app/image-placeholder.svg
 const fallbackSvgBase64 =
@@ -20,6 +20,12 @@ export default function Img({
 }: ImgProps) {
   const [imgState, setImageState] = useState<ImgState>("default");
   const placeholder = src ? placeholderProp : "empty";
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: we need to update the state when the src changes
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setImageState("default");
+  }, [src]);
 
   // display fallback svg when image fails to load
   if (imgState === "fallback-svg")
