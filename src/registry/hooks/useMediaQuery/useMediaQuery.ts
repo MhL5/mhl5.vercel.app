@@ -16,6 +16,7 @@ function useMediaQuery(query: string) {
   return useSyncExternalStore(
     (onChange) => subscribe(query, onChange),
     () => getSnapshot(query),
+    () => undefined,
   );
 }
 
