@@ -2,7 +2,14 @@
 
 import type { Route } from "next";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useRef, useState, useTransition } from "react";
+import {
+  useCallback,
+  useEffect,
+  useEffectEvent,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
 
 type Options = {
   defaultValue?: string | (() => string);
@@ -56,10 +63,13 @@ export default function useUrlState(name: string, options: Options = {}) {
     [name, pathname, router, searchParams, state],
   );
 
+  const onSearchParamValueChange = useEffectEvent((value: string) => {
+    setState(value);
+  });
+
   useEffect(() => {
     const value = searchParams.get(name);
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (value) setState(value); // updates the state when the search params change
+    if (value) onSearchParamValueChange(value); // updates the state when the search params change
   }, [name, searchParams]);
 
   return [state, handleSetState, isPending] as const;
