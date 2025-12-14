@@ -1,8 +1,5 @@
 "use client";
 
-import type { Route } from "next";
-import Link from "next/link";
-import { Fragment, useState } from "react";
 import { snippetsCategoryConfig } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
 import { useSnippetsLinks } from "@/app/(with-navigation)/snippets/_context/SnippetsLinksContext";
 import LinkIndicator from "@/components/LinkIndicator";
@@ -18,6 +15,9 @@ import { cn } from "@/lib/utils";
 import useUrlState from "@/registry/hooks/useUrlState/useUrlState";
 import AutoGrid from "@/registry/new-york/AutoGrid/AutoGrid";
 import DebouncedInput from "@/registry/new-york/DebouncedInput/DebouncedInput";
+import type { Route } from "next";
+import Link from "next/link";
+import { Fragment, useState } from "react";
 
 export default function SnippetsList() {
   const [categoryFiler, setCategoryFilter] = useUrlState("category", {
@@ -37,7 +37,7 @@ export default function SnippetsList() {
     <section id="search" className="not-prose mt-8 min-h-svh">
       <header className="mb-4 flex flex-col items-start justify-between gap-5">
         <div className="flex w-full flex-wrap items-center justify-between gap-2">
-          <h2 className="scroll-m-20 text-start font-semibold text-3xl tracking-tight">
+          <h2 className="scroll-m-20 text-start text-3xl font-semibold tracking-tight">
             Snippets
           </h2>
 

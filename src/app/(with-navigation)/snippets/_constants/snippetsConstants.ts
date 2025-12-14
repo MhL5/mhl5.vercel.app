@@ -1,6 +1,6 @@
+import HookSvg from "@/components/icons/HookSvg";
 import { Code2, Globe, Package, Wrench } from "lucide-react";
 import { cache } from "react";
-import HookSvg from "@/components/icons/HookSvg";
 
 type ShadcnRegistry = Awaited<ReturnType<typeof getShadcnRegistry>>;
 
@@ -48,6 +48,8 @@ type Links = {
     url: string;
   }[];
 };
+
+export type SnippetsLinks = Awaited<ReturnType<typeof getSnippetsLinks>>;
 
 const getSnippetsLinks = cache(async () => {
   const shadcnRegistry = await getShadcnRegistry();

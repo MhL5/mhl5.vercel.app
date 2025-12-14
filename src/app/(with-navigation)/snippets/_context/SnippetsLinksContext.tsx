@@ -1,13 +1,12 @@
 "use client";
 
-import { createContext, type PropsWithChildren, use } from "react";
-import { getSnippetsLinks } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
+import {
+  type SnippetsLinks,
+  getSnippetsLinks,
+} from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
+import { type PropsWithChildren, createContext, use } from "react";
 
-type SnippetsLinksContextType = Awaited<ReturnType<typeof getSnippetsLinks>>;
-
-const SnippetsLinksContext = createContext<SnippetsLinksContextType | null>(
-  null,
-);
+const SnippetsLinksContext = createContext<SnippetsLinks | null>(null);
 
 type SnippetsLinksProviderProps = PropsWithChildren<{
   linksPromise: ReturnType<typeof getSnippetsLinks>;
