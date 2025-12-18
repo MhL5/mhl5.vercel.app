@@ -1,5 +1,5 @@
-import { Book, Code2, Palette } from "lucide-react";
 import { snippetsCategoryConfig } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
+import { Book, Code2, Palette } from "lucide-react";
 
 export type Bookmark = {
   title: string;
@@ -401,6 +401,20 @@ const uiBookmarks: Bookmark[] = [
     title: "Solace UI",
     description:
       "Production-ready sections, animated components, and full-page templates for Next.js, Tailwind CSS & Framer Motion",
+  },
+  {
+    url: "https://square.lndev.me/",
+    category: "ui",
+    title: "Square Ui",
+    description:
+      "Collection of beautifully crafted open-source layouts UI built with shadcn/ui.",
+  },
+  {
+    url: "https://www.fancycomponents.dev/",
+    category: "ui",
+    title: "Fancy Components",
+    description:
+      "with a growing library of ready-to-use react components & micro interactions. free & open source.. very good documentation",
   },
 ];
 
