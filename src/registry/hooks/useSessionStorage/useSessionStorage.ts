@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useMemo, useSyncExternalStore } from "react";
 import { isDev } from "@/registry/utils/checks/checks";
+import { useCallback, useMemo, useSyncExternalStore } from "react";
 
 const SESSION_STORAGE_CHANGE_EVENT = "session-storage-change";
 
@@ -34,7 +34,7 @@ export function useSessionStorage<T>(key: string, defaultValue: T | (() => T)) {
    */
   const jsonSnapshot = useSyncExternalStore(subscribe, getSnapshot);
 
-  const parsedSnapshot = useMemo(() => {
+  const parsedSnapshot: T = useMemo(() => {
     const resolvedInitialValue =
       defaultValue instanceof Function ? defaultValue() : defaultValue;
     try {

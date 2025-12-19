@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useMemo, useSyncExternalStore } from "react";
 import { isDev } from "@/registry/utils/checks/checks";
+import { useCallback, useMemo, useSyncExternalStore } from "react";
 
 const LOCAL_STORAGE_CHANGE_EVENT = "local-storage-change";
 
@@ -43,7 +43,7 @@ export function useLocalStorage<T>(key: string, initialValue: T | (() => T)) {
    */
   const jsonSnapshot = useSyncExternalStore(subscribe, getSnapshot);
 
-  const parsedSnapshot = useMemo(() => {
+  const parsedSnapshot: T = useMemo(() => {
     const resolvedInitialValue =
       initialValue instanceof Function ? initialValue() : initialValue;
     try {
