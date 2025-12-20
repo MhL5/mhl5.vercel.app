@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useEffectEvent } from "react";
 
 // Overload for Window events
 export default function useEventListener<T extends keyof WindowEventMap>(
@@ -28,26 +28,20 @@ export default function useEventListener<
 >(
   eventType: T,
   callback: (e: Event) => void,
-  element:
-    | Window
-    | Document
-    | HTMLElement
-    | EventTarget
-    | undefined = undefined,
+  element: Window | Document | HTMLElement | EventTarget | undefined = window,
 ): void {
-  const callbackRef = useRef(callback);
-
-  useEffect(() => {
-    callbackRef.current = callback;
-  }, [callback]);
+  const eventHandler = useEffectEvent((e: Event) => {
+    callback(e);
+  });
 
   useEffect(() => {
     if (!element) return;
+    const abortController = new AbortController();
 
-    const handler = (e: Event) => callbackRef.current(e);
-    element.addEventListener(eventType, handler as EventListener);
+    element.addEventListener(eventType, eventHandler, {
+      signal: abortController.signal,
+    });
 
-    return () =>
-      element.removeEventListener(eventType, handler as EventListener);
+    return () => abortController.abort();
   }, [eventType, element]);
 }
