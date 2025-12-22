@@ -6,21 +6,21 @@ import { useEffect, useEffectEvent } from "react";
 export default function useEventListener<T extends keyof WindowEventMap>(
   eventType: T,
   callback: (e: WindowEventMap[T]) => void,
-  element?: Window | undefined,
+  element?: Window,
 ): void;
 
 // Overload for Document events
 export default function useEventListener<T extends keyof DocumentEventMap>(
   eventType: T,
   callback: (e: DocumentEventMap[T]) => void,
-  element: Document | undefined,
+  element: Document,
 ): void;
 
 // Overload for HTMLElement and EventTarget (ref.current) events
 export default function useEventListener<T extends keyof HTMLElementEventMap>(
   eventType: T,
   callback: (e: HTMLElementEventMap[T]) => void,
-  element: HTMLElement | EventTarget | undefined,
+  element: HTMLElement | EventTarget,
 ): void;
 
 export default function useEventListener<
@@ -28,7 +28,7 @@ export default function useEventListener<
 >(
   eventType: T,
   callback: (e: Event) => void,
-  element: Window | Document | HTMLElement | EventTarget | undefined = window,
+  element: Window | Document | HTMLElement | EventTarget = window,
 ): void {
   const eventHandler = useEffectEvent((e: Event) => {
     callback(e);
