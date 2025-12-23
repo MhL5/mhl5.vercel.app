@@ -10,7 +10,7 @@
   "files": [
     {
       "path": "src/registry/new-york/StructuredDataScript/StructuredDataScript.tsx",
-      "content": "import type { Thing, WithContext } from \"schema-dts\";\n\ntype StructuredDataScriptProps<T extends Thing> = {\n  data: WithContext<T>;\n  id?: string;\n};\n\nexport default function StructuredDataScript<T extends Thing>({\n  data,\n  id,\n}: StructuredDataScriptProps<T>) {\n  return (\n    <script\n      id={id}\n      type=\"application/ld+json\"\n      // biome-ignore lint/security/noDangerouslySetInnerHtml: this is safe because the data comes from our code and not from the users\n      dangerouslySetInnerHTML={{\n        __html: JSON.stringify(data),\n      }}\n    />\n  );\n}\n",
+      "content": "import type { Thing, WithContext } from \"schema-dts\";\n\ntype StructuredDataScriptProps<T extends Thing> = {\n  data: WithContext<T>;\n  id?: string;\n};\n\nexport default function StructuredDataScript<T extends Thing>({\n  data,\n  id,\n}: StructuredDataScriptProps<T>) {\n  return (\n    <script\n      id={id}\n      type=\"application/ld+json\"\n      // this is safe as long as the data comes from our code and not from the users input\n      dangerouslySetInnerHTML={{\n        __html: JSON.stringify(data),\n      }}\n    />\n  );\n}\n",
       "type": "registry:component"
     }
   ],
