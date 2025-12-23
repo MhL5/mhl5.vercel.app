@@ -1,25 +1,19 @@
 "use client";
 
-import {
-  AlertTriangle,
-  ArrowLeft,
-  Circle,
-  FileQuestion,
-  Home,
-  RotateCcw,
-} from "lucide-react";
-import Link from "next/link";
 import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { isDev } from "@/registry/utils/checks/checks";
+import { ArrowLeft, Circle, Home, RotateCcw } from "lucide-react";
+import Link from "next/link";
 
 const fallbackPagesData = {
   "not-found": {
-    title: "Page not found",
-    description: "The page you're looking for doesn't exist or has been moved.",
+    title: "Nothing to see here",
+    description:
+      "Page you are trying to open does not exist. You may have mistyped the address, or the page has been moved to another URL. If you think this is an error contact support.",
   },
   error: {
-    title: "Something went wrong!",
+    title: "Something bad just happened...",
     description:
       "We encountered an unexpected error. Please try again or contact support if the problem persists.",
   },
@@ -56,31 +50,35 @@ function FallbackPages(props: FallbackPagesProps) {
 
           <Logo className="z-10 col-start-1 row-start-1 size-19 animate-loadingFadeIn rounded-full bg-primary p-1 opacity-0 starting:opacity-0" />
 
-          <div className="col-start-1 col-end-1 row-start-1 row-end-1 h-20 w-20 animate-pingMd rounded-full bg-primary/80 starting:opacity-0 delay-1000" />
-          <div className="col-start-1 col-end-1 row-start-1 row-end-1 h-20 w-20 animate-pingSm rounded-full bg-primary/80 starting:opacity-0 delay-1000" />
+          <div className="col-start-1 col-end-1 row-start-1 row-end-1 h-20 w-20 animate-pingMd rounded-full bg-primary/80 delay-1000 starting:opacity-0" />
+          <div className="col-start-1 col-end-1 row-start-1 row-end-1 h-20 w-20 animate-pingSm rounded-full bg-primary/80 delay-1000 starting:opacity-0" />
         </div>
       </section>
     );
 
-  const Icon = props.variant === "not-found" ? FileQuestion : AlertTriangle;
-
   return (
     <section className="grid min-h-svh place-items-center p-4">
-      <div className="max-w-md space-y-6 text-center">
+      <div className="max-w-md space-y-7 text-center">
         <header>
-          <Icon
-            className={`mx-auto mb-4 size-16 ${props.variant === "not-found" ? "text-foreground" : "text-destructive"}`}
-          />
+          {props.variant === "not-found" ? (
+            <div className="mx-auto mb-5 font-mono text-8xl text-warning-foreground">
+              404
+            </div>
+          ) : (
+            <div className="mx-auto mb-5 font-mono text-8xl text-destructive">
+              500
+            </div>
+          )}
 
-          <h1 className="mb-3 font-semibold text-2xl text-foreground">
+          <h1 className="mb-4 text-4xl font-semibold text-foreground">
             {fallbackPagesData[props.variant].title}
           </h1>
           <p
-            className="line-clamp-6 text-pretty text-muted-foreground leading-relaxed"
+            className="line-clamp-6 text-base leading-relaxed text-pretty text-muted-foreground"
             role="alert"
             aria-live="polite"
           >
-            {isDev() && props.variant === "error"
+            {!isDev() && props.variant === "error"
               ? props.error.message
               : fallbackPagesData[props.variant].description}{" "}
           </p>
@@ -118,7 +116,7 @@ function FallbackPages(props: FallbackPagesProps) {
           )}
         </nav>
 
-        <footer className="text-muted-foreground text-sm">
+        <footer className="text-sm text-muted-foreground">
           Need help?{" "}
           <Button
             variant="link"
