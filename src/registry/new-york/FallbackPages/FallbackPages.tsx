@@ -78,7 +78,8 @@ function FallbackPages(props: FallbackPagesProps) {
             role="alert"
             aria-live="polite"
           >
-            {!isDev() && props.variant === "error"
+            {/* On development mode, show the error message */}
+            {isDev() && props.variant === "error"
               ? props.error.message
               : fallbackPagesData[props.variant].description}{" "}
           </p>
