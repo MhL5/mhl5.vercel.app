@@ -1,12 +1,12 @@
-import type { ComponentProps } from "react";
+import ProjectCard, {
+  type ProjectCardProps,
+} from "@/app/(with-navigation)/_components/my-projects/ProjectCard";
 import anywriteImg from "@/app/(with-navigation)/_components/my-projects/assets/anywrite.png";
 import appleAppsImg from "@/app/(with-navigation)/_components/my-projects/assets/apple-apps.png";
 import kafshMeImg from "@/app/(with-navigation)/_components/my-projects/assets/kafsh-me.png";
 import vsimImg from "@/app/(with-navigation)/_components/my-projects/assets/vsim.png";
-import ProjectCard, {
-  type ProjectCardProps,
-} from "@/app/(with-navigation)/_components/my-projects/ProjectCard";
 import { cn } from "@/lib/utils";
+import type { ComponentProps } from "react";
 
 const projects: ProjectCardProps[] = [
   {
@@ -110,7 +110,7 @@ export default function MyProjects({
       {...props}
     >
       <header className="mb-10 space-y-6 text-center">
-        <h2 className="font-semibold text-5xl tracking-tight md:text-6xl">
+        <h2 className="text-5xl font-semibold tracking-tight md:text-6xl">
           Check out my latest work
         </h2>
         <p className="text-muted-foreground md:text-lg">
@@ -120,8 +120,8 @@ export default function MyProjects({
       </header>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {projects.map((p, i) => (
-          <ProjectCard key={`${p.title}-${i}`} {...p} />
+        {projects.map((p) => (
+          <ProjectCard key={p.title} {...p} />
         ))}
       </div>
     </section>

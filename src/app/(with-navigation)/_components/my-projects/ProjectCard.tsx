@@ -1,5 +1,3 @@
-import type { StaticImageData } from "next/image";
-import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import {
   CardClassName,
@@ -10,6 +8,8 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import Img from "@/registry/new-york/Img/Img";
+import type { StaticImageData } from "next/image";
+import Link from "next/link";
 
 export type ProjectCardProps = {
   title: string;
@@ -21,7 +21,7 @@ export type ProjectCardProps = {
   links?: {
     icon: React.ReactNode;
     type: string;
-    href: `https://${string}` | `http://${string}`;
+    href: `https://${string}`;
   }[];
   className?: string;
 } & (
@@ -93,7 +93,7 @@ export default function ProjectCard({
             )}
           </div>
           <time className="mb-2 inline-block text-sm">{dates}</time>
-          <p className="max-w-full text-pretty text-muted-foreground text-sm">
+          <p className="max-w-full text-sm text-pretty text-muted-foreground">
             {description}
           </p>
         </div>
@@ -114,10 +114,10 @@ export default function ProjectCard({
       <CardFooter className="px-2 pb-2">
         {links && links.length > 0 && (
           <div className="flex flex-row flex-wrap items-start gap-1">
-            {links?.map((link, idx) => (
+            {links?.map((link) => (
               <Link
                 href={link?.href}
-                key={`${link.type}-${idx}`}
+                key={link.type + link.href}
                 target="_blank"
               >
                 <Badge className="flex gap-2 px-2 py-1 text-[10px]">

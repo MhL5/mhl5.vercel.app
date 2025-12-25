@@ -1,8 +1,8 @@
 "use client";
 
-import { type ComponentProps, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { type ComponentProps, useState } from "react";
 
 // fix numbers for persian strings, also add number keyboard layout for mobile autocomplete... add +98 support prefix
 export default function PhoneInput({
@@ -63,10 +63,9 @@ function formatPhoneNumber(phone: string) {
     // For longer numbers, group remaining digits in 3s
     const countryCode = cleaned.slice(0, 3);
     const firstGroup = cleaned.slice(3, 6);
-    const remaining = cleaned.slice(6);
+    const remaining = cleaned.slice(6, 9);
     // Group remaining digits in chunks of 3
-    const grouped = remaining.match(/.{1,4}/g)?.join(" ") || remaining;
-    return `${countryCode} ${firstGroup} ${grouped}`;
+    return `${countryCode} ${firstGroup} ${remaining} ${cleaned.slice(9)}`;
   }
 
   return cleaned;

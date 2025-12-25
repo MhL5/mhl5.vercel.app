@@ -1,9 +1,9 @@
 "use client";
 
-import { Bug, Lightbulb, NotebookPen } from "lucide-react";
-import { usePathname } from "next/navigation";
 import { GITHUB_REPO_URL } from "@/constants";
 import { cn } from "@/lib/utils";
+import { Bug, Lightbulb, NotebookPen } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 const contributeLinks = [
   {
@@ -43,26 +43,26 @@ export default function SnippetToc({ className, toc }: SnippetTocProps) {
         className,
       )}
     >
-      <h3 className="h-6 text-muted-foreground text-xs">On This Page</h3>
+      <h3 className="h-6 text-xs text-muted-foreground">On This Page</h3>
 
-      {toc.map((item, index) => (
+      {toc.map((item) => (
         <a
-          key={`${item.id}-${index}-${item.title}`}
+          key={`${item.id}-${item.title}`}
           href={`#${item.id}`}
-          className="text-muted-foreground text-xs no-underline transition-all hover:text-foreground data-[depth=3]:pl-4 data-[depth=4]:pl-6 data-[depth=5]:pl-8 data-[depth=6]:pl-10 data-[active=true]:font-semibold data-[active=true]:text-foreground"
+          className="text-xs text-muted-foreground no-underline transition-all hover:text-foreground data-[active=true]:font-semibold data-[active=true]:text-foreground data-[depth=3]:pl-4 data-[depth=4]:pl-6 data-[depth=5]:pl-8 data-[depth=6]:pl-10"
           data-depth={item.depth}
         >
           {item.title}
         </a>
       ))}
 
-      <h3 className="mt-6 h-6 text-muted-foreground text-xs">Contribute</h3>
-      {contributeLinks.map(({ href, title, icon: Icon }, index) => (
+      <h3 className="mt-6 h-6 text-xs text-muted-foreground">Contribute</h3>
+      {contributeLinks.map(({ href, title, icon: Icon }) => (
         <a
-          key={`${href}-${index}-${title}`}
+          key={`${href}-${title}`}
           href={href(pathname)}
           target="_blank"
-          className="text-muted-foreground text-xs no-underline transition-all hover:text-foreground"
+          className="text-xs text-muted-foreground no-underline transition-all hover:text-foreground"
         >
           <Icon className="mr-2 inline-block size-4" />
           {title}
