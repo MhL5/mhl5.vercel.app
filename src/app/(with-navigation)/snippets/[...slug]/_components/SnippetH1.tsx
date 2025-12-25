@@ -1,5 +1,6 @@
 import SnippetBreadCrumb from "@/app/(with-navigation)/snippets/[...slug]/_components/SnippetBreadCrumb";
 import { getSnippetsLinks } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
+import TooltipButton from "@/components/buttons/TooltipButton";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import type { Route } from "next";
@@ -42,11 +43,11 @@ function GoToNeighbor({
   if (!neighbor)
     return (
       <Button
+        aria-label="not available"
         size="icon"
         disabled
         variant="secondary"
         className="size-8 xl:size-9"
-        title="not available"
         aria-disabled
       >
         <ArrowRight className={position === "previous" ? "rotate-180" : ""} />
@@ -55,20 +56,17 @@ function GoToNeighbor({
 
   const { title, url } = neighbor;
   return (
-    <Button
+    <TooltipButton
+      tooltipContent={`go to ${position === "previous" ? `previous "${title}"` : `next "${title}"`}`}
       size="icon"
       variant="secondary"
       className="size-8 xl:size-9"
       asChild
     >
-      <Link
-        href={url as Route}
-        className="size-8 xl:size-9"
-        title={`go to ${position === "previous" ? `previous "${title}"` : `next "${title}"`}`}
-      >
+      <Link href={url as Route} className="size-8 xl:size-9">
         <ArrowRight className={position === "previous" ? "rotate-180" : ""} />
       </Link>
-    </Button>
+    </TooltipButton>
   );
 }
 
