@@ -1,7 +1,5 @@
 "use client";
 
-import { Monitor, Search } from "lucide-react";
-import { useState, useTransition, ViewTransition } from "react";
 import BookmarkCard from "@/app/(with-navigation)/bookmarks/_components/BookmarkCard";
 import {
   allBookmarks,
@@ -10,12 +8,14 @@ import {
 import { Button } from "@/components/ui/button";
 import DebouncedInput from "@/registry/new-york/DebouncedInput/DebouncedInput";
 import { toSentenceCase } from "@/registry/utils/formatters/formatters";
+import { Monitor, Search } from "lucide-react";
+import { ViewTransition, useState, useTransition } from "react";
 
 export default function BookmarkMain() {
   return (
     <section className="mx-auto min-h-svh max-w-7xl px-4 py-8 md:px-6">
       <div className="mb-8">
-        <h1 className="flex items-center gap-3 font-bold text-4xl text-foreground capitalize tracking-tight sm:gap-4 sm:text-5xl">
+        <h1 className="flex items-center gap-3 text-4xl font-bold tracking-tight text-foreground capitalize sm:gap-4 sm:text-5xl">
           Bookmarks
         </h1>
 
@@ -40,7 +40,7 @@ function BookmarkMainHeader() {
     <>
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="relative max-w-md flex-1">
-          <Search className="-translate-y-1/2 absolute top-1/2 left-3 h-4 w-4 text-muted-foreground" />
+          <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <DebouncedInput
             type="text"
             placeholder="Search bookmarks..."
@@ -68,12 +68,12 @@ function BookmarkMainHeader() {
         </div>
 
         <div className="flex flex-wrap gap-2">
-          {Object.keys(bookmarkCategoryConfig).map((category, i) => {
+          {Object.keys(bookmarkCategoryConfig).map((category) => {
             if (!category) return null;
 
             return (
               <Button
-                key={`${category + i}-bookmark-main-header-button`}
+                key={`${category}-bookmark-main-header-button`}
                 variant={selectedCategory === category ? "default" : "outline"}
                 size="sm"
                 onClick={() => {
@@ -120,7 +120,7 @@ function BookmarkMainHeader() {
         ) : (
           <div className="flex flex-col items-center justify-center py-12 text-center">
             <Monitor className="mb-4 h-12 w-12 text-muted-foreground/50" />
-            <h3 className="mb-2 font-medium text-foreground text-lg">
+            <h3 className="mb-2 text-lg font-medium text-foreground">
               No items found
             </h3>
             <p className="max-w-md text-muted-foreground">
