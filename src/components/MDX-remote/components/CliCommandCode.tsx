@@ -1,10 +1,10 @@
 "use client";
 
-import { TerminalIcon } from "lucide-react";
-import { useState } from "react";
 import { CopyButton } from "@/components/buttons/CopyButton";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { TerminalIcon } from "lucide-react";
+import { useState } from "react";
 
 const PackageManagersActions = {
   install: {
@@ -66,14 +66,14 @@ export function CliCommandCodeInternal({
           onValueChange={setSelectedTab}
           className="gap-0"
         >
-          <div className="flex items-center border-input border-b px-3 py-1">
+          <div className="flex items-center border-b border-input px-3 py-1">
             <div className="mr-2 flex size-4 items-center justify-center bg-foreground/40">
-              <TerminalIcon className="size-3 text-code" />
+              <TerminalIcon className="text-code size-3" />
             </div>
             <TabsList className="bg-code-background font-mono">
-              {commands.map((command, index) => (
+              {commands.map((command) => (
                 <TabsTrigger
-                  key={`${command.label}-${index}`}
+                  key={command.label + command.code}
                   value={command.label}
                   className="data-[state=active]:border-input data-[state=active]:bg-muted/50"
                 >

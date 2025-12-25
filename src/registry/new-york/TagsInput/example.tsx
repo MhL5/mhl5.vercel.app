@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import {
   TagsInput,
@@ -10,6 +9,7 @@ import {
   TagsInputList,
   TagsInputTag,
 } from "@/registry/new-york/TagsInput/TagsInput";
+import { useState } from "react";
 
 export default function Example() {
   const [tags, setTags] = useState<string[]>([]);
@@ -32,8 +32,8 @@ export default function Example() {
 
           <TagsInputList>
             {(value) =>
-              value.map((tag, i) => (
-                <TagsInputTag key={`${tag}-${tag + i}`} value={tag}>
+              value.map((tag) => (
+                <TagsInputTag key={tag} value={tag}>
                   {tag}
                 </TagsInputTag>
               ))

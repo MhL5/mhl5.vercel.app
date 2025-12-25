@@ -1,13 +1,13 @@
 "use client";
 
-import type { Route } from "next";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { getSnippetsCategoryConfig } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
 import { useSnippetsLinks } from "@/app/(with-navigation)/snippets/_context/SnippetsLinksContext";
 import LinkIndicator from "@/components/LinkIndicator";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import type { Route } from "next";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 type AsideProps = {
   className?: string;
@@ -28,20 +28,20 @@ export default function Aside({ className }: AsideProps) {
           return (
             <li key={`${title}-${url}`}>
               <div
-                className={`${config.tailwindClass} || mb-2 flex h-8 w-full items-center justify-start gap-2 px-2 font-semibold text-sm capitalize tracking-wider`}
+                className={`${config.tailwindClass} || mb-2 flex h-8 w-full items-center justify-start gap-2 px-2 text-sm font-semibold tracking-wider capitalize`}
               >
                 {Icon ? <Icon className="size-4" /> : null}
                 {title}
               </div>
 
               <nav className="space-y-1 pl-0.5">
-                {items?.map(({ title, url }, i) => {
+                {items?.map(({ title, url }) => {
                   const isActive = pathname.includes(url);
 
                   return (
                     <Button
                       asChild
-                      key={`${title}-${url}-${i}`}
+                      key={`${title}-${url}`}
                       variant={isActive ? "secondary" : "ghost"}
                       size="sm"
                       className="w-full justify-between transition-all"
