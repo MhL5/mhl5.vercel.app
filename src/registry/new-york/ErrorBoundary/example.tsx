@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { useTimeout } from "@/registry/hooks/useTimeout/useTimeout";
 import { ErrorBoundary } from "@/registry/new-york/ErrorBoundary/ErrorBoundary";
+import { useState } from "react";
 
 export default function Example() {
   return (
@@ -20,7 +20,7 @@ function Component() {
 
   if (error) throw Error("Error thrown");
   return (
-    <div>
+    <div className="text-center">
       I will throw an error in 2 seconds,the error will be caught by the
       ErrorBoundary
     </div>

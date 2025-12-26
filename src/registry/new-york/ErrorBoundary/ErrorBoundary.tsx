@@ -1,11 +1,11 @@
 "use client";
 
-import { Loader2 } from "lucide-react";
-import type { ReactNode } from "react";
-import { Component, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { isDev } from "@/registry/utils/checks/checks";
+import { Loader2 } from "lucide-react";
+import type { ReactNode } from "react";
+import { Component, useTransition } from "react";
 
 type ErrorBoundaryProps = {
   children: ReactNode;
@@ -112,7 +112,7 @@ function ErrorBoundaryFallback({
     >
       <p
         data-slot="ErrorBoundaryFallbackMessage"
-        className="!line-clamp-2 text-destructive"
+        className="line-clamp-2! text-destructive"
       >
         {label ? `${label}: ` : error?.name ? `${error.name}: ` : ""}
         {error?.message || "Something went wrong!"}
