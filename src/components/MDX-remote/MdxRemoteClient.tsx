@@ -2,12 +2,12 @@
 
 import { MDXRemote, type MDXRemoteSerializeResult } from "next-mdx-remote";
 
-import { mdxComponents } from "./MdxComponents";
+import { mdxClientComponents } from "./constants/mdxClientComponents";
 
 type MdxRemoteClientProps = {
   source: MDXRemoteSerializeResult;
 };
 
 export default function MdxRemoteClient({ source }: MdxRemoteClientProps) {
-  return <MDXRemote {...source} components={mdxComponents} />;
+  return <MDXRemote {...source} components={mdxClientComponents} />;
 }

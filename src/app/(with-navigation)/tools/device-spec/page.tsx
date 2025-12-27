@@ -1,9 +1,9 @@
 "use client";
 
-import { type ReactNode, useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { useIsMounted } from "@/registry/hooks/useIsMounted/useIsMounted";
+import { type ReactNode, useEffect, useState } from "react";
 
 type DeviceInfo = {
   "screen Width": string;
@@ -90,7 +90,7 @@ function TitleValue({
         className,
       )}
     >
-      <span className="font-medium text-sm capitalize">{title}</span>
+      <span className="text-sm font-medium capitalize">{title}</span>
       <p className="text-sm">{value}</p>
     </li>
   );

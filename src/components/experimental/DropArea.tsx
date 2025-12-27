@@ -1,8 +1,6 @@
-"use client";
-
+import { cn } from "@/lib/utils";
 import { FileUpIcon } from "lucide-react";
 import { type ChangeEvent, type DragEvent, useRef, useState } from "react";
-import { cn } from "@/lib/utils";
 
 type DropAreaProps = {
   onDrop: (e: DragEvent<HTMLElement>) => void;
@@ -11,6 +9,19 @@ type DropAreaProps = {
   className?: string;
 };
 
+/**
+ * @example
+ * <DropArea
+ *   className="my-8 w-full"
+ *   onDrop={(e) => {
+ *     handleAddMd(e.dataTransfer.files);
+ *   }}
+ *   onChange={(e) => {
+ *     handleAddMd(e.target.files);
+ *   }}
+ *   disabled={false}
+ * />
+ */
 export default function DropArea({
   onDrop,
   onChange,
@@ -64,7 +75,7 @@ export default function DropArea({
       data-disabled={disabled}
       data-dragging={isDragging}
       className={cn(
-        "flex min-h-45 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-primary border-dashed p-6 transition-colors hover:bg-primary/10 has-disabled:pointer-events-none has-[input:focus]:border-ring has-disabled:opacity-50 has-[input:focus]:ring-[3px] has-[input:focus]:ring-ring/50 data-[dragging=true]:border-solid data-[dragging=true]:bg-primary/10 data-[disabled=true]:opacity-50",
+        "flex min-h-45 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-primary p-6 transition-colors hover:bg-primary/10 has-disabled:pointer-events-none has-disabled:opacity-50 has-[input:focus]:border-ring has-[input:focus]:ring-[3px] has-[input:focus]:ring-ring/50 data-[disabled=true]:opacity-50 data-[dragging=true]:border-solid data-[dragging=true]:bg-primary/10",
         className,
       )}
     >
@@ -85,8 +96,8 @@ export default function DropArea({
         >
           <FileUpIcon className="size-4 opacity-60" />
         </div>
-        <p className="mb-1.5 font-medium text-sm">Upload files</p>
-        <p className="mb-2 text-muted-foreground text-xs">
+        <p className="mb-1.5 text-sm font-medium">Upload files</p>
+        <p className="mb-2 text-xs text-muted-foreground">
           Drag & drop or click to browse
         </p>
       </div>

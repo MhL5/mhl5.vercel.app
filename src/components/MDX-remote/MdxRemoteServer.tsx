@@ -1,8 +1,8 @@
 import { MDXRemote } from "next-mdx-remote/rsc";
 import type { ComponentProps } from "react";
 
-import { mdxComponents } from "./MdxComponents";
-import { mdxComponentsServer } from "./MdxComponentsServer";
+import { mdxClientComponents } from "./constants/mdxClientComponents";
+import { mdxServerComponents } from "./constants/mdxServerComponents";
 
 type MdxRemoteServerProps = {
   source: ComponentProps<typeof MDXRemote>["source"];
@@ -13,8 +13,8 @@ export default function MdxRemoteServer({ source }: MdxRemoteServerProps) {
     <MDXRemote
       source={source}
       components={{
-        ...mdxComponents,
-        ...mdxComponentsServer,
+        ...mdxClientComponents,
+        ...mdxServerComponents,
       }}
     />
   );

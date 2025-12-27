@@ -1,12 +1,12 @@
-import type { ComponentProps } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import type { ComponentProps } from "react";
 
-import Iframe from "./components/Iframe";
-import MdxHeading from "./components/MdxHeading";
-import MdxLink from "./components/MdxLink";
-import MdxPre from "./components/MdxPre";
+import Iframe from "../components/Iframe";
+import MdxHeading from "../components/MdxHeading";
+import MdxLink from "../components/MdxLink";
+import MdxPre from "../components/MdxPre";
 
-export const mdxComponents = {
+export const mdxClientComponents = {
   a: MdxLink,
   h1: (props: ComponentProps<"h1">) => <MdxHeading heading="h1" {...props} />,
   h2: (props: ComponentProps<"h2">) => <MdxHeading heading="h2" {...props} />,

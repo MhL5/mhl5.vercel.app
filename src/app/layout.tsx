@@ -1,10 +1,9 @@
-import "@/styles/globals.css";
-
-import type { Metadata } from "next";
-import localFont from "next/font/local";
 import BackgroundNoise from "@/components/BackgroundNoise";
 import Providers from "@/providers/Providers";
+import "@/styles/globals.css";
 import { domainUrl } from "@/utils/absoluteUrl";
+import type { Metadata } from "next";
+import localFont from "next/font/local";
 
 const figtree = localFont({
   src: "../assets/fonts/Figtree/Figtree-VariableFont_wght.ttf",
@@ -65,7 +64,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body
         className={`${spaceGrotesk.variable} ${figtree.variable} min-w-xs font-figtree antialiased`}
       >
-        <div className="-z-10 fixed inset-0 h-full w-full dark:bg-[radial-gradient(125%_125%_at_50%_100%,var(--background)_40%,#010133_100%)]" />
+        <div className="fixed inset-0 -z-10 h-full w-full dark:bg-[radial-gradient(125%_125%_at_50%_100%,var(--background)_40%,#010133_100%)]" />
         <BackgroundNoise />
         <Providers>{children}</Providers>
       </body>
