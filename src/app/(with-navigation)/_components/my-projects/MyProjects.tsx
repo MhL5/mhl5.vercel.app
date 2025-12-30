@@ -50,7 +50,7 @@ const projects: ProjectCardProps[] = [
     title: "AppleApps",
     description:
       "platform for downloading applications,Not affiliated with Apple Inc. ",
-    href: "https://apple-apss.vercel.app/",
+    href: "https://apple-apps.vercel.app/",
     dates: "June 22, 2025",
     status: "in progress",
     technologies: [
