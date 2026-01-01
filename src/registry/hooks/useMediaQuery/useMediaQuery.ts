@@ -36,8 +36,11 @@ const tailwindCssBreakpoints = {
  */
 function useMediaQueryBreakpoint(
   breakpoint: keyof typeof tailwindCssBreakpoints,
+  direction: "min" | "max" = "min",
 ) {
-  return useMediaQuery(`(min-width: ${tailwindCssBreakpoints[breakpoint]})`);
+  return useMediaQuery(
+    `(${direction}-width: ${tailwindCssBreakpoints[breakpoint]})`,
+  );
 }
 
 export { useMediaQueryBreakpoint, useMediaQuery };
