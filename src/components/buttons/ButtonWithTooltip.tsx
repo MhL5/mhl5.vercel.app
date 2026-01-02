@@ -6,16 +6,16 @@ import {
 } from "@/components/ui/tooltip";
 import type { ComponentProps, ReactNode } from "react";
 
-type TooltipButtonProps = ComponentProps<typeof Button> & {
+type ButtonWithTooltipProps = ComponentProps<typeof Button> & {
   tooltipContent: ReactNode;
   tooltipSide?: ComponentProps<typeof TooltipContent>["side"];
 };
 
-export default function TooltipButton({
+export default function ButtonWithTooltip({
   tooltipContent,
   tooltipSide,
   ...props
-}: TooltipButtonProps) {
+}: ButtonWithTooltipProps) {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
