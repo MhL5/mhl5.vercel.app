@@ -1,7 +1,8 @@
-import dynamic from "next/dynamic";
 import { OpenInV0Button } from "@/components/buttons/OpenInV0Button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import dynamic from "next/dynamic";
+
 import ComponentSource from "./ComponentSource";
 
 const previewSourceCodes = {
@@ -20,6 +21,8 @@ const previewSourceCodes = {
     "@/registry/new-york/FallbackPages/NotFoundExample.tsx",
   FallbackPagesLoading: "@/registry/new-york/FallbackPages/LoadingExample.tsx",
   TagsInput: "@/registry/new-york/TagsInput/example.tsx",
+
+  useDebounce: "@/registry/hooks/useDebounce/example.tsx",
 };
 
 const previewSources = {
@@ -63,6 +66,10 @@ const previewSources = {
   TagsInput: dynamic(() =>
     import(previewSourceCodes.TagsInput).then((mod) => mod.default),
   ),
+
+  useDebounce: dynamic(() =>
+    import(previewSourceCodes.useDebounce).then((mod) => mod.default),
+  ),
 };
 
 type CodePreviewProps = {
@@ -75,7 +82,7 @@ export default async function CodePreview({ name }: CodePreviewProps) {
 
   if (!PreviewComponent)
     return (
-      <p className="not-prose text-muted-foreground text-sm">
+      <p className="not-prose text-sm text-muted-foreground">
         Component{" "}
         <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm">
           {name}
