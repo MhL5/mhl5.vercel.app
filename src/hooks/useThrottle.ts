@@ -6,7 +6,7 @@ import { useCallbackRef } from "./useCallbackRef";
 import { useOnUnMount } from "./useOnUnMount";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function throttle<T extends (...args: any[]) => any>(
+export function throttle<T extends (...args: any[]) => any>(
   callback: T,
   delay: number,
 ) {

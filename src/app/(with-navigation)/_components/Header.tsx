@@ -1,8 +1,5 @@
 "use client";
 
-import { MenuIcon } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/buttons/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,6 +13,9 @@ import {
 } from "@/components/ui/sheet";
 import { GITHUB_REPO_URL } from "@/constants";
 import { cn } from "@/lib/utils";
+import { MenuIcon } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const links = [
   {
@@ -33,8 +33,8 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed top-0 z-50 h-[var(--site-header-height)] w-[calc(100%-var(--removed-body-scroll-bar-size,0px))] border-border/20 border-b bg-background/20 backdrop-blur-md dark:border-border/30">
-        <nav className="mx-auto flex h-full w-full max-w-8xl items-center px-4">
+      <header className="fixed top-0 z-50 h-[var(--site-header-height)] w-[calc(100%-var(--removed-body-scroll-bar-size,0px))] border-b border-border/20 bg-background/20 backdrop-blur-md dark:border-border/30">
+        <nav className="mx-auto flex h-full w-full max-w-9xl items-center px-4">
           <Sheet>
             <SheetTrigger className="lg:hidden" asChild>
               <Button variant="ghost">
@@ -48,7 +48,7 @@ export default function Header() {
                   <Button
                     variant="link"
                     asChild
-                    className="px-0 font-bold font-nunito text-xl"
+                    className="font-nunito px-0 text-xl font-bold"
                   >
                     <Link href="/">MhL</Link>
                   </Button>
@@ -58,11 +58,11 @@ export default function Header() {
                 </SheetDescription>
               </SheetHeader>
 
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-1.5 px-2">
                 {links.map(({ href, label }) => {
                   return (
                     <SheetClose key={`${href}-${label}`} asChild>
-                      <Button variant="link" asChild>
+                      <Button variant="ghost" asChild size="lg">
                         <Link className="justify-start font-medium" href={href}>
                           {label}
                         </Link>
@@ -78,7 +78,7 @@ export default function Header() {
             <Button variant="link" asChild>
               <Link
                 href="/"
-                className="px-0 font-bold font-nunito text-xl md:px-4"
+                className="font-nunito px-0 text-xl font-bold md:px-4"
               >
                 MhL
               </Link>

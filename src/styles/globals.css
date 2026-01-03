@@ -84,13 +84,15 @@
   --animate-collapsible-down: collapsible-down 0.3s ease-out;
   --animate-collapsible-up: collapsible-up 0.3s ease-out;
 
-  --font-space-grotesk: var(--font-space-grotesk), ui-sans-serif, system-ui,
-    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-    "Noto Color Emoji";
-  --font-figtree: var(--font-figtree), ui-sans-serif, system-ui, sans-serif,
+  --font-space-grotesk:
+    var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-figtree:
+    var(--font-figtree), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
   --container-8xl: 96rem;
+  --container-9xl: 104rem;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -144,8 +146,8 @@
   --animate-pingMd: pingMd 1.1s cubic-bezier(0, 0, 0.2, 1) infinite;
   --animate-pingSm: pingSm 1.1s cubic-bezier(0, 0, 0.2, 1) infinite;
   --animate-circleSvgGrow: circleSvgGrow 1200ms;
-  --animate-loadingFadeIn: loadingFadeIn 500ms 600ms forwards,
-    scaleUpAndDown 1.1s ease infinite;
+  --animate-loadingFadeIn:
+    loadingFadeIn 500ms 600ms forwards, scaleUpAndDown 1.1s ease infinite;
   @keyframes scaleUpAndDown {
     0% {
       transform: scale(1);
@@ -392,7 +394,9 @@
 @layer components {
   .spinner {
     opacity: 0;
-    animation: fadeIn 500ms 100ms forwards, rotate 1s linear infinite;
+    animation:
+      fadeIn 500ms 100ms forwards,
+      rotate 1s linear infinite;
   }
 
   @keyframes fadeIn {
