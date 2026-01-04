@@ -1,14 +1,14 @@
-import type { Metadata } from "next";
-import { cacheLife } from "next/cache";
-import { notFound } from "next/navigation";
-import { getShadcnRegistry } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
 import SnippetH1 from "@/app/(with-navigation)/snippets/[...slug]/_components/SnippetH1";
 import SnippetToc from "@/app/(with-navigation)/snippets/[...slug]/_components/SnippetToc";
 import { extractHeadings } from "@/app/(with-navigation)/snippets/[...slug]/_utils/extractHeadings";
+import { getShadcnRegistry } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
 import MdxRemoteServer from "@/components/MDX-remote/MdxRemoteServer";
 import Prose from "@/components/Prose";
 import { isDev } from "@/registry/utils/checks/checks";
 import { fileReader } from "@/utils/fileReader";
+import type { Metadata } from "next";
+import { cacheLife } from "next/cache";
+import { notFound } from "next/navigation";
 
 export async function generateMetadata({
   params,
@@ -100,7 +100,7 @@ export default async function Page({
         />
       </Prose>
 
-      <aside className="hidden xl:flex xl:h-full xl:flex-col xl:gap-1 xl:pt-6 xl:pb-2 xl:text-muted-foreground xl:text-sm">
+      <aside className="hidden xl:flex xl:h-full xl:flex-col xl:gap-1 xl:pt-6 xl:pb-2 xl:text-sm xl:text-muted-foreground">
         <SnippetToc toc={extractHeadings(content)} />
       </aside>
     </div>

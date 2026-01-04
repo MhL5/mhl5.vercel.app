@@ -1,18 +1,18 @@
 import type { ComponentProps } from "react";
 
 import Code from "./Code";
-import ComponentSource from "./ComponentSource";
+import ComponentSourceClient from "./ComponentSourceClient";
 
-export default function MdxCode({
+export default function MdxCodeClient({
   children,
   className,
   ...props
 }: ComponentProps<"code">) {
   if (className?.startsWith("language-"))
     return (
-      <ComponentSource
-        code={typeof children === "string" ? children : ""}
-        lang={className.replace("language-", "")}
+      <ComponentSourceClient
+        lang="tsx"
+        code={String(children).replace(/\n$/, "")}
       />
     );
 

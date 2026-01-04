@@ -2,6 +2,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import type { ComponentProps } from "react";
 
 import Iframe from "../components/Iframe";
+import MdxCodeClient from "../components/MdxCodeClient";
 import MdxHeading from "../components/MdxHeading";
 import MdxLink from "../components/MdxLink";
 import MdxPre from "../components/MdxPre";
@@ -19,4 +20,5 @@ export const mdxClientComponents = {
   AlertDescription,
   AlertTitle,
   Iframe: Iframe,
+  code: MdxCodeClient,
 };
