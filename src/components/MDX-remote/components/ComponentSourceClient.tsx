@@ -1,11 +1,11 @@
 "use client";
 
-import { Loader2Icon } from "lucide-react";
-import { type ComponentProps, useEffect, useState } from "react";
-import { codeToHtml } from "shiki";
 import { CopyButton, CopyButtonIcon } from "@/components/buttons/CopyButton";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
+import { Loader2Icon } from "lucide-react";
+import { type ComponentProps, useEffect, useState } from "react";
+import { codeToHtml } from "shiki";
 
 type ComponentSourceProps = {
   lang?: string;
@@ -54,7 +54,6 @@ export default function ComponentSourceClient({
       </CopyButton>
 
       <code
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: this is safe because the codeHtml variables comes from my own documents and are not user-generated
         dangerouslySetInnerHTML={{ __html: codeHtml }}
         className={cn("w-full max-w-full text-sm leading-relaxed", className)}
         {...props}
