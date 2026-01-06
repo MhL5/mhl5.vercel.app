@@ -1,50 +1,52 @@
-import type { ComponentProps } from "react";
 import { cn } from "@/lib/utils";
+import { type ComponentProps, useId } from "react";
+
+type BackgroundNoiseProps = ComponentProps<"div"> & { opacity?: number };
 
 /**
- * Required css:
- * ```css
- * body:before {
- *     content: "";
- *     z-index: 1;
- *     pointer-events: none;
- *     opacity: .1;
- *     filter: url(#grain);
- *     background: var(--background);
- *     width: 100%;
- *     height: 100%;
- *     position: fixed;
- *     top: 0;
- *     left: 0;
- * }
- * svg.grain-noise{
- *   z-index:-1;
- *   width:0;
- *   height:0;
- *   position: absolute;
- * }
+ * Adds a noise grain effect to the closest positioned ancestor.
+ * The parent element must have `position: relative` (or absolute/fixed/sticky).
+ *
+ * @example
+ * ```tsx
+ * <div className="relative">
+ *   <BackgroundNoise />
+ *   {/* your content *\/}
+ * </div>
  * ```
  */
 export default function BackgroundNoise({
   className,
+  opacity = 0.1,
+  style,
   ...props
-}: ComponentProps<"svg">) {
+}: BackgroundNoiseProps) {
+  const id = useId();
+  const filterId = `grain-${id}`;
+
   return (
-    <svg className={cn("hidden", className)} aria-hidden="true" {...props}>
-      <filter id="grain">
-        <feTurbulence
-          type="fractalNoise"
-          baseFrequency="0.8"
-          numOctaves="3"
-          stitchTiles="stitch"
-          result="noise"
-        />
-        <feColorMatrix type="saturate" values="0" />
-        <feComponentTransfer>
-          <feFuncA type="linear" slope="0.5" />
-        </feComponentTransfer>
-        <feBlend in="SourceGraphic" in2="noise" mode="soft-light" />
-      </filter>
-    </svg>
+    <div
+      className={cn("pointer-events-none absolute inset-0 z-[1]", className)}
+      style={{ ...style, filter: `url(#${filterId})`, opacity }}
+      aria-hidden="true"
+      {...props}
+    >
+      <svg className="absolute size-0">
+        <filter id={filterId}>
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.8"
+            numOctaves="3"
+            stitchTiles="stitch"
+            result="noise"
+          />
+          <feColorMatrix type="saturate" values="0" />
+          <feComponentTransfer>
+            <feFuncA type="linear" slope="0.5" />
+          </feComponentTransfer>
+          <feBlend in="SourceGraphic" in2="noise" mode="soft-light" />
+        </filter>
+      </svg>
+    </div>
   );
 }

@@ -1,4 +1,3 @@
-import BackgroundNoise from "@/components/BackgroundNoise";
 import Providers from "@/providers/Providers";
 import "@/styles/globals.css";
 import { domainUrl } from "@/utils/absoluteUrl";
@@ -65,7 +64,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         className={`${spaceGrotesk.variable} ${figtree.variable} min-w-xs font-figtree antialiased`}
       >
         <div className="fixed inset-0 -z-10 h-full w-full dark:bg-[radial-gradient(125%_125%_at_50%_100%,var(--background)_40%,#010133_100%)]" />
-        <BackgroundNoise />
         <Providers>{children}</Providers>
       </body>
     </html>
