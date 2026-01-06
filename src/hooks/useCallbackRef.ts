@@ -5,7 +5,6 @@ import { useEffect, useMemo, useRef } from "react";
  * prop or avoid re-executing effects when passed as a dependency
  *
  * credit: radix/ui
- * IMPORTANT: in react 19.2 you should use useEffectEvent
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function useCallbackRef<T extends (...args: any[]) => any>(
