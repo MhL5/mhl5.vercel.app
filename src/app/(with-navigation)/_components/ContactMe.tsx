@@ -1,12 +1,8 @@
+import { Button, type ButtonProps } from "@/components/ui/button";
+import { CONTACT_INFO } from "@/constants";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 import type { ComponentProps } from "react";
-import { Button, type ButtonProps } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-
-const links = {
-  telegram: "https://t.me/mhl_5",
-  discord: "https://discord.com/users/649998586154844160",
-} as const;
 
 export default function ContactMe({
   className,
@@ -16,20 +12,20 @@ export default function ContactMe({
     <section id="contact" className={cn("", className)} {...props}>
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="font-semibold text-5xl tracking-tight sm:text-3xl md:text-6xl">
+          <h2 className="text-5xl font-semibold tracking-tight sm:text-3xl md:text-6xl">
             Get in touch
           </h2>
 
           <p className="mt-6 text-base text-muted-foreground md:text-lg">
             Want to chat? Just shoot me with a dm on{" "}
             <ContactMeButton>
-              <Link href={links.telegram} target="_blank">
+              <Link href={CONTACT_INFO.telegram} target="_blank">
                 telegram
               </Link>
             </ContactMeButton>{" "}
             or{" "}
             <ContactMeButton>
-              <Link href={links.discord} target="_blank">
+              <Link href={CONTACT_INFO.discord} target="_blank">
                 discord
               </Link>
             </ContactMeButton>
@@ -46,7 +42,7 @@ function ContactMeButton({ className, ...props }: ButtonProps) {
     <Button
       asChild
       className={cn(
-        "size-fit p-0 px-1 text-base capitalize underline",
+        "size-fit p-0 px-1 text-base text-blue-600 capitalize underline dark:text-blue-400",
         className,
       )}
       variant="link"

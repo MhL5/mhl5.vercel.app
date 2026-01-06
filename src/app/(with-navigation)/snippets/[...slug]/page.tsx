@@ -4,6 +4,7 @@ import { extractHeadings } from "@/app/(with-navigation)/snippets/[...slug]/_uti
 import { getShadcnRegistry } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
 import MdxRemoteServer from "@/components/MDX-remote/MdxRemoteServer";
 import Prose from "@/components/Prose";
+import { CONTACT_INFO } from "@/constants";
 import { isDev } from "@/registry/utils/checks/checks";
 import { fileReader } from "@/utils/fileReader";
 import type { Metadata } from "next";
@@ -36,7 +37,7 @@ export async function generateMetadata({
     alternates: {
       canonical: `/snippets/${slug.join("/")}`,
     },
-    authors: [{ name: "Mohammad Lashani", url: "https://mhl5.dev" }],
+    authors: [{ name: "Mohammad Lashani", url: CONTACT_INFO.github }],
     creator: "Mohammad Lashani",
     publisher: "Mohammad Lashani",
     category: "technology",

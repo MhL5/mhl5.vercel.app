@@ -1,3 +1,4 @@
+import { CONTACT_INFO } from "@/constants";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/bookmarks",
   },
-  authors: [{ name: "Mohammad Lashani", url: "https://mhl5.dev" }],
+  authors: [{ name: "Mohammad Lashani", url: CONTACT_INFO.github }],
   creator: "Mohammad Lashani",
   publisher: "Mohammad Lashani",
   category: "technology",

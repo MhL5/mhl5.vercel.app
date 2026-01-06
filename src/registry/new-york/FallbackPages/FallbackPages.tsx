@@ -2,6 +2,7 @@
 
 import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
+import { CONTACT_SUPPORT_LINK } from "@/constants";
 import { isDev } from "@/registry/utils/checks/checks";
 import { ArrowLeft, Circle, Home, RotateCcw } from "lucide-react";
 import Link from "next/link";
@@ -18,8 +19,7 @@ const fallbackPagesData = {
       "We encountered an unexpected error. Please try again or contact support if the problem persists.",
   },
   buttonsClassName: "w-full basis-[calc(50%-0.375rem)] capitalize",
-  contactSupportLink: (text: string) =>
-    `${process.env.NEXT_PUBLIC_CONTACT_US_SUPPORT_LINK}?text=${encodeURIComponent(text)}`,
+  contactSupportLink: CONTACT_SUPPORT_LINK,
 };
 
 type NotFoundPageProps = {
@@ -126,11 +126,9 @@ function FallbackPages(props: FallbackPagesProps) {
           >
             <a
               href={fallbackPagesData.contactSupportLink(
-                encodeURIComponent(
-                  props.variant === "error"
-                    ? `Error Code (#${props.error.digest}): ${props.error.message}`
-                    : "",
-                ),
+                props.variant === "error"
+                  ? `Error Code (#${props.error.digest}): ${props.error.message}`
+                  : "",
               )}
               target="_blank"
             >

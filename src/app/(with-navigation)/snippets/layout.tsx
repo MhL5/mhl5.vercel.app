@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
 import Aside from "@/app/(with-navigation)/snippets/_components/Aside";
 import { getSnippetsLinks } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
 import { SnippetsLinksProvider } from "@/app/(with-navigation)/snippets/_context/SnippetsLinksContext";
 import ScrollToTop from "@/components/utils/ScrollToTop";
+import { CONTACT_INFO } from "@/constants";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Code Snippets Collection",
@@ -26,8 +27,8 @@ export const metadata: Metadata = {
     canonical: "/snippets",
   },
   authors: [
-    { name: "Mohammad Lashani", url: "https://mhl5.dev" },
-    { name: "محمد لشنی", url: "https://mhl5.dev" },
+    { name: "Mohammad Lashani", url: CONTACT_INFO.github },
+    { name: "محمد لشنی", url: CONTACT_INFO.github },
   ],
   creator: "Mohammad Lashani",
   publisher: "Mohammad Lashani",
