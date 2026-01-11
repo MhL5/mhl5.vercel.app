@@ -1,12 +1,12 @@
 "use client";
 
 import Logo from "@/components/Logo";
-import { Button } from "@/components/ui/button";
+import { Button, LinkButton } from "@/components/ui/button";
 import { CONTACT_SUPPORT_LINK } from "@/constants";
 import { cn } from "@/lib/utils";
 import { isDev } from "@/registry/utils/checks/checks";
 import { ArrowLeft, Circle, Home, RotateCcw } from "lucide-react";
-import Link from "next/link";
+import type { Route } from "next";
 import type { ComponentProps } from "react";
 
 const fallbackPagesData = {
@@ -46,7 +46,7 @@ function FallbackPages({ className, ...props }: FallbackPagesProps) {
       <div className="max-w-md space-y-7 text-center">
         <header>
           <div
-            className={`${props.variant === "not-found" ? "text-warning-foreground" : "text-destructive"} mx-auto mb-5 font-mono text-8xl`}
+            className={`${props.variant === "not-found" ? "text-warning-foreground" : "text-destructive"} mx-auto mb-5 font-mono text-9xl`}
           >
             {status}
           </div>
@@ -70,11 +70,9 @@ function FallbackPages({ className, ...props }: FallbackPagesProps) {
           className="flex w-full flex-col items-center justify-center gap-3 capitalize sm:flex-row [&_a]:w-full [&_a]:basis-[calc(50%-0.375rem)] [&_button]:w-full [&_button]:basis-[calc(50%-0.375rem)]"
           aria-label="actions"
         >
-          <Button asChild variant="outline">
-            <Link href="/">
-              <Home /> home
-            </Link>
-          </Button>
+          <LinkButton href="/" variant="outline">
+            <Home /> home
+          </LinkButton>
 
           {props.variant === "error" ? (
             <Button onClick={props.reset}>
@@ -90,22 +88,19 @@ function FallbackPages({ className, ...props }: FallbackPagesProps) {
 
         <footer className="text-sm text-muted-foreground">
           Need help?{" "}
-          <Button
+          <LinkButton
             variant="link"
-            asChild
-            className="mx-0 h-auto w-fit px-0 text-sm"
-          >
-            <a
-              href={CONTACT_SUPPORT_LINK(
+            href={
+              CONTACT_SUPPORT_LINK(
                 props.variant === "error"
                   ? `Error Code (#${props.error.digest}):\n${props.error.message}`
                   : "",
-              )}
-              target="_blank"
-            >
-              Contact support
-            </a>
-          </Button>
+              ) as Route
+            }
+            target="_blank"
+          >
+            Contact support
+          </LinkButton>
         </footer>
       </div>
     </section>

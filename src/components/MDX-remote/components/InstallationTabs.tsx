@@ -1,6 +1,5 @@
-import type { Route } from "next";
-import Link from "next/link";
 import { getShadcnRegistry } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
+import { LinkButton } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type {
   CssVars,
@@ -8,6 +7,8 @@ import type {
   RegistryItemSchema,
 } from "@/types/shadcn-registry";
 import { absoluteUrl } from "@/utils/absoluteUrl";
+import type { Route } from "next";
+
 import CliCommandCode from "./CliCommandCode";
 import CollapsibleCodeCard from "./CollapsibleCodeCard";
 import ComponentSource from "./ComponentSource";
@@ -52,17 +53,17 @@ export default async function InstallationTabs({
               This component relies on other items which must be installed
               first.
             </p>
-            <ul className="list-disc pl-10">
+            <ul className="list-disc ps-10">
               {registryDependencies.map((dep) => (
                 <li key={dep.name}>
-                  <Link
+                  <LinkButton
                     href={dep.href as Route}
                     target="_blank"
+                    variant="link"
                     rel="noopener noreferrer"
-                    className="underline underline-offset-3"
                   >
                     {dep.name}
-                  </Link>
+                  </LinkButton>
                 </li>
               ))}
             </ul>

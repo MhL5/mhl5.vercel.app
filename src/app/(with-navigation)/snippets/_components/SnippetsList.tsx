@@ -3,7 +3,7 @@
 import { snippetsCategoryConfig } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
 import { useSnippetsLinks } from "@/app/(with-navigation)/snippets/_context/SnippetsLinksContext";
 import LinkIndicator from "@/components/LinkIndicator";
-import { Button } from "@/components/ui/button";
+import { LinkButton } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -16,7 +16,6 @@ import useUrlState from "@/registry/hooks/useUrlState/useUrlState";
 import AutoGrid from "@/registry/new-york/AutoGrid/AutoGrid";
 import DebouncedInput from "@/registry/new-york/DebouncedInput/DebouncedInput";
 import type { Route } from "next";
-import Link from "next/link";
 import { Fragment, useState } from "react";
 
 export default function SnippetsList() {
@@ -111,21 +110,19 @@ export default function SnippetsList() {
           return (
             <Fragment key={link.title}>
               {filteredItems?.map((item) => (
-                <Button
+                <LinkButton
                   key={item.title}
                   variant="ghost"
                   className={`${config?.tailwindClass || "text-muted-foreground"} h-10 w-full overflow-hidden`}
-                  asChild
+                  href={item.url as Route}
                 >
-                  <Link href={item.url as Route}>
-                    {Icon && (
-                      <Icon className="hidden md:inline-block md:size-5" />
-                    )}
-                    <span className="mr-auto truncate">{item.title}</span>
+                  {Icon && (
+                    <Icon className="hidden md:inline-block md:size-5" />
+                  )}
+                  <span className="mr-auto truncate">{item.title}</span>
 
-                    <LinkIndicator className="ml-auto" />
-                  </Link>
-                </Button>
+                  <LinkIndicator className="ml-auto" />
+                </LinkButton>
               ))}
             </Fragment>
           );

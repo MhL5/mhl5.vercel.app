@@ -1,11 +1,11 @@
+import { cn } from "@/lib/utils";
 import { Slot } from "@radix-ui/react-slot";
-import { cva, type VariantProps } from "class-variance-authority";
+import { type VariantProps, cva } from "class-variance-authority";
+import Link from "next/link";
 import type * as React from "react";
 
-import { cn } from "@/lib/utils";
-
 const buttonVariants = cva(
-  "inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium text-sm outline-none transition-all focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+  "inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
@@ -18,7 +18,7 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
-        link: "text-primary underline-offset-4 hover:underline",
+        link: "px-1! py-0 text-primary underline underline-offset-4",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
@@ -37,7 +37,7 @@ const buttonVariants = cva(
   },
 );
 
-export type ButtonProps = React.ComponentProps<"button"> &
+type ButtonProps = React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
   };
@@ -60,4 +60,23 @@ function Button({
   );
 }
 
-export { Button, buttonVariants };
+type LinkButtonProps = React.ComponentProps<typeof Link> &
+  VariantProps<typeof buttonVariants>;
+
+function LinkButton({ className, variant, size, ...props }: LinkButtonProps) {
+  return (
+    <Link
+      data-slot="link"
+      className={cn(buttonVariants({ variant, size, className }))}
+      {...props}
+    />
+  );
+}
+
+export {
+  Button,
+  LinkButton,
+  buttonVariants,
+  type ButtonProps,
+  type LinkButtonProps,
+};

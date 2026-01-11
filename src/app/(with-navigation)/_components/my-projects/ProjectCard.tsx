@@ -1,15 +1,14 @@
 import { Badge } from "@/components/ui/badge";
+import { LinkButton } from "@/components/ui/button";
 import {
   CardClassName,
   CardContent,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import Img from "@/registry/new-york/Img/Img";
 import type { StaticImageData } from "next/image";
-import Link from "next/link";
 
 export type ProjectCardProps = {
   title: string;
@@ -18,11 +17,6 @@ export type ProjectCardProps = {
   dates: string;
   technologies: string[];
   status: "in progress" | "completed" | "coming soon";
-  links?: {
-    icon: React.ReactNode;
-    type: string;
-    href: `https://${string}`;
-  }[];
   className?: string;
 } & (
   | {
@@ -39,17 +33,17 @@ export default function ProjectCard({
   description,
   dates,
   technologies,
-  links,
   className,
   status,
   ...props
 }: ProjectCardProps) {
   return (
-    <Link
+    <LinkButton
       href={href || "#"}
+      variant="outline"
       className={cn(
         CardClassName,
-        "cursor-pointer gap-0 overflow-hidden pt-0 pb-1",
+        "block h-full cursor-pointer gap-0 overflow-hidden px-0 pt-0 pb-3",
         className,
       )}
       target="_blank"
@@ -110,25 +104,6 @@ export default function ProjectCard({
           </div>
         )}
       </CardContent>
-
-      <CardFooter className="px-2 pb-2">
-        {links && links.length > 0 && (
-          <div className="flex flex-row flex-wrap items-start gap-1">
-            {links?.map((link) => (
-              <Link
-                href={link?.href}
-                key={link.type + link.href}
-                target="_blank"
-              >
-                <Badge className="flex gap-2 px-2 py-1 text-[10px]">
-                  {link.icon}
-                  {link.type}
-                </Badge>
-              </Link>
-            ))}
-          </div>
-        )}
-      </CardFooter>
-    </Link>
+    </LinkButton>
   );
 }

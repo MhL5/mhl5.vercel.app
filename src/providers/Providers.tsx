@@ -1,9 +1,9 @@
+import { Toaster } from "@/components/ui/sonner";
+import ThemeProvider from "@/providers/ThemeProvider";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
 import type { ReactNode } from "react";
-import { Toaster } from "@/components/ui/sonner";
-import ThemeProvider from "@/providers/ThemeProvider";
 
 type ProvidersProps = {
   children: ReactNode;
@@ -18,6 +18,7 @@ export default function Providers({ children }: ProvidersProps) {
         src="/js/script.js"
         defer
       />
+
       <ThemeProvider>
         <Toaster />
         {children}

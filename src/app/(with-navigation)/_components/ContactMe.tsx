@@ -1,7 +1,6 @@
-import { Button, type ButtonProps } from "@/components/ui/button";
+import { LinkButton } from "@/components/ui/button";
 import { CONTACT_INFO } from "@/constants";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 import type { ComponentProps } from "react";
 
 export default function ContactMe({
@@ -18,35 +17,27 @@ export default function ContactMe({
 
           <p className="mt-6 text-base text-muted-foreground md:text-lg">
             Want to chat? Just shoot me with a dm on{" "}
-            <ContactMeButton>
-              <Link href={CONTACT_INFO.telegram} target="_blank">
-                telegram
-              </Link>
-            </ContactMeButton>{" "}
+            <LinkButton
+              href={CONTACT_INFO.telegram}
+              target="_blank"
+              variant="link"
+              className="text-base"
+            >
+              Telegram
+            </LinkButton>
             or{" "}
-            <ContactMeButton>
-              <Link href={CONTACT_INFO.discord} target="_blank">
-                discord
-              </Link>
-            </ContactMeButton>
+            <LinkButton
+              href={CONTACT_INFO.discord}
+              target="_blank"
+              variant="link"
+              className="text-base"
+            >
+              Discord
+            </LinkButton>
             and I&apos;ll respond whenever I can.
           </p>
         </div>
       </div>
     </section>
-  );
-}
-
-function ContactMeButton({ className, ...props }: ButtonProps) {
-  return (
-    <Button
-      asChild
-      className={cn(
-        "size-fit p-0 px-1 text-base text-blue-600 capitalize underline dark:text-blue-400",
-        className,
-      )}
-      variant="link"
-      {...props}
-    />
   );
 }
