@@ -1,7 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Slot } from "@radix-ui/react-slot";
 import { type VariantProps, cva } from "class-variance-authority";
-import Link from "next/link";
 import type * as React from "react";
 
 const buttonVariants = cva(
@@ -60,23 +59,4 @@ function Button({
   );
 }
 
-type LinkButtonProps = React.ComponentProps<typeof Link> &
-  VariantProps<typeof buttonVariants>;
-
-function LinkButton({ className, variant, size, ...props }: LinkButtonProps) {
-  return (
-    <Link
-      data-slot="link"
-      className={cn(buttonVariants({ variant, size, className }))}
-      {...props}
-    />
-  );
-}
-
-export {
-  Button,
-  LinkButton,
-  buttonVariants,
-  type ButtonProps,
-  type LinkButtonProps,
-};
+export { Button, buttonVariants, type ButtonProps };

@@ -4,7 +4,7 @@ import {
   type Bookmark,
   bookmarkCategoryConfig,
 } from "@/app/(with-navigation)/bookmarks/_constants/bookmarksConstants";
-import { LinkButton } from "@/components/ui/button";
+import { Link } from "@/components/ui/link";
 import { cn } from "@/lib/utils";
 import { ExternalLink } from "lucide-react";
 
@@ -16,7 +16,7 @@ export default function BookmarkCard({ item }: { item: Bookmark }) {
   const CategoryIcon = categoryInfo.icon;
 
   return (
-    <LinkButton
+    <Link
       variant="outline"
       prefetch={false}
       href={item.url}
@@ -46,6 +46,6 @@ export default function BookmarkCard({ item }: { item: Bookmark }) {
           {item.description}
         </p>
       </div>
-    </LinkButton>
+    </Link>
   );
 }

@@ -1,7 +1,8 @@
 "use client";
 
 import Logo from "@/components/Logo";
-import { Button, LinkButton } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
+import { Link } from "@/components/ui/link";
 import { CONTACT_SUPPORT_LINK } from "@/constants";
 import { cn } from "@/lib/utils";
 import { isDev } from "@/registry/utils/checks/checks";
@@ -70,9 +71,9 @@ function FallbackPages({ className, ...props }: FallbackPagesProps) {
           className="flex w-full flex-col items-center justify-center gap-3 capitalize sm:flex-row [&_a]:w-full [&_a]:basis-[calc(50%-0.375rem)] [&_button]:w-full [&_button]:basis-[calc(50%-0.375rem)]"
           aria-label="actions"
         >
-          <LinkButton href="/" variant="outline">
+          <Link href="/" variant="outline">
             <Home /> home
-          </LinkButton>
+          </Link>
 
           {props.variant === "error" ? (
             <Button onClick={props.reset}>
@@ -88,7 +89,7 @@ function FallbackPages({ className, ...props }: FallbackPagesProps) {
 
         <footer className="text-sm text-muted-foreground">
           Need help?{" "}
-          <LinkButton
+          <Link
             variant="link"
             href={
               CONTACT_SUPPORT_LINK(
@@ -100,7 +101,7 @@ function FallbackPages({ className, ...props }: FallbackPagesProps) {
             target="_blank"
           >
             Contact support
-          </LinkButton>
+          </Link>
         </footer>
       </div>
     </section>

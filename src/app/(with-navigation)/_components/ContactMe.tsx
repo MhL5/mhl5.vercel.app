@@ -1,4 +1,4 @@
-import { LinkButton } from "@/components/ui/button";
+import { Link } from "@/components/ui/link";
 import { CONTACT_INFO } from "@/constants";
 import { cn } from "@/lib/utils";
 import type { ComponentProps } from "react";
@@ -17,23 +17,23 @@ export default function ContactMe({
 
           <p className="mt-6 text-base text-muted-foreground md:text-lg">
             Want to chat? Just shoot me with a dm on{" "}
-            <LinkButton
+            <Link
               href={CONTACT_INFO.telegram}
               target="_blank"
               variant="link"
               className="text-base"
             >
               Telegram
-            </LinkButton>
+            </Link>
             or{" "}
-            <LinkButton
+            <Link
               href={CONTACT_INFO.discord}
               target="_blank"
               variant="link"
               className="text-base"
             >
               Discord
-            </LinkButton>
+            </Link>
             and I&apos;ll respond whenever I can.
           </p>
         </div>

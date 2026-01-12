@@ -3,7 +3,7 @@
 import { snippetsCategoryConfig } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
 import { useSnippetsLinks } from "@/app/(with-navigation)/snippets/_context/SnippetsLinksContext";
 import LinkIndicator from "@/components/LinkIndicator";
-import { LinkButton } from "@/components/ui/button";
+import { Link } from "@/components/ui/link";
 import {
   Select,
   SelectContent,
@@ -110,7 +110,7 @@ export default function SnippetsList() {
           return (
             <Fragment key={link.title}>
               {filteredItems?.map((item) => (
-                <LinkButton
+                <Link
                   key={item.title}
                   variant="ghost"
                   className={`${config?.tailwindClass || "text-muted-foreground"} h-10 w-full overflow-hidden`}
@@ -122,7 +122,7 @@ export default function SnippetsList() {
                   <span className="mr-auto truncate">{item.title}</span>
 
                   <LinkIndicator className="ml-auto" />
-                </LinkButton>
+                </Link>
               ))}
             </Fragment>
           );

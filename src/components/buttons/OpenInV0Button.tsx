@@ -1,5 +1,5 @@
 import V0Svg from "@/components/icons/V0Svg";
-import { LinkButton } from "@/components/ui/button";
+import { Link } from "@/components/ui/link";
 import { absoluteUrl } from "@/utils/absoluteUrl";
 
 type OpenInV0ButtonProps = {
@@ -8,7 +8,7 @@ type OpenInV0ButtonProps = {
 
 export function OpenInV0Button({ name }: OpenInV0ButtonProps) {
   return (
-    <LinkButton
+    <Link
       href={`https://v0.dev/chat/api/open?url=${absoluteUrl(`/r/${name}.json`)}`}
       target="_blank"
       rel="noreferrer"
@@ -16,6 +16,6 @@ export function OpenInV0Button({ name }: OpenInV0ButtonProps) {
       aria-label="Open in v0"
     >
       Open in <V0Svg />
-    </LinkButton>
+    </Link>
   );
 }

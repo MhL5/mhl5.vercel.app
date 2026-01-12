@@ -1,6 +1,6 @@
 "use client";
 
-import { LinkButton } from "@/components/ui/button";
+import { Link } from "@/components/ui/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useEffectEvent, useState } from "react";
 
@@ -22,13 +22,13 @@ export default function SkipLink() {
 
   if (!pageIncludesMain) return null;
   return (
-    <LinkButton
+    <Link
       href={{
         hash: "main",
       }}
       className="fixed -start-20 -top-20 z-50 w-fit transition-all duration-100 ease-in focus-visible:start-5 focus-visible:top-5"
     >
       Skip to main content
-    </LinkButton>
+    </Link>
   );
 }

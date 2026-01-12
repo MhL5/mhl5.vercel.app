@@ -1,11 +1,11 @@
 import { Badge } from "@/components/ui/badge";
-import { LinkButton } from "@/components/ui/button";
 import {
   CardClassName,
   CardContent,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Link } from "@/components/ui/link";
 import { cn } from "@/lib/utils";
 import Img from "@/registry/new-york/Img/Img";
 import type { StaticImageData } from "next/image";
@@ -38,7 +38,7 @@ export default function ProjectCard({
   ...props
 }: ProjectCardProps) {
   return (
-    <LinkButton
+    <Link
       href={href || "#"}
       variant="outline"
       className={cn(
@@ -104,6 +104,6 @@ export default function ProjectCard({
           </div>
         )}
       </CardContent>
-    </LinkButton>
+    </Link>
   );
 }

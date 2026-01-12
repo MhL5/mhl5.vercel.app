@@ -3,7 +3,7 @@
 import { getSnippetsCategoryConfig } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
 import { useSnippetsLinks } from "@/app/(with-navigation)/snippets/_context/SnippetsLinksContext";
 import LinkIndicator from "@/components/LinkIndicator";
-import { LinkButton } from "@/components/ui/button";
+import { Link } from "@/components/ui/link";
 import { cn } from "@/lib/utils";
 import type { Route } from "next";
 import { usePathname } from "next/navigation";
@@ -38,7 +38,7 @@ export default function Aside({ className }: AsideProps) {
                   const isActive = pathname.includes(url);
 
                   return (
-                    <LinkButton
+                    <Link
                       key={`${title}-${url}`}
                       variant={isActive ? "secondary" : "ghost"}
                       size="sm"
@@ -47,7 +47,7 @@ export default function Aside({ className }: AsideProps) {
                     >
                       {title}
                       <LinkIndicator />
-                    </LinkButton>
+                    </Link>
                   );
                 })}
               </nav>

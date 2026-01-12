@@ -1,5 +1,5 @@
 import { getShadcnRegistry } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
-import { LinkButton } from "@/components/ui/button";
+import { Link } from "@/components/ui/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type {
   CssVars,
@@ -56,14 +56,14 @@ export default async function InstallationTabs({
             <ul className="list-disc ps-10">
               {registryDependencies.map((dep) => (
                 <li key={dep.name}>
-                  <LinkButton
+                  <Link
                     href={dep.href as Route}
                     target="_blank"
                     variant="link"
                     rel="noopener noreferrer"
                   >
                     {dep.name}
-                  </LinkButton>
+                  </Link>
                 </li>
               ))}
             </ul>
