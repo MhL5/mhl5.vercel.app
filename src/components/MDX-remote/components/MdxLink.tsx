@@ -1,7 +1,7 @@
-import type { Route } from "next";
-import Link from "next/link";
-import type { ComponentProps } from "react";
+import { Link } from "@/components/ui/link";
 import { cn } from "@/lib/utils";
+import type { Route } from "next";
+import type { ComponentProps } from "react";
 
 const defaultClassName = "text-info-foreground underline underline-offset-2";
 

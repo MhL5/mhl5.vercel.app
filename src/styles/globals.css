@@ -345,16 +345,12 @@
 
   html.dark .shiki,
   html.dark .shiki span {
-    /* biome-ignore lint/complexity/noImportantStyles: we need to use important to override the shiki styles */
     color: var(--shiki-dark) !important;
-    /* biome-ignore lint/complexity/noImportantStyles: we need to use important to override the shiki styles */
     background-color: var(--code-background) !important;
   }
 
   html .shiki,
-  /* biome-ignore lint/style/noDescendingSpecificity: we need to use span to override the shiki styles */
-  html .shiki  span {
-    /* biome-ignore lint/complexity/noImportantStyles: we need to use important to override the shiki styles */
+  html .shiki span {
     background-color: var(--code-background) !important;
   }
 }

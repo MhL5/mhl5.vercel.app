@@ -2,9 +2,9 @@ import SnippetBreadCrumb from "@/app/(with-navigation)/snippets/[...slug]/_compo
 import { getSnippetsLinks } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
 import ButtonWithTooltip from "@/components/buttons/ButtonWithTooltip";
 import { Button } from "@/components/ui/button";
+import { Link } from "@/components/ui/link";
 import { ArrowRight } from "lucide-react";
 import type { Route } from "next";
-import Link from "next/link";
 import type { ReactNode } from "react";
 
 type SnippetH1Props = {
