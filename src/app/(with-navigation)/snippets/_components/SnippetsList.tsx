@@ -119,7 +119,9 @@ export default function SnippetsList() {
                   {Icon && (
                     <Icon className="hidden md:inline-block md:size-5" />
                   )}
-                  <span className="mr-auto truncate">{item.title}</span>
+                  <span className="mr-auto truncate font-medium">
+                    {item.title}
+                  </span>
 
                   <LinkIndicator className="ml-auto" />
                 </Link>

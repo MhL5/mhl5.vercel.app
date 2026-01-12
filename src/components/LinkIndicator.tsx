@@ -1,15 +1,15 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import { useLinkStatus } from "next/link";
 import type { ComponentProps } from "react";
-import { cn } from "@/lib/utils";
 
 type LinkIndicatorProps = ComponentProps<typeof Loader2>;
 
 /**
  * LinkIndicator displays a loading spinner when a link navigation is in progress.
- * To avoid unnecessary flicker on quick navigations, it uses a fade-in animation for smoother UX.
+ * To avoid unnecessary flicker on quick navigation, it uses a fade-in animation for smoother UX.
  */
 export default function LinkIndicator({
   className,

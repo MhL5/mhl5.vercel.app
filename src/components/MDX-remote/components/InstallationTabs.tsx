@@ -1,11 +1,9 @@
-import { getShadcnRegistry } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
+import {
+  type ShadcnRegistry,
+  getShadcnRegistry,
+} from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
 import { Link } from "@/components/ui/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import type {
-  CssVars,
-  RegistryFileType,
-  RegistryItemSchema,
-} from "@/types/shadcn-registry";
 import { absoluteUrl } from "@/utils/absoluteUrl";
 import type { Route } from "next";
 
@@ -117,17 +115,23 @@ export default async function InstallationTabs({
 
 async function getCodeModuleData(registryItem: string) {
   const registryJson = (await import(`~/public/r/${registryItem}.json`))
-    ?.default as RegistryItemSchema;
+    ?.default as ShadcnRegistry["items"][number];
   const shadcnRegistry = await getShadcnRegistry();
 
   const cssVars = registryJson?.cssVars || null;
 
   const filesToCopy = registryJson.files?.map((file) => {
-    const pathFromType = file.target ?? getFileLocationFromType(file.type);
+    const pathFromType =
+      "target" in file && file?.target
+        ? file.target
+        : getFileLocationFromType(file.type);
     return {
       path: `${pathFromType}/${registryItem}.${file.path.split(".").pop()}`,
       // TODO: In what cases is content undefined?
-      content: file.content ?? "",
+      content:
+        "content" in file && typeof file.content === "string"
+          ? file?.content
+          : "",
     };
   });
 
@@ -167,7 +171,9 @@ async function getCodeModuleData(registryItem: string) {
   };
 }
 
-function getFormattedCssVars(cssVars: CssVars | null) {
+function getFormattedCssVars(
+  cssVars: ShadcnRegistry["items"][number]["cssVars"] | null,
+) {
   if (cssVars == null) return null;
 
   return Object.keys(cssVars)
@@ -201,7 +207,9 @@ function getFormattedCssVars(cssVars: CssVars | null) {
     .replaceAll('"', "");
 }
 
-function getFileLocationFromType(type: RegistryFileType) {
+function getFileLocationFromType(
+  type: ShadcnRegistry["items"][number]["type"],
+) {
   switch (type) {
     case "registry:ui":
       return "src/components/mhl5-registry/ui";
@@ -220,6 +228,6 @@ function getFileLocationFromType(type: RegistryFileType) {
       // Not sure what to do with these types yet
       throw new Error("Block, style, and theme types are not supported yet");
     default:
-      throw new Error(`Unknown file type: ${type satisfies never}`);
+      throw new Error(`Unknown file type`);
   }
 }

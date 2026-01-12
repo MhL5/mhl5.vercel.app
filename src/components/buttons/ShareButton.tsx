@@ -1,8 +1,9 @@
 "use client";
 
-import { toast } from "sonner";
 import { Button, type ButtonProps } from "@/components/ui/button";
 import type { RequiredPick } from "@/registry/types/RequiredPick/RequiredPick";
+import type { MouseEvent } from "react";
+import { toast } from "sonner";
 
 type ShareButtonProps = {
   shareOptions: RequiredPick<ShareData, "title" | "url">;
@@ -11,9 +12,13 @@ type ShareButtonProps = {
 export default function ShareButton({
   className,
   shareOptions = { title: "", url: "" },
+  onClick,
   ...props
 }: ShareButtonProps) {
-  async function handleShare() {
+  async function handleShare(
+    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
+  ) {
+    onClick?.(e);
     try {
       navigator.share(shareOptions);
     } catch {

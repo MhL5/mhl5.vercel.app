@@ -13,7 +13,7 @@ export default function PhoneInput({
   ...props
 }: ComponentProps<typeof Input> & {
   value: string;
-  onValueChange: (phone: string) => void;
+  onValueChange: (phone: number) => void;
 }) {
   const [value, setValue] = useState(valueProp);
 
@@ -32,20 +32,25 @@ export default function PhoneInput({
 
         const formattedValue = formatPhoneNumber(inputValue);
         setValue(formattedValue);
-        onValueChange(inputValue.replaceAll(" ", ""));
+        onValueChange(+inputValue.replaceAll(" ", ""));
       }}
       {...props}
     />
   );
 }
 
-// Format: 0999 782 9232 (4 digits, space, 3 digits, space, 4 digits)
+/**
+ * Formats phone number to improve readability
+ *
+ * only supports phone numbers that start with `09` or `+98`
+ *
+ * @example
+ * 09217280272   => 0921 728 0272
+ * +989217280272 => +98 921 728 0272
+ */
 function formatPhoneNumber(phone: string) {
-  // Remove all existing spaces first
   const cleaned = phone.replaceAll(" ", "");
 
-  // 0921 728 0272
-  // bug it returns: +98 921 728 027 2
   if (cleaned.startsWith("09")) {
     if (cleaned.length <= 4) return cleaned;
     if (cleaned.length <= 7)
@@ -53,7 +58,6 @@ function formatPhoneNumber(phone: string) {
     return `${cleaned.slice(0, 4)} ${cleaned.slice(4, 7)} ${cleaned.slice(7)}`;
   }
 
-  // +98 921 728 0272
   if (cleaned.startsWith("+98")) {
     if (cleaned.length <= 3) return cleaned;
     if (cleaned.length <= 6)
