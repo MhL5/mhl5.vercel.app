@@ -2,17 +2,25 @@
 
 import MdxRemoteClient from "@/components/MDX-remote/MdxRemoteClient";
 import Prose from "@/components/Prose";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { cn } from "@/lib/utils";
 import { useDebounce } from "@/registry/hooks/useDebounce/useDebounce";
-import { FileText } from "lucide-react";
+import { Eye, FileText, PenBox } from "lucide-react";
 import type { MDXRemoteSerializeResult } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
-import { type ChangeEvent, type ComponentProps, useState } from "react";
+import {
+  type ChangeEvent,
+  type ComponentProps,
+  useEffect,
+  useState,
+} from "react";
 
-const viewModes = ["split", "editor", "preview"] as const;
+const viewModes = [
+  { value: "split", icon: FileText },
+  { value: "editor", icon: PenBox },
+  { value: "preview", icon: Eye },
+] as const;
 
 type MarkdownEditorProps = {
   value: string;
@@ -22,6 +30,7 @@ type MarkdownEditorProps = {
 export default function MarkdownEditor({
   value,
   onValueChange,
+  ...props
 }: MarkdownEditorProps) {
   const [markdown, setMarkdown] = useState(value);
   const [viewMode, setViewMode] = useState<(typeof viewModes)[number]>(
@@ -29,18 +38,9 @@ export default function MarkdownEditor({
   );
   const [serializedMarkdown, setSerializedMarkdown] =
     useState<MDXRemoteSerializeResult | null>(null);
-  const [status, setStatus] = useState<"idle" | "working" | "error">("idle");
 
   useDebounce(
-    async () => {
-      try {
-        setStatus("working");
-        setSerializedMarkdown(await serialize(markdown));
-        setStatus("idle");
-      } catch {
-        setStatus("error");
-      }
-    },
+    async () => setSerializedMarkdown(await serialize(markdown)),
     1000,
     [markdown],
   );
@@ -50,6 +50,10 @@ export default function MarkdownEditor({
     onValueChange(value);
     setMarkdown(value);
   }
+
+  useEffect(() => {
+    if (!serializedMarkdown) serialize(markdown).then(setSerializedMarkdown);
+  }, [serializedMarkdown, markdown]);
 
   return (
     <div className="relative mx-auto flex h-200 w-full max-w-[1400px] flex-col overflow-hidden rounded-xl border bg-card shadow-2xl shadow-black/5">
@@ -61,16 +65,16 @@ export default function MarkdownEditor({
         </div>
 
         <div className="flex items-center">
-          {viewModes.map((view) => (
+          {viewModes.map(({ icon: Icon, value }) => (
             <Button
-              key={view}
+              key={value}
               size="xs"
-              onClick={() => setViewMode(view)}
-              variant={view === viewMode ? "default" : "outline"}
+              onClick={() => setViewMode({ value, icon: Icon })}
+              variant={value === viewMode.value ? "default" : "outline"}
               className="gap-1.5 px-2.5 text-xs first:rounded-e-none nth-[2]:rounded-none nth-[3]:rounded-s-none"
             >
-              <FileText className="size-3.5" />
-              <span className="hidden capitalize sm:inline">{view}</span>
+              <Icon className="size-3.5" />
+              <span className="hidden capitalize sm:inline">{value}</span>
             </Button>
           ))}
         </div>
@@ -78,17 +82,8 @@ export default function MarkdownEditor({
 
       {/* Main content area */}
       <section className="flex min-h-0 flex-1 bg-muted/40">
-        {/* Editor pane - outer container handles width transitions */}
-        <div
-          className={cn(
-            "min-h-0 overflow-hidden transition-[width,opacity] duration-300 ease-out",
-            viewMode === "preview" ? "w-0 opacity-0" : "opacity-100",
-            viewMode === "split" && "w-1/2 border-r",
-            viewMode === "editor" && "w-full",
-          )}
-        >
-          {/* Inner container handles centering and max-width */}
-          <div className="mx-auto h-full w-full max-w-3xl">
+        {viewMode.value !== "preview" && (
+          <div className="mx-auto size-full w-full max-w-3xl">
             <textarea
               dir="auto"
               value={markdown}
@@ -96,39 +91,28 @@ export default function MarkdownEditor({
               className="h-full w-full resize-none bg-transparent p-4 font-mono text-sm leading-relaxed text-foreground outline-none placeholder:text-muted-foreground"
               placeholder="Start writing your markdown..."
               spellCheck={false}
+              {...props}
             />
           </div>
-        </div>
+        )}
 
-        {/* Preview pane - outer container handles width transitions */}
-        <div
-          className={cn(
-            "relative overflow-auto transition-[width,opacity] duration-300 ease-out",
-            viewMode === "editor" ? "w-0 opacity-0" : "opacity-100",
-            viewMode === "split" && "w-1/2",
-            viewMode === "preview" && "w-full",
-          )}
-        >
-          {/* Inner container handles centering and max-width */}
+        <Separator orientation="vertical" />
 
-          {serializedMarkdown ? (
-            <Prose
-              as="div"
-              dir="auto"
-              className="mx-auto min-h-0 max-w-3xl flex-1 p-4"
-            >
-              <MdxRemoteClient source={serializedMarkdown} />
-            </Prose>
-          ) : (
-            <Skeleton className="absolute size-full rounded-none" />
-          )}
-        </div>
-        <Badge
-          className="absolute end-6 top-17 px-2 text-sm data-[status=error]:bg-error data-[status=error]:text-error-foreground data-[status=idle]:bg-success data-[status=idle]:text-success-foreground data-[status=waiting]:bg-info data-[status=waiting]:text-info-foreground data-[status=working]:bg-warning data-[status=working]:text-warning-foreground"
-          data-status={status}
-        >
-          {status}
-        </Badge>
+        {viewMode.value !== "editor" && (
+          <div className="mx-auto w-full max-w-3xl overflow-y-auto">
+            {serializedMarkdown ? (
+              <Prose
+                as="div"
+                dir="auto"
+                className="mx-auto min-h-0 max-w-3xl flex-1 p-4"
+              >
+                <MdxRemoteClient source={serializedMarkdown} />
+              </Prose>
+            ) : (
+              <Skeleton className="absolute size-full rounded-none" />
+            )}
+          </div>
+        )}
       </section>
     </div>
   );
