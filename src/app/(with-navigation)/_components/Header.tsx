@@ -39,7 +39,7 @@ export default function Header() {
             <SheetTrigger className="lg:hidden" asChild>
               <Button variant="ghost">
                 <span className="sr-only">Menu</span>
-                <MenuIcon className="size-4.5" />
+                <MenuIcon className="size-6" />
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="max-w-xs sm:max-w-xs">
@@ -81,7 +81,7 @@ export default function Header() {
             <Link
               href="/"
               variant="link"
-              className="font-nunito px-0 text-xl font-bold no-underline md:px-4"
+              className="font-nunito px-0 text-xl font-bold no-underline hover:underline md:px-4"
             >
               MhL
             </Link>

@@ -1,9 +1,9 @@
 "use client";
 
+import GradientFade from "@/components/GradientFade";
+import { cn } from "@/lib/utils";
 import type { ComponentProps, PropsWithChildren } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import FadeShadow from "@/components/FadeShadow";
-import { cn } from "@/lib/utils";
 
 type HandleScrollFn = (params: {
   scrollLeft: number;
@@ -53,20 +53,20 @@ export default function InlineScroll({
 
   return (
     <div className="group relative overflow-hidden">
-      <FadeShadow
+      <GradientFade
         orientation="horizontal"
         positionX="left"
         className={cn(
-          `${showLeftShadow ? "opacity-100" : "opacity-0"}`,
+          showLeftShadow ? "opacity-100" : "opacity-0",
           fadeShadowClassNames,
         )}
       />
 
-      <FadeShadow
+      <GradientFade
         orientation="horizontal"
         positionX="right"
         className={cn(
-          `${showRightShadow ? "opacity-100" : "opacity-0"}`,
+          showRightShadow ? "opacity-100" : "opacity-0",
           fadeShadowClassNames,
         )}
       />

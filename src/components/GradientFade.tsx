@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-type FadeShadowProps = (
+type GradientFadeProps = (
   | {
       orientation: "vertical";
       positionY: "top" | "bottom";
@@ -20,7 +20,7 @@ const positionClassNames = {
   bottom: "bottom-0 bg-linear-to-t",
 };
 
-export default function FadeShadow(props: FadeShadowProps) {
+export default function GradientFade(props: GradientFadeProps) {
   const { className } = props;
 
   let positionClassName = "";
@@ -35,8 +35,8 @@ export default function FadeShadow(props: FadeShadowProps) {
       className={cn(
         "pointer-events-none absolute from-background to-transparent transition-all duration-200",
         props.orientation === "horizontal"
-          ? "-translate-y-1/2 top-1/2 h-full w-14"
-          : "-translate-x-1/2 left-1/2 h-14 w-full",
+          ? "top-1/2 h-full w-14 -translate-y-1/2"
+          : "left-1/2 h-14 w-full -translate-x-1/2",
         positionClassName,
         className,
       )}

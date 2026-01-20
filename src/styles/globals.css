@@ -64,23 +64,10 @@
     }
   }
 
-  @keyframes glow {
-    0% {
-      opacity: 0%;
-    }
-    50% {
-      opacity: 100%;
-    }
-    100% {
-      opacity: 0%;
-    }
-  }
-
   --animate-fade-in: fade-in 1s ease-in-out forwards;
   --animate-title: title 1s ease-out forwards;
   --animate-fade-left: fade-left 1s ease-in-out forwards;
   --animate-fade-right: fade-right 1s ease-in-out forwards;
-  --animate-glow: glow 1s ease-in-out infinite;
   --animate-collapsible-down: collapsible-down 0.3s ease-out;
   --animate-collapsible-up: collapsible-up 0.3s ease-out;
 
@@ -98,6 +85,7 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -141,7 +129,6 @@
 
   --color-code-background: var(--code-background);
 
-  /*  */
   --animate-scaleUpAndDown: scaleUpAndDown 1.1s ease infinite;
   --animate-pingMd: pingMd 1.1s cubic-bezier(0, 0, 0.2, 1) infinite;
   --animate-pingSm: pingSm 1.1s cubic-bezier(0, 0, 0.2, 1) infinite;
@@ -204,7 +191,7 @@
   --info: oklch(95% 0.015 244.483);
   --info-foreground: oklch(35% 0.19 255.001);
   --warning: oklch(97% 0.02 95.255);
-  --warning-foreground: oklch(45% 0.18 56.682);
+  --warning-foreground: oklch(68.1% 0.162 75.834);
   --error: oklch(95% 0.02 17.066);
   --error-foreground: oklch(40% 0.25 29.223);
 
@@ -384,29 +371,5 @@
 
   &::-webkit-scrollbar {
     display: none;
-  }
-}
-
-@layer components {
-  .spinner {
-    opacity: 0;
-    animation:
-      fadeIn 500ms 100ms forwards,
-      rotate 1s linear infinite;
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes rotate {
-    to {
-      transform: rotate(360deg);
-    }
   }
 }
