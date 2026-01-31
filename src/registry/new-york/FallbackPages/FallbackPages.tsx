@@ -47,7 +47,7 @@ function FallbackPages({ className, ...props }: FallbackPagesProps) {
       <div className="max-w-md space-y-7 text-center">
         <header>
           <div
-            className={`${props.variant === "not-found" ? "text-warning-foreground" : "text-destructive"} mx-auto mb-5 font-mono text-9xl`}
+            className={`${props.variant === "not-found" ? "text-yellow-600 dark:text-yellow-400" : "text-destructive"} mx-auto mb-5 font-mono text-9xl`}
           >
             {status}
           </div>
@@ -68,7 +68,7 @@ function FallbackPages({ className, ...props }: FallbackPagesProps) {
         </header>
 
         <nav
-          className="flex w-full flex-col items-center justify-center gap-3 capitalize sm:flex-row [&_a]:w-full [&_a]:basis-[calc(50%-0.375rem)] [&_button]:w-full [&_button]:basis-[calc(50%-0.375rem)]"
+          className="flex w-full items-center justify-center gap-3 capitalize [&_a]:w-full [&_a]:basis-[calc(50%-0.375rem)] [&_button]:w-full [&_button]:basis-[calc(50%-0.375rem)]"
           aria-label="actions"
         >
           <Link href="/" variant="outline">
