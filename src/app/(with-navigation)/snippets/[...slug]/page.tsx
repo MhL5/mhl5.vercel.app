@@ -3,7 +3,7 @@ import SnippetToc from "@/app/(with-navigation)/snippets/[...slug]/_components/S
 import { extractHeadings } from "@/app/(with-navigation)/snippets/[...slug]/_utils/extractHeadings";
 import { getShadcnRegistry } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
 import MdxRemoteServer from "@/components/MDX-remote/MdxRemoteServer";
-import Prose from "@/components/Prose";
+import { Typography } from "@/components/Typography";
 import { CONTACT_INFO } from "@/constants";
 import { isDev } from "@/registry/utils/checks/checks";
 import { fileReader } from "@/utils/fileReader";
@@ -83,7 +83,7 @@ export default async function Page({
 
   return (
     <div className="grid xl:grid-cols-[1fr_15rem] xl:items-start xl:justify-between xl:gap-5">
-      <Prose as="main" id="main" className="w-full overflow-hidden">
+      <Typography as="main" id="main" className="w-full overflow-hidden">
         <SnippetH1
           heading={
             <div className="flex flex-wrap items-center gap-2">
@@ -99,7 +99,7 @@ export default async function Page({
           ${content}
           `}
         />
-      </Prose>
+      </Typography>
 
       <aside className="hidden xl:flex xl:h-full xl:flex-col xl:gap-1 xl:pt-6 xl:pb-2 xl:text-sm xl:text-muted-foreground">
         <SnippetToc toc={extractHeadings(content)} />
