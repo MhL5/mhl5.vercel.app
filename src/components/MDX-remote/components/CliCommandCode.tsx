@@ -36,26 +36,12 @@ export default function CliCommandCode({
   command,
   action = "run",
 }: CliCommandCodeProps) {
-  return (
-    <CliCommandCodeInternal
-      commands={Object.entries(PackageManagersActions[action]).map(
-        ([label, code]) => ({
-          label,
-          code: `${code} ${command}`,
-        }),
-      )}
-    />
+  const commands = Object.entries(PackageManagersActions[action]).map(
+    ([label, code]) => ({
+      label,
+      code: `${code} ${command}`,
+    }),
   );
-}
-
-export function CliCommandCodeInternal({
-  commands,
-}: {
-  commands: {
-    label: string;
-    code: string;
-  }[];
-}) {
   const [selectedTab, setSelectedTab] = useState(commands[0].label);
 
   return (

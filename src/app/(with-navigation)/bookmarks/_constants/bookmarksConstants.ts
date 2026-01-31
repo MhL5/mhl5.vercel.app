@@ -1,6 +1,13 @@
 import { snippetsCategoryConfig } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
 import { Book, Code2, Palette } from "lucide-react";
 
+
+
+
+
+
+
+
 export type Bookmark = {
   title: string;
   description: string;
@@ -9,6 +16,8 @@ export type Bookmark = {
   featured?: boolean;
   tags?: string[];
 };
+
+// next seo https://github.com/garmeeh/next-seo/tree/main
 
 const learningResourcesBookmarks: Bookmark[] = [
   {

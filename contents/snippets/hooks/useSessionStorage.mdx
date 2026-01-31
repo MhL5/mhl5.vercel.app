@@ -1,15 +1,17 @@
 ## Important Limitations
+
 - **No SSR support**: This hook must only be called on the client side. The server snapshot
   always returns `null`, which will cause the initial value to be used during hydration.
 - **JSON serialization**: Only values that can be serialized with `JSON.stringify()` are supported.
   Functions, `undefined`, and circular references cannot be stored.
 
 ## How it works
+
 1. Uses `useSyncExternalStore` to subscribe to sessionStorage changes
 2. Dispatches custom `session-storage-change` events
 3. Returns a string snapshot to prevent infinite loops, then parses it in a `useMemo`
 
-<CodePreview name="useSessionStorage" />
+<PreviewCode name="useSessionStorage" />
 
 ## Installation
 

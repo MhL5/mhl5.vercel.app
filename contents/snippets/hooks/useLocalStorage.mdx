@@ -1,16 +1,19 @@
 ## Key Features
+
 - **Cross-tab synchronization**: Changes in one tab automatically update all other tabs
 - **Infinite loop prevention**: Uses string snapshots internally to prevent React re-render loops
 - **Automatic cleanup**: Setting `null`, `undefined`, or `""` removes the item from localStorage
 - **Error handling**: Falls back to `initialValue` if JSON parsing fails
 
 ## Important Limitations
+
 - **No SSR support**: This hook must only be called on the client side. The server snapshot
   always returns `null`, which will cause the initial value to be used during hydration.
 - **JSON serialization**: Only values that can be serialized with `JSON.stringify()` are supported.
   Functions, `undefined`, and circular references cannot be stored.
 
 ## How it works
+
 1. Uses `useSyncExternalStore` to subscribe to localStorage changes
 2. Listens to native `storage` events (for changes from other tabs)
 3. Dispatches custom `local-storage-change` events (for changes in the current tab)
@@ -19,13 +22,15 @@
 <Alert variant="warning">
   <AlertTitle>Don't refactor this hook blindly</AlertTitle>
   <AlertDescription>
-   Be careful with `useSyncExternalStore`. The store snapshot returned by `getSnapshot` must be immutable. [learn more](https://react.dev/reference/react/useSyncExternalStore)
+    Be careful with `useSyncExternalStore`. The store snapshot returned by
+    `getSnapshot` must be immutable. [learn
+    more](https://react.dev/reference/react/useSyncExternalStore)
   </AlertDescription>
 </Alert>
 
 <br />
 
-<CodePreview name="useLocalStorage" />
+<PreviewCode name="useLocalStorage" />
 
 ## Installation
 
