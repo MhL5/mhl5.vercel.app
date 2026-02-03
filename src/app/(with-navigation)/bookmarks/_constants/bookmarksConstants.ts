@@ -1,13 +1,6 @@
 import { snippetsCategoryConfig } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
 import { Book, Code2, Palette } from "lucide-react";
 
-
-
-
-
-
-
-
 export type Bookmark = {
   title: string;
   description: string;
@@ -16,8 +9,6 @@ export type Bookmark = {
   featured?: boolean;
   tags?: string[];
 };
-
-// next seo https://github.com/garmeeh/next-seo/tree/main
 
 const learningResourcesBookmarks: Bookmark[] = [
   {
@@ -38,6 +29,13 @@ const learningResourcesBookmarks: Bookmark[] = [
     title: "Stay up-to-date on Next.js",
     description:
       "A weekly newsletter with the most interesting Next.js News, Tutorials, Projects, and Tools. The easiest way to keep up with what’s happening in the ecosystem.",
+    category: "learningResources",
+  },
+  {
+    url: "https://github.com/garmeeh/next-seo/tree/main",
+    title: "next seo",
+    description:
+      "Next SEO is a plug in that makes managing your SEO easier in Next.js projects.",
     category: "learningResources",
   },
 ];
@@ -139,6 +137,12 @@ const uiBookmarks: Bookmark[] = [
       "Hand-crafted ✍️ interaction animations and effects from around the internet 🛜 to copy and paste into your project.",
     category: "ui",
     url: "https://animata.design/",
+  },
+  {
+    title: "",
+    description: "",
+    category: "ui",
+    url: "https://www.mapcn.dev",
   },
   {
     title: "Shadcn Extension",
