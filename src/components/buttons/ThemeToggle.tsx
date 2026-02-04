@@ -1,40 +1,18 @@
 "use client";
 
-import useEventListener from "@/registry/hooks/useEventListener/useEventListener";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
-import { Kbd } from "../ui/kbd";
 import ButtonWithTooltip from "./ButtonWithTooltip";
-
-const ThemeToggleKey = "D";
 
 export function ThemeToggle() {
   const { setTheme } = useTheme();
-
-  useEventListener(
-    "keypress",
-    ({ key }) => {
-      const isMatch =
-        key === ThemeToggleKey.toLowerCase() ||
-        key === ThemeToggleKey.toUpperCase();
-
-      if (!isMatch) return null;
-
-      setTheme((theme) => (theme === "dark" ? "light" : "dark"));
-    },
-    typeof window !== "undefined" ? window : undefined,
-  );
 
   return (
     <ButtonWithTooltip
       variant="ghost"
       size="icon"
-      tooltipContent={
-        <p className="capitalize">
-          Toggle theme <Kbd>{ThemeToggleKey}</Kbd>
-        </p>
-      }
+      tooltipContent={<p className="capitalize">Toggle theme</p>}
       onClick={() => setTheme((theme) => (theme === "dark" ? "light" : "dark"))}
     >
       {/* 

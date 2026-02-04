@@ -2,18 +2,41 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { VariantProps } from "class-variance-authority";
 // eslint-disable-next-line no-restricted-imports
-import NextLink from "next/link";
+import NextJsLink from "next/link";
 import type { ComponentProps } from "react";
 
-type LinkProps = ComponentProps<typeof NextLink> &
-  VariantProps<typeof buttonVariants>;
+type NextJsLinkProps = ComponentProps<typeof NextJsLink>;
+type ButtonVariantProps = VariantProps<typeof buttonVariants>;
 
-function Link({ className, variant, size, ...props }: LinkProps) {
+type StyledLinkProps = NextJsLinkProps &
+  ButtonVariantProps & {
+    unStyled?: false;
+  };
+
+type UnstyledLinkProps = NextJsLinkProps & {
+  unStyled: true;
+};
+
+type LinkProps = StyledLinkProps | UnstyledLinkProps;
+
+function Link(props: LinkProps) {
+  const { className, unStyled, ...rest } = props;
+
   return (
-    <NextLink
+    <NextJsLink
       data-slot="link"
-      className={cn(buttonVariants({ variant, size, className }))}
-      {...props}
+      className={
+        unStyled
+          ? className
+          : cn(
+              buttonVariants({
+                variant: props.variant,
+                size: props.size,
+                className,
+              }),
+            )
+      }
+      {...rest}
     />
   );
 }
