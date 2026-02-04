@@ -7,15 +7,21 @@ import { useTheme } from "next-themes";
 import { Kbd } from "../ui/kbd";
 import ButtonWithTooltip from "./ButtonWithTooltip";
 
+const ThemeToggleKey = "D";
+
 export function ThemeToggle() {
   const { setTheme } = useTheme();
 
   useEventListener(
     "keypress",
-    (e) => {
-      if (e.key === "t" || e.key === "T") {
-        setTheme((theme) => (theme === "dark" ? "light" : "dark"));
-      }
+    ({ key }) => {
+      const isMatch =
+        key === ThemeToggleKey.toLowerCase() ||
+        key === ThemeToggleKey.toUpperCase();
+
+      if (!isMatch) return null;
+
+      setTheme((theme) => (theme === "dark" ? "light" : "dark"));
     },
     typeof window !== "undefined" ? window : undefined,
   );
@@ -25,9 +31,9 @@ export function ThemeToggle() {
       variant="ghost"
       size="icon"
       tooltipContent={
-        <>
-          Toggle theme, Keyboard shortcut: <Kbd>T</Kbd>
-        </>
+        <p className="capitalize">
+          Toggle theme <Kbd>{ThemeToggleKey}</Kbd>
+        </p>
       }
       onClick={() => setTheme((theme) => (theme === "dark" ? "light" : "dark"))}
     >
