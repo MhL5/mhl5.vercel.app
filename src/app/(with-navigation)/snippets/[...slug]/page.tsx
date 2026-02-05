@@ -5,7 +5,6 @@ import { getShadcnRegistry } from "@/app/(with-navigation)/snippets/_constants/s
 import MdxRemoteServer from "@/components/MDX-remote/MdxRemoteServer";
 import { Typography } from "@/components/Typography";
 import { CONTACT_INFO } from "@/constants";
-import { isDev } from "@/registry/utils/checks/checks";
 import { fileReader } from "@/utils/fileReader";
 import type { Metadata } from "next";
 import { cacheLife } from "next/cache";
@@ -26,10 +25,7 @@ export async function generateMetadata({
 
   const item = shadcnRegistry.items.find((item) => item.name === slug.at(-1));
 
-  if (!item) {
-    if (isDev()) return { title: "item not found inside shadcn registry" };
-    return notFound();
-  }
+  if (!item) return notFound();
 
   return {
     title: item.title,
@@ -76,10 +72,7 @@ export default async function Page({
 
   const item = shadcnRegistry.items.find((item) => item.name === snippetSlug);
 
-  if (!item) {
-    if (isDev()) return "item not found inside shadcn registry";
-    return notFound();
-  }
+  if (!item) return notFound();
 
   return (
     <div className="grid xl:grid-cols-[1fr_15rem] xl:items-start xl:justify-between xl:gap-5">

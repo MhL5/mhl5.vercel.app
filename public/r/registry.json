@@ -108,6 +108,16 @@
           "path": "src/app/error.tsx",
           "type": "registry:page",
           "target": "src/app/error.tsx"
+        },
+        {
+          "path": "src/app/forbidden.tsx",
+          "type": "registry:page",
+          "target": "src/app/forbidden.tsx"
+        },
+        {
+          "path": "src/app/unauthorized.tsx",
+          "type": "registry:page",
+          "target": "src/app/unauthorized.tsx"
         }
       ],
       "cssVars": {

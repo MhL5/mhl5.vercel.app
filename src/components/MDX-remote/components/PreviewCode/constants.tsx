@@ -16,10 +16,18 @@ export const componentPaths = {
   useIsMounted: "@/registry/hooks/useIsMounted/example.tsx",
   useUrlState: "@/registry/hooks/useUrlState/example.tsx",
   AutoGrid: "@/registry/new-york/AutoGrid/example.tsx",
-  FallbackPagesError: "@/registry/new-york/FallbackPages/ErrorExample.tsx",
+
+  FallbackPagesError:
+    "@/registry/new-york/FallbackPages/examples/ErrorExample.tsx",
   FallbackPagesNotFound:
-    "@/registry/new-york/FallbackPages/NotFoundExample.tsx",
-  FallbackPagesLoading: "@/registry/new-york/FallbackPages/LoadingExample.tsx",
+    "@/registry/new-york/FallbackPages/examples/NotFoundExample.tsx",
+  FallbackPagesForbidden:
+    "@/registry/new-york/FallbackPages/examples/ForbiddenExample.tsx",
+  FallbackPagesUnauthorized:
+    "@/registry/new-york/FallbackPages/examples/UnauthorizedExample.tsx",
+  FallbackPagesLoading:
+    "@/registry/new-york/FallbackPages/examples/LoadingExample.tsx",
+
   TagsInput: "@/registry/new-york/TagsInput/example.tsx",
   useDebounce: "@/registry/hooks/useDebounce/example.tsx",
 } as const;
@@ -63,6 +71,7 @@ export const PreviewComponents = {
   AutoGrid: dynamic(() => import(componentPaths.AutoGrid), {
     ...dynamicImportOptions,
   }),
+
   FallbackPagesError: dynamic(() => import(componentPaths.FallbackPagesError), {
     ...dynamicImportOptions,
   }),
@@ -78,6 +87,19 @@ export const PreviewComponents = {
       ...dynamicImportOptions,
     },
   ),
+  FallbackPagesForbidden: dynamic(
+    () => import(componentPaths.FallbackPagesForbidden),
+    {
+      ...dynamicImportOptions,
+    },
+  ),
+  FallbackPagesUnauthorized: dynamic(
+    () => import(componentPaths.FallbackPagesUnauthorized),
+    {
+      ...dynamicImportOptions,
+    },
+  ),
+
   TagsInput: dynamic(() => import(componentPaths.TagsInput), {
     ...dynamicImportOptions,
   }),

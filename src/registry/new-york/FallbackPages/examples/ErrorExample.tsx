@@ -1,6 +1,6 @@
 "use client";
 
-import { ErrorPage } from "@/registry/new-york/FallbackPages/FallbackPages";
+import { ErrorPage } from "../FallbackPages";
 
 export default function ErrorExample() {
   const exampleError = Error("Test error") as Error & { digest?: string };

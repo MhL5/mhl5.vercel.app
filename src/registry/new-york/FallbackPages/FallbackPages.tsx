@@ -6,53 +6,73 @@ import { Link } from "@/components/ui/link";
 import { CONTACT_SUPPORT_LINK } from "@/constants";
 import { cn } from "@/lib/utils";
 import { isDev } from "@/registry/utils/checks/checks";
-import { ArrowLeft, Circle, Home, RotateCcw } from "lucide-react";
+import { ArrowLeft, Circle, Home, LogIn, RotateCcw } from "lucide-react";
 import type { Route } from "next";
-import type { ComponentProps } from "react";
+import { usePathname } from "next/navigation";
+import type { ComponentProps, ReactNode } from "react";
 
-type FallbackPageNotFoundVariant = {
-  variant: "not-found";
-  className?: string;
-};
+type ColorScheme = "warning" | "error" | "info";
 
-type FallbackPageErrorVariant = {
-  variant: "error";
-  error: Error & { digest?: string };
-  reset: () => void;
-  className?: string;
-};
-
-type FallbackPagesProps = (
-  | FallbackPageNotFoundVariant
-  | FallbackPageErrorVariant
-) & {
+type FallbackPagesProps = {
   title: string;
   description: string;
   status: number;
+
+  colorScheme?: ColorScheme;
+
+  contactSupportLinkText?: string;
+  secondaryAction?: ReactNode;
+
+  className?: string;
 };
 
-function FallbackPages({
+const colorSchemeClasses: Record<ColorScheme, { text: string }> = {
+  warning: {
+    text: "from-amber-600 via-yellow-700 to-orange-500 dark:from-amber-600 dark:via-yellow-500 dark:to-orange-500",
+  },
+  error: {
+    text: "from-red-600 via-rose-700 to-pink-500 dark:from-red-600 dark:via-rose-500 dark:to-pink-500",
+  },
+  info: {
+    text: "from-sky-600 via-blue-700 to-indigo-500 dark:from-sky-600 dark:via-blue-500 dark:to-indigo-500",
+  },
+};
+
+function FallbackPageSection({
   className,
   description,
   status,
   title,
-  ...props
+  secondaryAction,
+  contactSupportLinkText,
+  colorScheme = "error",
 }: FallbackPagesProps) {
+  const colors = colorSchemeClasses[colorScheme];
+
   return (
-    <section className={cn("grid min-h-svh place-items-center p-4", className)}>
-      <div className="max-w-md space-y-7 text-center">
-        <header>
+    <section
+      className={cn(
+        "relative grid min-h-dvh place-items-center p-4",
+        className,
+      )}
+    >
+      <div className="relative z-10 max-w-md space-y-8 text-center">
+        <header className="space-y-6">
           <div
-            className={`${props.variant === "not-found" ? "text-yellow-600 dark:text-yellow-400" : "text-destructive"} mx-auto mb-5 font-mono text-9xl`}
+            className={cn(
+              "bg-gradient-to-br bg-clip-text font-mono text-[10rem] leading-none font-black tracking-tighter text-transparent",
+              colors.text,
+            )}
           >
             {status}
           </div>
 
-          <h1 className="mb-4 text-4xl font-semibold text-foreground">
+          <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             {title}
           </h1>
+
           <p
-            className="line-clamp-6 text-base leading-relaxed text-pretty text-muted-foreground"
+            className="mx-auto text-base leading-relaxed text-pretty text-muted-foreground"
             role="alert"
             aria-live="polite"
           >
@@ -60,21 +80,18 @@ function FallbackPages({
           </p>
         </header>
 
+        {/* Action buttons */}
         <nav
-          className="flex w-full items-center justify-center gap-3 capitalize [&_a]:w-full [&_a]:basis-[calc(50%-0.375rem)] [&_button]:w-full [&_button]:basis-[calc(50%-0.375rem)]"
+          className="grid grid-cols-2 items-center justify-center gap-3"
           aria-label="actions"
         >
           <Link href="/" variant="outline">
-            <Home /> home
+            <Home /> Home
           </Link>
 
-          {props.variant === "error" ? (
-            <Button onClick={props.reset}>
-              <RotateCcw />
-              Try again
-            </Button>
+          {secondaryAction ? (
+            secondaryAction
           ) : (
-            // window.history.back() causes a full page reload and might fix the issue
             <Button onClick={() => window.history.back()}>
               <ArrowLeft /> Go back
             </Button>
@@ -85,13 +102,7 @@ function FallbackPages({
           Need help?{" "}
           <Link
             variant="link"
-            href={
-              CONTACT_SUPPORT_LINK(
-                props.variant === "error"
-                  ? `Error Code (#${props.error.digest}):\n${props.error.message}`
-                  : "",
-              ) as Route
-            }
+            href={CONTACT_SUPPORT_LINK(contactSupportLinkText) as Route}
             target="_blank"
           >
             Contact support
@@ -102,41 +113,77 @@ function FallbackPages({
   );
 }
 
-type NotFoundPageProps = Omit<
-  Extract<FallbackPagesProps, { variant: "not-found" }>,
-  "variant" | "status" | "title" | "description"
->;
+function NotFoundPage(props: Partial<FallbackPagesProps>) {
+  const pathname = usePathname();
 
-function NotFoundPage(props: NotFoundPageProps) {
   return (
-    <FallbackPages
-      variant="not-found"
+    <FallbackPageSection
       status={404}
+      colorScheme="warning"
       title="Nothing to see here"
-      description="Page you are trying to open does not exist. You may have mistyped the address, or the page has been moved to another URL. If you think this is an error contact support."
+      description="Page you are trying to open does not exist. You may have mistyped the address, or the page has been moved to another URL."
+      contactSupportLinkText={`URL: ${pathname}`}
       {...props}
     />
   );
 }
 
-type ErrorPageProps = Omit<
-  Extract<FallbackPagesProps, { variant: "error" }>,
-  "variant" | "status" | "title" | "description"
->;
+type ErrorPageProps = Partial<FallbackPagesProps> & {
+  error: Error & { digest?: string };
+  reset: () => void;
+};
 
-function ErrorPage({ error, ...props }: ErrorPageProps) {
+function ErrorPage({ error, reset, ...props }: ErrorPageProps) {
   return (
-    <FallbackPages
+    <FallbackPageSection
       status={500}
-      title="Something bad just happened..."
-      variant="error"
+      colorScheme="error"
+      title="Something went wrong"
+      secondaryAction={
+        <Button onClick={reset}>
+          <RotateCcw />
+          Try again
+        </Button>
+      }
+      contactSupportLinkText={`Error Code (#${error.digest}):\n${error.message}`}
       description={
-        // On development mode, show the error message
         !isDev()
           ? error.message
           : "We encountered an unexpected error. Please try again or contact support if the problem persists."
       }
-      error={error}
+      {...props}
+    />
+  );
+}
+
+function UnauthorizedPage({
+  loginHref,
+  ...props
+}: Partial<FallbackPagesProps> & { loginHref: Route }) {
+  return (
+    <FallbackPageSection
+      status={401}
+      colorScheme="info"
+      title="Authentication Required"
+      description="You need to sign in to access this page."
+      secondaryAction={
+        <Link href={loginHref as Route}>
+          <LogIn />
+          Sign in
+        </Link>
+      }
+      {...props}
+    />
+  );
+}
+
+function ForbiddenPage(props: Partial<FallbackPagesProps>) {
+  return (
+    <FallbackPageSection
+      status={403}
+      colorScheme="error"
+      title="Access Denied"
+      description="You don't have permission to access this resource. Contact an administrator if you believe this is an error."
       {...props}
     />
   );
@@ -162,4 +209,10 @@ function LoadingPage({ className, ...props }: ComponentProps<"section">) {
   );
 }
 
-export { ErrorPage, LoadingPage, NotFoundPage };
+export {
+  ErrorPage,
+  ForbiddenPage,
+  LoadingPage,
+  NotFoundPage,
+  UnauthorizedPage,
+};

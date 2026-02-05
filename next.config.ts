@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
   experimental: {
     turbopackFileSystemCacheForDev: true,
     typedEnv: true,
+    authInterrupts: true,
   },
 
   async rewrites() {
