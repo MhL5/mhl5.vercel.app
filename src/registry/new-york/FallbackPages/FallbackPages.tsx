@@ -10,38 +10,34 @@ import { ArrowLeft, Circle, Home, RotateCcw } from "lucide-react";
 import type { Route } from "next";
 import type { ComponentProps } from "react";
 
-const fallbackPagesData = {
-  "not-found": {
-    status: 404,
-    title: "Nothing to see here",
-    description:
-      "Page you are trying to open does not exist. You may have mistyped the address, or the page has been moved to another URL. If you think this is an error contact support.",
-  },
-  error: {
-    status: 500,
-    title: "Something bad just happened...",
-    description:
-      "We encountered an unexpected error. Please try again or contact support if the problem persists.",
-  },
-};
-
-type NotFoundPageProps = {
+type FallbackPageNotFoundVariant = {
   variant: "not-found";
   className?: string;
 };
 
-type ErrorPageProps = {
+type FallbackPageErrorVariant = {
   variant: "error";
   error: Error & { digest?: string };
   reset: () => void;
   className?: string;
 };
 
-type FallbackPagesProps = NotFoundPageProps | ErrorPageProps;
+type FallbackPagesProps = (
+  | FallbackPageNotFoundVariant
+  | FallbackPageErrorVariant
+) & {
+  title: string;
+  description: string;
+  status: number;
+};
 
-function FallbackPages({ className, ...props }: FallbackPagesProps) {
-  const { description, status, title } = fallbackPagesData[props.variant];
-
+function FallbackPages({
+  className,
+  description,
+  status,
+  title,
+  ...props
+}: FallbackPagesProps) {
   return (
     <section className={cn("grid min-h-svh place-items-center p-4", className)}>
       <div className="max-w-md space-y-7 text-center">
@@ -60,10 +56,7 @@ function FallbackPages({ className, ...props }: FallbackPagesProps) {
             role="alert"
             aria-live="polite"
           >
-            {/* On development mode, show the error message */}
-            {isDev() && props.variant === "error"
-              ? props.error.message
-              : description}{" "}
+            {description}
           </p>
         </header>
 
@@ -81,6 +74,7 @@ function FallbackPages({ className, ...props }: FallbackPagesProps) {
               Try again
             </Button>
           ) : (
+            // window.history.back() causes a full page reload and might fix the issue
             <Button onClick={() => window.history.back()}>
               <ArrowLeft /> Go back
             </Button>
@@ -108,13 +102,45 @@ function FallbackPages({ className, ...props }: FallbackPagesProps) {
   );
 }
 
-const NotFoundPage = (props: Omit<NotFoundPageProps, "variant">) => (
-  <FallbackPages variant="not-found" {...props} />
-);
+type NotFoundPageProps = Omit<
+  Extract<FallbackPagesProps, { variant: "not-found" }>,
+  "variant" | "status" | "title" | "description"
+>;
 
-const ErrorPage = (props: Omit<ErrorPageProps, "variant">) => (
-  <FallbackPages variant="error" {...props} />
-);
+function NotFoundPage(props: NotFoundPageProps) {
+  return (
+    <FallbackPages
+      variant="not-found"
+      status={404}
+      title="Nothing to see here"
+      description="Page you are trying to open does not exist. You may have mistyped the address, or the page has been moved to another URL. If you think this is an error contact support."
+      {...props}
+    />
+  );
+}
+
+type ErrorPageProps = Omit<
+  Extract<FallbackPagesProps, { variant: "error" }>,
+  "variant" | "status" | "title" | "description"
+>;
+
+function ErrorPage({ error, ...props }: ErrorPageProps) {
+  return (
+    <FallbackPages
+      status={500}
+      title="Something bad just happened..."
+      variant="error"
+      description={
+        // On development mode, show the error message
+        !isDev()
+          ? error.message
+          : "We encountered an unexpected error. Please try again or contact support if the problem persists."
+      }
+      error={error}
+      {...props}
+    />
+  );
+}
 
 function LoadingPage({ className, ...props }: ComponentProps<"section">) {
   return (

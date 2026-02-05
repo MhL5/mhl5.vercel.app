@@ -14,7 +14,7 @@ export default function PreviewCode({ name }: CodePreviewProps) {
       name={name}
       code={
         <ComponentSource
-          className="[&_pre]:h-[448px]"
+          className="[&_pre]:h-[calc(var(--preview-code-height)-2px)]"
           path={previewSourceCodePath}
         />
       }

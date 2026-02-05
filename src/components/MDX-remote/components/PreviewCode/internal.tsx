@@ -7,7 +7,7 @@ import {
 import { OpenInV0Button } from "@/components/buttons/OpenInV0Button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { type ReactNode } from "react";
+import { type CSSProperties, type ReactNode } from "react";
 
 type CodePreviewProps = {
   name: keyof typeof componentPaths;
@@ -39,7 +39,14 @@ export default function PreviewCodeInternal({ name, code }: CodePreviewProps) {
         <OpenInV0Button name={name} />
       </div>
 
-      <Card className="h-[450px] overflow-y-auto rounded-lg bg-transparent p-0 [scrollbar-color:var(--muted-foreground)_var(--code-background)]">
+      <Card
+        className="h-[var(--preview-code-height)] overflow-y-auto rounded-lg bg-transparent p-0 [scrollbar-color:var(--muted-foreground)_var(--code-background)]"
+        style={
+          {
+            "--preview-code-height": "460px",
+          } as CSSProperties
+        }
+      >
         <CardContent className="h-full p-0">
           <TabsContent
             value="preview"
