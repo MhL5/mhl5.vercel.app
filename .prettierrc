@@ -4,6 +4,7 @@
     "prettier-plugin-tailwindcss"
   ],
   "tailwindFunctions": ["cva"],
+  "tailwindAttributes": ["/.*ClassName/"],
   "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
   "tailwindStylesheet": "./src/styles/globals.css",
   "importOrderSeparation": true,

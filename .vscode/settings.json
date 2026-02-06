@@ -1,4 +1,8 @@
 {
   "typescript.tsdk": "node_modules\\typescript\\lib",
-  "cSpell.words": ["Tabler"]
+  "cSpell.words": ["Tabler"],
+  "tailwindCSS.experimental.classRegex": [
+    "class:\\s*?[\"'`]([^\"'`]*).*?,",
+    "typographyClassName"
+  ]
 }
