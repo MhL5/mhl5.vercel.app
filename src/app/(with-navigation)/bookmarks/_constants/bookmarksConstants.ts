@@ -139,8 +139,9 @@ const uiBookmarks: Bookmark[] = [
     url: "https://animata.design/",
   },
   {
-    title: "",
-    description: "",
+    title: "Beautiful maps, made simple",
+    description:
+      "Ready to use, customizable map components for React.Built on MapLibre. Styled with Tailwind.",
     category: "ui",
     url: "https://www.mapcn.dev",
   },
