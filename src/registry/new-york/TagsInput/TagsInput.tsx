@@ -1,20 +1,5 @@
 "use client";
 
-import { InfoIcon, Plus, X } from "lucide-react";
-import {
-  type ChangeEvent,
-  type ClipboardEvent,
-  type ComponentProps,
-  createContext,
-  type Dispatch,
-  type FocusEvent,
-  type KeyboardEvent,
-  type ReactNode,
-  type SetStateAction,
-  use,
-  useId,
-  useState,
-} from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Kbd } from "@/components/ui/kbd";
@@ -24,18 +9,23 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
+import { InfoIcon, Plus, X } from "lucide-react";
+import {
+  type ChangeEvent,
+  type ClipboardEvent,
+  type ComponentProps,
+  type Dispatch,
+  type FocusEvent,
+  type KeyboardEvent,
+  type ReactNode,
+  type SetStateAction,
+  createContext,
+  use,
+  useId,
+  useState,
+} from "react";
 
 const COMMA_CHARS = [",", "،"] as const;
-
-const errorMessages = {
-  maxTags: (maxTags: number) =>
-    `You can add up to ${maxTags} tag${maxTags === 1 ? "" : "s"} only`,
-  duplicate: (tag: string) => `"${tag}" already exists`,
-  invalid: (tag: string) => `"${tag}" is invalid`,
-  noValidTagsToAdd: "No valid tags to add",
-  reachedMaximumNumberOfTags: (maxTags: number) =>
-    `You have reached the maximum number of tags (${maxTags})`,
-} as const;
 
 type TagsInputContextType = {
   value: string[];
@@ -85,14 +75,16 @@ function TagsInput({
 
     // Check max tags limit
     if (maxTags && value.length >= maxTags) {
-      setError(errorMessages.maxTags(maxTags));
+      setError(
+        `You can add up to ${maxTags} tag${maxTags === 1 ? "" : "s"} only`,
+      );
       setInputValue("");
       return;
     }
 
     // Check for duplicates
     if (value.includes(trimmedTag)) {
-      setError(errorMessages.duplicate(trimmedTag));
+      setError(`"${tag}" already exists`);
       setInputValue("");
       return;
     }
@@ -100,9 +92,7 @@ function TagsInput({
     // Validate tag if validate function is provided
     if (validate && !validate(trimmedTag)) {
       setError(
-        validateMessage
-          ? validateMessage(trimmedTag)
-          : errorMessages.invalid(trimmedTag),
+        validateMessage ? validateMessage(trimmedTag) : `"${tag}" is invalid`,
       );
       setInputValue("");
       return;
@@ -132,16 +122,16 @@ function TagsInput({
 
     if (!newTags.length)
       return setError(
-        validateMessage
-          ? validateMessage(invalidTags)
-          : errorMessages.noValidTagsToAdd,
+        validateMessage ? validateMessage(invalidTags) : "No valid tags to add",
       );
 
     if (maxTags) {
       const remainingSlots = maxTags - value.length;
       newTags = newTags.slice(0, remainingSlots);
       if (!newTags.length)
-        return setError(errorMessages.reachedMaximumNumberOfTags(maxTags));
+        return setError(
+          `You have reached the maximum number of tags (${maxTags})`,
+        );
     }
 
     onChange?.([...newTags, ...value]);
@@ -212,15 +202,16 @@ function TagsInputInput({
   function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
     onKeyDown?.(e);
 
-    if (e.key === "Backspace" && !inputValue && value.length > 0) {
-      removeTag(value.length - 1);
-    }
+    if (e.key === "Backspace" && !inputValue && value.length > 0)
+      return removeTag(value.length - 1);
+
     if (
       e.key === "Enter" ||
       COMMA_CHARS.includes(e.key as (typeof COMMA_CHARS)[number])
     ) {
       e.preventDefault();
       addTag(inputValue);
+      return;
     }
   }
 
@@ -311,24 +302,33 @@ function TagsInputTag({
   return (
     <li
       className={cn(
-        "group inline-flex items-center gap-2 rounded-md bg-primary/10 py-1 pr-1 pl-2.5 font-medium text-primary text-sm transition-colors hover:bg-primary/20",
+        "group inline-flex items-center gap-2 rounded-md bg-primary/10 py-1 pr-1 pl-2.5 text-sm font-medium text-primary transition-colors hover:bg-primary/20",
         className,
       )}
       {...props}
     >
       {children}
 
-      <Button
-        variant="destructive"
-        size="icon"
-        disabled={disabled}
-        type="button"
-        onClick={handleClick}
-        className="size-5"
-        title={`click to remove the tag "${value}"`}
-      >
-        <X />
-      </Button>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant="destructive"
+            size="icon"
+            disabled={disabled}
+            type="button"
+            onClick={handleClick}
+            className="size-5"
+          >
+            <X />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          click to remove the tag{" "}
+          <span className="mx-1 inline-block rounded-sm bg-muted px-2 py-1 text-muted-foreground">
+            {value}
+          </span>
+        </TooltipContent>
+      </Tooltip>
     </li>
   );
 }
@@ -356,7 +356,7 @@ function TagsInputErrorMessage() {
   return (
     <p
       id={errorMessageId}
-      className="font-medium text-destructive text-sm"
+      className="text-sm font-medium text-destructive"
       role="alert"
       aria-live="polite"
     >

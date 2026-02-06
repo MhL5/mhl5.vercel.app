@@ -28,7 +28,7 @@ type FallbackPagesProps = {
 
 const colorSchemeClasses: Record<ColorScheme, { text: string }> = {
   warning: {
-    text: "from-amber-600 via-yellow-700 to-orange-500 dark:from-amber-600 dark:via-yellow-500 dark:to-orange-500",
+    text: "from-amber-500 via-yellow-600 to-orange-500 dark:from-amber-600 dark:via-yellow-500 dark:to-orange-500",
   },
   error: {
     text: "from-red-600 via-rose-700 to-pink-500 dark:from-red-600 dark:via-rose-500 dark:to-pink-500",
@@ -147,7 +147,7 @@ function ErrorPage({ error, reset, ...props }: ErrorPageProps) {
       }
       contactSupportLinkText={`Error Code (#${error.digest}):\n${error.message}`}
       description={
-        !isDev()
+        isDev()
           ? error.message
           : "We encountered an unexpected error. Please try again or contact support if the problem persists."
       }
@@ -200,7 +200,7 @@ function LoadingPage({ className, ...props }: ComponentProps<"section">) {
       <div className="isolate grid grid-cols-1 grid-rows-1 place-items-center">
         <Circle className="z-10 col-start-1 row-start-1 size-22 animate-circleSvgGrow bg-transparent stroke-1 text-primary [--circumference:572px]" />
 
-        <Logo className="z-10 col-start-1 row-start-1 size-19 animate-loadingFadeIn rounded-full bg-primary p-1 opacity-0 starting:opacity-0" />
+        <Logo className="z-10 col-start-1 row-start-1 size-19 animate-loadingFadeIn rounded-full bg-primary p-1 opacity-0" />
 
         <div className="col-start-1 col-end-1 row-start-1 row-end-1 h-20 w-20 animate-pingMd rounded-full bg-primary/80 delay-1000 starting:opacity-0" />
         <div className="col-start-1 col-end-1 row-start-1 row-end-1 h-20 w-20 animate-pingSm rounded-full bg-primary/80 delay-1000 starting:opacity-0" />
