@@ -132,6 +132,26 @@ const uiBookmarks: Bookmark[] = [
     category: "ui",
   },
   {
+    title: "@optics/design-system",
+    description:
+      "More than just a design system. It's a collection of tools and resources that help build a more accessible, intuitive, and aesthetically pleasing web applications.",
+    url: "https://optics.agusmayol.com.ar/",
+    category: "ui",
+  },
+  {
+    title: "useLayouts",
+    description: "A micro-interaction UI library for professionals.",
+    url: "https://uselayouts.com",
+    category: "ui",
+  },
+  {
+    title: "Badtz UI",
+    description:
+      "An open-source React UI library with production-ready animations. Weekly updates. Built with React, Tailwind, TypeScript & JavaScript.",
+    url: "https://www.badtz-ui.com/",
+    category: "ui",
+  },
+  {
     title: "Animata Design",
     description:
       "Hand-crafted ✍️ interaction animations and effects from around the internet 🛜 to copy and paste into your project.",
