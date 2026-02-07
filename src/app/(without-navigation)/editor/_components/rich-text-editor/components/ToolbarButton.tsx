@@ -21,25 +21,45 @@ export function ToolbarButton({
 }: ToolbarButtonProps) {
   if (!tooltipContent)
     return (
-      <Button
-        variant={isActive ? "default" : variant || "outline"}
-        size="icon-sm"
-        className={cn("transition-colors duration-300", className)}
+      <ToolbarButtonInternal
+        isActive={isActive}
+        variant={variant}
+        className={className}
         {...props}
       />
     );
 
   return (
-    <Tooltip>
+    <Tooltip delayDuration={200}>
       <TooltipTrigger asChild>
-        <Button
-          variant={isActive ? "default" : variant || "outline"}
-          size="icon-sm"
-          className={cn("transition-colors duration-300", className)}
+        <ToolbarButtonInternal
+          isActive={isActive}
+          variant={variant}
+          className={className}
           {...props}
         />
       </TooltipTrigger>
       <TooltipContent side="bottom">{tooltipContent}</TooltipContent>
     </Tooltip>
+  );
+}
+
+function ToolbarButtonInternal({
+  isActive,
+  variant,
+  className,
+  size = "icon-sm",
+  ...props
+}: Omit<ToolbarButtonProps, "tooltipContent">) {
+  return (
+    <Button
+      variant={isActive ? "default" : variant || "ghost"}
+      size={size}
+      className={cn(
+        `${size === "icon-sm" ? "size-7" : ""} transition-colors duration-300`,
+        className,
+      )}
+      {...props}
+    />
   );
 }

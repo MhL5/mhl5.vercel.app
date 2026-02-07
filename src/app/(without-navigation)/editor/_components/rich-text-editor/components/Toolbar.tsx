@@ -25,6 +25,7 @@ import {
   Heading6,
   Italic,
   List,
+  ListOrdered,
   Minus,
   Pilcrow,
   Quote,
@@ -40,127 +41,19 @@ import { getShortcut } from "../utils/getShortcut";
 import { ToolbarButton } from "./ToolbarButton";
 
 export default function Toolbar() {
-  const { editor } = useTiptapEditorContext();
-  const editorState = useEditorState({
-    editor,
-    selector: (ctx) => ({
-      // Text formatting
-      isBold: ctx.editor.isActive("bold") ?? false,
-      canBold: ctx.editor.can().chain().toggleBold().run() ?? false,
-      isItalic: ctx.editor.isActive("italic") ?? false,
-      canItalic: ctx.editor.can().chain().toggleItalic().run() ?? false,
-      isStrike: ctx.editor.isActive("strike") ?? false,
-      canStrike: ctx.editor.can().chain().toggleStrike().run() ?? false,
-      isCode: ctx.editor.isActive("code") ?? false,
-      canCode: ctx.editor.can().chain().toggleCode().run() ?? false,
-      canClearMarks: ctx.editor.can().chain().unsetAllMarks().run() ?? false,
-
-      // Block types
-      isParagraph: ctx.editor.isActive("paragraph") ?? false,
-
-      // Lists and blocks
-      isCodeBlock: ctx.editor.isActive("codeBlock") ?? false,
-      isBlockquote: ctx.editor.isActive("blockquote") ?? false,
-
-      isUnderline: ctx.editor.isActive("underline") ?? false,
-    }),
-  });
-
   return (
     <div className="flex items-center justify-start gap-2 overflow-x-auto border-b border-border/50 bg-muted px-2 py-1.5">
       <UndoRedoButtons />
-
       <ToolbarSeparator />
-
       <HeadingDropdown />
-
       <ToolbarSeparator />
-
       <ListButtons />
-
       <ToolbarSeparator />
-
       <TextAlignButtons />
-
       <ToolbarSeparator />
-
-      <ToolbarButton
-        tooltipContent="Underline"
-        onClick={() => editor.chain().focus().toggleUnderline().run()}
-        isActive={editorState.isUnderline}
-      >
-        <Underline />
-      </ToolbarButton>
-
-      <ToolbarButton
-        tooltipContent="Bold"
-        onClick={() => editor.chain().focus().toggleBold().run()}
-        disabled={!editorState.canBold}
-        isActive={editorState.isBold}
-      >
-        <Bold />
-      </ToolbarButton>
-      <ToolbarButton
-        tooltipContent="Italic"
-        onClick={() => editor.chain().focus().toggleItalic().run()}
-        disabled={!editorState.canItalic}
-        isActive={editorState.isItalic}
-      >
-        <Italic />
-      </ToolbarButton>
-      <ToolbarButton
-        tooltipContent="Strikethrough"
-        onClick={() => editor.chain().focus().toggleStrike().run()}
-        disabled={!editorState.canStrike}
-        isActive={editorState.isStrike}
-      >
-        <Strikethrough />
-      </ToolbarButton>
-      <ToolbarButton
-        tooltipContent="Inline code"
-        onClick={() => editor.chain().focus().toggleCode().run()}
-        disabled={!editorState.canCode}
-        isActive={editorState.isCode}
-      >
-        <Code />
-      </ToolbarButton>
-
-      <ToolbarButton
-        tooltipContent="Paragraph"
-        onClick={() => editor.chain().focus().setParagraph().run()}
-        isActive={editorState.isParagraph}
-      >
-        <Pilcrow />
-      </ToolbarButton>
-
-      <ToolbarButton
-        tooltipContent="Code block"
-        onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-        isActive={editorState.isCodeBlock}
-      >
-        <Code2 />
-      </ToolbarButton>
-      <ToolbarButton
-        tooltipContent="Blockquote"
-        onClick={() => editor.chain().focus().toggleBlockquote().run()}
-        isActive={editorState.isBlockquote}
-      >
-        <Quote />
-      </ToolbarButton>
-      <ToolbarButton
-        tooltipContent="Horizontal rule"
-        onClick={() => editor.chain().focus().setHorizontalRule().run()}
-        isActive={false}
-      >
-        <Minus />
-      </ToolbarButton>
-      <ToolbarButton
-        tooltipContent="Hard break"
-        onClick={() => editor.chain().focus().setHardBreak().run()}
-        isActive={false}
-      >
-        <CornerDownLeft />
-      </ToolbarButton>
+      <TextFormattingButtons />
+      <ToolbarSeparator />
+      <BlockButtons />
     </div>
   );
 }
@@ -315,6 +208,7 @@ function ListButtons() {
       ),
       type: "bulletList",
       isActive: editorState.isBulletList,
+      icon: List,
     },
     {
       tooltipContent: (
@@ -324,17 +218,18 @@ function ListButtons() {
       ),
       type: "orderedList",
       isActive: editorState.isOrderedList,
+      icon: ListOrdered,
     },
   ] as const;
 
-  return buttons.map(({ isActive, tooltipContent, type }) => (
+  return buttons.map(({ icon: Icon, isActive, tooltipContent, type }) => (
     <ToolbarButton
       key={type}
       tooltipContent={tooltipContent}
       onClick={() => handleClick(type)}
       isActive={isActive}
     >
-      <List />
+      <Icon />
     </ToolbarButton>
   ));
 }
@@ -463,4 +358,173 @@ function TextAlignButtons() {
       <Icon />
     </ToolbarButton>
   ));
+}
+
+function TextFormattingButtons() {
+  const { editor } = useTiptapEditorContext();
+  const editorState = useEditorState({
+    editor,
+    selector: (ctx) => ({
+      isUnderline: ctx.editor.isActive("underline") ?? false,
+
+      isBold: ctx.editor.isActive("bold") ?? false,
+      canBold: ctx.editor.can().chain().toggleBold().run() ?? false,
+
+      isItalic: ctx.editor.isActive("italic") ?? false,
+      canItalic: ctx.editor.can().chain().toggleItalic().run() ?? false,
+
+      isStrike: ctx.editor.isActive("strike") ?? false,
+      canStrike: ctx.editor.can().chain().toggleStrike().run() ?? false,
+
+      isCode: ctx.editor.isActive("code") ?? false,
+      canCode: ctx.editor.can().chain().toggleCode().run() ?? false,
+    }),
+  });
+
+  const buttons = [
+    {
+      key: "underline",
+      tooltipContent: (
+        <>
+          Underline <Kbd>{getShortcut("underline")}</Kbd>
+        </>
+      ),
+      onClick: () => editor.chain().focus().toggleUnderline().run(),
+      isActive: editorState.isUnderline,
+      icon: Underline,
+    },
+    {
+      key: "bold",
+      tooltipContent: (
+        <>
+          Bold <Kbd>{getShortcut("bold")}</Kbd>
+        </>
+      ),
+      onClick: () => editor.chain().focus().toggleBold().run(),
+      disabled: !editorState.canBold,
+      isActive: editorState.isBold,
+      icon: Bold,
+    },
+    {
+      key: "italic",
+      tooltipContent: (
+        <>
+          Italic <Kbd>{getShortcut("italic")}</Kbd>
+        </>
+      ),
+      onClick: () => editor.chain().focus().toggleItalic().run(),
+      disabled: !editorState.canItalic,
+      isActive: editorState.isItalic,
+      icon: Italic,
+    },
+    {
+      key: "strikethrough",
+      tooltipContent: (
+        <>
+          Strikethrough <Kbd>{getShortcut("strikethrough")}</Kbd>
+        </>
+      ),
+      onClick: () => editor.chain().focus().toggleStrike().run(),
+      disabled: !editorState.canStrike,
+      isActive: editorState.isStrike,
+      icon: Strikethrough,
+    },
+    {
+      key: "code",
+      tooltipContent: (
+        <>
+          Inline code <Kbd>{getShortcut("code")}</Kbd>
+        </>
+      ),
+      onClick: () => editor.chain().focus().toggleCode().run(),
+      disabled: !editorState.canCode,
+      isActive: editorState.isCode,
+      icon: Code,
+    },
+  ];
+
+  return buttons.map(
+    ({ disabled, icon: Icon, isActive, key, onClick, tooltipContent }) => (
+      <ToolbarButton
+        key={key}
+        tooltipContent={tooltipContent}
+        onClick={onClick}
+        disabled={disabled}
+        isActive={isActive}
+      >
+        <Icon />
+      </ToolbarButton>
+    ),
+  );
+}
+
+function BlockButtons() {
+  const { editor } = useTiptapEditorContext();
+  const editorState = useEditorState({
+    editor,
+    selector: (ctx) => ({
+      isParagraph: ctx.editor.isActive("paragraph") ?? false,
+      isCodeBlock: ctx.editor.isActive("codeBlock") ?? false,
+      isBlockquote: ctx.editor.isActive("blockquote") ?? false,
+    }),
+  });
+
+  const buttons = [
+    {
+      key: "paragraph",
+      tooltipContent: "Paragraph",
+      onClick: () => editor.chain().focus().setParagraph().run(),
+      isActive: editorState.isParagraph,
+      icon: Pilcrow,
+    },
+    {
+      key: "codeBlock",
+      tooltipContent: (
+        <>
+          Code block <Kbd>{getShortcut("codeBlock")}</Kbd>
+        </>
+      ),
+      onClick: () => editor.chain().focus().toggleCodeBlock().run(),
+      isActive: editorState.isCodeBlock,
+      icon: Code2,
+    },
+    {
+      key: "blockquote",
+      tooltipContent: (
+        <>
+          Blockquote <Kbd>{getShortcut("blockquote")}</Kbd>
+        </>
+      ),
+      onClick: () => editor.chain().focus().toggleBlockquote().run(),
+      isActive: editorState.isBlockquote,
+      icon: Quote,
+    },
+    {
+      key: "horizontalRule",
+      tooltipContent: "Horizontal rule",
+      onClick: () => editor.chain().focus().setHorizontalRule().run(),
+      isActive: false,
+      icon: Minus,
+    },
+    {
+      key: "hardBreak",
+      tooltipContent: "Hard break",
+      onClick: () => editor.chain().focus().setHardBreak().run(),
+      isActive: false,
+      icon: CornerDownLeft,
+    },
+  ];
+
+  return buttons.map(
+    ({ icon: Icon, isActive, key, onClick, tooltipContent }) => (
+      <ToolbarButton
+        key={key}
+        tooltipContent={tooltipContent}
+        onClick={onClick}
+        isActive={isActive}
+      >
+        <Icon />
+      </ToolbarButton>
+    ),
+  );
 }
