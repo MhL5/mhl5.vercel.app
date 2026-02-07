@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,7 +5,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Kbd } from "@/components/ui/kbd";
 import { Separator } from "@/components/ui/separator";
-import { cn } from "@/lib/utils";
 import { useEditorState } from "@tiptap/react";
 import {
   AlignCenter,
@@ -27,7 +25,6 @@ import {
   Heading6,
   Italic,
   List,
-  ListOrdered,
   Minus,
   Pilcrow,
   Quote,
@@ -37,10 +34,10 @@ import {
   Underline,
   Undo2,
 } from "lucide-react";
-import type { ComponentProps } from "react";
 
 import { useTiptapEditorContext } from "../context/TiptapEditorContext";
 import { getShortcut } from "../utils/getShortcut";
+import { ToolbarButton } from "./ToolbarButton";
 
 export default function Toolbar() {
   const { editor } = useTiptapEditorContext();
@@ -88,7 +85,7 @@ export default function Toolbar() {
       <ToolbarSeparator />
 
       <ToolbarButton
-        title="Bold"
+        tooltipContent="Underline"
         onClick={() => editor.chain().focus().toggleUnderline().run()}
         isActive={editorState.isUnderline}
       >
@@ -96,7 +93,7 @@ export default function Toolbar() {
       </ToolbarButton>
 
       <ToolbarButton
-        title="Bold"
+        tooltipContent="Bold"
         onClick={() => editor.chain().focus().toggleBold().run()}
         disabled={!editorState.canBold}
         isActive={editorState.isBold}
@@ -104,7 +101,7 @@ export default function Toolbar() {
         <Bold />
       </ToolbarButton>
       <ToolbarButton
-        title="Italic"
+        tooltipContent="Italic"
         onClick={() => editor.chain().focus().toggleItalic().run()}
         disabled={!editorState.canItalic}
         isActive={editorState.isItalic}
@@ -112,7 +109,7 @@ export default function Toolbar() {
         <Italic />
       </ToolbarButton>
       <ToolbarButton
-        title="Strikethrough"
+        tooltipContent="Strikethrough"
         onClick={() => editor.chain().focus().toggleStrike().run()}
         disabled={!editorState.canStrike}
         isActive={editorState.isStrike}
@@ -120,7 +117,7 @@ export default function Toolbar() {
         <Strikethrough />
       </ToolbarButton>
       <ToolbarButton
-        title="Inline code"
+        tooltipContent="Inline code"
         onClick={() => editor.chain().focus().toggleCode().run()}
         disabled={!editorState.canCode}
         isActive={editorState.isCode}
@@ -129,7 +126,7 @@ export default function Toolbar() {
       </ToolbarButton>
 
       <ToolbarButton
-        title="Paragraph"
+        tooltipContent="Paragraph"
         onClick={() => editor.chain().focus().setParagraph().run()}
         isActive={editorState.isParagraph}
       >
@@ -137,28 +134,28 @@ export default function Toolbar() {
       </ToolbarButton>
 
       <ToolbarButton
-        title="Code block"
+        tooltipContent="Code block"
         onClick={() => editor.chain().focus().toggleCodeBlock().run()}
         isActive={editorState.isCodeBlock}
       >
         <Code2 />
       </ToolbarButton>
       <ToolbarButton
-        title="Blockquote"
+        tooltipContent="Blockquote"
         onClick={() => editor.chain().focus().toggleBlockquote().run()}
         isActive={editorState.isBlockquote}
       >
         <Quote />
       </ToolbarButton>
       <ToolbarButton
-        title="Horizontal rule"
+        tooltipContent="Horizontal rule"
         onClick={() => editor.chain().focus().setHorizontalRule().run()}
         isActive={false}
       >
         <Minus />
       </ToolbarButton>
       <ToolbarButton
-        title="Hard break"
+        tooltipContent="Hard break"
         onClick={() => editor.chain().focus().setHardBreak().run()}
         isActive={false}
       >
@@ -173,24 +170,6 @@ function ToolbarSeparator() {
     <Separator
       orientation="vertical"
       className="data-[orientation=vertical]:h-5"
-    />
-  );
-}
-
-function ToolbarButton({
-  isActive,
-  className,
-  variant,
-  ...props
-}: ComponentProps<typeof Button> & {
-  isActive: boolean;
-}) {
-  return (
-    <Button
-      variant={isActive ? "default" : variant || "outline"}
-      size="icon-sm"
-      className={cn("transition-colors duration-300", className)}
-      {...props}
     />
   );
 }
@@ -263,7 +242,14 @@ function HeadingDropdown() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <ToolbarButton
-          title={`${activeHeading.title} ${activeHeading.level ? `(${getShortcut(`heading${activeHeading.level}`)})` : ""}`}
+          tooltipContent={
+            <>
+              {activeHeading.title}{" "}
+              {activeHeading.level ? (
+                <Kbd>{getShortcut(`heading${activeHeading.level}`)}</Kbd>
+              ) : null}
+            </>
+          }
           isActive={activeHeading.title !== "Heading"}
           size="default"
           className="h-8"
@@ -279,6 +265,7 @@ function HeadingDropdown() {
           className="w-48 justify-start px-2 py-1"
           isActive={editorState.isParagraph}
           variant="ghost"
+          tooltipContent={null}
         >
           <Type className="shrink-0" />
           Normal
@@ -291,6 +278,7 @@ function HeadingDropdown() {
             onClick={() => handleHeadingClick(level)}
             className="w-48 justify-start px-2 py-1"
             variant="ghost"
+            tooltipContent={null}
           >
             <Icon className="shrink-0" />
             {title}
@@ -312,25 +300,43 @@ function ListButtons() {
     }),
   });
 
-  return (
-    <>
-      <ToolbarButton
-        title={`Bullet list ${getShortcut("bulletList")}`}
-        onClick={() => editor.chain().focus().toggleBulletList().run()}
-        isActive={editorState.isBulletList}
-      >
-        <List />
-      </ToolbarButton>
+  function handleClick(type: "bulletList" | "orderedList") {
+    if (type === "bulletList") editor.chain().focus().toggleBulletList().run();
+    if (type === "orderedList")
+      editor.chain().focus().toggleOrderedList().run();
+  }
 
-      <ToolbarButton
-        title={`Ordered list ${getShortcut("orderedList")}`}
-        onClick={() => editor.chain().focus().toggleOrderedList().run()}
-        isActive={editorState.isOrderedList}
-      >
-        <ListOrdered />
-      </ToolbarButton>
-    </>
-  );
+  const buttons = [
+    {
+      tooltipContent: (
+        <>
+          Bullet list <Kbd>{getShortcut("bulletList")}</Kbd>
+        </>
+      ),
+      type: "bulletList",
+      isActive: editorState.isBulletList,
+    },
+    {
+      tooltipContent: (
+        <>
+          Ordered list <Kbd>{getShortcut("orderedList")}</Kbd>
+        </>
+      ),
+      type: "orderedList",
+      isActive: editorState.isOrderedList,
+    },
+  ] as const;
+
+  return buttons.map(({ isActive, tooltipContent, type }) => (
+    <ToolbarButton
+      key={type}
+      tooltipContent={tooltipContent}
+      onClick={() => handleClick(type)}
+      isActive={isActive}
+    >
+      <List />
+    </ToolbarButton>
+  ));
 }
 
 function UndoRedoButtons() {
@@ -343,26 +349,48 @@ function UndoRedoButtons() {
     }),
   });
 
-  return (
-    <>
-      <ToolbarButton
-        title={`Undo ${getShortcut("undo")}`}
-        onClick={() => editor.chain().focus().undo().run()}
-        disabled={!editorState.canUndo}
-        isActive={editorState.canUndo}
-      >
-        <Undo2 />
-      </ToolbarButton>
+  function handleClick(type: "undo" | "redo") {
+    if (type === "undo") editor.chain().focus().undo().run();
+    if (type === "redo") editor.chain().focus().redo().run();
+  }
 
+  const buttons = [
+    {
+      tooltipContent: (
+        <>
+          Undo <Kbd>{getShortcut("undo")}</Kbd>
+        </>
+      ),
+      type: "undo",
+      disabled: !editorState.canUndo,
+      isActive: editorState.canUndo,
+      icon: Undo2,
+    },
+    {
+      tooltipContent: (
+        <>
+          Redo <Kbd>{getShortcut("redo")}</Kbd>
+        </>
+      ),
+      type: "redo",
+      disabled: !editorState.canRedo,
+      isActive: editorState.canRedo,
+      icon: Redo2,
+    },
+  ] as const;
+
+  return buttons.map(
+    ({ disabled, icon: Icon, isActive, tooltipContent, type }) => (
       <ToolbarButton
-        title={`Redo ${getShortcut("redo")}`}
-        onClick={() => editor.chain().focus().redo().run()}
-        disabled={!editorState.canRedo}
-        isActive={editorState.canRedo}
+        key={type}
+        tooltipContent={tooltipContent}
+        onClick={() => handleClick(type)}
+        disabled={disabled}
+        isActive={isActive}
       >
-        <Redo2 />
+        <Icon />
       </ToolbarButton>
-    </>
+    ),
   );
 }
 
@@ -384,35 +412,51 @@ function TextAlignButtons() {
 
   const buttons = [
     {
-      title: `Left align ${getShortcut("leftAlign")}`,
+      tooltipContent: (
+        <>
+          Left align <Kbd>{getShortcut("leftAlign")}</Kbd>
+        </>
+      ),
       icon: AlignLeft,
       alignment: "left",
       isActive: editorState.isAlignLeft,
     },
     {
-      title: `Center align ${getShortcut("centerAlign")}`,
+      tooltipContent: (
+        <>
+          Center align <Kbd>{getShortcut("centerAlign")}</Kbd>
+        </>
+      ),
       icon: AlignCenter,
       alignment: "center",
       isActive: editorState.isAlignCenter,
     },
     {
-      title: `Right align ${getShortcut("rightAlign")}`,
+      tooltipContent: (
+        <>
+          Right align <Kbd>{getShortcut("rightAlign")}</Kbd>
+        </>
+      ),
       icon: AlignRight,
       alignment: "right",
       isActive: editorState.isAlignRight,
     },
     {
-      title: `Justify align ${getShortcut("justify")}`,
+      tooltipContent: (
+        <>
+          Justify align <Kbd>{getShortcut("justify")}</Kbd>
+        </>
+      ),
       icon: AlignJustify,
       alignment: "justify",
       isActive: editorState.isAlignJustify,
     },
   ] as const;
 
-  return buttons.map(({ alignment, icon: Icon, isActive, title }) => (
+  return buttons.map(({ alignment, icon: Icon, isActive, tooltipContent }) => (
     <ToolbarButton
-      key={title + alignment}
-      title={title}
+      key={alignment}
+      tooltipContent={tooltipContent}
       onClick={() => handleClick(alignment)}
       isActive={isActive}
     >
