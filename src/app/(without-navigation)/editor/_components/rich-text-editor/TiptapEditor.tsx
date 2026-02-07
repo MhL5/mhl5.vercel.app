@@ -3,6 +3,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { typographyClassName } from "@/styles/typographyClassName";
+import TextAlign from "@tiptap/extension-text-align";
 import { TextStyleKit } from "@tiptap/extension-text-style";
 import { type Content, EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
@@ -11,7 +12,13 @@ import dynamic from "next/dynamic";
 import Toolbar from "./components/Toolbar";
 import { TiptapEditorContextProvider } from "./context/TiptapEditorContext";
 
-const extensions = [StarterKit, TextStyleKit];
+const extensions = [
+  StarterKit,
+  TextStyleKit,
+  TextAlign.configure({
+    types: ["heading", "paragraph"],
+  }),
+];
 
 export const TiptapEditorDynamic = dynamic(() => import("./TiptapEditor"), {
   ssr: false,
