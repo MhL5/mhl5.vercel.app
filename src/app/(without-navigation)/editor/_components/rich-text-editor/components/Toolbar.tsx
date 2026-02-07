@@ -36,7 +36,7 @@ import {
   Undo2,
 } from "lucide-react";
 
-import { useTiptapEditorContext } from "../context/TiptapEditorContext";
+import { useCurrentEditor } from "../hooks/useEditor";
 import { getShortcut } from "../utils/getShortcut";
 import { ToolbarButton } from "./ToolbarButton";
 
@@ -69,7 +69,7 @@ function ToolbarSeparator() {
 }
 
 function HeadingDropdown() {
-  const { editor } = useTiptapEditorContext();
+  const { editor } = useCurrentEditor();
   const editorState = useEditorState({
     editor,
     selector: (ctx) => ({
@@ -185,7 +185,7 @@ function HeadingDropdown() {
 }
 
 function ListButtons() {
-  const { editor } = useTiptapEditorContext();
+  const { editor } = useCurrentEditor();
   const editorState = useEditorState({
     editor,
     selector: (ctx) => ({
@@ -236,7 +236,7 @@ function ListButtons() {
 }
 
 function UndoRedoButtons() {
-  const { editor } = useTiptapEditorContext();
+  const { editor } = useCurrentEditor();
   const editorState = useEditorState({
     editor,
     selector: (ctx) => ({
@@ -291,7 +291,7 @@ function UndoRedoButtons() {
 }
 
 function TextAlignButtons() {
-  const { editor } = useTiptapEditorContext();
+  const { editor } = useCurrentEditor();
   const editorState = useEditorState({
     editor,
     selector: (ctx) => ({
@@ -362,7 +362,7 @@ function TextAlignButtons() {
 }
 
 function TextFormattingButtons() {
-  const { editor } = useTiptapEditorContext();
+  const { editor } = useCurrentEditor();
   const editorState = useEditorState({
     editor,
     selector: (ctx) => ({
@@ -460,7 +460,7 @@ function TextFormattingButtons() {
 }
 
 function BlockButtons() {
-  const { editor } = useTiptapEditorContext();
+  const { editor } = useCurrentEditor();
   const editorState = useEditorState({
     editor,
     selector: (ctx) => ({

@@ -375,7 +375,7 @@
 }
 
 .typography {
-  @apply prose prose-custom dark:prose-invert prose-code:w-fit prose-code:rounded-sm prose-code:bg-secondary prose-code:px-1.5 prose-code:py-0.5 prose-code:tracking-wide prose-code:text-secondary-foreground prose-code:before:content-none prose-code:after:content-none;
+  @apply prose prose-custom dark:prose-invert prose-code:w-fit prose-code:rounded-sm prose-code:bg-secondary prose-code:px-1 prose-code:py-0.5 prose-code:tracking-wide prose-code:text-secondary-foreground prose-code:before:content-none prose-code:after:content-none;
 }
 
 @utility prose-custom {

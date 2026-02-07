@@ -388,9 +388,7 @@ const demoContent = {
 export default function Page() {
   return (
     <section className="grid min-h-dvh w-full items-start justify-center pt-40">
-      <div className="mx-auto w-full max-w-5xl">
-        <TiptapEditorDynamic content={demoContent} onUpdate={() => {}} />
-      </div>
+      <TiptapEditorDynamic content={demoContent} onUpdate={() => {}} />
     </section>
   );
 }

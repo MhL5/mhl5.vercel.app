@@ -4,12 +4,17 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import TextAlign from "@tiptap/extension-text-align";
 import { TextStyleKit } from "@tiptap/extension-text-style";
-import { type Content, EditorContent, useEditor } from "@tiptap/react";
+import {
+  type Content,
+  EditorContent,
+  EditorContext,
+  useEditor,
+} from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import dynamic from "next/dynamic";
+import { useMemo } from "react";
 
 import Toolbar from "./components/Toolbar";
-import { TiptapEditorContextProvider } from "./context/TiptapEditorContext";
 
 const extensions = [
   StarterKit.configure({
@@ -55,10 +60,7 @@ export default function TiptapEditor({
     editable, // Todo: for some reason doesn't work
     editorProps: {
       attributes: {
-        class: cn(
-          `typography max-w-4xl w-full mx-auto overflow-x-hidden focus:outline-none`,
-          className,
-        ),
+        class: `typography w-full mx-auto overflow-x-hidden focus:outline-none`,
       },
     },
     // Don't render immediately on the server to avoid SSR issues
@@ -66,16 +68,23 @@ export default function TiptapEditor({
     onUpdate: ({ editor }) => onUpdate(editor.getJSON()),
   });
 
+  const memoizedEditor = useMemo(() => editor, [editor]);
+
   if (!editor) return <Skeleton className="h-40 w-full" />;
   return (
-    <div className="overflow-hidden rounded-lg border border-border bg-background">
-      <TiptapEditorContextProvider editor={editor}>
+    <div
+      className={cn(
+        "w-full overflow-hidden rounded-lg border border-border bg-background",
+        className,
+      )}
+    >
+      <EditorContext value={{ editor: memoizedEditor }}>
         <Toolbar />
         <EditorContent
-          className="h-[70svh] overflow-y-auto px-5 py-7"
+          className="h-[70svh] w-full overflow-y-auto px-5 py-7"
           editor={editor}
         />
-      </TiptapEditorContextProvider>
+      </EditorContext>
     </div>
   );
 }
