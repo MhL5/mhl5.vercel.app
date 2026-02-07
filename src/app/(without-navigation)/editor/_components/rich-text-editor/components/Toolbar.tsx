@@ -472,7 +472,11 @@ function BlockButtons() {
   const buttons = [
     {
       key: "paragraph",
-      tooltipContent: "Paragraph",
+      tooltipContent: (
+        <>
+          Paragraph <Kbd>{getShortcut("normalText")}</Kbd>
+        </>
+      ),
       onClick: () => editor.chain().focus().setParagraph().run(),
       isActive: editorState.isParagraph,
       icon: Pilcrow,
@@ -501,14 +505,19 @@ function BlockButtons() {
     },
     {
       key: "horizontalRule",
-      tooltipContent: "Horizontal rule",
+      // Doesn't have shortcut
+      tooltipContent: <>Horizontal rule</>,
       onClick: () => editor.chain().focus().setHorizontalRule().run(),
       isActive: false,
       icon: Minus,
     },
     {
       key: "hardBreak",
-      tooltipContent: "Hard break",
+      tooltipContent: (
+        <>
+          Hard break <Kbd>{getShortcut("lineBreak")}</Kbd>
+        </>
+      ),
       onClick: () => editor.chain().focus().setHardBreak().run(),
       isActive: false,
       icon: CornerDownLeft,
