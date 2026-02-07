@@ -54,6 +54,7 @@ export default function Toolbar() {
       <TextFormattingButtons />
       <ToolbarSeparator />
       <BlockButtons />
+      <ToolbarSeparator />
     </div>
   );
 }

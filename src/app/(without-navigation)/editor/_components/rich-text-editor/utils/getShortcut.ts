@@ -15,6 +15,7 @@ const SHORTCUTS = {
   strikethrough: { mac: "⌘⇧S", win: "Ctrl+Shift+S" },
   highlight: { mac: "⌘⇧H", win: "Ctrl+Shift+H" },
   code: { mac: "⌘E", win: "Ctrl+E" },
+  link: { mac: "⌘K", win: "Ctrl+K" },
 
   // Paragraph formatting
   normalText: { mac: "⌘⌥0", win: "Ctrl+Alt+0" },

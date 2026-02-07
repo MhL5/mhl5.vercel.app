@@ -2,7 +2,6 @@
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
-import { typographyClassName } from "@/styles/typographyClassName";
 import TextAlign from "@tiptap/extension-text-align";
 import { TextStyleKit } from "@tiptap/extension-text-style";
 import { type Content, EditorContent, useEditor } from "@tiptap/react";
@@ -13,7 +12,19 @@ import Toolbar from "./components/Toolbar";
 import { TiptapEditorContextProvider } from "./context/TiptapEditorContext";
 
 const extensions = [
-  StarterKit,
+  StarterKit.configure({
+    link: {
+      openOnClick: false,
+      enableClickSelection: true,
+      protocols: ["ftp", "mailto"],
+      defaultProtocol: "https",
+      HTMLAttributes: {
+        // Change rel to different value
+        // Allow search engines to follow links(remove nofollow)
+        rel: "noopener noreferrer",
+      },
+    },
+  }),
   TextStyleKit,
   TextAlign.configure({
     types: ["heading", "paragraph"],
@@ -44,7 +55,10 @@ export default function TiptapEditor({
     editable, // Todo: for some reason doesn't work
     editorProps: {
       attributes: {
-        class: cn(typographyClassName, `focus:outline-none`, className),
+        class: cn(
+          `typography max-w-4xl w-full mx-auto overflow-x-hidden focus:outline-none`,
+          className,
+        ),
       },
     },
     // Don't render immediately on the server to avoid SSR issues

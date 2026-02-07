@@ -374,6 +374,10 @@
   }
 }
 
+.typography {
+  @apply prose prose-custom dark:prose-invert prose-code:w-fit prose-code:rounded-sm prose-code:bg-secondary prose-code:px-1.5 prose-code:py-0.5 prose-code:tracking-wide prose-code:text-secondary-foreground prose-code:before:content-none prose-code:after:content-none;
+}
+
 @utility prose-custom {
   --tw-prose-body: var(--foreground);
   --tw-prose-headings: var(--foreground);
@@ -386,7 +390,7 @@
   --tw-prose-quotes: var(--foreground);
   --tw-prose-quote-borders: var(--border);
   --tw-prose-captions: var(--muted-foreground);
-  --tw-prose-code: var(--foreground);
+  --tw-prose-code: var(--secondary-foreground);
   --tw-prose-pre-code: var(--muted-foreground);
   --tw-prose-pre-bg: var(--code-background);
   --tw-prose-th-borders: var(--border);

@@ -1,6 +1,5 @@
 import type { ComponentProps } from "react";
 
-import Code from "./Code";
 import ComponentSourceClient from "./ComponentSourceClient";
 
 export default function MdxCodeClient({
@@ -15,10 +14,9 @@ export default function MdxCodeClient({
         code={String(children).replace(/\n$/, "")}
       />
     );
-
   return (
-    <Code {...props} className={className}>
+    <code className={className} {...props}>
       {children}
-    </Code>
+    </code>
   );
 }

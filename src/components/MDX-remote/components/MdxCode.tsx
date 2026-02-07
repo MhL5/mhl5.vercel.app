@@ -1,6 +1,5 @@
 import type { ComponentProps } from "react";
 
-import Code from "./Code";
 import ComponentSource from "./ComponentSource";
 
 export default function MdxCode({
@@ -17,8 +16,8 @@ export default function MdxCode({
     );
 
   return (
-    <Code {...props} className={className}>
+    <code className={className} {...props}>
       {children}
-    </Code>
+    </code>
   );
 }
