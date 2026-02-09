@@ -1,6 +1,7 @@
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Kbd } from "@/components/ui/kbd";
@@ -35,15 +36,17 @@ import {
   Type,
   Underline,
   Undo2,
+  XIcon,
 } from "lucide-react";
 
 import { useCurrentEditor } from "../hooks/useEditor";
 import { getShortcut } from "../utils/getShortcut";
+import LinkPopover from "./LinkPopover";
 import { ToolbarButton } from "./ToolbarButton";
 
 export default function Toolbar() {
   return (
-    <div className="flex items-center justify-start gap-2 overflow-x-auto border-b border-border/50 bg-muted px-2 py-1.5">
+    <div className="flex items-center justify-start gap-2 overflow-x-auto bg-muted/70 px-2 py-1.5">
       <UndoRedoButtons />
       <ToolbarSeparator />
       <HeadingDropdown />
@@ -57,6 +60,7 @@ export default function Toolbar() {
       <BlockButtons />
       <ToolbarSeparator />
       <ImageButton />
+      <LinkPopover />
     </div>
   );
 }
@@ -304,7 +308,11 @@ function TextAlignButtons() {
     }),
   });
 
-  function handleClick(alignment: "left" | "center" | "right" | "justify") {
+  function handleClick(
+    alignment: "left" | "center" | "right" | "justify" | "unset",
+  ) {
+    if (alignment === "unset")
+      return editor.chain().focus().unsetTextAlign().run();
     editor.chain().focus().toggleTextAlign(alignment).run();
   }
 
@@ -316,6 +324,7 @@ function TextAlignButtons() {
         </>
       ),
       icon: AlignLeft,
+      getShortcutKey: "leftAlign",
       alignment: "left",
       isActive: editorState.isAlignLeft,
     },
@@ -326,6 +335,7 @@ function TextAlignButtons() {
         </>
       ),
       icon: AlignCenter,
+      getShortcutKey: "centerAlign",
       alignment: "center",
       isActive: editorState.isAlignCenter,
     },
@@ -336,6 +346,7 @@ function TextAlignButtons() {
         </>
       ),
       icon: AlignRight,
+      getShortcutKey: "rightAlign",
       alignment: "right",
       isActive: editorState.isAlignRight,
     },
@@ -346,21 +357,65 @@ function TextAlignButtons() {
         </>
       ),
       icon: AlignJustify,
+      getShortcutKey: "justify",
       alignment: "justify",
       isActive: editorState.isAlignJustify,
     },
   ] as const;
 
-  return buttons.map(({ alignment, icon: Icon, isActive, tooltipContent }) => (
-    <ToolbarButton
-      key={alignment}
-      tooltipContent={tooltipContent}
-      onClick={() => handleClick(alignment)}
-      isActive={isActive}
-    >
-      <Icon />
-    </ToolbarButton>
-  ));
+  const activeAlignment = buttons.find(({ isActive }) => isActive) || {
+    alignment: null,
+    icon: AlignJustify,
+    tooltipContent: "Align text",
+  };
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <ToolbarButton
+          isActive={activeAlignment.alignment !== null}
+          tooltipContent={activeAlignment.tooltipContent}
+          size="default"
+          className="h-8"
+        >
+          <activeAlignment.icon />
+          <ChevronDown className="size-3 shrink-0" />
+        </ToolbarButton>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="start" className="grid gap-0.5">
+        {buttons.map(({ alignment, icon: Icon, isActive, getShortcutKey }) => (
+          <ToolbarButton
+            key={alignment}
+            onClick={() => handleClick(alignment)}
+            isActive={isActive}
+            className="w-48 justify-start px-2 py-1"
+            variant="ghost"
+            tooltipContent={null}
+          >
+            <Icon className="shrink-0" />
+            {alignment}
+            <Kbd className="ms-auto">{getShortcut(getShortcutKey)}</Kbd>
+          </ToolbarButton>
+        ))}
+
+        {activeAlignment.alignment !== null && (
+          <>
+            <DropdownMenuSeparator className="my-1" />
+            <ToolbarButton
+              onClick={() => handleClick("unset")}
+              isActive={activeAlignment.alignment === null}
+              className="w-48 justify-start px-2 py-1"
+              variant="destructive"
+              tooltipContent={null}
+            >
+              <XIcon className="shrink-0" />
+              Unset
+            </ToolbarButton>
+          </>
+        )}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
 }
 
 function TextFormattingButtons() {
