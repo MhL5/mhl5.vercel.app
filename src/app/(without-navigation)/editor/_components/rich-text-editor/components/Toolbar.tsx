@@ -23,6 +23,7 @@ import {
   Heading4,
   Heading5,
   Heading6,
+  ImageIcon,
   Italic,
   List,
   ListOrdered,
@@ -55,6 +56,7 @@ export default function Toolbar() {
       <ToolbarSeparator />
       <BlockButtons />
       <ToolbarSeparator />
+      <ImageButton />
     </div>
   );
 }
@@ -536,5 +538,24 @@ function BlockButtons() {
         <Icon />
       </ToolbarButton>
     ),
+  );
+}
+
+function ImageButton() {
+  const { editor } = useCurrentEditor();
+  return (
+    <ToolbarButton
+      tooltipContent={null}
+      isActive={false}
+      onClick={() => {
+        editor.commands.setImage({
+          src: "/img-example.jpg",
+          alt: "A boring example image",
+          title: "An example",
+        });
+      }}
+    >
+      <ImageIcon />
+    </ToolbarButton>
   );
 }

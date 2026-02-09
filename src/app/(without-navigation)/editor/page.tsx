@@ -8,6 +8,7 @@ const demoContent = {
     {
       type: "heading",
       attrs: {
+        textAlign: null,
         level: 1,
       },
       content: [
@@ -19,6 +20,9 @@ const demoContent = {
     },
     {
       type: "paragraph",
+      attrs: {
+        textAlign: null,
+      },
       content: [
         {
           type: "text",
@@ -67,6 +71,27 @@ const demoContent = {
     },
     {
       type: "paragraph",
+      attrs: {
+        textAlign: null,
+      },
+      content: [
+        {
+          type: "image",
+          attrs: {
+            src: "/img-example.jpg",
+            alt: "A boring example image",
+            title: "An example",
+            width: null,
+            height: null,
+          },
+        },
+      ],
+    },
+    {
+      type: "paragraph",
+      attrs: {
+        textAlign: null,
+      },
       content: [
         {
           type: "text",
@@ -109,6 +134,7 @@ const demoContent = {
     {
       type: "heading",
       attrs: {
+        textAlign: null,
         level: 2,
       },
       content: [
@@ -123,6 +149,9 @@ const demoContent = {
       content: [
         {
           type: "paragraph",
+          attrs: {
+            textAlign: null,
+          },
           content: [
             {
               type: "text",
@@ -183,6 +212,9 @@ const demoContent = {
     },
     {
       type: "paragraph",
+      attrs: {
+        textAlign: null,
+      },
       content: [
         {
           type: "text",
@@ -198,6 +230,9 @@ const demoContent = {
           content: [
             {
               type: "paragraph",
+              attrs: {
+                textAlign: null,
+              },
               content: [
                 {
                   type: "text",
@@ -234,6 +269,9 @@ const demoContent = {
           content: [
             {
               type: "paragraph",
+              attrs: {
+                textAlign: null,
+              },
               content: [
                 {
                   type: "text",
@@ -282,6 +320,9 @@ const demoContent = {
     },
     {
       type: "paragraph",
+      attrs: {
+        textAlign: null,
+      },
       content: [
         {
           type: "text",
@@ -316,6 +357,7 @@ const demoContent = {
     {
       type: "heading",
       attrs: {
+        textAlign: null,
         level: 2,
       },
       content: [
@@ -327,6 +369,9 @@ const demoContent = {
     },
     {
       type: "paragraph",
+      attrs: {
+        textAlign: null,
+      },
       content: [
         {
           type: "text",
@@ -342,6 +387,9 @@ const demoContent = {
           content: [
             {
               type: "paragraph",
+              attrs: {
+                textAlign: null,
+              },
               content: [
                 {
                   type: "text",
@@ -356,6 +404,9 @@ const demoContent = {
           content: [
             {
               type: "paragraph",
+              attrs: {
+                textAlign: null,
+              },
               content: [
                 {
                   type: "text",
@@ -381,6 +432,9 @@ const demoContent = {
     },
     {
       type: "paragraph",
+      attrs: {
+        textAlign: null,
+      },
     },
   ],
 };

@@ -1,9 +1,9 @@
-"use client";
-
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
+import Image from "@tiptap/extension-image";
 import TextAlign from "@tiptap/extension-text-align";
 import { TextStyleKit } from "@tiptap/extension-text-style";
+import Typography from "@tiptap/extension-typography";
 import {
   type Content,
   EditorContent,
@@ -30,10 +30,22 @@ const extensions = [
       },
     },
   }),
+  Image.configure({
+    inline: true,
+    allowBase64: false, // ⚠️ Prevent base64 bloat
+    resize: {
+      enabled: true,
+      directions: ["top-right", "bottom-right", "bottom-left", "top-left"],
+      minWidth: 100,
+      minHeight: 100,
+      alwaysPreserveAspectRatio: true,
+    },
+  }),
   TextStyleKit,
   TextAlign.configure({
     types: ["heading", "paragraph"],
   }),
+  Typography,
 ];
 
 export const TiptapEditorDynamic = dynamic(() => import("./TiptapEditor"), {
