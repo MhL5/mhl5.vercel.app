@@ -84,7 +84,7 @@ function Content() {
           defaultValue={href}
           placeholder="Enter link"
           name="link"
-          className="h-8 w-56"
+          className="h-8 w-44"
         />
         <ToolbarButton
           type="submit"
