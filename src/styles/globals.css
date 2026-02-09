@@ -377,6 +377,13 @@
 .typography {
   @apply prose prose-custom dark:prose-invert prose-code:w-fit prose-code:rounded-sm prose-code:bg-secondary prose-code:px-1 prose-code:py-0.5 prose-code:tracking-wide prose-code:text-secondary-foreground prose-code:before:content-none prose-code:after:content-none prose-img:my-3 prose-img:rounded-sm;
 }
+.typography pre code {
+  @apply rounded-none bg-transparent p-0 tracking-normal;
+}
+.typography pre code::before,
+.typography pre code::after {
+  content: none; /* only if you still want to kill quotes */
+}
 
 @utility prose-custom {
   --tw-prose-body: var(--foreground);

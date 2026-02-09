@@ -46,7 +46,7 @@ import { ToolbarButton } from "./ToolbarButton";
 
 export default function Toolbar() {
   return (
-    <div className="flex items-center justify-start gap-2 overflow-x-auto bg-muted/70 px-2 py-1.5">
+    <div className="flex items-center justify-center gap-2 overflow-x-auto bg-muted/70 px-2 py-1.5">
       <UndoRedoButtons />
       <ToolbarSeparator />
       <HeadingDropdown />
@@ -59,8 +59,8 @@ export default function Toolbar() {
       <ToolbarSeparator />
       <BlockButtons />
       <ToolbarSeparator />
-      <ImageButton />
       <LinkPopover />
+      <ImageButton />
     </div>
   );
 }
