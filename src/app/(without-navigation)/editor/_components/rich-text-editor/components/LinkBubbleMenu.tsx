@@ -1,39 +1,33 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
 import { useEditorState } from "@tiptap/react";
-import { CheckIcon, ExternalLink, LinkIcon, Trash2 } from "lucide-react";
-import { useState } from "react";
+import { BubbleMenu } from "@tiptap/react/menus";
+import { CheckIcon, ExternalLink, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import z from "zod";
 
 import { useCurrentEditor } from "../hooks/useEditor";
 import { ToolbarButton } from "./ToolbarButton";
 
-export default function LinkPopover() {
-  const [open, setOpen] = useState(false);
+export function LinkBubbleMenu() {
   const { editor } = useCurrentEditor();
-  const editorState = useEditorState({
+  const { isLinkActive } = useEditorState({
     editor,
     selector: (ctx) => ({
-      isLink: ctx.editor.isActive("link"),
+      isLinkActive: ctx.editor.isActive("link"),
     }),
   });
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <ToolbarButton isActive={editorState.isLink} tooltipContent={null}>
-          <LinkIcon />
-        </ToolbarButton>
-      </PopoverTrigger>
-      <Content />
-    </Popover>
+    <BubbleMenu
+      editor={editor}
+      pluginKey="linkBubbleMenu"
+      shouldShow={() => isLinkActive}
+      options={{ placement: "top" }}
+    >
+      {isLinkActive ? <Content /> : null}
+    </BubbleMenu>
   );
 }
 
@@ -68,7 +62,7 @@ function Content() {
   }
 
   return (
-    <PopoverContent className="flex w-fit items-center gap-2 p-1.5">
+    <div className="flex w-fit items-center gap-2 rounded-md bg-card p-1.5">
       <form
         className="flex w-fit items-center gap-2"
         onSubmit={(e) => {
@@ -117,6 +111,6 @@ function Content() {
       >
         <Trash2 />
       </ToolbarButton>
-    </PopoverContent>
+    </div>
   );
 }

@@ -1,62 +1,29 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
-import Image from "@tiptap/extension-image";
-import LinkExtension from "@tiptap/extension-link";
-import TextAlign from "@tiptap/extension-text-align";
-import { TextStyleKit } from "@tiptap/extension-text-style";
-import Typography from "@tiptap/extension-typography";
 import {
   type Content,
   EditorContent,
   EditorContext,
+  type EditorEvents,
   useEditor,
 } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
 import dynamic from "next/dynamic";
 import { useMemo } from "react";
 
+import { LinkBubbleMenu } from "./components/LinkBubbleMenu";
+import { TableBubbleMenu } from "./components/TablePopover";
 import Toolbar from "./components/Toolbar";
-
-const extensions = [
-  StarterKit,
-  Image.configure({
-    inline: true,
-    allowBase64: false, // ⚠️ Prevent base64 bloat
-    resize: {
-      enabled: true,
-      directions: ["top-right", "bottom-right", "bottom-left", "top-left"],
-      minWidth: 100,
-      minHeight: 100,
-      alwaysPreserveAspectRatio: true,
-    },
-  }),
-  TextStyleKit,
-  TextAlign.configure({
-    types: ["heading", "paragraph"],
-  }),
-  Typography,
-  LinkExtension.configure({
-    openOnClick: false,
-    enableClickSelection: true,
-    protocols: ["ftp", "mailto"],
-    defaultProtocol: "https",
-    HTMLAttributes: {
-      // Change rel to different value
-      // Allow search engines to follow links(remove nofollow)
-      rel: "noopener noreferrer",
-    },
-  }),
-];
+import { TIPTAP_EXTENSIONS } from "./extensions";
 
 export const TiptapEditorDynamic = dynamic(() => import("./TiptapEditor"), {
   ssr: false,
-  loading: () => <Skeleton className="h-40 w-full" />,
+  loading: () => <Skeleton className="h-[70svh] w-full" />,
 });
 
 type TiptapEditorProps = {
   className?: string;
   content: Content;
-  onUpdate: (content: Content) => void;
+  onUpdate: (props: EditorEvents["update"]) => void;
   editable?: boolean;
 };
 
@@ -67,17 +34,17 @@ export default function TiptapEditor({
   onUpdate,
 }: TiptapEditorProps) {
   const editor = useEditor({
-    extensions,
+    extensions: TIPTAP_EXTENSIONS,
     content,
     editable, // Todo: for some reason doesn't work
     editorProps: {
       attributes: {
-        class: `typography w-full mx-auto overflow-x-hidden focus:outline-none`,
+        class: `tiptap typography px-0.5 w-full mx-auto overflow-x-hidden focus:outline-none`,
       },
     },
     // Don't render immediately on the server to avoid SSR issues
     immediatelyRender: false,
-    onUpdate: ({ editor }) => onUpdate(editor.getJSON()),
+    onUpdate,
   });
 
   const memoizedEditor = useMemo(() => editor, [editor]);
@@ -92,8 +59,12 @@ export default function TiptapEditor({
     >
       <EditorContext value={{ editor: memoizedEditor }}>
         <Toolbar />
+
+        <LinkBubbleMenu />
+        <TableBubbleMenu />
+
         <EditorContent
-          className="h-[70svh] w-full overflow-y-auto px-5 py-7"
+          className="h-[70svh] w-full overflow-x-hidden px-5 py-7"
           editor={editor}
         />
       </EditorContext>

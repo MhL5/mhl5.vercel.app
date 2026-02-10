@@ -41,7 +41,7 @@ import {
 
 import { useCurrentEditor } from "../hooks/useEditor";
 import { getShortcut } from "../utils/getShortcut";
-import LinkPopover from "./LinkPopover";
+import TablePopover from "./TablePopover";
 import { ToolbarButton } from "./ToolbarButton";
 
 export default function Toolbar() {
@@ -59,8 +59,8 @@ export default function Toolbar() {
       <ToolbarSeparator />
       <BlockButtons />
       <ToolbarSeparator />
-      <LinkPopover />
       <ImageButton />
+      <TablePopover />
     </div>
   );
 }
