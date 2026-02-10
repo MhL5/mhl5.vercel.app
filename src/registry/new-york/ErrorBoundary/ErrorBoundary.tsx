@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { CONTACT_SUPPORT_LINK } from "@/constants";
 import { cn } from "@/lib/utils";
 import { isDev } from "@/registry/utils/checks/checks";
 import { Loader2 } from "lucide-react";
@@ -81,29 +82,28 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
 type ErrorBoundaryFallbackProps = {
   className?: string;
-  label?: string;
   error: Error;
   onRetry: () => void;
 };
 
 function ErrorBoundaryFallback({
   className,
-  label,
   error,
   onRetry,
 }: ErrorBoundaryFallbackProps) {
   const [isPending, startTransition] = useTransition();
 
   function handleRetry() {
-    startTransition(() => {
-      onRetry();
-    });
+    startTransition(() => onRetry());
   }
+
+  const errorParagraph = `${error?.name ? `${error.name}: ` : ""} ${error?.message || "Something went wrong!"}`;
 
   return (
     <div
       role="alert"
       aria-busy={isPending}
+      aria-live="polite"
       className={cn(
         "my-8 flex w-full flex-col items-center justify-center gap-3 text-center font-medium",
         className,
@@ -113,20 +113,35 @@ function ErrorBoundaryFallback({
       <p
         data-slot="ErrorBoundaryFallbackMessage"
         className="line-clamp-2! text-destructive"
+        title={errorParagraph}
       >
-        {label ? `${label}: ` : error?.name ? `${error.name}: ` : ""}
-        {error?.message || "Something went wrong!"}
+        {errorParagraph}
       </p>
-      <Button
-        data-slot="ErrorBoundaryFallbackRetryButton"
-        onClick={handleRetry}
-        variant="ghost"
-        type="button"
-        className="underline underline-offset-8"
-        disabled={isPending}
+      <div
+        data-slot="ErrorBoundaryFallbackActions"
+        className="flex items-center gap-2"
       >
-        {isPending ? <Loader2 className="animate-spin" /> : "Retry"}
-      </Button>
+        <Button
+          data-slot="ErrorBoundaryFallbackRetryButton"
+          onClick={handleRetry}
+          variant="ghost"
+          type="button"
+          className="underline underline-offset-8"
+          disabled={isPending}
+        >
+          {isPending ? <Loader2 className="animate-spin" /> : "Retry"}
+        </Button>
+        <Button asChild variant="ghost">
+          <a
+            data-slot="ErrorBoundaryFallbackSupportLink"
+            target="_blank"
+            href={CONTACT_SUPPORT_LINK(`${errorParagraph}\n`)}
+            className="underline underline-offset-8"
+          >
+            Contact support
+          </a>
+        </Button>
+      </div>
     </div>
   );
 }

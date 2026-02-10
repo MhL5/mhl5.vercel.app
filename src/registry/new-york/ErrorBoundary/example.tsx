@@ -16,12 +16,19 @@ function Component() {
   const [error, setError] = useState(false);
   useTimeout(() => {
     setError(true);
-  }, 2000);
+  }, 1000);
 
-  if (error) throw Error("Error thrown");
+  if (error) {
+    const error = new Error(
+      "Something unexpected happened in the Component after 1 seconds.",
+    );
+    error.name = "SimulatedError";
+    throw error;
+  }
+
   return (
     <div className="text-center">
-      I will throw an error in 2 seconds,the error will be caught by the
+      I will throw an error in 1 seconds,the error will be caught by the
       ErrorBoundary
     </div>
   );
