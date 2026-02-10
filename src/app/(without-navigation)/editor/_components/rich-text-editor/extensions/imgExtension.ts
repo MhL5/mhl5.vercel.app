@@ -26,3 +26,17 @@ export const imgExtension = Image.extend({
     });
   },
 });
+
+/* 
+Image.configure({
+    inline: false,
+    allowBase64: false,
+    resize: {
+      enabled: true,
+      directions: ["top-right", "bottom-right", "bottom-left", "top-left"],
+      minWidth: 100,
+      minHeight: 100,
+      alwaysPreserveAspectRatio: true,
+    },
+  }),
+*/

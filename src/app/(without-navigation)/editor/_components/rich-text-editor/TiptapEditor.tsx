@@ -15,10 +15,13 @@ import { TableBubbleMenu } from "./components/TablePopover";
 import Toolbar from "./components/Toolbar";
 import { TIPTAP_EXTENSIONS } from "./extensions";
 
-export const TiptapEditorDynamic = dynamic(() => import("./TiptapEditor"), {
-  ssr: false,
-  loading: () => <Skeleton className="h-[70svh] w-full" />,
-});
+const TiptapEditorDynamic = dynamic(
+  () => import("./TiptapEditor").then((mod) => mod.TiptapEditor),
+  {
+    ssr: false,
+    loading: () => <Skeleton className="h-[70svh] w-full" />,
+  },
+);
 
 type TiptapEditorProps = {
   className?: string;
@@ -27,7 +30,7 @@ type TiptapEditorProps = {
   editable?: boolean;
 };
 
-export default function TiptapEditor({
+function TiptapEditor({
   className,
   content,
   editable,
@@ -71,3 +74,5 @@ export default function TiptapEditor({
     </div>
   );
 }
+
+export { TiptapEditorDynamic, TiptapEditor };

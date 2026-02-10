@@ -1,3 +1,4 @@
+import Image from "@tiptap/extension-image";
 import LinkExtension from "@tiptap/extension-link";
 import { TableKit } from "@tiptap/extension-table";
 import TextAlign from "@tiptap/extension-text-align";
@@ -7,11 +8,10 @@ import { Gapcursor } from "@tiptap/extensions";
 import StarterKit from "@tiptap/starter-kit";
 
 import { ResizableNode } from "../nodes/ResizableNode";
-import { imgExtension } from "./img/imgExtension";
+import { imgExtension } from "./imgExtension";
 
 export const TIPTAP_EXTENSIONS = [
   StarterKit,
-  imgExtension,
   TextStyleKit,
   TextAlign.configure({
     types: ["heading", "paragraph"],
@@ -35,4 +35,5 @@ export const TIPTAP_EXTENSIONS = [
     },
   }),
   ResizableNode,
+  imgExtension,
 ];
