@@ -1,5 +1,5 @@
-import { ForbiddenPage } from "../FallbackPages";
+import { FallbackPage } from "../FallbackPages";
 
 export default function ForbiddenExample() {
-  return <ForbiddenPage className="min-h-auto" />;
+  return <FallbackPage variant="forbidden" className="min-h-auto" />;
 }

@@ -1,5 +1,5 @@
-import { UnauthorizedPage } from "@/registry/new-york/FallbackPages/FallbackPages";
+import { FallbackPage } from "@/registry/new-york/FallbackPages/FallbackPages";
 
 export default function Unauthorized() {
-  return <UnauthorizedPage loginHref="/" />;
+  return <FallbackPage variant="unauthorized" loginPagePathname="/login" />;
 }

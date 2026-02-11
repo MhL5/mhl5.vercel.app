@@ -1,5 +1,5 @@
-import { LoadingPage } from "../FallbackPages";
+import { FallbackPage } from "../FallbackPages";
 
 export default function LoadingExample() {
-  return <LoadingPage className="min-h-auto" />;
+  return <FallbackPage variant="loading" className="min-h-auto" />;
 }
