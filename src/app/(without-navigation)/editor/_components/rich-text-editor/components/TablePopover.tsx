@@ -81,7 +81,7 @@ function TablePopoverContent({ onInsert }: { onInsert: () => void }) {
             max={MAX_ROWS}
             value={rows}
             onChange={(e) => setRows(Number(e.target.value) || MIN_ROWS)}
-            className="h-9"
+            className="h-8"
           />
         </div>
         <div className="space-y-2">
@@ -93,11 +93,11 @@ function TablePopoverContent({ onInsert }: { onInsert: () => void }) {
             max={MAX_COLS}
             value={cols}
             onChange={(e) => setCols(Number(e.target.value) || MIN_COLS)}
-            className="h-9"
+            className="h-8"
           />
         </div>
 
-        <Button type="submit" size="sm" className="h-9 w-full">
+        <Button type="submit" size="sm" className="h-8 w-full">
           Insert table
         </Button>
       </form>

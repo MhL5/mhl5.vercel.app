@@ -88,4 +88,7 @@
     outline: 1px solid var(--border);
     border-radius: 0.125rem;
   }
+  div[data-resize-wrapper]:has(img) {
+    margin-inline: auto;
+  }
 }

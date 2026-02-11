@@ -1,14 +1,16 @@
 import Image from "@tiptap/extension-image";
 import LinkExtension from "@tiptap/extension-link";
 import { TableKit } from "@tiptap/extension-table";
+import TableOfContents from "@tiptap/extension-table-of-contents";
 import TextAlign from "@tiptap/extension-text-align";
 import { TextStyleKit } from "@tiptap/extension-text-style";
 import Typography from "@tiptap/extension-typography";
+import Youtube from "@tiptap/extension-youtube";
 import { Gapcursor } from "@tiptap/extensions";
 import StarterKit from "@tiptap/starter-kit";
 
 import { ResizableNode } from "../nodes/ResizableNode";
-import { imgExtension } from "./imgExtension";
+import "./Youtube.css";
 
 export const TIPTAP_EXTENSIONS = [
   StarterKit,
@@ -35,5 +37,21 @@ export const TIPTAP_EXTENSIONS = [
     },
   }),
   ResizableNode,
-  imgExtension,
+  Image.configure({
+    inline: true,
+    allowBase64: false,
+    resize: {
+      enabled: true,
+      directions: ["top-right", "bottom-right", "bottom-left", "top-left"],
+      minWidth: 100,
+      minHeight: 100,
+      alwaysPreserveAspectRatio: true,
+    },
+  }),
+  Youtube.configure({
+    inline: false,
+  }),
+  TableOfContents.configure({
+    anchorTypes: ["heading"],
+  }),
 ];
