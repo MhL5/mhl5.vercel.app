@@ -83,7 +83,7 @@ export default function SnippetsList() {
         maxColCount={3}
         minColSize="10rem"
         gap="1rem"
-        className="mx-auto max-w-4xl"
+        className="mx-auto w-full"
         as="div"
       >
         {links.map((link) => {
