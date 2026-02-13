@@ -32,7 +32,12 @@ export default function TocButton() {
               {
                 type: "text",
                 text: anchor.textContent,
-                marks: [{ type: "link", attrs: { href: `#${anchor.id}` } }],
+                marks: [
+                  {
+                    type: "link",
+                    attrs: { href: `#${anchor.id}`, target: "_self" },
+                  },
+                ],
               },
             ],
           },

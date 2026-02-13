@@ -8,17 +8,20 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldLabel,
+} from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -31,19 +34,113 @@ import {
   Video,
   Youtube,
 } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  type SubmitEvent,
+  useCallback,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from "react";
+import z from "zod";
 
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
+import {
+  EditorDropdownContentMenu,
+  EditorDropdownMenu,
+  EditorDropdownTriggerMenu,
+} from "../../EditorDropdown";
 import { ToolbarButton } from "./ui/ToolbarButton";
 
-const YOUTUBE_DEFAULT_WIDTH = 640;
-const YOUTUBE_DEFAULT_HEIGHT = 360;
-const YOUTUBE_MIN_WIDTH = 320;
-const YOUTUBE_MAX_WIDTH = 1024;
-const YOUTUBE_MIN_HEIGHT = 180;
-const YOUTUBE_MAX_HEIGHT = 720;
-
 type AttachmentType = "image" | "video" | "audio" | "youtube" | null;
+
+// ---------------------------------------------------------------------------
+// Main Attachments (dropdown + dialog shell)
+// ---------------------------------------------------------------------------
+export function Attachments() {
+  const [dialogType, setDialogType] = useState<AttachmentType>(null);
+
+  const closeDialog = useCallback(() => {
+    setDialogType(null);
+  }, []);
+
+  const dialogOpen = dialogType !== null;
+
+  const dropdownContent = [
+    {
+      icon: ImageIcon,
+      label: "Image",
+      onClick: () => setDialogType("image"),
+    },
+    {
+      icon: Video,
+      label: "Video",
+      onClick: () => setDialogType("video"),
+    },
+    {
+      icon: Music,
+      label: "Audio",
+      onClick: () => setDialogType("audio"),
+    },
+    {
+      icon: Youtube,
+      label: "YouTube",
+      onClick: () => setDialogType("youtube"),
+    },
+  ];
+
+  return (
+    <>
+      <EditorDropdownMenu>
+        <EditorDropdownTriggerMenu asChild>
+          <ToolbarButton
+            tooltipContent={null}
+            aria-label="Insert attachment (image, video, audio, YouTube)"
+            isActive={false}
+            type="button"
+          >
+            <Paperclip />
+          </ToolbarButton>
+        </EditorDropdownTriggerMenu>
+
+        <EditorDropdownContentMenu align="end" className="w-48">
+          {dropdownContent.map(({ icon: Icon, label, onClick }) => (
+            <DropdownMenuItem onClick={onClick} key={label} asChild>
+              <Button variant="ghost" className="w-full justify-start gap-2">
+                <Icon />
+                {label}
+              </Button>
+            </DropdownMenuItem>
+          ))}
+        </EditorDropdownContentMenu>
+      </EditorDropdownMenu>
+
+      <Dialog open={dialogOpen} onOpenChange={(open) => !open && closeDialog()}>
+        <DialogContent onPointerDownOutside={(e) => e.stopPropagation()}>
+          {dialogType === "image" && (
+            <ImageAttachmentDialog
+              onSuccess={closeDialog}
+              onCancel={closeDialog}
+            />
+          )}
+          {dialogType === "video" && (
+            <VideoAttachmentDialog
+              onSuccess={closeDialog}
+              onCancel={closeDialog}
+            />
+          )}
+          {dialogType === "audio" && (
+            <AudioAttachmentDialog
+              onSuccess={closeDialog}
+              onCancel={closeDialog}
+            />
+          )}
+          {dialogType === "youtube" && <YoutubeAttachmentDialog />}
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+}
 
 function ImageAttachmentDialog({
   onSuccess,
@@ -90,7 +187,11 @@ function ImageAttachmentDialog({
   return (
     <>
       <DialogHeader>
-        <DialogTitle>Insert Image</DialogTitle>
+        <DialogTitle>Add an Image</DialogTitle>
+        <DialogDescription>
+          Easily embed an image in your document by uploading a file or
+          providing a URL.
+        </DialogDescription>
       </DialogHeader>
       <Tabs
         value={tab}
@@ -163,6 +264,7 @@ function ImageAttachmentDialog({
             <div className="space-y-2">
               <Label>Preview</Label>
               <div className="rounded-md border border-input bg-muted/30 p-2">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={urlPreview}
                   alt="URL preview"
@@ -174,6 +276,7 @@ function ImageAttachmentDialog({
           )}
         </TabsContent>
       </Tabs>
+
       <DialogFooter>
         <Button variant="outline" onClick={onCancel}>
           Cancel
@@ -458,186 +561,62 @@ function AudioAttachmentDialog({
   );
 }
 
-// ---------------------------------------------------------------------------
-// YouTube attachment dialog
-// ---------------------------------------------------------------------------
-
-function YoutubeAttachmentDialog({
-  onSuccess,
-  onCancel,
-}: {
-  onSuccess: () => void;
-  onCancel: () => void;
-}) {
+function YoutubeAttachmentDialog() {
   const { editor } = useCurrentEditor();
-  const [url, setUrl] = useState("");
-  const [width, setWidth] = useState(String(YOUTUBE_DEFAULT_WIDTH));
-  const [height, setHeight] = useState(String(YOUTUBE_DEFAULT_HEIGHT));
+  const [error, setError] = useState("");
 
-  const add = useCallback(() => {
-    const trimmedUrl = url.trim();
-    if (!trimmedUrl) return;
-    const w = Math.max(
-      YOUTUBE_MIN_WIDTH,
-      Math.min(YOUTUBE_MAX_WIDTH, parseInt(width, 10) || YOUTUBE_DEFAULT_WIDTH),
-    );
-    const h = Math.max(
-      YOUTUBE_MIN_HEIGHT,
-      Math.min(
-        YOUTUBE_MAX_HEIGHT,
-        parseInt(height, 10) || YOUTUBE_DEFAULT_HEIGHT,
-      ),
-    );
-    editor
-      .chain()
-      .focus()
-      .setYoutubeVideo({ src: trimmedUrl, width: w, height: h })
-      .run();
-    onSuccess();
-  }, [editor, url, width, height, onSuccess]);
+  const youtubeInputId = useId();
+  const formId = useId();
+
+  function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const url = formData.get("youtube-url") as string;
+
+    const result = z.url().safeParse(url);
+    if (!result.success) return setError(z.prettifyError(result.error));
+    else setError("");
+
+    editor.chain().focus().setYoutubeVideo({ src: result.data }).run();
+  }
+
+  const isUrlInputInvalid = !!error;
 
   return (
     <>
       <DialogHeader>
-        <DialogTitle>Add YouTube Video</DialogTitle>
+        <DialogTitle>Insert a YouTube Video</DialogTitle>
+        <DialogDescription>
+          Paste the full YouTube URL to embed a video into your document.
+        </DialogDescription>
       </DialogHeader>
-      <div className="grid gap-4 py-4">
-        <div className="grid gap-2">
-          <Label htmlFor="att-youtube-url">YouTube URL</Label>
+
+      <form id={formId} onSubmit={handleSubmit} className="grid gap-4">
+        <Field data-invalid={isUrlInputInvalid}>
+          <FieldLabel htmlFor={youtubeInputId}>YouTube URL</FieldLabel>
           <Input
-            id="att-youtube-url"
-            type="url"
+            id={youtubeInputId}
+            autoFocus
+            name="youtube-url"
+            aria-invalid={isUrlInputInvalid}
             placeholder="https://www.youtube.com/watch?v=..."
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                add();
-              }
-            }}
           />
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="grid gap-2">
-            <Label htmlFor="att-youtube-width">Width</Label>
-            <Input
-              id="att-youtube-width"
-              type="number"
-              min={YOUTUBE_MIN_WIDTH}
-              max={YOUTUBE_MAX_WIDTH}
-              placeholder={String(YOUTUBE_DEFAULT_WIDTH)}
-              value={width}
-              onChange={(e) => setWidth(e.target.value)}
-            />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="att-youtube-height">Height</Label>
-            <Input
-              id="att-youtube-height"
-              type="number"
-              min={YOUTUBE_MIN_HEIGHT}
-              max={YOUTUBE_MAX_HEIGHT}
-              placeholder={String(YOUTUBE_DEFAULT_HEIGHT)}
-              value={height}
-              onChange={(e) => setHeight(e.target.value)}
-            />
-          </div>
-        </div>
-      </div>
+          <FieldDescription>
+            Paste the full YouTube URL to embed a video into your document.
+          </FieldDescription>
+          {isUrlInputInvalid && <FieldError errors={[{ message: error }]} />}
+        </Field>
+      </form>
+
       <DialogFooter>
-        <Button variant="outline" onClick={onCancel}>
-          Cancel
-        </Button>
-        <Button onClick={add} disabled={!url.trim()}>
+        <DialogClose asChild>
+          <Button variant="outline">Cancel</Button>
+        </DialogClose>
+        <Button type="submit" form={formId}>
           Add Video
         </Button>
       </DialogFooter>
-    </>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// Main Attachments (dropdown + dialog shell)
-// ---------------------------------------------------------------------------
-export function Attachments() {
-  const [dialogType, setDialogType] = useState<AttachmentType>(null);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  const openDialog = useCallback((type: NonNullable<AttachmentType>) => {
-    setDialogType(type);
-    setDropdownOpen(false);
-  }, []);
-
-  const closeDialog = useCallback(() => {
-    setDialogType(null);
-  }, []);
-
-  const dialogOpen = dialogType !== null;
-
-  return (
-    <>
-      <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
-        <DropdownMenuTrigger asChild>
-          <ToolbarButton
-            tooltipContent="Insert attachment (image, video, audio, YouTube)"
-            isActive={false}
-            type="button"
-          >
-            <Paperclip />
-          </ToolbarButton>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="start" className="w-48">
-          <DropdownMenuItem onClick={() => openDialog("image")}>
-            <ImageIcon className="mr-2 size-4" />
-            Image
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => openDialog("video")}>
-            <Video className="mr-2 size-4" />
-            Video
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => openDialog("audio")}>
-            <Music className="mr-2 size-4" />
-            Audio
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => openDialog("youtube")}>
-            <Youtube className="mr-2 size-4" />
-            YouTube
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-
-      <Dialog open={dialogOpen} onOpenChange={(open) => !open && closeDialog()}>
-        <DialogContent
-          className="sm:max-w-md"
-          onPointerDownOutside={(e) => e.stopPropagation()}
-        >
-          {dialogType === "image" && (
-            <ImageAttachmentDialog
-              onSuccess={closeDialog}
-              onCancel={closeDialog}
-            />
-          )}
-          {dialogType === "video" && (
-            <VideoAttachmentDialog
-              onSuccess={closeDialog}
-              onCancel={closeDialog}
-            />
-          )}
-          {dialogType === "audio" && (
-            <AudioAttachmentDialog
-              onSuccess={closeDialog}
-              onCancel={closeDialog}
-            />
-          )}
-          {dialogType === "youtube" && (
-            <YoutubeAttachmentDialog
-              onSuccess={closeDialog}
-              onCancel={closeDialog}
-            />
-          )}
-        </DialogContent>
-      </Dialog>
     </>
   );
 }

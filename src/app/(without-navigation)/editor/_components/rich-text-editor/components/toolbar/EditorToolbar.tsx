@@ -6,6 +6,7 @@ import { TextAlignDropdown } from "./components/TextAlignDropdown";
 import { TextFormattingButtons } from "./components/TextFormattingButtons";
 import TocButton from "./components/TocButton";
 import { UndoRedo } from "./components/UndoRedo";
+import { YoutubeDropdown } from "./components/YoutubeDropdown";
 import { TableDropdown } from "./components/table/TableDropdown";
 import { Separator } from "./components/ui/Separator";
 
@@ -36,6 +37,7 @@ export function EditorToolbar() {
       <TocButton />
       <TableDropdown />
       <Attachments />
+      <YoutubeDropdown />
     </div>
   );
 }

@@ -76,7 +76,7 @@ export function TableBubbleMenu() {
       key: "deleteColumn",
       tooltipContent: "Delete column",
       onClick: () => editor.chain().focus().deleteColumn().run(),
-      icon: <icons.delete />,
+      icon: <icons.delete className="text-destructive" />,
     },
     {
       key: "addRowBefore",
@@ -94,7 +94,7 @@ export function TableBubbleMenu() {
       key: "deleteRow",
       tooltipContent: "Delete row",
       onClick: () => editor.chain().focus().deleteRow().run(),
-      icon: <icons.delete className="rotate-90" />,
+      icon: <icons.delete className="rotate-90 text-destructive" />,
     },
   ];
 
