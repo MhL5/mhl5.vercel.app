@@ -38,14 +38,14 @@ export const TIPTAP_EXTENSIONS = [
   }),
   ResizableNode,
   Image.configure({
-    inline: true,
+    inline: false,
     allowBase64: false,
     resize: {
       enabled: true,
       directions: ["top-right", "bottom-right", "bottom-left", "top-left"],
       minWidth: 100,
       minHeight: 100,
-      alwaysPreserveAspectRatio: true,
+      alwaysPreserveAspectRatio: false,
     },
   }),
   Youtube.configure({

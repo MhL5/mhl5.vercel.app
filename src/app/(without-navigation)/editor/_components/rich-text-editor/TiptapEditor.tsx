@@ -42,7 +42,7 @@ function TiptapEditor({
     editable, // Todo: for some reason doesn't work
     editorProps: {
       attributes: {
-        class: `tiptap typography px-0.5 w-full mx-auto overflow-x-hidden focus:outline-none`,
+        class: `tiptap tiptap-typography px-0.5 w-full mx-auto overflow-x-hidden focus:outline-none`,
       },
     },
     // Don't render immediately on the server to avoid SSR issues

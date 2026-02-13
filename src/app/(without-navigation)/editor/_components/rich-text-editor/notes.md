@@ -10,3 +10,7 @@
   - shadcn toggle
   - shadcn toggle group?
   - open dropdowns on hover
+
+- AUDIO + VIDEO SUPPORT
+- BETTER RESIZING
+- fix select style

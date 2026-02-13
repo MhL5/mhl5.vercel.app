@@ -1,0 +1,15 @@
+.tiptap-typography {
+  @apply prose prose-custom first:mt-0 dark:prose-invert prose-code:w-fit prose-code:rounded-sm prose-code:bg-secondary prose-code:px-1 prose-code:py-0.5 prose-code:tracking-wide prose-code:text-secondary-foreground prose-code:before:content-none prose-code:after:content-none prose-table:first:mt-0 prose-table:first:mb-0 prose-th:border prose-th:p-2 prose-td:border prose-td:first:p-2 prose-img:mx-auto prose-img:rounded-sm prose-pre:[&_code]:rounded-none prose-pre:[&_code]:bg-transparent prose-pre:[&_code]:p-0 prose-pre:[&_code]:tracking-normal prose-table:[&_p]:m-0 prose-table:[&_p]:p-0;
+}
+
+.tiptap {
+  .ProseMirror-selectednode {
+    outline: 3px solid var(--color-muted);
+  }
+
+  @apply prose-img:my-0;
+}
+
+.tableWrapper {
+  @apply overflow-hidden rounded-lg border border-border;
+}

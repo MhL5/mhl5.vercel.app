@@ -1,4 +1,3 @@
-/* Basic editor styles */
 .tiptap {
   [data-resizer] {
     background-color: var(--secondary);
@@ -88,7 +87,8 @@
     outline: 1px solid var(--border);
     border-radius: 0.125rem;
   }
-  div[data-resize-wrapper]:has(img) {
-    margin-inline: auto;
+
+  [data-resize-container] {
+    @apply mx-auto w-fit;
   }
 }
