@@ -11,16 +11,16 @@ import {
   Heading6,
 } from "lucide-react";
 
-import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
-import { getShortcut } from "../../../utils/getShortcut";
+import { useCurrentEditor } from "../hooks/useCurrentEditor";
+import { getShortcut } from "../utils/getShortcut";
 import {
-  EditorDropdownContentMenu,
-  EditorDropdownMenu,
-  EditorDropdownTriggerMenu,
-} from "../../EditorDropdown";
+  EditorPopover,
+  EditorPopoverContent,
+  EditorPopoverTrigger,
+} from "./ui/EditorPopover";
 import { ToolbarButton } from "./ui/ToolbarButton";
 
-export function HeadingDropdown() {
+export function HeadingPopover() {
   const { editor } = useCurrentEditor();
   const editorState = useEditorState({
     editor,
@@ -90,8 +90,8 @@ export function HeadingDropdown() {
   };
 
   return (
-    <EditorDropdownMenu>
-      <EditorDropdownTriggerMenu asChild>
+    <EditorPopover>
+      <EditorPopoverTrigger asChild>
         <ToolbarButton
           isActive={activeHeading.title !== "Heading"}
           tooltipContent={null}
@@ -102,9 +102,9 @@ export function HeadingDropdown() {
           <activeHeading.icon className="size-4 shrink-0" />
           <ChevronDown className="size-3 shrink-0" />
         </ToolbarButton>
-      </EditorDropdownTriggerMenu>
+      </EditorPopoverTrigger>
 
-      <EditorDropdownContentMenu align="start" className="grid gap-0.5">
+      <EditorPopoverContent align="start" className="grid w-fit gap-0.5 p-1">
         {headingsList.map(
           ({ icon: Icon, onClick, title, isActive, shortcut }) => (
             <ToolbarButton
@@ -121,7 +121,7 @@ export function HeadingDropdown() {
             </ToolbarButton>
           ),
         )}
-      </EditorDropdownContentMenu>
-    </EditorDropdownMenu>
+      </EditorPopoverContent>
+    </EditorPopover>
   );
 }

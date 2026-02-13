@@ -33,7 +33,7 @@ export function ToolbarButton({
     );
 
   return (
-    <Tooltip delayDuration={50}>
+    <Tooltip>
       <TooltipTrigger asChild>
         <ToolbarButtonInternal
           isActive={isActive}

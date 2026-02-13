@@ -1,13 +1,13 @@
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   type ComponentProps,
   createContext,
+  use,
   useCallback,
-  useContext,
   useEffect,
   useRef,
   useState,
@@ -79,12 +79,12 @@ type ContextType = {
   handleMouseLeave: () => void;
 };
 
-const EditorDropdownContext = createContext<ContextType | null>(null);
+const EditorPopoverContext = createContext<ContextType | null>(null);
 
-function EditorDropdownMenu({
+function EditorPopover({
   onOpenChange,
   ...props
-}: ComponentProps<typeof DropdownMenu>) {
+}: ComponentProps<typeof Popover>) {
   const [open, setOpen] = useState(false);
   const { handleMouseEnter, handleMouseLeave } = useHoverWithTimeout({
     onEnter: () => setOpen(true),
@@ -92,7 +92,7 @@ function EditorDropdownMenu({
   });
 
   return (
-    <EditorDropdownContext
+    <EditorPopoverContext
       value={{
         open,
         onOpenChange: setOpen,
@@ -100,7 +100,7 @@ function EditorDropdownMenu({
         handleMouseLeave,
       }}
     >
-      <DropdownMenu
+      <Popover
         modal={false}
         open={open}
         onOpenChange={(open) => {
@@ -109,25 +109,25 @@ function EditorDropdownMenu({
         }}
         {...props}
       />
-    </EditorDropdownContext>
+    </EditorPopoverContext>
   );
 }
 
-function useEditorDropdownMenu() {
-  const context = useContext(EditorDropdownContext);
+function useEditorPopover() {
+  const context = use(EditorPopoverContext);
   if (!context)
-    throw new Error("useEditorDropdown must be used within a EditorDropdown");
+    throw new Error("useEditorPopover must be used within a EditorPopover");
   return context;
 }
 
-function EditorDropdownTriggerMenu({
+function EditorPopoverTrigger({
   onMouseLeave,
   onMouseEnter,
   ...props
-}: ComponentProps<typeof DropdownMenuTrigger>) {
-  const { handleMouseEnter, handleMouseLeave } = useEditorDropdownMenu();
+}: ComponentProps<typeof PopoverTrigger>) {
+  const { handleMouseEnter, handleMouseLeave } = useEditorPopover();
   return (
-    <DropdownMenuTrigger
+    <PopoverTrigger
       onMouseLeave={(e) => {
         onMouseLeave?.(e);
         handleMouseLeave();
@@ -141,14 +141,14 @@ function EditorDropdownTriggerMenu({
   );
 }
 
-function EditorDropdownContentMenu({
+function EditorPopoverContent({
   onMouseEnter,
   onMouseLeave,
   ...props
-}: ComponentProps<typeof DropdownMenuContent>) {
-  const { handleMouseLeave, handleMouseEnter } = useEditorDropdownMenu();
+}: ComponentProps<typeof PopoverContent>) {
+  const { handleMouseLeave, handleMouseEnter } = useEditorPopover();
   return (
-    <DropdownMenuContent
+    <PopoverContent
       onMouseLeave={(e) => {
         onMouseLeave?.(e);
         handleMouseLeave();
@@ -162,8 +162,4 @@ function EditorDropdownContentMenu({
   );
 }
 
-export {
-  EditorDropdownMenu,
-  EditorDropdownTriggerMenu,
-  EditorDropdownContentMenu,
-};
+export { EditorPopover, EditorPopoverContent, EditorPopoverTrigger };

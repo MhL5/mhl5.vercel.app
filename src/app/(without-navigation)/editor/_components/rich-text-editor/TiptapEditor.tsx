@@ -1,3 +1,4 @@
+import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import {
@@ -10,9 +11,18 @@ import {
 import dynamic from "next/dynamic";
 import { useMemo } from "react";
 
-import { LinkBubbleMenu } from "./components/LinkBubbleMenu";
-import { EditorToolbar } from "./components/toolbar/EditorToolbar";
-import { TableBubbleMenu } from "./components/toolbar/components/table/TableBubbleMenu";
+import { Attachments } from "./components/Attachments";
+import { BlockButtons } from "./components/BlockButtons";
+import { HeadingPopover } from "./components/HeadingPopover";
+import { LinkBubbleMenu, LinkDropdown } from "./components/Link";
+import { ListPopover } from "./components/ListPopover";
+import { TextAlignPopover } from "./components/TextAlignPopover";
+import { TextFormattingButtons } from "./components/TextFormattingButtons";
+import TocButton from "./components/TocButton";
+import { UndoRedo } from "./components/UndoRedo";
+import { YoutubeDropdown } from "./components/YoutubeDropdown";
+import { TableBubbleMenu } from "./components/table/TableBubbleMenu";
+import { TablePopover } from "./components/table/TablePopover";
 import { TIPTAP_EXTENSIONS } from "./extensions";
 import { useSyncEditorEditable } from "./hooks/useSyncEditorEditable";
 
@@ -56,7 +66,46 @@ function TiptapEditor({
       )}
     >
       <EditorContext value={{ editor: memoizedEditor }}>
-        <EditorToolbar />
+        <div
+          data-slot="editor-toolbar"
+          className="flex items-center justify-center gap-2 overflow-x-auto bg-card px-2 py-1.75 text-card-foreground"
+        >
+          <UndoRedo />
+
+          <Separator
+            orientation="vertical"
+            className="data-[orientation=vertical]:h-5"
+          />
+
+          <HeadingPopover />
+          <ListPopover />
+          <BlockButtons />
+          <LinkDropdown />
+
+          <Separator
+            orientation="vertical"
+            className="data-[orientation=vertical]:h-5"
+          />
+
+          <TextFormattingButtons />
+
+          <Separator
+            orientation="vertical"
+            className="data-[orientation=vertical]:h-5"
+          />
+
+          <TextAlignPopover />
+
+          <Separator
+            orientation="vertical"
+            className="data-[orientation=vertical]:h-5"
+          />
+
+          <TocButton />
+          <TablePopover />
+          <Attachments />
+          <YoutubeDropdown />
+        </div>
 
         <LinkBubbleMenu />
         <TableBubbleMenu />

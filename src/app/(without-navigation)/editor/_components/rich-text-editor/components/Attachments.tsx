@@ -8,20 +8,12 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
-import {
-  Field,
-  FieldDescription,
-  FieldError,
-  FieldLabel,
-} from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -34,22 +26,14 @@ import {
   Video,
   Youtube,
 } from "lucide-react";
-import {
-  type SubmitEvent,
-  useCallback,
-  useEffect,
-  useId,
-  useRef,
-  useState,
-} from "react";
-import z from "zod";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
+import { useCurrentEditor } from "../hooks/useCurrentEditor";
 import {
-  EditorDropdownContentMenu,
-  EditorDropdownMenu,
-  EditorDropdownTriggerMenu,
-} from "../../EditorDropdown";
+  EditorPopover,
+  EditorPopoverContent,
+  EditorPopoverTrigger,
+} from "./ui/EditorPopover";
 import { ToolbarButton } from "./ui/ToolbarButton";
 
 type AttachmentType = "image" | "video" | "audio" | "youtube" | null;
@@ -91,8 +75,8 @@ export function Attachments() {
 
   return (
     <>
-      <EditorDropdownMenu>
-        <EditorDropdownTriggerMenu asChild>
+      <EditorPopover>
+        <EditorPopoverTrigger asChild>
           <ToolbarButton
             tooltipContent={null}
             aria-label="Insert attachment (image, video, audio, YouTube)"
@@ -101,19 +85,22 @@ export function Attachments() {
           >
             <Paperclip />
           </ToolbarButton>
-        </EditorDropdownTriggerMenu>
+        </EditorPopoverTrigger>
 
-        <EditorDropdownContentMenu align="end" className="w-48">
+        <EditorPopoverContent align="end" className="grid w-fit gap-0.5 p-1">
           {dropdownContent.map(({ icon: Icon, label, onClick }) => (
-            <DropdownMenuItem onClick={onClick} key={label} asChild>
-              <Button variant="ghost" className="w-full justify-start gap-2">
-                <Icon />
-                {label}
-              </Button>
-            </DropdownMenuItem>
+            <Button
+              variant="ghost"
+              onClick={onClick}
+              key={label}
+              className="w-full justify-start gap-2"
+            >
+              <Icon />
+              {label}
+            </Button>
           ))}
-        </EditorDropdownContentMenu>
-      </EditorDropdownMenu>
+        </EditorPopoverContent>
+      </EditorPopover>
 
       <Dialog open={dialogOpen} onOpenChange={(open) => !open && closeDialog()}>
         <DialogContent onPointerDownOutside={(e) => e.stopPropagation()}>
@@ -135,7 +122,6 @@ export function Attachments() {
               onCancel={closeDialog}
             />
           )}
-          {dialogType === "youtube" && <YoutubeAttachmentDialog />}
         </DialogContent>
       </Dialog>
     </>
@@ -224,6 +210,7 @@ function ImageAttachmentDialog({
             <div className="space-y-2">
               <Label>Preview</Label>
               <div className="rounded-md border border-input bg-muted/30 p-2">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={uploadPreview}
                   alt="Upload preview"
@@ -300,10 +287,6 @@ function ImageAttachmentDialog({
     </>
   );
 }
-
-// ---------------------------------------------------------------------------
-// Video attachment dialog
-// ---------------------------------------------------------------------------
 
 function VideoAttachmentDialog({
   onSuccess,
@@ -437,10 +420,6 @@ function VideoAttachmentDialog({
   );
 }
 
-// ---------------------------------------------------------------------------
-// Audio attachment dialog
-// ---------------------------------------------------------------------------
-
 function AudioAttachmentDialog({
   onSuccess,
   onCancel,
@@ -555,66 +534,6 @@ function AudioAttachmentDialog({
         </Button>
         <Button onClick={add} disabled={!url.trim()}>
           Add Audio
-        </Button>
-      </DialogFooter>
-    </>
-  );
-}
-
-function YoutubeAttachmentDialog() {
-  const { editor } = useCurrentEditor();
-  const [error, setError] = useState("");
-
-  const youtubeInputId = useId();
-  const formId = useId();
-
-  function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
-    e.preventDefault();
-
-    const formData = new FormData(e.currentTarget);
-    const url = formData.get("youtube-url") as string;
-
-    const result = z.url().safeParse(url);
-    if (!result.success) return setError(z.prettifyError(result.error));
-    else setError("");
-
-    editor.chain().focus().setYoutubeVideo({ src: result.data }).run();
-  }
-
-  const isUrlInputInvalid = !!error;
-
-  return (
-    <>
-      <DialogHeader>
-        <DialogTitle>Insert a YouTube Video</DialogTitle>
-        <DialogDescription>
-          Paste the full YouTube URL to embed a video into your document.
-        </DialogDescription>
-      </DialogHeader>
-
-      <form id={formId} onSubmit={handleSubmit} className="grid gap-4">
-        <Field data-invalid={isUrlInputInvalid}>
-          <FieldLabel htmlFor={youtubeInputId}>YouTube URL</FieldLabel>
-          <Input
-            id={youtubeInputId}
-            autoFocus
-            name="youtube-url"
-            aria-invalid={isUrlInputInvalid}
-            placeholder="https://www.youtube.com/watch?v=..."
-          />
-          <FieldDescription>
-            Paste the full YouTube URL to embed a video into your document.
-          </FieldDescription>
-          {isUrlInputInvalid && <FieldError errors={[{ message: error }]} />}
-        </Field>
-      </form>
-
-      <DialogFooter>
-        <DialogClose asChild>
-          <Button variant="outline">Cancel</Button>
-        </DialogClose>
-        <Button type="submit" form={formId}>
-          Add Video
         </Button>
       </DialogFooter>
     </>

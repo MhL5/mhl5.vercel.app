@@ -2,16 +2,16 @@ import { Kbd } from "@/components/ui/kbd";
 import { useEditorState } from "@tiptap/react";
 import { ChevronDown, List, ListOrdered } from "lucide-react";
 
-import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
-import { getShortcut } from "../../../utils/getShortcut";
+import { useCurrentEditor } from "../hooks/useCurrentEditor";
+import { getShortcut } from "../utils/getShortcut";
 import {
-  EditorDropdownContentMenu,
-  EditorDropdownMenu,
-  EditorDropdownTriggerMenu,
-} from "../../EditorDropdown";
+  EditorPopover,
+  EditorPopoverContent,
+  EditorPopoverTrigger,
+} from "./ui/EditorPopover";
 import { ToolbarButton } from "./ui/ToolbarButton";
 
-export function ListDropdown() {
+export function ListPopover() {
   const { editor } = useCurrentEditor();
   const editorState = useEditorState({
     editor,
@@ -48,8 +48,8 @@ export function ListDropdown() {
   const isTriggerActive = editorState.isBulletList || editorState.isOrderedList;
 
   return (
-    <EditorDropdownMenu>
-      <EditorDropdownTriggerMenu asChild>
+    <EditorPopover>
+      <EditorPopoverTrigger asChild>
         <ToolbarButton
           isActive={isTriggerActive}
           tooltipContent={null}
@@ -62,8 +62,8 @@ export function ListDropdown() {
           />
           <ChevronDown className="size-3 shrink-0" />
         </ToolbarButton>
-      </EditorDropdownTriggerMenu>
-      <EditorDropdownContentMenu align="start" className="grid gap-0.5">
+      </EditorPopoverTrigger>
+      <EditorPopoverContent align="start" className="grid w-fit gap-0.5 p-1">
         {buttons.map(({ icon: Icon, isActive, type, label, shortcut }) => (
           <ToolbarButton
             key={type}
@@ -78,7 +78,7 @@ export function ListDropdown() {
             <Kbd className="ms-auto">{shortcut}</Kbd>
           </ToolbarButton>
         ))}
-      </EditorDropdownContentMenu>
-    </EditorDropdownMenu>
+      </EditorPopoverContent>
+    </EditorPopover>
   );
 }

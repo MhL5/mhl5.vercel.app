@@ -19,7 +19,7 @@ import { Input } from "@/components/ui/input";
 import { type SubmitEvent, useId, useState } from "react";
 import z from "zod";
 
-import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
+import { useCurrentEditor } from "../hooks/useCurrentEditor";
 import { ToolbarButton } from "./ui/ToolbarButton";
 
 export function YoutubeDropdown() {
@@ -38,9 +38,9 @@ export function YoutubeDropdown() {
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             aria-hidden="true"
             className="text-red-500"
           >

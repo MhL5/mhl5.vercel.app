@@ -10,16 +10,16 @@ import {
   XIcon,
 } from "lucide-react";
 
-import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
-import { getShortcut } from "../../../utils/getShortcut";
+import { useCurrentEditor } from "../hooks/useCurrentEditor";
+import { getShortcut } from "../utils/getShortcut";
 import {
-  EditorDropdownContentMenu,
-  EditorDropdownMenu,
-  EditorDropdownTriggerMenu,
-} from "../../EditorDropdown";
+  EditorPopover,
+  EditorPopoverContent,
+  EditorPopoverTrigger,
+} from "./ui/EditorPopover";
 import { ToolbarButton } from "./ui/ToolbarButton";
 
-export function TextAlignDropdown() {
+export function TextAlignPopover() {
   const { editor } = useCurrentEditor();
   const editorState = useEditorState({
     editor,
@@ -94,8 +94,8 @@ export function TextAlignDropdown() {
   };
 
   return (
-    <EditorDropdownMenu>
-      <EditorDropdownTriggerMenu asChild>
+    <EditorPopover>
+      <EditorPopoverTrigger asChild>
         <ToolbarButton
           isActive={activeAlignment.alignment !== null}
           tooltipContent={null}
@@ -106,8 +106,8 @@ export function TextAlignDropdown() {
           <activeAlignment.icon />
           <ChevronDown className="size-3 shrink-0" />
         </ToolbarButton>
-      </EditorDropdownTriggerMenu>
-      <EditorDropdownContentMenu align="start" className="grid gap-0.5">
+      </EditorPopoverTrigger>
+      <EditorPopoverContent align="start" className="grid w-fit gap-0.5 p-1">
         {buttons.map(({ alignment, icon: Icon, isActive, getShortcutKey }) => (
           <ToolbarButton
             key={alignment}
@@ -138,7 +138,7 @@ export function TextAlignDropdown() {
             </ToolbarButton>
           </>
         )}
-      </EditorDropdownContentMenu>
-    </EditorDropdownMenu>
+      </EditorPopoverContent>
+    </EditorPopover>
   );
 }

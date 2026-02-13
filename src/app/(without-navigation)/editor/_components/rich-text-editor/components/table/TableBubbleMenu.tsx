@@ -4,7 +4,7 @@ import { BubbleMenu } from "@tiptap/react/menus";
 import { Trash2 } from "lucide-react";
 import { type ComponentProps, Fragment } from "react";
 
-import { useCurrentEditor } from "../../../../hooks/useCurrentEditor";
+import { useCurrentEditor } from "../../hooks/useCurrentEditor";
 import { ToolbarButton } from "../ui/ToolbarButton";
 
 const icons = {
