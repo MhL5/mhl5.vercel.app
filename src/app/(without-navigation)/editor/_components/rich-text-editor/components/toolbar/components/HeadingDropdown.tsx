@@ -14,11 +14,11 @@ import {
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 import { getShortcut } from "../../../utils/getShortcut";
 import {
-  EditorDropdown,
-  EditorDropdownContent,
-  EditorDropdownTrigger,
+  EditorDropdownContentMenu,
+  EditorDropdownMenu,
+  EditorDropdownTriggerMenu,
 } from "../../EditorDropdown";
-import { ToolbarButton } from "../../ToolbarButton";
+import { ToolbarButton } from "./ui/ToolbarButton";
 
 export function HeadingDropdown() {
   const { editor } = useCurrentEditor();
@@ -90,8 +90,8 @@ export function HeadingDropdown() {
   };
 
   return (
-    <EditorDropdown>
-      <EditorDropdownTrigger asChild>
+    <EditorDropdownMenu>
+      <EditorDropdownTriggerMenu asChild>
         <ToolbarButton
           isActive={activeHeading.title !== "Heading"}
           tooltipContent={null}
@@ -102,9 +102,9 @@ export function HeadingDropdown() {
           <activeHeading.icon className="size-4 shrink-0" />
           <ChevronDown className="size-3 shrink-0" />
         </ToolbarButton>
-      </EditorDropdownTrigger>
+      </EditorDropdownTriggerMenu>
 
-      <EditorDropdownContent align="start" className="grid gap-0.5">
+      <EditorDropdownContentMenu align="start" className="grid gap-0.5">
         {headingsList.map(
           ({ icon: Icon, onClick, title, isActive, shortcut }) => (
             <ToolbarButton
@@ -121,7 +121,7 @@ export function HeadingDropdown() {
             </ToolbarButton>
           ),
         )}
-      </EditorDropdownContent>
-    </EditorDropdown>
+      </EditorDropdownContentMenu>
+    </EditorDropdownMenu>
   );
 }

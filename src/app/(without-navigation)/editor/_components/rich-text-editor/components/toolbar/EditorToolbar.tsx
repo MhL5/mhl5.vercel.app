@@ -1,10 +1,13 @@
+import { Attachments } from "./components/Attachments";
 import { BlockButtons } from "./components/BlockButtons";
 import { HeadingDropdown } from "./components/HeadingDropdown";
 import { ListDropdown } from "./components/ListDropdown";
-import { Separator } from "./components/Separator";
 import { TextAlignDropdown } from "./components/TextAlignDropdown";
 import { TextFormattingButtons } from "./components/TextFormattingButtons";
+import TocButton from "./components/TocButton";
 import { UndoRedo } from "./components/UndoRedo";
+import { TableDropdown } from "./components/table/TableDropdown";
+import { Separator } from "./components/ui/Separator";
 
 export function EditorToolbar() {
   return (
@@ -28,21 +31,11 @@ export function EditorToolbar() {
 
       <TextAlignDropdown />
 
-      {/*              
-              
+      <Separator />
 
-              <ImageButton />
-
-              <TablePopover />
-
-              <YoutubeDropdown />
-
-              <TocButton />
-
-              <AudioDialog />
-
-              <VideoDialog />
-       */}
+      <TocButton />
+      <TableDropdown />
+      <Attachments />
     </div>
   );
 }

@@ -35,6 +35,7 @@ export const TIPTAP_EXTENSIONS = [
   Gapcursor,
   TableKit.configure({
     table: {
+      resizable: true,
       renderWrapper: true,
     },
   }),

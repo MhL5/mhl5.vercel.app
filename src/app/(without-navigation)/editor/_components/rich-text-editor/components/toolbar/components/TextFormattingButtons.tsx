@@ -4,7 +4,7 @@ import { Bold, Code, Italic, Strikethrough, Underline } from "lucide-react";
 
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 import { getShortcut } from "../../../utils/getShortcut";
-import { ToolbarButton } from "../../ToolbarButton";
+import { ToolbarButton } from "./ui/ToolbarButton";
 
 export function TextFormattingButtons() {
   const { editor } = useCurrentEditor();

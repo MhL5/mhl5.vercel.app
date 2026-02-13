@@ -13,11 +13,11 @@ import {
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 import { getShortcut } from "../../../utils/getShortcut";
 import {
-  EditorDropdown,
-  EditorDropdownContent,
-  EditorDropdownTrigger,
+  EditorDropdownContentMenu,
+  EditorDropdownMenu,
+  EditorDropdownTriggerMenu,
 } from "../../EditorDropdown";
-import { ToolbarButton } from "../../ToolbarButton";
+import { ToolbarButton } from "./ui/ToolbarButton";
 
 export function TextAlignDropdown() {
   const { editor } = useCurrentEditor();
@@ -94,8 +94,8 @@ export function TextAlignDropdown() {
   };
 
   return (
-    <EditorDropdown>
-      <EditorDropdownTrigger asChild>
+    <EditorDropdownMenu>
+      <EditorDropdownTriggerMenu asChild>
         <ToolbarButton
           isActive={activeAlignment.alignment !== null}
           tooltipContent={null}
@@ -106,8 +106,8 @@ export function TextAlignDropdown() {
           <activeAlignment.icon />
           <ChevronDown className="size-3 shrink-0" />
         </ToolbarButton>
-      </EditorDropdownTrigger>
-      <EditorDropdownContent align="start" className="grid gap-0.5">
+      </EditorDropdownTriggerMenu>
+      <EditorDropdownContentMenu align="start" className="grid gap-0.5">
         {buttons.map(({ alignment, icon: Icon, isActive, getShortcutKey }) => (
           <ToolbarButton
             key={alignment}
@@ -138,7 +138,7 @@ export function TextAlignDropdown() {
             </ToolbarButton>
           </>
         )}
-      </EditorDropdownContent>
-    </EditorDropdown>
+      </EditorDropdownContentMenu>
+    </EditorDropdownMenu>
   );
 }

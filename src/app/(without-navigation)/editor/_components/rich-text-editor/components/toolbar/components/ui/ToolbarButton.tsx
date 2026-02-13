@@ -5,11 +5,13 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
+import type { TooltipContentProps } from "@radix-ui/react-tooltip";
 import type { ComponentProps, ReactNode } from "react";
 
 type ToolbarButtonProps = ComponentProps<typeof Button> & {
   isActive: boolean;
   tooltipContent: null | ReactNode;
+  tooltipContentSide?: TooltipContentProps["side"];
 };
 
 export function ToolbarButton({
@@ -17,6 +19,7 @@ export function ToolbarButton({
   variant,
   className,
   tooltipContent,
+  tooltipContentSide = "bottom",
   ...props
 }: ToolbarButtonProps) {
   if (!tooltipContent)
@@ -30,7 +33,7 @@ export function ToolbarButton({
     );
 
   return (
-    <Tooltip delayDuration={100}>
+    <Tooltip delayDuration={50}>
       <TooltipTrigger asChild>
         <ToolbarButtonInternal
           isActive={isActive}
@@ -39,7 +42,9 @@ export function ToolbarButton({
           {...props}
         />
       </TooltipTrigger>
-      <TooltipContent side="bottom">{tooltipContent}</TooltipContent>
+      <TooltipContent side={tooltipContentSide}>
+        {tooltipContent}
+      </TooltipContent>
     </Tooltip>
   );
 }

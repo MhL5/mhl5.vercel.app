@@ -4,8 +4,8 @@ import { useEditorState } from "@tiptap/react";
 import { ListTree } from "lucide-react";
 import { useCallback } from "react";
 
-import { useCurrentEditor } from "../hooks/useEditor";
-import { ToolbarButton } from "./ToolbarButton";
+import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
+import { ToolbarButton } from "./ui/ToolbarButton";
 
 export default function TocButton() {
   const { editor } = useCurrentEditor();

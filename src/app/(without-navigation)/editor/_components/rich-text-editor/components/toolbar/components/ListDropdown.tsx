@@ -5,11 +5,11 @@ import { ChevronDown, List, ListOrdered } from "lucide-react";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 import { getShortcut } from "../../../utils/getShortcut";
 import {
-  EditorDropdown,
-  EditorDropdownContent,
-  EditorDropdownTrigger,
+  EditorDropdownContentMenu,
+  EditorDropdownMenu,
+  EditorDropdownTriggerMenu,
 } from "../../EditorDropdown";
-import { ToolbarButton } from "../../ToolbarButton";
+import { ToolbarButton } from "./ui/ToolbarButton";
 
 export function ListDropdown() {
   const { editor } = useCurrentEditor();
@@ -48,8 +48,8 @@ export function ListDropdown() {
   const isTriggerActive = editorState.isBulletList || editorState.isOrderedList;
 
   return (
-    <EditorDropdown>
-      <EditorDropdownTrigger asChild>
+    <EditorDropdownMenu>
+      <EditorDropdownTriggerMenu asChild>
         <ToolbarButton
           isActive={isTriggerActive}
           tooltipContent={null}
@@ -60,10 +60,10 @@ export function ListDropdown() {
             data-active={isTriggerActive}
             className="data-[active=false]:text-muted-foreground"
           />
-          <ChevronDown className="size-3 shrink-0 text-foreground" />
+          <ChevronDown className="size-3 shrink-0" />
         </ToolbarButton>
-      </EditorDropdownTrigger>
-      <EditorDropdownContent align="start" className="grid gap-0.5">
+      </EditorDropdownTriggerMenu>
+      <EditorDropdownContentMenu align="start" className="grid gap-0.5">
         {buttons.map(({ icon: Icon, isActive, type, label, shortcut }) => (
           <ToolbarButton
             key={type}
@@ -78,7 +78,7 @@ export function ListDropdown() {
             <Kbd className="ms-auto">{shortcut}</Kbd>
           </ToolbarButton>
         ))}
-      </EditorDropdownContent>
-    </EditorDropdown>
+      </EditorDropdownContentMenu>
+    </EditorDropdownMenu>
   );
 }

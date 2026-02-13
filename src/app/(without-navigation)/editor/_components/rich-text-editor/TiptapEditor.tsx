@@ -11,8 +11,8 @@ import dynamic from "next/dynamic";
 import { useMemo } from "react";
 
 import { LinkBubbleMenu } from "./components/LinkBubbleMenu";
-import { TableBubbleMenu } from "./components/TablePopover";
 import { EditorToolbar } from "./components/toolbar/EditorToolbar";
+import { TableBubbleMenu } from "./components/toolbar/components/table/TableBubbleMenu";
 import { TIPTAP_EXTENSIONS } from "./extensions";
 import { useSyncEditorEditable } from "./hooks/useSyncEditorEditable";
 

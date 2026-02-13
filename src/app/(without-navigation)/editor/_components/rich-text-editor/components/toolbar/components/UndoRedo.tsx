@@ -4,7 +4,7 @@ import { Redo2, Undo2 } from "lucide-react";
 
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 import { getShortcut } from "../../../utils/getShortcut";
-import { ToolbarButton } from "../../ToolbarButton";
+import { ToolbarButton } from "./ui/ToolbarButton";
 
 export function UndoRedo() {
   const { editor } = useCurrentEditor();

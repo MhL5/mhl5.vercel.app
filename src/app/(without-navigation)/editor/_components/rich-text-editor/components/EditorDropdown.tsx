@@ -72,18 +72,16 @@ function useHoverWithTimeout({
   };
 }
 
-type EditorDropdownContextType = {
+type ContextType = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   handleMouseEnter: () => void;
   handleMouseLeave: () => void;
 };
 
-const EditorDropdownContext = createContext<EditorDropdownContextType | null>(
-  null,
-);
+const EditorDropdownContext = createContext<ContextType | null>(null);
 
-function EditorDropdown({
+function EditorDropdownMenu({
   onOpenChange,
   ...props
 }: ComponentProps<typeof DropdownMenu>) {
@@ -115,19 +113,19 @@ function EditorDropdown({
   );
 }
 
-function useEditorDropdown() {
+function useEditorDropdownMenu() {
   const context = useContext(EditorDropdownContext);
   if (!context)
     throw new Error("useEditorDropdown must be used within a EditorDropdown");
   return context;
 }
 
-function EditorDropdownTrigger({
+function EditorDropdownTriggerMenu({
   onMouseLeave,
   onMouseEnter,
   ...props
 }: ComponentProps<typeof DropdownMenuTrigger>) {
-  const { handleMouseEnter, handleMouseLeave } = useEditorDropdown();
+  const { handleMouseEnter, handleMouseLeave } = useEditorDropdownMenu();
   return (
     <DropdownMenuTrigger
       onMouseLeave={(e) => {
@@ -143,12 +141,12 @@ function EditorDropdownTrigger({
   );
 }
 
-function EditorDropdownContent({
+function EditorDropdownContentMenu({
   onMouseEnter,
   onMouseLeave,
   ...props
 }: ComponentProps<typeof DropdownMenuContent>) {
-  const { handleMouseLeave, handleMouseEnter } = useEditorDropdown();
+  const { handleMouseLeave, handleMouseEnter } = useEditorDropdownMenu();
   return (
     <DropdownMenuContent
       onMouseLeave={(e) => {
@@ -164,4 +162,8 @@ function EditorDropdownContent({
   );
 }
 
-export { EditorDropdown, EditorDropdownTrigger, EditorDropdownContent };
+export {
+  EditorDropdownMenu,
+  EditorDropdownTriggerMenu,
+  EditorDropdownContentMenu,
+};

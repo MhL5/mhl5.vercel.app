@@ -3,12 +3,12 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { useEditorState } from "@tiptap/react";
 import { BubbleMenu } from "@tiptap/react/menus";
-import { CheckIcon, ExternalLink, Trash2 } from "lucide-react";
+import { CheckIcon, ExternalLink, Unlink } from "lucide-react";
 import { toast } from "sonner";
 import z from "zod";
 
-import { useCurrentEditor } from "../hooks/useEditor";
-import { ToolbarButton } from "./ToolbarButton";
+import { useCurrentEditor } from "../hooks/useCurrentEditor";
+import { ToolbarButton } from "./toolbar/components/ui/ToolbarButton";
 
 export function LinkBubbleMenu() {
   const { editor } = useCurrentEditor();
@@ -109,7 +109,7 @@ function Content() {
         variant="destructive"
         onClick={() => editor.chain().focus().unsetLink().run()}
       >
-        <Trash2 />
+        <Unlink />
       </ToolbarButton>
     </div>
   );
