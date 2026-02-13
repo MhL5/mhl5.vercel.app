@@ -10,6 +10,7 @@ export default function Page() {
         <TiptapEditorDynamic
           content={htmlContent}
           onUpdate={({ editor }) => {
+            // eslint-disable-next-line no-console
             console.log(editor.getHTML());
           }}
         />

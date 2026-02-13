@@ -30,7 +30,7 @@ export function ToolbarButton({
     );
 
   return (
-    <Tooltip delayDuration={200}>
+    <Tooltip delayDuration={100}>
       <TooltipTrigger asChild>
         <ToolbarButtonInternal
           isActive={isActive}
@@ -55,8 +55,9 @@ function ToolbarButtonInternal({
     <Button
       variant={isActive ? "default" : variant || "ghost"}
       size={size}
+      data-active={isActive}
       className={cn(
-        `${size === "icon-sm" ? "size-7" : ""} transition-colors duration-300`,
+        `${size === "icon-sm" ? "size-7" : ""} transition-colors duration-300 data-[active=false]:text-muted-foreground`,
         className,
       )}
       {...props}

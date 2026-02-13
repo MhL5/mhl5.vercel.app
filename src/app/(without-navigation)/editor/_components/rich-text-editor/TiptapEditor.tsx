@@ -12,16 +12,9 @@ import { useMemo } from "react";
 
 import { LinkBubbleMenu } from "./components/LinkBubbleMenu";
 import { TableBubbleMenu } from "./components/TablePopover";
-import Toolbar from "./components/Toolbar";
+import { EditorToolbar } from "./components/toolbar/EditorToolbar";
 import { TIPTAP_EXTENSIONS } from "./extensions";
-
-const TiptapEditorDynamic = dynamic(
-  () => import("./TiptapEditor").then((mod) => mod.TiptapEditor),
-  {
-    ssr: false,
-    loading: () => <Skeleton className="h-[70svh] w-full" />,
-  },
-);
+import { useSyncEditorEditable } from "./hooks/useSyncEditorEditable";
 
 type TiptapEditorProps = {
   className?: string;
@@ -33,13 +26,13 @@ type TiptapEditorProps = {
 function TiptapEditor({
   className,
   content,
-  editable,
+  editable = true,
   onUpdate,
 }: TiptapEditorProps) {
   const editor = useEditor({
     extensions: TIPTAP_EXTENSIONS,
     content,
-    editable, // Todo: for some reason doesn't work
+    editable,
     editorProps: {
       attributes: {
         class: `tiptap tiptap-typography px-0.5 w-full mx-auto overflow-x-hidden focus:outline-none`,
@@ -52,7 +45,9 @@ function TiptapEditor({
 
   const memoizedEditor = useMemo(() => editor, [editor]);
 
-  if (!editor) return <Skeleton className="h-40 w-full" />;
+  useSyncEditorEditable({ editable, editor });
+
+  if (!editor) return <TiptapEditorSkeleton />;
   return (
     <div
       className={cn(
@@ -61,13 +56,14 @@ function TiptapEditor({
       )}
     >
       <EditorContext value={{ editor: memoizedEditor }}>
-        <Toolbar />
+        {/* <Toolbar /> */}
+        <EditorToolbar />
 
         <LinkBubbleMenu />
         <TableBubbleMenu />
 
         <EditorContent
-          className="h-[70svh] w-full overflow-x-hidden px-5 py-7"
+          className="h-200 w-full overflow-x-hidden px-5 py-7 md:h-250"
           editor={editor}
         />
       </EditorContext>
@@ -75,4 +71,16 @@ function TiptapEditor({
   );
 }
 
-export { TiptapEditorDynamic, TiptapEditor };
+const TiptapEditorSkeleton = () => (
+  <Skeleton className="h-200 w-full md:h-250" />
+);
+
+const TiptapEditorDynamic = dynamic(
+  () => import("./TiptapEditor").then((mod) => mod.TiptapEditor),
+  {
+    ssr: false,
+    loading: TiptapEditorSkeleton,
+  },
+);
+
+export { TiptapEditor, TiptapEditorDynamic };
