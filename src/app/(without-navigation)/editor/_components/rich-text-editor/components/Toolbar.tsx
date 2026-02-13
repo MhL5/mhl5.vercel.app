@@ -40,10 +40,12 @@ import {
 
 import { useCurrentEditor } from "../hooks/useEditor";
 import { getShortcut } from "../utils/getShortcut";
+import AudioDialog from "./AudioDialog";
 import { ImageButton } from "./ImageDropdown";
 import TablePopover from "./TablePopover";
 import TocButton from "./TocButton";
 import { ToolbarButton } from "./ToolbarButton";
+import VideoDialog from "./VideoDialog";
 import YoutubeDropdown from "./YoutubeDropdown";
 
 export default function Toolbar() {
@@ -65,6 +67,8 @@ export default function Toolbar() {
       <TablePopover />
       <YoutubeDropdown />
       <TocButton />
+      <AudioDialog />
+      <VideoDialog />
     </div>
   );
 }

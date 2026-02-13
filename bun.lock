@@ -18,6 +18,7 @@
         "@radix-ui/react-tabs": "^1.1.12",
         "@radix-ui/react-tooltip": "^1.2.8",
         "@tanstack/react-form": "^1.23.8",
+        "@tiptap/extension-audio": "^3.19.0",
         "@tiptap/extension-bubble-menu": "^3.19.0",
         "@tiptap/extension-image": "^3.19.0",
         "@tiptap/extension-link": "^3.19.0",
@@ -523,6 +524,8 @@
     "@tanstack/store": ["@tanstack/store@0.7.7", "", {}, "sha512-xa6pTan1bcaqYDS9BDpSiS63qa6EoDkPN9RsRaxHuDdVDNntzq3xNwR5YKTU/V3SkSyC9T4YVOPh2zRQN0nhIQ=="],
 
     "@tiptap/core": ["@tiptap/core@3.19.0", "", { "peerDependencies": { "@tiptap/pm": "^3.19.0" } }, "sha512-bpqELwPW+DG8gWiD8iiFtSl4vIBooG5uVJod92Qxn3rA9nFatyXRr4kNbMJmOZ66ezUvmCjXVe/5/G4i5cyzKA=="],
+
+    "@tiptap/extension-audio": ["@tiptap/extension-audio@3.19.0", "", { "peerDependencies": { "@tiptap/core": "^3.19.0" } }, "sha512-viBWFB3oNdCJlvCTlpWYCJJtb1fsg912uNOuGTBqZ0PcN88xUH6iZXDBTK8Jz/Qdf8td3pM7G6wIL64OMuanVQ=="],
 
     "@tiptap/extension-blockquote": ["@tiptap/extension-blockquote@3.19.0", "", { "peerDependencies": { "@tiptap/core": "^3.19.0" } }, "sha512-y3UfqY9KD5XwWz3ndiiJ089Ij2QKeiXy/g1/tlAN/F1AaWsnkHEHMLxCP1BIqmMpwsX7rZjMLN7G5Lp7c9682A=="],
 

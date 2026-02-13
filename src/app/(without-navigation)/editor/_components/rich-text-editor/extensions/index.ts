@@ -1,3 +1,4 @@
+import Audio from "@tiptap/extension-audio";
 import Image from "@tiptap/extension-image";
 import LinkExtension from "@tiptap/extension-link";
 import { TableKit } from "@tiptap/extension-table";
@@ -10,6 +11,7 @@ import { Gapcursor } from "@tiptap/extensions";
 import StarterKit from "@tiptap/starter-kit";
 
 import { ResizableNode } from "../nodes/ResizableNode";
+import { VideoNode } from "../nodes/VideoNode";
 import "./Youtube.css";
 
 export const TIPTAP_EXTENSIONS = [
@@ -37,6 +39,11 @@ export const TIPTAP_EXTENSIONS = [
     },
   }),
   ResizableNode,
+  Audio.configure({
+    inline: false,
+    controls: true,
+    addPasteHandler: true,
+  }),
   Image.configure({
     inline: false,
     allowBase64: false,
@@ -50,6 +57,12 @@ export const TIPTAP_EXTENSIONS = [
   }),
   Youtube.configure({
     inline: false,
+  }),
+  VideoNode.configure({
+    HTMLAttributes: {
+      class: "rounded-md max-w-full h-auto",
+      style: "max-width: 100%; height: auto;",
+    },
   }),
   TableOfContents.configure({
     anchorTypes: ["heading"],

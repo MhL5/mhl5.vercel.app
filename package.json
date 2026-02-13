@@ -28,6 +28,7 @@
     "@radix-ui/react-tabs": "^1.1.12",
     "@radix-ui/react-tooltip": "^1.2.8",
     "@tanstack/react-form": "^1.23.8",
+    "@tiptap/extension-audio": "^3.19.0",
     "@tiptap/extension-bubble-menu": "^3.19.0",
     "@tiptap/extension-image": "^3.19.0",
     "@tiptap/extension-link": "^3.19.0",

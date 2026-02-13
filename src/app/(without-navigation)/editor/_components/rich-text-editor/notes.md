@@ -12,5 +12,3 @@
   - open dropdowns on hover
 
 - AUDIO + VIDEO SUPPORT
-- BETTER RESIZING
-- fix select style

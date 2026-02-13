@@ -28,7 +28,6 @@ export const ResizableNode = NodeExtension.create({
     return [
       "div",
       {
-        class: "",
         "data-resizer": "",
         style: `width: ${HTMLAttributes.width}; height: ${HTMLAttributes.height}; border: 1px solid var(--border); box-sizing: border-box;`,
       },
