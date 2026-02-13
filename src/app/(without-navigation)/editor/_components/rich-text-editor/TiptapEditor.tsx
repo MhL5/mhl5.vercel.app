@@ -56,7 +56,6 @@ function TiptapEditor({
       )}
     >
       <EditorContext value={{ editor: memoizedEditor }}>
-        {/* <Toolbar /> */}
         <EditorToolbar />
 
         <LinkBubbleMenu />

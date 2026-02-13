@@ -19,15 +19,15 @@ export function BlockButtons() {
 
   const buttons = [
     {
-      key: "paragraph",
+      key: "blockquote",
       tooltipContent: (
         <>
-          Paragraph <Kbd>{getShortcut("normalText")}</Kbd>
+          Blockquote <Kbd>{getShortcut("blockquote")}</Kbd>
         </>
       ),
-      onClick: () => editor.chain().focus().setParagraph().run(),
-      isActive: editorState.isParagraph,
-      icon: Pilcrow,
+      onClick: () => editor.chain().focus().toggleBlockquote().run(),
+      isActive: editorState.isBlockquote,
+      icon: Quote,
     },
     {
       key: "codeBlock",
@@ -41,15 +41,15 @@ export function BlockButtons() {
       icon: Code2,
     },
     {
-      key: "blockquote",
+      key: "paragraph",
       tooltipContent: (
         <>
-          Blockquote <Kbd>{getShortcut("blockquote")}</Kbd>
+          Paragraph <Kbd>{getShortcut("normalText")}</Kbd>
         </>
       ),
-      onClick: () => editor.chain().focus().toggleBlockquote().run(),
-      isActive: editorState.isBlockquote,
-      icon: Quote,
+      onClick: () => editor.chain().focus().setParagraph().run(),
+      isActive: editorState.isParagraph,
+      icon: Pilcrow,
     },
     {
       key: "horizontalRule",

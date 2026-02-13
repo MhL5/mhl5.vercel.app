@@ -96,7 +96,7 @@ export function HeadingDropdown() {
           isActive={activeHeading.title !== "Heading"}
           tooltipContent={null}
           size="default"
-          className="h-7"
+          className="h-7 px-1!"
           aria-label={`${activeHeading.title} ${activeHeading.shortcut ? `(${activeHeading.shortcut})` : ""}`}
         >
           <activeHeading.icon className="size-4 shrink-0" />
