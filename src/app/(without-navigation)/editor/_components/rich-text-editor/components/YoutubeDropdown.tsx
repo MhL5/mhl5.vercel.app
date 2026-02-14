@@ -20,7 +20,7 @@ import { type SubmitEvent, useId, useState } from "react";
 import z from "zod";
 
 import { useCurrentEditor } from "../hooks/useCurrentEditor";
-import { ToolbarButton } from "./ui/ToolbarButton";
+import { ToolbarButton } from "./ToolbarButton";
 
 export function YoutubeDropdown() {
   return (

@@ -5,7 +5,7 @@ import { ListTree } from "lucide-react";
 import { useCallback } from "react";
 
 import { useCurrentEditor } from "../hooks/useCurrentEditor";
-import { ToolbarButton } from "./ui/ToolbarButton";
+import { ToolbarButton } from "./ToolbarButton";
 
 export default function TocButton() {
   const { editor } = useCurrentEditor();

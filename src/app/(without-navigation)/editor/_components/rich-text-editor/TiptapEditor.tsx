@@ -16,13 +16,12 @@ import { BlockButtons } from "./components/BlockButtons";
 import { HeadingPopover } from "./components/HeadingPopover";
 import { LinkBubbleMenu, LinkDropdown } from "./components/Link";
 import { ListPopover } from "./components/ListPopover";
+import { TableBubbleMenu, TablePopover } from "./components/Table";
 import { TextAlignPopover } from "./components/TextAlignPopover";
 import { TextFormattingButtons } from "./components/TextFormattingButtons";
 import TocButton from "./components/TocButton";
 import { UndoRedo } from "./components/UndoRedo";
 import { YoutubeDropdown } from "./components/YoutubeDropdown";
-import { TableBubbleMenu } from "./components/table/TableBubbleMenu";
-import { TablePopover } from "./components/table/TablePopover";
 import { TIPTAP_EXTENSIONS } from "./extensions";
 import { useSyncEditorEditable } from "./hooks/useSyncEditorEditable";
 

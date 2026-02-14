@@ -8,8 +8,8 @@ import {
   EditorPopover,
   EditorPopoverContent,
   EditorPopoverTrigger,
-} from "./ui/EditorPopover";
-import { ToolbarButton } from "./ui/ToolbarButton";
+} from "./EditorPopover";
+import { ToolbarButton } from "./ToolbarButton";
 
 export function ListPopover() {
   const { editor } = useCurrentEditor();
