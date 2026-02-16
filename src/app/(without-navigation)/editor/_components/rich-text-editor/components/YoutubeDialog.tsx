@@ -22,7 +22,7 @@ import z from "zod";
 import { useCurrentEditor } from "../hooks/useCurrentEditor";
 import { ToolbarButton } from "./ToolbarButton";
 
-export function YoutubeDropdown() {
+export function YoutubeDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>

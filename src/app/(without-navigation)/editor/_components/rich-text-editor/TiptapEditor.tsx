@@ -11,7 +11,6 @@ import {
 import dynamic from "next/dynamic";
 import { useMemo } from "react";
 
-import { Attachments } from "./components/Attachments";
 import { BlockButtons } from "./components/BlockButtons";
 import { HeadingPopover } from "./components/HeadingPopover";
 import { LinkBubbleMenu, LinkDropdown } from "./components/Link";
@@ -21,8 +20,9 @@ import { TextAlignPopover } from "./components/TextAlignPopover";
 import { TextFormattingButtons } from "./components/TextFormattingButtons";
 import TocButton from "./components/TocButton";
 import { UndoRedo } from "./components/UndoRedo";
-import { YoutubeDropdown } from "./components/YoutubeDropdown";
+import { YoutubeDialog } from "./components/YoutubeDialog";
 import { TIPTAP_EXTENSIONS } from "./extensions";
+import { InsertUploadNodeButton } from "./extensions/image-upload-node/components/InsertUploadNodeButton";
 import { useSyncEditorEditable } from "./hooks/useSyncEditorEditable";
 
 type TiptapEditorProps = {
@@ -94,16 +94,10 @@ function TiptapEditor({
           />
 
           <TextAlignPopover />
-
-          <Separator
-            orientation="vertical"
-            className="data-[orientation=vertical]:h-5"
-          />
-
-          <TocButton />
           <TablePopover />
-          <Attachments />
-          <YoutubeDropdown />
+          <InsertUploadNodeButton />
+          <YoutubeDialog />
+          <TocButton />
         </div>
 
         <LinkBubbleMenu />
