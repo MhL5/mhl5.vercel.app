@@ -15,31 +15,33 @@ type BaseProps = {
   multiple: boolean;
 };
 
+type Context = {
+  source: "drag-drop" | "click";
+};
+
 type DropZoneProps = (
   | {
-      onDrop: (files: File[]) => void;
-      onChange: (files: File[]) => void;
       multiple: true;
+      onFilesSelect: (files: File[], context: Context) => void;
     }
   | {
-      onDrop: (files: File) => void;
-      onChange: (files: File) => void;
       multiple: false;
+      onFileSelect: (file: File, context: Context) => void;
     }
 ) &
   BaseProps;
 
 const DEFAULT_MAX_SIZE = 1000 * 1024 * 1024; // 1GB
 
-export default function DropZone({
-  onDrop,
-  onChange,
-  disabled,
-  accept,
-  multiple,
-  maxSize = DEFAULT_MAX_SIZE,
-  className,
-}: DropZoneProps) {
+export default function DropZone(props: DropZoneProps) {
+  const {
+    disabled,
+    accept,
+    maxSize = DEFAULT_MAX_SIZE,
+    className,
+    multiple,
+  } = props;
+
   function validateFiles(files: File[]) {
     if (files.length === 0) {
       toast.error("No files to validate");
@@ -60,26 +62,31 @@ export default function DropZone({
     return validFiles;
   }
 
+  function handleSelectFiles(files: File[], context: Context) {
+    const validFiles = validateFiles(files);
+    if (!validFiles) return;
+
+    if (multiple) props.onFilesSelect(validFiles, context);
+    if (!multiple) {
+      if (validFiles.length > 1)
+        return toast.error(
+          "Only one file can be uploaded at a time, please select one file at a time.",
+        );
+      props.onFileSelect(validFiles[0], context);
+    }
+  }
+
   return (
     <DropZoneInternal
       onDrop={(e) => {
         const files = Array.from(e.dataTransfer.files);
-
-        const validFiles = validateFiles(files);
-        if (!validFiles) return;
-
-        if (multiple) onDrop(validFiles);
-        else onDrop(validFiles[0]);
+        if (!files || files.length === 0) return;
+        handleSelectFiles(files, { source: "drag-drop" });
       }}
       onChange={(e) => {
         const files = e.target.files;
         if (!files || files.length === 0) return;
-
-        const validFiles = validateFiles(Array.from(files));
-        if (!validFiles) return;
-
-        if (multiple) onChange(validFiles);
-        else onChange(validFiles[0]);
+        handleSelectFiles(Array.from(files), { source: "click" });
       }}
       disabled={disabled}
       accept={accept}
