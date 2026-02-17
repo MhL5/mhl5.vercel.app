@@ -10,7 +10,7 @@ import { formatBytes, validateFile } from "./utils";
 type BaseProps = {
   className?: string;
   disabled: boolean;
-  accept: "image/*" | "video/*" | "audio/*" | "image/*,video/*,audio/*";
+  accept: "image/*" | "video/*" | "audio/*";
   maxSize?: number;
   multiple: boolean;
 };
@@ -19,7 +19,7 @@ type Context = {
   source: "drag-drop" | "click";
 };
 
-type DropZoneProps = (
+export type DropZoneProps = (
   | {
       multiple: true;
       onFilesSelect: (files: File[], context: Context) => void;

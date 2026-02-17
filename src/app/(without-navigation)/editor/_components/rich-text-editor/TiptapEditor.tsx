@@ -22,6 +22,7 @@ import TocButton from "./components/TocButton";
 import { UndoRedo } from "./components/UndoRedo";
 import { YoutubeDialog } from "./components/YoutubeDialog";
 import { TIPTAP_EXTENSIONS } from "./extensions";
+import { InsertAssetUploadPopover } from "./extensions/asset-upload-node/components/InsertAssetUploadPopover";
 import { InsertUploadNodeButton } from "./extensions/image-upload-node/components/InsertUploadNodeButton";
 import { useSyncEditorEditable } from "./hooks/useSyncEditorEditable";
 
@@ -96,6 +97,7 @@ function TiptapEditor({
           <TextAlignPopover />
           <TablePopover />
           <InsertUploadNodeButton />
+          <InsertAssetUploadPopover />
           <YoutubeDialog />
           <TocButton />
         </div>

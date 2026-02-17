@@ -111,7 +111,7 @@ function Content() {
           tooltipContentSide="top"
           type="submit"
           className="ms-auto"
-          tooltipContent={"Apply"}
+          tooltipContent="Apply"
           isActive={false}
         >
           <CheckIcon />
