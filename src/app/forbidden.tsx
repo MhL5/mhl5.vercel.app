@@ -1,5 +1,5 @@
-import { ForbiddenPage } from "@/registry/new-york/FallbackPages/FallbackPages";
+import { FallbackPage } from "@/registry/new-york/FallbackPages/FallbackPages";
 
 export default function Forbidden() {
-  return <ForbiddenPage />;
+  return <FallbackPage variant="forbidden" />;
 }

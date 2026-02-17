@@ -1,16 +1,19 @@
-"use client";
+import type { Metadata } from "next";
 
-import { Button } from "@/components/ui/button";
+import EditorDemo from "./EditorTest";
 
-export default function Test() {
-  async function handleClick() {}
+export const metadata: Metadata = {
+  robots: {
+    follow: false,
+    index: false,
+  },
+};
 
+export default function Page() {
   return (
-    <section className="grid min-h-dvh w-full place-items-center">
-      <div className="mx-auto w-full max-w-7xl">
-        <Button size="lg" onClick={handleClick}>
-          Click me{" "}
-        </Button>
+    <section className="flex min-h-dvh w-full items-start justify-center pt-20">
+      <div className="mx-auto w-full max-w-4xl">
+        <EditorDemo />
       </div>
     </section>
   );

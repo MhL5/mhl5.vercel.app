@@ -19,8 +19,8 @@ export default async function SnippetH1({ heading, slug }: SnippetH1Props) {
     <div className="grid gap-7">
       <SnippetBreadCrumb />
 
-      <div className="mb-2 flex flex-wrap items-center justify-between gap-3">
-        <h1 id="overview" className="mb-0 break-all">
+      <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
+        <h1 id="overview" className="mb-0! break-all">
           {heading}
         </h1>
 

@@ -1,5 +1,5 @@
-import { NotFoundPage } from "../FallbackPages";
+import { FallbackPage } from "../FallbackPages";
 
 export default function NotFoundExample() {
-  return <NotFoundPage className="min-h-auto" />;
+  return <FallbackPage variant="not-found" className="min-h-auto" />;
 }

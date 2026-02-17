@@ -4,8 +4,6 @@ import { extractHeadings } from "@/app/(with-navigation)/snippets/[...slug]/_uti
 import { getShadcnRegistry } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
 import MdxRemoteServer from "@/components/MDX-remote/MdxRemoteServer";
 import { CONTACT_INFO } from "@/constants";
-import { cn } from "@/lib/utils";
-import { typographyClassName } from "@/styles/typographyClassName";
 import { fileReader } from "@/utils/fileReader";
 import type { Metadata } from "next";
 import { cacheLife } from "next/cache";
@@ -79,19 +77,9 @@ export default async function Page({
     <div className="grid xl:grid-cols-[1fr_15rem] xl:items-start xl:justify-between xl:gap-5">
       <main
         id="main"
-        className={cn(
-          typographyClassName,
-          "w-full overflow-hidden px-4 pt-4 pb-10 md:px-6 md:pt-8",
-        )}
+        className="typography w-full max-w-full! overflow-hidden px-4 pt-4 pb-10 md:px-6 md:pt-8"
       >
-        <SnippetH1
-          heading={
-            <div className="flex flex-wrap items-center gap-2">
-              {item.title}
-            </div>
-          }
-          slug={snippetSlug}
-        />
+        <SnippetH1 heading={item.title} slug={snippetSlug} />
 
         <MdxRemoteServer
           source={`

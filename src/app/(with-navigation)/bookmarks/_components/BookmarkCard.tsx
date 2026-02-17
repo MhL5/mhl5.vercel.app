@@ -23,7 +23,7 @@ export default function BookmarkCard({ item }: { item: Bookmark }) {
       target={item.url.startsWith("http") ? "_blank" : undefined}
       rel={item.url.startsWith("http") ? "noopener noreferrer" : undefined}
       aria-label={`Open ${item.title}`}
-      className="group relative flex h-full w-full items-start gap-3 p-3"
+      className="group relative flex h-full w-full items-start gap-3 p-3 whitespace-normal"
     >
       <div
         className={cn(
