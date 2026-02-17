@@ -49,7 +49,7 @@ export function FileItem({
       <div
         role="alert"
         className={cn(
-          "flex items-center justify-between gap-2 rounded-lg border border-destructive p-3",
+          "flex items-center gap-2 rounded-lg border border-destructive p-3",
           className,
         )}
       >
@@ -64,14 +64,23 @@ export function FileItem({
         </div>
 
         <Button
-          size="icon"
+          size="icon-sm"
           variant="ghost"
-          className="size-8"
+          className="ms-auto"
           onClick={onRetry}
           disabled={disabled}
           aria-label="retry upload"
         >
           <RefreshCcw className="size-4" aria-hidden="true" />
+        </Button>
+        <Button
+          size="icon-sm"
+          variant="destructive"
+          aria-label="cancel upload"
+          onClick={onRemove}
+          disabled={disabled}
+        >
+          <X className="size-4" aria-hidden="true" />
         </Button>
       </div>
     );

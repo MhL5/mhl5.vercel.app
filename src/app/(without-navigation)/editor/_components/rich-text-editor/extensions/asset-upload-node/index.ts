@@ -1,19 +1,19 @@
 import { Node, ReactNodeViewRenderer, mergeAttributes } from "@tiptap/react";
 
-import { UploadNode2 } from "./components/UploadNode2";
+import AssetUploadNode from "./components/AssetUploadNode";
 
 export type MediaType = "image" | "video" | "audio";
 
 declare module "@tiptap/react" {
   interface Commands<ReturnType> {
-    imageUpload: {
-      insertUploadNode: (attrs?: { mediaType?: MediaType }) => ReturnType;
+    assetUploadNode: {
+      insertAssetUploadNode: (attrs?: { mediaType?: MediaType }) => ReturnType;
     };
   }
 }
 
-export const uploadNode = Node.create({
-  name: "imageUpload",
+export const assetUploadNode = Node.create({
+  name: "assetUploadNode",
 
   group: "block",
 
@@ -59,23 +59,23 @@ export const uploadNode = Node.create({
   },
 
   parseHTML() {
-    return [{ tag: 'div[data-type="image-upload"]' }];
+    return [{ tag: 'div[data-type="asset-upload-node"]' }];
   },
 
   renderHTML({ HTMLAttributes }) {
     return [
       "div",
-      mergeAttributes({ "data-type": "image-upload" }, HTMLAttributes),
+      mergeAttributes({ "data-type": "asset-upload-node" }, HTMLAttributes),
     ];
   },
 
   addNodeView() {
-    return ReactNodeViewRenderer(UploadNode2);
+    return ReactNodeViewRenderer(AssetUploadNode);
   },
 
   addCommands() {
     return {
-      insertUploadNode:
+      insertAssetUploadNode:
         (attrs) =>
         ({ commands }) =>
           commands.insertContent({
@@ -96,8 +96,8 @@ export const uploadNode = Node.create({
 
         if (
           nodeAfter &&
-          nodeAfter.type.name === "imageUpload" &&
-          editor.isActive("imageUpload")
+          nodeAfter.type.name === "assetUploadNode" &&
+          editor.isActive("assetUploadNode")
         ) {
           const nodeEl = editor.view.nodeDOM(selection.$from.pos);
           if (nodeEl && nodeEl instanceof HTMLElement) {

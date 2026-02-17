@@ -13,7 +13,7 @@ import StarterKit from "@tiptap/starter-kit";
 import { ResizableNode } from "../nodes/ResizableNode";
 import { VideoNode } from "../nodes/VideoNode";
 import "./Youtube.css";
-import { uploadNode } from "./image-upload-node/uploadNode";
+import { assetUploadNode } from "./asset-upload-node";
 
 export const TIPTAP_EXTENSIONS = [
   StarterKit,
@@ -69,5 +69,5 @@ export const TIPTAP_EXTENSIONS = [
   TableOfContents.configure({
     anchorTypes: ["heading"],
   }),
-  uploadNode,
+  assetUploadNode,
 ];
