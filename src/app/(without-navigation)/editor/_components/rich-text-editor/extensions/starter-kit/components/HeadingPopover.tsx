@@ -11,14 +11,14 @@ import {
   Heading6,
 } from "lucide-react";
 
-import { useCurrentEditor } from "../hooks/useCurrentEditor";
-import { getShortcut } from "../utils/getShortcut";
 import {
   EditorPopover,
   EditorPopoverContent,
   EditorPopoverTrigger,
-} from "./EditorPopover";
-import { ToolbarButton } from "./ToolbarButton";
+} from "../../../components/EditorPopover";
+import { ToolbarButton } from "../../../components/ToolbarButton";
+import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
+import { getShortcut } from "../../../utils/getShortcut";
 
 export function HeadingPopover() {
   const { editor } = useCurrentEditor();

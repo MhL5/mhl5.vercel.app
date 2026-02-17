@@ -4,10 +4,10 @@ import { useEditorState } from "@tiptap/react";
 import { ListTree } from "lucide-react";
 import { useCallback } from "react";
 
-import { useCurrentEditor } from "../hooks/useCurrentEditor";
-import { ToolbarButton } from "./ToolbarButton";
+import { ToolbarButton } from "../../../components/ToolbarButton";
+import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 
-export default function TocButton() {
+export function InsertTableOfContentsButton() {
   const { editor } = useCurrentEditor();
 
   const { hasHeadings } = useEditorState({

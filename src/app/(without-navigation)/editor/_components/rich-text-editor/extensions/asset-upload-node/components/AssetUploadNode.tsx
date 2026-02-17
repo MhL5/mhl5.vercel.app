@@ -30,8 +30,8 @@ import z from "zod";
 
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 import { isValidPosition } from "../../../utils/isValidPosition";
+import type { MediaType } from "../asset-upload-node";
 import { ASSET_UPLOAD_NODE_ICONS } from "../constants";
-import type { MediaType } from "../index";
 
 const assetsList = {
   image: {

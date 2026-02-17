@@ -2,20 +2,20 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { useForm } from "@tanstack/react-form";
 import { useEditorState } from "@tiptap/react";
 import { BubbleMenu } from "@tiptap/react/menus";
-import { Trash2 } from "lucide-react";
-import { TableIcon } from "lucide-react";
-import { type ComponentProps, Fragment } from "react";
-import { type SubmitEvent, useId, useState } from "react";
+import { TableIcon, Trash2 } from "lucide-react";
+import { type ComponentProps, Fragment, useId } from "react";
+import z from "zod";
 
-import { useCurrentEditor } from "../hooks/useCurrentEditor";
 import {
   EditorPopover,
   EditorPopoverContent,
   EditorPopoverTrigger,
-} from "./EditorPopover";
-import { ToolbarButton } from "./ToolbarButton";
+} from "../../../components/EditorPopover";
+import { ToolbarButton } from "../../../components/ToolbarButton";
+import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 
 const icons = {
   insert: (props: ComponentProps<"svg">) => (
@@ -163,7 +163,7 @@ function TablePopover() {
         <ToolbarButton
           isActive={false}
           tooltipContent={null}
-          title="Insert table"
+          aria-label="Insert table"
         >
           <TableIcon />
         </ToolbarButton>
@@ -176,90 +176,89 @@ function TablePopover() {
   );
 }
 
-const MIN_ROWS = 1;
-const MAX_ROWS = 20;
-const MIN_COLS = 1;
-const MAX_COLS = 10;
-const DEFAULT_ROWS = 3;
-const DEFAULT_COLS = 3;
-
 function TablePopoverContent() {
   const { editor } = useCurrentEditor();
-  const [error, setError] = useState("");
+  const form = useForm({
+    defaultValues: {
+      rows: 3,
+      cols: 3,
+    },
+    validators: {
+      onChange: z.object({
+        rows: z.number().min(1),
+        cols: z.number().min(1),
+      }),
+    },
+    onSubmit: ({ value: { rows, cols } }) => {
+      editor
+        .chain()
+        .focus()
+        .insertTable({ rows, cols, withHeaderRow: true })
+        .run();
+    },
+  });
 
   const rowInputId = useId();
   const colInputId = useId();
 
-  function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
-    e.preventDefault();
-
-    const formData = new FormData(e.currentTarget);
-    const rowsFormData = formData.get("rows");
-    const colsFormData = formData.get("cols");
-
-    if (!rowsFormData || !colsFormData)
-      return setError("Invalid rows or columns");
-
-    const rows = +rowsFormData;
-    const cols = +colsFormData;
-
-    if (isNaN(rows) || isNaN(cols)) return setError("Invalid rows or columns");
-
-    const r = Math.min(MAX_ROWS, Math.max(MIN_ROWS, +rows));
-    const c = Math.min(MAX_COLS, Math.max(MIN_COLS, +cols));
-
-    if (!editor.can().insertTable({ rows: r, cols: c }))
-      return setError("Cannot insert table here");
-
-    setError("");
-
-    editor
-      .chain()
-      .focus()
-      .insertTable({ rows: r, cols: c, withHeaderRow: true })
-      .run();
-  }
-
-  const isInvalid = !!error;
+  const fieldsList = [
+    {
+      name: "rows",
+      label: "Rows",
+      placeholder: "Rows",
+      inputId: rowInputId,
+    },
+    {
+      name: "cols",
+      label: "Columns",
+      placeholder: "Columns",
+      inputId: colInputId,
+    },
+  ] as const;
 
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
       className="grid grid-cols-[6rem_6rem] items-end gap-3"
     >
-      <Field data-invalid={isInvalid}>
-        <FieldLabel htmlFor={rowInputId}>Rows</FieldLabel>
-        <Input
-          id={rowInputId}
-          name="rows"
-          type="number"
-          aria-invalid={isInvalid}
-          placeholder="Rows"
-          min={MIN_ROWS}
-          max={MAX_ROWS}
-          defaultValue={DEFAULT_ROWS}
-          inputMode="numeric"
-        />
-      </Field>
+      {fieldsList.map(({ name, label, placeholder, inputId }) => (
+        <form.Field key={name} name={name}>
+          {(field) => {
+            const isInvalid =
+              field.state.meta.isTouched && !field.state.meta.isValid;
 
-      <Field data-invalid={isInvalid}>
-        <FieldLabel htmlFor={colInputId}>Columns</FieldLabel>
-        <Input
-          id={colInputId}
-          name="cols"
-          type="number"
-          aria-invalid={isInvalid}
-          placeholder="Columns"
-          min={MIN_COLS}
-          max={MAX_COLS}
-          defaultValue={DEFAULT_COLS}
-          inputMode="numeric"
-        />
-      </Field>
-
-      {isInvalid && error && (
-        <FieldError errors={[{ message: error }]} className="col-span-2" />
-      )}
+            return (
+              <Field
+                data-invalid={isInvalid}
+                className={isInvalid ? "col-span-2" : ""}
+              >
+                <FieldLabel htmlFor={inputId}>{label}</FieldLabel>
+                <Input
+                  id={inputId}
+                  name={field.name}
+                  value={field.state.value}
+                  onBlur={field.handleBlur}
+                  onChange={(e) => field.handleChange(+e.target.value)}
+                  aria-invalid={isInvalid}
+                  placeholder={placeholder}
+                  type="number"
+                  min={1}
+                  inputMode="numeric"
+                />
+                {isInvalid && (
+                  <FieldError
+                    errors={field.state.meta.errors}
+                    className="col-span-2"
+                  />
+                )}
+              </Field>
+            );
+          }}
+        </form.Field>
+      ))}
 
       <Button type="submit" size="sm" className="col-span-2 h-8 w-full">
         Insert table

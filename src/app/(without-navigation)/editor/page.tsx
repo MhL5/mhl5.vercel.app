@@ -1,19 +1,19 @@
-"use client";
+import type { Metadata } from "next";
 
-import { htmlContent } from "../test/content";
-import { TiptapEditorDynamic } from "./_components/rich-text-editor/TiptapEditor";
+import EditorDemo from "./EditorTest";
+
+export const metadata: Metadata = {
+  robots: {
+    follow: false,
+    index: false,
+  },
+};
 
 export default function Page() {
   return (
     <section className="flex min-h-dvh w-full items-start justify-center pt-20">
       <div className="mx-auto w-full max-w-4xl">
-        <TiptapEditorDynamic
-          content={htmlContent}
-          onUpdate={({ editor }) => {
-            // eslint-disable-next-line no-console
-            console.log(editor.getHTML());
-          }}
-        />
+        <EditorDemo />
       </div>
     </section>
   );

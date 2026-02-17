@@ -2,9 +2,9 @@ import { Kbd } from "@/components/ui/kbd";
 import { useEditorState } from "@tiptap/react";
 import { Redo2, Undo2 } from "lucide-react";
 
-import { useCurrentEditor } from "../hooks/useCurrentEditor";
-import { getShortcut } from "../utils/getShortcut";
-import { ToolbarButton } from "./ToolbarButton";
+import { ToolbarButton } from "../../../components/ToolbarButton";
+import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
+import { getShortcut } from "../../../utils/getShortcut";
 
 export function UndoRedo() {
   const { editor } = useCurrentEditor();
