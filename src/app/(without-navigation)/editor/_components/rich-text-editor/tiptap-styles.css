@@ -10,6 +10,10 @@
   .tableWrapper {
     @apply my-6 overflow-hidden rounded-lg border border-border;
   }
+
+  ::selection {
+    @apply bg-primary! text-primary-foreground!;
+  }
 }
 
 .tiptap {

@@ -13,6 +13,7 @@ type BaseProps = {
   accept: "image/*" | "video/*" | "audio/*";
   maxSize?: number;
   multiple: boolean;
+  inputId?: string;
 };
 
 type Context = {
@@ -34,14 +35,6 @@ export type DropZoneProps = (
 const DEFAULT_MAX_SIZE = 1000 * 1024 * 1024; // 1GB
 
 export default function DropZone(props: DropZoneProps) {
-  const {
-    disabled,
-    accept,
-    maxSize = DEFAULT_MAX_SIZE,
-    className,
-    multiple,
-  } = props;
-
   function validateFiles(files: File[]) {
     if (files.length === 0) {
       toast.error("No files to validate");
@@ -49,7 +42,11 @@ export default function DropZone(props: DropZoneProps) {
     }
 
     const validFiles = files.filter((file) => {
-      const error = validateFile({ file, maxSize, accept });
+      const error = validateFile({
+        file,
+        maxSize: props.maxSize ?? DEFAULT_MAX_SIZE,
+        accept: props.accept,
+      });
       if (error) {
         toast.error(error);
         return false;
@@ -63,11 +60,13 @@ export default function DropZone(props: DropZoneProps) {
   }
 
   function handleSelectFiles(files: File[], context: Context) {
+    if (props.disabled) return;
+
     const validFiles = validateFiles(files);
     if (!validFiles) return;
 
-    if (multiple) props.onFilesSelect(validFiles, context);
-    if (!multiple) {
+    if (props.multiple) props.onFilesSelect(validFiles, context);
+    if (!props.multiple) {
       if (validFiles.length > 1)
         return toast.error(
           "Only one file can be uploaded at a time, please select one file at a time.",
@@ -88,11 +87,7 @@ export default function DropZone(props: DropZoneProps) {
         if (!files || files.length === 0) return;
         handleSelectFiles(Array.from(files), { source: "click" });
       }}
-      disabled={disabled}
-      accept={accept}
-      multiple={multiple}
-      maxSize={maxSize}
-      className={className}
+      {...props}
     />
   );
 }
@@ -114,6 +109,7 @@ function DropZoneInternal({
   multiple,
   maxSize,
   className,
+  inputId,
 }: DropZoneInternalProps) {
   const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -173,6 +169,7 @@ function DropZoneInternal({
         disabled={disabled}
         multiple={multiple}
         accept={accept}
+        id={inputId}
         className="sr-only"
         aria-label="Drop files here"
       />

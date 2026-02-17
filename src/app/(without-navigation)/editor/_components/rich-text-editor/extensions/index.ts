@@ -1,13 +1,11 @@
 import Audio from "@tiptap/extension-audio";
 import Image from "@tiptap/extension-image";
-import LinkExtension from "@tiptap/extension-link";
 import { TableKit } from "@tiptap/extension-table";
 import TableOfContents from "@tiptap/extension-table-of-contents";
 import TextAlign from "@tiptap/extension-text-align";
 import { TextStyleKit } from "@tiptap/extension-text-style";
 import Typography from "@tiptap/extension-typography";
 import Youtube from "@tiptap/extension-youtube";
-import { Gapcursor } from "@tiptap/extensions";
 import StarterKit from "@tiptap/starter-kit";
 
 import { ResizableNode } from "../nodes/ResizableNode";
@@ -16,24 +14,24 @@ import "./Youtube.css";
 import { assetUploadNode } from "./asset-upload-node";
 
 export const TIPTAP_EXTENSIONS = [
-  StarterKit,
+  StarterKit.configure({
+    link: {
+      openOnClick: false,
+      enableClickSelection: true,
+      protocols: ["ftp", "mailto"],
+      defaultProtocol: "https",
+      HTMLAttributes: {
+        // Change rel to different value
+        // Allow search engines to follow links(remove nofollow)
+        rel: "noopener noreferrer",
+      },
+    },
+  }),
   TextStyleKit,
   TextAlign.configure({
     types: ["heading", "paragraph"],
   }),
   Typography,
-  LinkExtension.configure({
-    openOnClick: false,
-    enableClickSelection: true,
-    protocols: ["ftp", "mailto"],
-    defaultProtocol: "https",
-    HTMLAttributes: {
-      // Change rel to different value
-      // Allow search engines to follow links(remove nofollow)
-      rel: "noopener noreferrer",
-    },
-  }),
-  Gapcursor,
   TableKit.configure({
     table: {
       resizable: true,
