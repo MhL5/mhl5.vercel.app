@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "../app/(without-navigation)/editor/_components/rich-text-editor/tiptap-styles.css";
+@import "../app/(with-navigation)/editor/_components/rich-text-editor/tiptap-styles.css";
 
 @custom-variant dark (&:is(.dark *));
 @plugin "@tailwindcss/typography";
