@@ -2,7 +2,7 @@ import { Kbd } from "@/components/ui/kbd";
 import { useEditorState } from "@tiptap/react";
 import { Redo2, Undo2 } from "lucide-react";
 
-import { ToolbarButton } from "../../../components/ToolbarButton";
+import { EditorButton } from "../../../components/EditorButton";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 import { getShortcut } from "../../../utils/getShortcut";
 
@@ -48,7 +48,7 @@ export function UndoRedo() {
 
   return buttons.map(
     ({ disabled, icon: Icon, isActive, tooltipContent, type }) => (
-      <ToolbarButton
+      <EditorButton
         key={type}
         tooltipContent={tooltipContent}
         onClick={() => handleClick(type)}
@@ -56,7 +56,7 @@ export function UndoRedo() {
         isActive={isActive}
       >
         <Icon />
-      </ToolbarButton>
+      </EditorButton>
     ),
   );
 }

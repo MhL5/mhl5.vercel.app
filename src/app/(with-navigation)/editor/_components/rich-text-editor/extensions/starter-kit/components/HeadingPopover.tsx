@@ -11,12 +11,12 @@ import {
   Heading6,
 } from "lucide-react";
 
+import { EditorButton } from "../../../components/EditorButton";
 import {
   EditorPopover,
   EditorPopoverContent,
   EditorPopoverTrigger,
 } from "../../../components/EditorPopover";
-import { ToolbarButton } from "../../../components/ToolbarButton";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 import { getShortcut } from "../../../utils/getShortcut";
 
@@ -92,7 +92,7 @@ export function HeadingPopover() {
   return (
     <EditorPopover>
       <EditorPopoverTrigger asChild>
-        <ToolbarButton
+        <EditorButton
           isActive={activeHeading.title !== "Heading"}
           tooltipContent={null}
           size="default"
@@ -101,13 +101,13 @@ export function HeadingPopover() {
         >
           <activeHeading.icon className="size-4 shrink-0" />
           <ChevronDown className="size-3 shrink-0" />
-        </ToolbarButton>
+        </EditorButton>
       </EditorPopoverTrigger>
 
       <EditorPopoverContent align="start" className="grid w-fit gap-0.5 p-1">
         {headingsList.map(
           ({ icon: Icon, onClick, title, isActive, shortcut }) => (
-            <ToolbarButton
+            <EditorButton
               isActive={isActive}
               key={title + shortcut}
               onClick={onClick}
@@ -118,7 +118,7 @@ export function HeadingPopover() {
               <Icon className="shrink-0" />
               {title}
               <Kbd className="ms-auto">{shortcut}</Kbd>
-            </ToolbarButton>
+            </EditorButton>
           ),
         )}
       </EditorPopoverContent>

@@ -2,7 +2,7 @@ import { Kbd } from "@/components/ui/kbd";
 import { useEditorState } from "@tiptap/react";
 import { Code2, CornerDownLeft, Minus, Pilcrow, Quote } from "lucide-react";
 
-import { ToolbarButton } from "../../../components/ToolbarButton";
+import { EditorButton } from "../../../components/EditorButton";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 import { getShortcut } from "../../../utils/getShortcut";
 
@@ -74,14 +74,14 @@ export function BlockButtons() {
 
   return buttons.map(
     ({ icon: Icon, isActive, key, onClick, tooltipContent }) => (
-      <ToolbarButton
+      <EditorButton
         key={key}
         tooltipContent={tooltipContent}
         onClick={onClick}
         isActive={isActive}
       >
         <Icon />
-      </ToolbarButton>
+      </EditorButton>
     ),
   );
 }

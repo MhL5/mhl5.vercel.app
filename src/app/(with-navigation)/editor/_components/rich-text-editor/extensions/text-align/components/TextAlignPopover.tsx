@@ -10,12 +10,12 @@ import {
   XIcon,
 } from "lucide-react";
 
+import { EditorButton } from "../../../components/EditorButton";
 import {
   EditorPopover,
   EditorPopoverContent,
   EditorPopoverTrigger,
 } from "../../../components/EditorPopover";
-import { ToolbarButton } from "../../../components/ToolbarButton";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 import { getShortcut } from "../../../utils/getShortcut";
 
@@ -96,7 +96,7 @@ export function TextAlignPopover() {
   return (
     <EditorPopover>
       <EditorPopoverTrigger asChild>
-        <ToolbarButton
+        <EditorButton
           isActive={activeAlignment.alignment !== null}
           tooltipContent={null}
           aria-label={`Current text alignment: ${activeAlignment.alignment || "unset"}`}
@@ -105,11 +105,11 @@ export function TextAlignPopover() {
         >
           <activeAlignment.icon />
           <ChevronDown className="size-3 shrink-0" />
-        </ToolbarButton>
+        </EditorButton>
       </EditorPopoverTrigger>
       <EditorPopoverContent align="start" className="grid w-fit gap-0.5 p-1">
         {buttons.map(({ alignment, icon: Icon, isActive, getShortcutKey }) => (
-          <ToolbarButton
+          <EditorButton
             key={alignment}
             onClick={() => handleClick(alignment)}
             isActive={isActive}
@@ -120,13 +120,13 @@ export function TextAlignPopover() {
             <Icon className="shrink-0" />
             {alignment}
             <Kbd className="ms-auto">{getShortcut(getShortcutKey)}</Kbd>
-          </ToolbarButton>
+          </EditorButton>
         ))}
 
         {activeAlignment.alignment !== null && (
           <>
             <DropdownMenuSeparator className="my-1" />
-            <ToolbarButton
+            <EditorButton
               onClick={() => handleClick("unset")}
               isActive={activeAlignment.alignment === null}
               className="w-52 justify-start gap-3 px-2 py-1"
@@ -135,7 +135,7 @@ export function TextAlignPopover() {
             >
               <XIcon className="shrink-0" />
               Unset
-            </ToolbarButton>
+            </EditorButton>
           </>
         )}
       </EditorPopoverContent>

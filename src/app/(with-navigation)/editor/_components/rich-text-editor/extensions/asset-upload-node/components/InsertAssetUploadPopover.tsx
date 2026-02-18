@@ -3,12 +3,12 @@
 import { Button } from "@/components/ui/button";
 import { Paperclip } from "lucide-react";
 
+import { EditorButton } from "../../../components/EditorButton";
 import {
   EditorPopover,
   EditorPopoverContent,
   EditorPopoverTrigger,
 } from "../../../components/EditorPopover";
-import { ToolbarButton } from "../../../components/ToolbarButton";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 import { ASSET_UPLOAD_NODE_OPTIONS } from "../constants";
 
@@ -18,14 +18,14 @@ export function InsertAssetUploadPopover() {
   return (
     <EditorPopover>
       <EditorPopoverTrigger asChild>
-        <ToolbarButton
+        <EditorButton
           aria-label="Add image, video, or audio"
           tooltipContent={null}
           isActive={false}
           type="button"
         >
           <Paperclip />
-        </ToolbarButton>
+        </EditorButton>
       </EditorPopoverTrigger>
       <EditorPopoverContent align="end" className="grid w-fit gap-0.5 p-1">
         {ASSET_UPLOAD_NODE_OPTIONS.map(({ mediaType, icon: Icon, label }) => (

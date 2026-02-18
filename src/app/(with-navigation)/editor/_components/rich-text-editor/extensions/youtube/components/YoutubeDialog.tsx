@@ -16,7 +16,7 @@ import { useForm } from "@tanstack/react-form";
 import { type ComponentProps, useId, useState } from "react";
 import z from "zod";
 
-import { ToolbarButton } from "../../../components/ToolbarButton";
+import { EditorButton } from "../../../components/EditorButton";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 
 export function YoutubeDialog() {
@@ -25,13 +25,13 @@ export function YoutubeDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <ToolbarButton
+        <EditorButton
           tooltipContent="Add YouTube video"
           isActive={false}
           type="button"
         >
           <YoutubeIcon />
-        </ToolbarButton>
+        </EditorButton>
       </DialogTrigger>
 
       <Content onSuccess={() => setOpen(false)} />

@@ -2,12 +2,12 @@ import { Kbd } from "@/components/ui/kbd";
 import { useEditorState } from "@tiptap/react";
 import { ChevronDown, List, ListOrdered } from "lucide-react";
 
+import { EditorButton } from "../../../components/EditorButton";
 import {
   EditorPopover,
   EditorPopoverContent,
   EditorPopoverTrigger,
 } from "../../../components/EditorPopover";
-import { ToolbarButton } from "../../../components/ToolbarButton";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 import { getShortcut } from "../../../utils/getShortcut";
 
@@ -50,7 +50,7 @@ export function ListPopover() {
   return (
     <EditorPopover>
       <EditorPopoverTrigger asChild>
-        <ToolbarButton
+        <EditorButton
           isActive={isTriggerActive}
           tooltipContent={null}
           size="default"
@@ -61,11 +61,11 @@ export function ListPopover() {
             className="data-[active=false]:text-muted-foreground"
           />
           <ChevronDown className="size-3 shrink-0" />
-        </ToolbarButton>
+        </EditorButton>
       </EditorPopoverTrigger>
       <EditorPopoverContent align="start" className="grid w-fit gap-0.5 p-1">
         {buttons.map(({ icon: Icon, isActive, type, label, shortcut }) => (
-          <ToolbarButton
+          <EditorButton
             key={type}
             onClick={() => handleClick(type)}
             isActive={isActive}
@@ -76,7 +76,7 @@ export function ListPopover() {
             <Icon />
             {label}
             <Kbd className="ms-auto">{shortcut}</Kbd>
-          </ToolbarButton>
+          </EditorButton>
         ))}
       </EditorPopoverContent>
     </EditorPopover>

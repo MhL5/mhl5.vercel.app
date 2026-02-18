@@ -13,7 +13,7 @@ import { CheckIcon, ExternalLink, LinkIcon, Unlink } from "lucide-react";
 import { useId } from "react";
 import z from "zod";
 
-import { ToolbarButton } from "../../../components/ToolbarButton";
+import { EditorButton } from "../../../components/EditorButton";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 
 function LinkPopover() {
@@ -28,9 +28,9 @@ function LinkPopover() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <ToolbarButton tooltipContent="Insert link" isActive={isLinkActive}>
+        <EditorButton tooltipContent="Insert link" isActive={isLinkActive}>
           <LinkIcon />
-        </ToolbarButton>
+        </EditorButton>
       </PopoverTrigger>
 
       <PopoverContent align="center" className="p-0">
@@ -138,7 +138,7 @@ function Content() {
           }}
         </form.Field>
 
-        <ToolbarButton
+        <EditorButton
           tooltipContentSide="top"
           type="submit"
           className="ms-auto"
@@ -146,7 +146,7 @@ function Content() {
           isActive={false}
         >
           <CheckIcon />
-        </ToolbarButton>
+        </EditorButton>
       </form>
 
       <Separator
@@ -156,18 +156,18 @@ function Content() {
 
       <form.Subscribe selector={(state) => state.values.href}>
         {(href) => (
-          <ToolbarButton
+          <EditorButton
             tooltipContentSide="top"
             tooltipContent={"Open in new window"}
             isActive={false}
             onClick={() => window.open(href, "_blank")}
           >
             <ExternalLink />
-          </ToolbarButton>
+          </EditorButton>
         )}
       </form.Subscribe>
 
-      <ToolbarButton
+      <EditorButton
         tooltipContentSide="top"
         tooltipContent={"Remove link"}
         isActive={false}
@@ -175,7 +175,7 @@ function Content() {
         onClick={() => editor.chain().focus().unsetLink().run()}
       >
         <Unlink />
-      </ToolbarButton>
+      </EditorButton>
     </div>
   );
 }

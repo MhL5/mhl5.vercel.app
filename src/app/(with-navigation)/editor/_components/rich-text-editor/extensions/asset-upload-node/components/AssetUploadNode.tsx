@@ -28,7 +28,7 @@ import { useId, useState } from "react";
 import { toast } from "sonner";
 import z from "zod";
 
-import { ToolbarButton } from "../../../components/ToolbarButton";
+import { EditorButton } from "../../../components/EditorButton";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 import { focusNextNode } from "../../../utils/focusNextNode";
 import { isValidPosition } from "../../../utils/isValidPosition";
@@ -393,7 +393,7 @@ function Preview(props: PreviewProps) {
           {previewError}
         </p>
 
-        <ToolbarButton
+        <EditorButton
           isActive={false}
           tooltipContent={"Retry"}
           onClick={handleRemove}
@@ -403,7 +403,7 @@ function Preview(props: PreviewProps) {
           tooltipContentSide="top"
         >
           <RefreshCcw />
-        </ToolbarButton>
+        </EditorButton>
         <ExitAndExitPreviewButton onRemove={handleRemove} />
       </div>
     );
@@ -452,7 +452,7 @@ function ExitAndExitPreviewButton({
   onRemove: () => void;
 }) {
   return (
-    <ToolbarButton
+    <EditorButton
       tooltipContentSide="top"
       isActive={false}
       onClick={onRemove}
@@ -462,6 +462,6 @@ function ExitAndExitPreviewButton({
       tooltipContent="Reset and Exit preview"
     >
       <Trash2 />
-    </ToolbarButton>
+    </EditorButton>
   );
 }

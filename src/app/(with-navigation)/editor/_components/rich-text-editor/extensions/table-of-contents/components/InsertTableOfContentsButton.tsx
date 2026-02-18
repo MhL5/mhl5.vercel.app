@@ -4,7 +4,7 @@ import { useEditorState } from "@tiptap/react";
 import { ListTree } from "lucide-react";
 import { useCallback } from "react";
 
-import { ToolbarButton } from "../../../components/ToolbarButton";
+import { EditorButton } from "../../../components/EditorButton";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 
 export function InsertTableOfContentsButton() {
@@ -56,7 +56,7 @@ export function InsertTableOfContentsButton() {
   }, [editor]);
 
   return (
-    <ToolbarButton
+    <EditorButton
       tooltipContent={
         hasHeadings ? "Insert table of contents" : "No headings in document"
       }
@@ -67,6 +67,6 @@ export function InsertTableOfContentsButton() {
       aria-label="Insert table of contents"
     >
       <ListTree />
-    </ToolbarButton>
+    </EditorButton>
   );
 }

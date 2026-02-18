@@ -9,12 +9,12 @@ import { TableIcon, Trash2 } from "lucide-react";
 import { type ComponentProps, Fragment, useId } from "react";
 import z from "zod";
 
+import { EditorButton } from "../../../components/EditorButton";
 import {
   EditorPopover,
   EditorPopoverContent,
   EditorPopoverTrigger,
 } from "../../../components/EditorPopover";
-import { ToolbarButton } from "../../../components/ToolbarButton";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 
 const icons = {
@@ -119,7 +119,7 @@ function TableBubbleMenu() {
         <div className="flex items-center gap-1 rounded-lg border border-border bg-popover px-1 py-1 shadow-md">
           {buttons.map(({ icon, onClick, tooltipContent, key }) => (
             <Fragment key={key}>
-              <ToolbarButton
+              <EditorButton
                 isActive={false}
                 variant="ghost"
                 size="sm"
@@ -128,7 +128,7 @@ function TableBubbleMenu() {
                 onClick={onClick}
               >
                 {icon}
-              </ToolbarButton>
+              </EditorButton>
               {(key === "deleteColumn" || key === "deleteRow") && (
                 <Separator
                   orientation="vertical"
@@ -139,7 +139,7 @@ function TableBubbleMenu() {
             </Fragment>
           ))}
 
-          <ToolbarButton
+          <EditorButton
             isActive={false}
             variant="destructive"
             tooltipContentSide="top"
@@ -149,7 +149,7 @@ function TableBubbleMenu() {
             onClick={() => editor.chain().focus().deleteTable().run()}
           >
             <Trash2 className="size-3.5" />
-          </ToolbarButton>
+          </EditorButton>
         </div>
       ) : null}
     </BubbleMenu>
@@ -160,13 +160,13 @@ function TablePopover() {
   return (
     <EditorPopover>
       <EditorPopoverTrigger asChild>
-        <ToolbarButton
+        <EditorButton
           isActive={false}
           tooltipContent={null}
           aria-label="Insert table"
         >
           <TableIcon />
-        </ToolbarButton>
+        </EditorButton>
       </EditorPopoverTrigger>
 
       <EditorPopoverContent className="w-fit p-3">

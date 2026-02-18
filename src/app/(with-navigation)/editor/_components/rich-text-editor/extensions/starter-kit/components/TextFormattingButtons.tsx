@@ -2,7 +2,7 @@ import { Kbd } from "@/components/ui/kbd";
 import { useEditorState } from "@tiptap/react";
 import { Bold, Code, Italic, Strikethrough, Underline } from "lucide-react";
 
-import { ToolbarButton } from "../../../components/ToolbarButton";
+import { EditorButton } from "../../../components/EditorButton";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 import { getShortcut } from "../../../utils/getShortcut";
 
@@ -87,7 +87,7 @@ export function TextFormattingButtons() {
 
   return buttons.map(
     ({ disabled, icon: Icon, isActive, key, onClick, tooltipContent }) => (
-      <ToolbarButton
+      <EditorButton
         key={key}
         tooltipContent={tooltipContent}
         onClick={onClick}
@@ -95,7 +95,7 @@ export function TextFormattingButtons() {
         isActive={isActive}
       >
         <Icon />
-      </ToolbarButton>
+      </EditorButton>
     ),
   );
 }
