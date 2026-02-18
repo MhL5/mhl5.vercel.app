@@ -16,10 +16,12 @@ import {
   EditorPopoverContent,
   EditorPopoverTrigger,
 } from "../../../components/EditorPopover";
+import { useEditorMessages } from "../../../context/EditorMessagesContext";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 import { getShortcut } from "../../../utils/getShortcut";
 
 export function TextAlignPopover() {
+  const { messages } = useEditorMessages();
   const { editor } = useCurrentEditor();
   const editorState = useEditorState({
     editor,
@@ -44,53 +46,57 @@ export function TextAlignPopover() {
     {
       tooltipContent: (
         <>
-          Left align <Kbd>{getShortcut("leftAlign")}</Kbd>
+          {messages.leftAlign} <Kbd>{getShortcut("leftAlign")}</Kbd>
         </>
       ),
       icon: AlignLeft,
       getShortcutKey: "leftAlign",
-      alignment: "left",
+      alignment: "left" as const,
+      label: messages.left,
       isActive: editorState.isAlignLeft,
     },
     {
       tooltipContent: (
         <>
-          Center align <Kbd>{getShortcut("centerAlign")}</Kbd>
+          {messages.centerAlign} <Kbd>{getShortcut("centerAlign")}</Kbd>
         </>
       ),
       icon: AlignCenter,
       getShortcutKey: "centerAlign",
-      alignment: "center",
+      alignment: "center" as const,
+      label: messages.center,
       isActive: editorState.isAlignCenter,
     },
     {
       tooltipContent: (
         <>
-          Right align <Kbd>{getShortcut("rightAlign")}</Kbd>
+          {messages.rightAlign} <Kbd>{getShortcut("rightAlign")}</Kbd>
         </>
       ),
       icon: AlignRight,
       getShortcutKey: "rightAlign",
-      alignment: "right",
+      alignment: "right" as const,
+      label: messages.right,
       isActive: editorState.isAlignRight,
     },
     {
       tooltipContent: (
         <>
-          Justify align <Kbd>{getShortcut("justify")}</Kbd>
+          {messages.justifyAlign} <Kbd>{getShortcut("justify")}</Kbd>
         </>
       ),
       icon: AlignJustify,
       getShortcutKey: "justify",
-      alignment: "justify",
+      alignment: "justify" as const,
+      label: messages.justify,
       isActive: editorState.isAlignJustify,
     },
   ] as const;
 
   const activeAlignment = buttons.find(({ isActive }) => isActive) || {
-    alignment: null,
+    alignment: null as null,
     icon: AlignJustify,
-    tooltipContent: "Align text",
+    tooltipContent: messages.alignText,
   };
 
   return (
@@ -99,7 +105,7 @@ export function TextAlignPopover() {
         <EditorButton
           isActive={activeAlignment.alignment !== null}
           tooltipContent={null}
-          aria-label={`Current text alignment: ${activeAlignment.alignment || "unset"}`}
+          aria-label={messages.currentTextAlignment(activeAlignment.alignment)}
           size="default"
           className="h-8 w-fit px-1!"
         >
@@ -108,20 +114,22 @@ export function TextAlignPopover() {
         </EditorButton>
       </EditorPopoverTrigger>
       <EditorPopoverContent align="start" className="grid w-fit gap-0.5 p-1">
-        {buttons.map(({ alignment, icon: Icon, isActive, getShortcutKey }) => (
-          <EditorButton
-            key={alignment}
-            onClick={() => handleClick(alignment)}
-            isActive={isActive}
-            className="w-52 justify-start gap-3 px-2 py-1"
-            variant="ghost"
-            tooltipContent={null}
-          >
-            <Icon className="shrink-0" />
-            {alignment}
-            <Kbd className="ms-auto">{getShortcut(getShortcutKey)}</Kbd>
-          </EditorButton>
-        ))}
+        {buttons.map(
+          ({ alignment, icon: Icon, isActive, getShortcutKey, label }) => (
+            <EditorButton
+              key={alignment}
+              onClick={() => handleClick(alignment)}
+              isActive={isActive}
+              className="w-52 justify-start gap-3 px-2 py-1"
+              variant="ghost"
+              tooltipContent={null}
+            >
+              <Icon className="shrink-0" />
+              {label}
+              <Kbd className="ms-auto">{getShortcut(getShortcutKey)}</Kbd>
+            </EditorButton>
+          ),
+        )}
 
         {activeAlignment.alignment !== null && (
           <>
@@ -134,7 +142,7 @@ export function TextAlignPopover() {
               tooltipContent={null}
             >
               <XIcon className="shrink-0" />
-              Unset
+              {messages.unset}
             </EditorButton>
           </>
         )}

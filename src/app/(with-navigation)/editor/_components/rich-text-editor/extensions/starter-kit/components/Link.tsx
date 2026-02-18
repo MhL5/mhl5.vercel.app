@@ -14,9 +14,11 @@ import { useId } from "react";
 import z from "zod";
 
 import { EditorButton } from "../../../components/EditorButton";
+import { useEditorMessages } from "../../../context/EditorMessagesContext";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 
 function LinkPopover() {
+  const { messages } = useEditorMessages();
   const { editor } = useCurrentEditor();
   const { isLinkActive } = useEditorState({
     editor,
@@ -28,7 +30,7 @@ function LinkPopover() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <EditorButton tooltipContent="Insert link" isActive={isLinkActive}>
+        <EditorButton tooltipContent={messages.insertLink} isActive={isLinkActive}>
           <LinkIcon />
         </EditorButton>
       </PopoverTrigger>
@@ -63,6 +65,7 @@ function LinkBubbleMenu() {
 }
 
 function Content() {
+  const { messages } = useEditorMessages();
   const { editor } = useCurrentEditor();
   const editorState = useEditorState({
     editor,
@@ -81,12 +84,7 @@ function Content() {
       onSubmit: z.object({
         href: z.union([
           z.url(),
-          z
-            .string()
-            .regex(
-              /^#[\w-]+$/,
-              "Must be a valid URL or hash (e.g. #section-id)",
-            ),
+          z.string().regex(/^#[\w-]+$/, messages.linkUrlError),
         ]),
       }),
     },
@@ -102,7 +100,7 @@ function Content() {
   const urlInputId = useId();
 
   return (
-    <div className="flex w-fit items-start gap-2 rounded-md bg-card p-1.5">
+    <div className="flex w-fit items-start gap-2 rounded-md border bg-card p-1.5">
       <form
         className="flex w-fit items-start gap-2"
         onSubmit={(e) => {
@@ -118,7 +116,7 @@ function Content() {
             return (
               <Field data-invalid={isInvalid}>
                 <FieldLabel htmlFor={urlInputId} className="sr-only">
-                  URL
+                  {messages.url}
                 </FieldLabel>
                 <Input
                   id={urlInputId}
@@ -127,8 +125,8 @@ function Content() {
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.value)}
                   aria-invalid={isInvalid}
-                  placeholder="Enter link"
-                  className="h-8 w-44"
+                  placeholder={messages.enterLink}
+                  className="h-7 w-44"
                 />
                 {field.state.meta.errors && (
                   <FieldError errors={field.state.meta.errors} />
@@ -142,7 +140,7 @@ function Content() {
           tooltipContentSide="top"
           type="submit"
           className="ms-auto"
-          tooltipContent="Apply"
+          tooltipContent={messages.apply}
           isActive={false}
         >
           <CheckIcon />
@@ -158,7 +156,7 @@ function Content() {
         {(href) => (
           <EditorButton
             tooltipContentSide="top"
-            tooltipContent={"Open in new window"}
+            tooltipContent={messages.openInNewWindow}
             isActive={false}
             onClick={() => window.open(href, "_blank")}
           >
@@ -169,7 +167,7 @@ function Content() {
 
       <EditorButton
         tooltipContentSide="top"
-        tooltipContent={"Remove link"}
+        tooltipContent={messages.removeLink}
         isActive={false}
         variant="destructive"
         onClick={() => editor.chain().focus().unsetLink().run()}

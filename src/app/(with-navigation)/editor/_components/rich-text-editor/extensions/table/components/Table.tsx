@@ -15,6 +15,7 @@ import {
   EditorPopoverContent,
   EditorPopoverTrigger,
 } from "../../../components/EditorPopover";
+import { useEditorMessages } from "../../../context/EditorMessagesContext";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 
 const icons = {
@@ -61,6 +62,7 @@ const icons = {
 };
 
 function TableBubbleMenu() {
+  const { messages } = useEditorMessages();
   const { editor } = useCurrentEditor();
   const { isTableActive } = useEditorState({
     editor,
@@ -72,37 +74,37 @@ function TableBubbleMenu() {
   const buttons = [
     {
       key: "insertColumnBefore",
-      tooltipContent: "Insert column before",
+      tooltipContent: messages.insertColumnBefore,
       onClick: () => editor.chain().focus().addColumnBefore().run(),
       icon: <icons.insert />,
     },
     {
       key: "insertColumnAfter",
-      tooltipContent: "Insert column after",
+      tooltipContent: messages.insertColumnAfter,
       onClick: () => editor.chain().focus().addColumnAfter().run(),
       icon: <icons.insert className="rotate-180" />,
     },
     {
       key: "deleteColumn",
-      tooltipContent: "Delete column",
+      tooltipContent: messages.deleteColumn,
       onClick: () => editor.chain().focus().deleteColumn().run(),
       icon: <icons.delete className="text-destructive" />,
     },
     {
       key: "addRowBefore",
-      tooltipContent: "Add row top",
+      tooltipContent: messages.addRowTop,
       onClick: () => editor.chain().focus().addRowBefore().run(),
       icon: <icons.insert className="rotate-90" />,
     },
     {
       key: "addRowAfter",
-      tooltipContent: "Add row bottom",
+      tooltipContent: messages.addRowBottom,
       onClick: () => editor.chain().focus().addRowAfter().run(),
       icon: <icons.insert className="rotate-270" />,
     },
     {
       key: "deleteRow",
-      tooltipContent: "Delete row",
+      tooltipContent: messages.deleteRow,
       onClick: () => editor.chain().focus().deleteRow().run(),
       icon: <icons.delete className="rotate-90 text-destructive" />,
     },
@@ -145,7 +147,7 @@ function TableBubbleMenu() {
             tooltipContentSide="top"
             size="sm"
             className="h-8 gap-1.5 text-xs"
-            tooltipContent="Delete table"
+            tooltipContent={messages.deleteTable}
             onClick={() => editor.chain().focus().deleteTable().run()}
           >
             <Trash2 className="size-3.5" />
@@ -157,13 +159,14 @@ function TableBubbleMenu() {
 }
 
 function TablePopover() {
+  const { messages } = useEditorMessages();
   return (
     <EditorPopover>
       <EditorPopoverTrigger asChild>
         <EditorButton
           isActive={false}
           tooltipContent={null}
-          aria-label="Insert table"
+          aria-label={messages.insertTable}
         >
           <TableIcon />
         </EditorButton>
@@ -177,6 +180,7 @@ function TablePopover() {
 }
 
 function TablePopoverContent() {
+  const { messages } = useEditorMessages();
   const { editor } = useCurrentEditor();
   const form = useForm({
     defaultValues: {
@@ -204,14 +208,14 @@ function TablePopoverContent() {
   const fieldsList = [
     {
       name: "rows",
-      label: "Rows",
-      placeholder: "Rows",
+      label: messages.rows,
+      placeholder: messages.rows,
       inputId: rowInputId,
     },
     {
       name: "cols",
-      label: "Columns",
-      placeholder: "Columns",
+      label: messages.columns,
+      placeholder: messages.columns,
       inputId: colInputId,
     },
   ] as const;
@@ -261,7 +265,7 @@ function TablePopoverContent() {
       ))}
 
       <Button type="submit" size="sm" className="col-span-2 h-8 w-full">
-        Insert table
+        {messages.insertTable}
       </Button>
     </form>
   );

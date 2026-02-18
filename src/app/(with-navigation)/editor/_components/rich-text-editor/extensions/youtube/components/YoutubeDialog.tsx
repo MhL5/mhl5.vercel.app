@@ -17,16 +17,18 @@ import { type ComponentProps, useId, useState } from "react";
 import z from "zod";
 
 import { EditorButton } from "../../../components/EditorButton";
+import { useEditorMessages } from "../../../context/EditorMessagesContext";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 
 export function YoutubeDialog() {
+  const { messages } = useEditorMessages();
   const [open, setOpen] = useState(false);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <EditorButton
-          tooltipContent="Add YouTube video"
+          tooltipContent={messages.addYoutubeVideo}
           isActive={false}
           type="button"
         >
@@ -40,6 +42,7 @@ export function YoutubeDialog() {
 }
 
 function Content({ onSuccess }: { onSuccess: () => void }) {
+  const { messages } = useEditorMessages();
   const { editor } = useCurrentEditor();
   const form = useForm({
     defaultValues: {
@@ -64,10 +67,10 @@ function Content({ onSuccess }: { onSuccess: () => void }) {
       <DialogHeader>
         <DialogTitle>
           <YoutubeIcon className="me-2 inline-block" />
-          Insert a YouTube Video
+          {messages.insertYoutubeVideo}
         </DialogTitle>
         <DialogDescription>
-          Paste the full YouTube URL to embed a video into your document.
+          {messages.youtubeDescription}
         </DialogDescription>
       </DialogHeader>
 
@@ -86,7 +89,9 @@ function Content({ onSuccess }: { onSuccess: () => void }) {
 
             return (
               <Field data-invalid={isInvalid}>
-                <FieldLabel htmlFor={youtubeInputId}>YouTube URL</FieldLabel>
+                <FieldLabel htmlFor={youtubeInputId}>
+                  {messages.youtubeUrl}
+                </FieldLabel>
                 <Input
                   id={youtubeInputId}
                   autoFocus
@@ -95,7 +100,7 @@ function Content({ onSuccess }: { onSuccess: () => void }) {
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.value)}
                   aria-invalid={isInvalid}
-                  placeholder="https://www.youtube.com/watch?v=..."
+                  placeholder={messages.youtubeUrlPlaceholder}
                 />
                 {field.state.meta.errors && (
                   <FieldError errors={field.state.meta.errors} />
@@ -108,10 +113,10 @@ function Content({ onSuccess }: { onSuccess: () => void }) {
 
       <DialogFooter>
         <DialogClose asChild>
-          <Button variant="outline">Cancel</Button>
+          <Button variant="outline">{messages.cancel}</Button>
         </DialogClose>
         <Button type="submit" form={formId}>
-          Add Video
+          {messages.addVideo}
         </Button>
       </DialogFooter>
     </DialogContent>

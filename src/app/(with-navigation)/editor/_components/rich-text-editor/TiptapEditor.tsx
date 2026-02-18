@@ -11,6 +11,7 @@ import {
 import dynamic from "next/dynamic";
 import { useMemo } from "react";
 
+import { EditorMessagesProvider } from "./context/EditorMessagesContext";
 import { TIPTAP_EXTENSIONS } from "./extensions";
 import { InsertAssetUploadPopover } from "./extensions/asset-upload-node/components/InsertAssetUploadPopover";
 import { BlockButtons } from "./extensions/starter-kit/components/BlockButtons";
@@ -30,6 +31,7 @@ import {
 import { TextAlignPopover } from "./extensions/text-align/components/TextAlignPopover";
 import { YoutubeDialog } from "./extensions/youtube/components/YoutubeDialog";
 import { useSyncEditorEditable } from "./hooks/useSyncEditorEditable";
+import { editorEnMessages } from "./messages/en";
 import "./tiptap-styles.css";
 
 type TiptapEditorProps = {
@@ -69,56 +71,53 @@ function TiptapEditor({
 
   if (!editor) return <TiptapEditorSkeleton />;
   return (
-    <div
-      className={cn(
-        "w-full overflow-hidden rounded-sm border bg-card text-card-foreground",
-        className,
-      )}
-    >
-      <EditorContext value={{ editor: memoizedEditor }}>
-        <div
-          data-slot="editor-toolbar"
-          className="flex flex-wrap items-center justify-center gap-2 overflow-x-auto border-b bg-card px-2 py-1.75 text-card-foreground"
-        >
-          <UndoRedo />
+    <div className={cn("w-full overflow-hidden rounded-sm border", className)}>
+      <EditorMessagesProvider messages={editorEnMessages}>
+        <EditorContext value={{ editor: memoizedEditor }}>
+          <div
+            data-slot="editor-toolbar"
+            className="flex flex-wrap items-center justify-center gap-2 overflow-x-auto border-b bg-card px-2 py-1.75 text-card-foreground"
+          >
+            <UndoRedo />
 
-          <Separator
-            orientation="vertical"
-            className="data-[orientation=vertical]:h-5"
+            <Separator
+              orientation="vertical"
+              className="data-[orientation=vertical]:h-5"
+            />
+
+            <HeadingPopover />
+            <ListPopover />
+            <BlockButtons />
+
+            <Separator
+              orientation="vertical"
+              className="data-[orientation=vertical]:h-5"
+            />
+
+            <TextFormattingButtons />
+            <LinkPopover />
+
+            <Separator
+              orientation="vertical"
+              className="data-[orientation=vertical]:h-5"
+            />
+
+            <TextAlignPopover />
+            <TablePopover />
+            <InsertAssetUploadPopover />
+            <YoutubeDialog />
+            <InsertTableOfContentsButton />
+          </div>
+
+          <LinkBubbleMenu />
+          <TableBubbleMenu />
+
+          <EditorContent
+            className="h-200 w-full overflow-x-hidden px-5 py-7 md:h-250"
+            editor={editor}
           />
-
-          <HeadingPopover />
-          <ListPopover />
-          <BlockButtons />
-
-          <Separator
-            orientation="vertical"
-            className="data-[orientation=vertical]:h-5"
-          />
-
-          <TextFormattingButtons />
-          <LinkPopover />
-
-          <Separator
-            orientation="vertical"
-            className="data-[orientation=vertical]:h-5"
-          />
-
-          <TextAlignPopover />
-          <TablePopover />
-          <InsertAssetUploadPopover />
-          <YoutubeDialog />
-          <InsertTableOfContentsButton />
-        </div>
-
-        <LinkBubbleMenu />
-        <TableBubbleMenu />
-
-        <EditorContent
-          className="h-200 w-full overflow-x-hidden px-5 py-7 md:h-250"
-          editor={editor}
-        />
-      </EditorContext>
+        </EditorContext>
+      </EditorMessagesProvider>
     </div>
   );
 }

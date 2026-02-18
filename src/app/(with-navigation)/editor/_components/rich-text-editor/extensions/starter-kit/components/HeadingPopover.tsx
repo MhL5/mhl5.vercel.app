@@ -17,10 +17,12 @@ import {
   EditorPopoverContent,
   EditorPopoverTrigger,
 } from "../../../components/EditorPopover";
+import { useEditorMessages } from "../../../context/EditorMessagesContext";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 import { getShortcut } from "../../../utils/getShortcut";
 
 export function HeadingPopover() {
+  const { messages } = useEditorMessages();
   const { editor } = useCurrentEditor();
   const editorState = useEditorState({
     editor,
@@ -41,42 +43,42 @@ export function HeadingPopover() {
   const headingsList = [
     {
       icon: Heading1,
-      title: "Heading 1",
+      title: messages.heading1,
       isActive: editorState.isHeading1,
       onClick: () => handleHeadingClick(1),
       shortcut: getShortcut(`heading1`),
     },
     {
       icon: Heading2,
-      title: "Heading 2",
+      title: messages.heading2,
       isActive: editorState.isHeading2,
       onClick: () => handleHeadingClick(2),
       shortcut: getShortcut(`heading2`),
     },
     {
       icon: Heading3,
-      title: "Heading 3",
+      title: messages.heading3,
       isActive: editorState.isHeading3,
       onClick: () => handleHeadingClick(3),
       shortcut: getShortcut(`heading3`),
     },
     {
       icon: Heading4,
-      title: "Heading 4",
+      title: messages.heading4,
       isActive: editorState.isHeading4,
       onClick: () => handleHeadingClick(4),
       shortcut: getShortcut(`heading4`),
     },
     {
       icon: Heading5,
-      title: "Heading 5",
+      title: messages.heading5,
       isActive: editorState.isHeading5,
       onClick: () => handleHeadingClick(5),
       shortcut: getShortcut(`heading5`),
     },
     {
       icon: Heading6,
-      title: "Heading 6",
+      title: messages.heading6,
       isActive: editorState.isHeading6,
       onClick: () => handleHeadingClick(6),
       shortcut: getShortcut(`heading6`),
@@ -84,7 +86,7 @@ export function HeadingPopover() {
   ] as const;
 
   const activeHeading = headingsList.find(({ isActive }) => isActive) || {
-    title: "Heading",
+    title: messages.heading,
     icon: Heading,
     shortcut: null,
   };
@@ -93,11 +95,14 @@ export function HeadingPopover() {
     <EditorPopover>
       <EditorPopoverTrigger asChild>
         <EditorButton
-          isActive={activeHeading.title !== "Heading"}
+          isActive={activeHeading.title !== messages.heading}
           tooltipContent={null}
           size="default"
           className="h-7 px-1!"
-          aria-label={`${activeHeading.title} ${activeHeading.shortcut ? `(${activeHeading.shortcut})` : ""}`}
+          aria-label={messages.headingAriaLabel(
+            activeHeading.title,
+            activeHeading.shortcut,
+          )}
         >
           <activeHeading.icon className="size-4 shrink-0" />
           <ChevronDown className="size-3 shrink-0" />

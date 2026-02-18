@@ -8,6 +8,7 @@ import {
   EditorPopoverContent,
   EditorPopoverTrigger,
 } from "../../../components/EditorPopover";
+import { useEditorMessages } from "../../../context/EditorMessagesContext";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 import { getShortcut } from "../../../utils/getShortcut";
 
@@ -28,19 +29,21 @@ export function ListPopover() {
       return editor.chain().focus().toggleOrderedList().run();
   }
 
+  const { messages } = useEditorMessages();
+
   const buttons = [
     {
       type: "bulletList",
       isActive: editorState.isBulletList,
       icon: List,
-      label: "Bullet list",
+      label: messages.bulletList,
       shortcut: getShortcut("bulletList"),
     },
     {
       type: "orderedList",
       isActive: editorState.isOrderedList,
       icon: ListOrdered,
-      label: "Ordered list",
+      label: messages.orderedList,
       shortcut: getShortcut("orderedList"),
     },
   ] as const;

@@ -29,35 +29,28 @@ import { toast } from "sonner";
 import z from "zod";
 
 import { EditorButton } from "../../../components/EditorButton";
+import { useEditorMessages } from "../../../context/EditorMessagesContext";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 import { focusNextNode } from "../../../utils/focusNextNode";
 import { isValidPosition } from "../../../utils/isValidPosition";
 import type { MediaType } from "../asset-upload-node";
 import { ASSET_UPLOAD_NODE_ICONS } from "../constants";
 
-const assetsList = {
-  image: {
-    icon: ASSET_UPLOAD_NODE_ICONS.image,
-    title: "Image",
-  },
-  audio: {
-    icon: ASSET_UPLOAD_NODE_ICONS.audio,
-    title: "Audio",
-  },
-  video: {
-    icon: ASSET_UPLOAD_NODE_ICONS.video,
-    title: "Video",
-  },
-} as const;
-
 export default function AssetUploadNode({
   node,
   getPos,
   deleteNode,
 }: NodeViewProps) {
+  const { messages } = useEditorMessages();
   const formId = useId();
   const mediaType = node.attrs.mediaType as MediaType;
-  const { icon: Icon, title } = assetsList[mediaType];
+  const titleMap = {
+    image: messages.image,
+    audio: messages.audio,
+    video: messages.video,
+  };
+  const title = titleMap[mediaType];
+  const Icon = ASSET_UPLOAD_NODE_ICONS[mediaType];
 
   return (
     <NodeViewWrapper className="not-prose my-4 w-full">
@@ -66,9 +59,7 @@ export default function AssetUploadNode({
           <CardTitle className="items-center">
             <Icon className="me-1 mb-0.25 inline-block size-5" /> {title}
           </CardTitle>
-          <CardDescription>
-            insert an {mediaType} into the document
-          </CardDescription>
+          <CardDescription>{messages.insertMedia(mediaType)}</CardDescription>
         </CardHeader>
 
         <CardContent>
@@ -82,10 +73,10 @@ export default function AssetUploadNode({
 
         <CardFooter className="justify-end gap-2">
           <Button variant="outline" onClick={deleteNode}>
-            Cancel
+            {messages.cancel}
           </Button>
           <Button form={formId} type="submit">
-            Insert
+            {messages.insert}
           </Button>
         </CardFooter>
       </Card>
@@ -114,6 +105,7 @@ const imageFormSchema = z.object({
 const audioVideoFormSchema = z.object({ src: z.url().trim() });
 
 function AssetForm({ formId, getPos, node, mediaType }: BaseFormProps) {
+  const { messages } = useEditorMessages();
   const schema = mediaType === "image" ? imageFormSchema : audioVideoFormSchema;
   const defaultValues =
     mediaType === "image" ? { src: "", alt: "" } : { src: "" };
@@ -221,7 +213,7 @@ function AssetForm({ formId, getPos, node, mediaType }: BaseFormProps) {
                 field.state.meta.isTouched && !field.state.meta.isValid;
               return (
                 <Field data-invalid={isInvalid}>
-                  <FieldLabel htmlFor={field.name}>Alt</FieldLabel>
+                  <FieldLabel htmlFor={field.name}>{messages.alt}</FieldLabel>
                   <Input
                     id={field.name}
                     name={field.name}
@@ -229,7 +221,7 @@ function AssetForm({ formId, getPos, node, mediaType }: BaseFormProps) {
                     onBlur={field.handleBlur}
                     onChange={(e) => field.handleChange(e.target.value)}
                     aria-invalid={isInvalid}
-                    placeholder="Image Alt"
+                    placeholder={messages.imageAlt}
                     type="text"
                   />
                   {isInvalid && <FieldError errors={field.state.meta.errors} />}
@@ -250,6 +242,7 @@ type UploadOrUrlFieldProps = {
 };
 
 function UploadOrUrlField({ field, accept, onPreview }: UploadOrUrlFieldProps) {
+  const { messages } = useEditorMessages();
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
   const urlInputId = useId();
 
@@ -259,17 +252,17 @@ function UploadOrUrlField({ field, accept, onPreview }: UploadOrUrlFieldProps) {
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="upload">
             <Upload />
-            Upload
+            {messages.upload}
           </TabsTrigger>
           <TabsTrigger value="url" className="gap-2">
             <Link />
-            URL
+            {messages.urlTab}
           </TabsTrigger>
         </TabsList>
 
         <TabsContent value="upload" className="mt-3">
           <FieldLabel htmlFor={urlInputId} className="mb-3">
-            Upload
+            {messages.upload}
           </FieldLabel>
 
           <AssetUploadNodeDropZone
@@ -284,7 +277,7 @@ function UploadOrUrlField({ field, accept, onPreview }: UploadOrUrlFieldProps) {
         </TabsContent>
 
         <TabsContent value="url" className="mt-3 space-y-3">
-          <FieldLabel htmlFor={urlInputId}>Url</FieldLabel>
+          <FieldLabel htmlFor={urlInputId}>{messages.urlTab}</FieldLabel>
           <div className="flex items-center gap-2">
             <Input
               id={urlInputId}
@@ -293,7 +286,7 @@ function UploadOrUrlField({ field, accept, onPreview }: UploadOrUrlFieldProps) {
               onBlur={field.handleBlur}
               onChange={(e) => field.handleChange(e.target.value)}
               aria-invalid={isInvalid}
-              placeholder="https://example.com/image.jpg"
+              placeholder={messages.urlPlaceholder}
               type="url"
             />
             <Button
@@ -302,7 +295,7 @@ function UploadOrUrlField({ field, accept, onPreview }: UploadOrUrlFieldProps) {
               onClick={onPreview}
               type="button"
             >
-              <Eye /> Preview
+              <Eye /> {messages.preview}
             </Button>
           </div>
         </TabsContent>
@@ -369,6 +362,7 @@ type PreviewProps = {
 };
 
 function Preview(props: PreviewProps) {
+  const { messages } = useEditorMessages();
   const { mediaType, src, onRemovePreview } = props;
   const [previewError, setPreviewError] = useState<string | null>(null);
 
@@ -378,7 +372,7 @@ function Preview(props: PreviewProps) {
   }
 
   function createErrorMessage(mediaType: MediaType) {
-    return `Invalid ${mediaType} URL or ${mediaType} failed to load`;
+    return messages.invalidMediaUrl(mediaType);
   }
 
   if (previewError)
@@ -395,7 +389,7 @@ function Preview(props: PreviewProps) {
 
         <EditorButton
           isActive={false}
-          tooltipContent={"Retry"}
+          tooltipContent={messages.retry}
           onClick={handleRemove}
           variant="outline"
           size="icon"
@@ -451,6 +445,7 @@ function ExitAndExitPreviewButton({
   className?: string;
   onRemove: () => void;
 }) {
+  const { messages } = useEditorMessages();
   return (
     <EditorButton
       tooltipContentSide="top"
@@ -459,7 +454,7 @@ function ExitAndExitPreviewButton({
       variant="destructive"
       size="icon"
       className={className}
-      tooltipContent="Reset and Exit preview"
+      tooltipContent={messages.resetAndExitPreview}
     >
       <Trash2 />
     </EditorButton>

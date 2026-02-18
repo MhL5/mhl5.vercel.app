@@ -5,9 +5,11 @@ import { ListTree } from "lucide-react";
 import { useCallback } from "react";
 
 import { EditorButton } from "../../../components/EditorButton";
+import { useEditorMessages } from "../../../context/EditorMessagesContext";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 
 export function InsertTableOfContentsButton() {
+  const { messages } = useEditorMessages();
   const { editor } = useCurrentEditor();
 
   const { hasHeadings } = useEditorState({
@@ -58,13 +60,15 @@ export function InsertTableOfContentsButton() {
   return (
     <EditorButton
       tooltipContent={
-        hasHeadings ? "Insert table of contents" : "No headings in document"
+        hasHeadings
+          ? messages.insertTableOfContents
+          : messages.noHeadingsInDocument
       }
       isActive={false}
       type="button"
       onClick={insertTableOfContents}
       disabled={!hasHeadings}
-      aria-label="Insert table of contents"
+      aria-label={messages.insertTableOfContents}
     >
       <ListTree />
     </EditorButton>

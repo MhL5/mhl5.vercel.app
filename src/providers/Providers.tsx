@@ -5,6 +5,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
 import type { ReactNode } from "react";
 
+import DirectionProvider from "./DirectionProvider";
+
 type ProvidersProps = {
   children: ReactNode;
 };
@@ -19,10 +21,12 @@ export default function Providers({ children }: ProvidersProps) {
         defer
       />
 
-      <ThemeProvider>
-        <Toaster />
-        {children}
-      </ThemeProvider>
+      <DirectionProvider>
+        <ThemeProvider>
+          <Toaster />
+          {children}
+        </ThemeProvider>
+      </DirectionProvider>
 
       <GoogleAnalytics gaId="G-VCE68NR27Q" />
       <SpeedInsights />

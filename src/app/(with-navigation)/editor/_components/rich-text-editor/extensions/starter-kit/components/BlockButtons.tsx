@@ -3,10 +3,12 @@ import { useEditorState } from "@tiptap/react";
 import { Code2, CornerDownLeft, Minus, Pilcrow, Quote } from "lucide-react";
 
 import { EditorButton } from "../../../components/EditorButton";
+import { useEditorMessages } from "../../../context/EditorMessagesContext";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 import { getShortcut } from "../../../utils/getShortcut";
 
 export function BlockButtons() {
+  const { messages } = useEditorMessages();
   const { editor } = useCurrentEditor();
   const editorState = useEditorState({
     editor,
@@ -22,7 +24,7 @@ export function BlockButtons() {
       key: "blockquote",
       tooltipContent: (
         <>
-          Blockquote <Kbd>{getShortcut("blockquote")}</Kbd>
+          {messages.blockquote} <Kbd>{getShortcut("blockquote")}</Kbd>
         </>
       ),
       onClick: () => editor.chain().focus().toggleBlockquote().run(),
@@ -33,7 +35,7 @@ export function BlockButtons() {
       key: "codeBlock",
       tooltipContent: (
         <>
-          Code block <Kbd>{getShortcut("codeBlock")}</Kbd>
+          {messages.codeBlock} <Kbd>{getShortcut("codeBlock")}</Kbd>
         </>
       ),
       onClick: () => editor.chain().focus().toggleCodeBlock().run(),
@@ -44,7 +46,7 @@ export function BlockButtons() {
       key: "paragraph",
       tooltipContent: (
         <>
-          Paragraph <Kbd>{getShortcut("normalText")}</Kbd>
+          {messages.paragraph} <Kbd>{getShortcut("normalText")}</Kbd>
         </>
       ),
       onClick: () => editor.chain().focus().setParagraph().run(),
@@ -54,7 +56,7 @@ export function BlockButtons() {
     {
       key: "horizontalRule",
       // Doesn't have shortcut
-      tooltipContent: <>Horizontal rule</>,
+      tooltipContent: <>{messages.horizontalRule}</>,
       onClick: () => editor.chain().focus().setHorizontalRule().run(),
       isActive: false,
       icon: Minus,
@@ -63,7 +65,7 @@ export function BlockButtons() {
       key: "hardBreak",
       tooltipContent: (
         <>
-          Hard break <Kbd>{getShortcut("lineBreak")}</Kbd>
+          {messages.hardBreak} <Kbd>{getShortcut("lineBreak")}</Kbd>
         </>
       ),
       onClick: () => editor.chain().focus().setHardBreak().run(),

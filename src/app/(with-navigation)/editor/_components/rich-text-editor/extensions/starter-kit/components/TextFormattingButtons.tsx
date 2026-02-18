@@ -3,10 +3,12 @@ import { useEditorState } from "@tiptap/react";
 import { Bold, Code, Italic, Strikethrough, Underline } from "lucide-react";
 
 import { EditorButton } from "../../../components/EditorButton";
+import { useEditorMessages } from "../../../context/EditorMessagesContext";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 import { getShortcut } from "../../../utils/getShortcut";
 
 export function TextFormattingButtons() {
+  const { messages } = useEditorMessages();
   const { editor } = useCurrentEditor();
   const editorState = useEditorState({
     editor,
@@ -28,7 +30,7 @@ export function TextFormattingButtons() {
       key: "underline",
       tooltipContent: (
         <>
-          Underline <Kbd>{getShortcut("underline")}</Kbd>
+          {messages.underline} <Kbd>{getShortcut("underline")}</Kbd>
         </>
       ),
       onClick: () => editor.chain().focus().toggleUnderline().run(),
@@ -39,7 +41,7 @@ export function TextFormattingButtons() {
       key: "bold",
       tooltipContent: (
         <>
-          Bold <Kbd>{getShortcut("bold")}</Kbd>
+          {messages.bold} <Kbd>{getShortcut("bold")}</Kbd>
         </>
       ),
       onClick: () => editor.chain().focus().toggleBold().run(),
@@ -51,7 +53,7 @@ export function TextFormattingButtons() {
       key: "italic",
       tooltipContent: (
         <>
-          Italic <Kbd>{getShortcut("italic")}</Kbd>
+          {messages.italic} <Kbd>{getShortcut("italic")}</Kbd>
         </>
       ),
       onClick: () => editor.chain().focus().toggleItalic().run(),
@@ -63,7 +65,7 @@ export function TextFormattingButtons() {
       key: "strikethrough",
       tooltipContent: (
         <>
-          Strikethrough <Kbd>{getShortcut("strikethrough")}</Kbd>
+          {messages.strikethrough} <Kbd>{getShortcut("strikethrough")}</Kbd>
         </>
       ),
       onClick: () => editor.chain().focus().toggleStrike().run(),
@@ -75,7 +77,7 @@ export function TextFormattingButtons() {
       key: "code",
       tooltipContent: (
         <>
-          Inline code <Kbd>{getShortcut("code")}</Kbd>
+          {messages.inlineCode} <Kbd>{getShortcut("code")}</Kbd>
         </>
       ),
       onClick: () => editor.chain().focus().toggleCode().run(),

@@ -9,17 +9,24 @@ import {
   EditorPopoverContent,
   EditorPopoverTrigger,
 } from "../../../components/EditorPopover";
+import { useEditorMessages } from "../../../context/EditorMessagesContext";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 import { ASSET_UPLOAD_NODE_OPTIONS } from "../constants";
 
 export function InsertAssetUploadPopover() {
+  const { messages } = useEditorMessages();
   const { editor } = useCurrentEditor();
+  const labelMap = {
+    image: messages.image,
+    audio: messages.audio,
+    video: messages.video,
+  };
 
   return (
     <EditorPopover>
       <EditorPopoverTrigger asChild>
         <EditorButton
-          aria-label="Add image, video, or audio"
+          aria-label={messages.addImageVideoAudio}
           tooltipContent={null}
           isActive={false}
           type="button"
@@ -28,7 +35,7 @@ export function InsertAssetUploadPopover() {
         </EditorButton>
       </EditorPopoverTrigger>
       <EditorPopoverContent align="end" className="grid w-fit gap-0.5 p-1">
-        {ASSET_UPLOAD_NODE_OPTIONS.map(({ mediaType, icon: Icon, label }) => (
+        {ASSET_UPLOAD_NODE_OPTIONS.map(({ mediaType, icon: Icon }) => (
           <Button
             key={mediaType}
             variant="ghost"
@@ -36,7 +43,7 @@ export function InsertAssetUploadPopover() {
             className="w-full justify-start gap-2"
           >
             <Icon className="size-4" />
-            {label}
+            {labelMap[mediaType]}
           </Button>
         ))}
       </EditorPopoverContent>

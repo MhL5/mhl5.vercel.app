@@ -3,10 +3,12 @@ import { useEditorState } from "@tiptap/react";
 import { Redo2, Undo2 } from "lucide-react";
 
 import { EditorButton } from "../../../components/EditorButton";
+import { useEditorMessages } from "../../../context/EditorMessagesContext";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 import { getShortcut } from "../../../utils/getShortcut";
 
 export function UndoRedo() {
+  const { messages } = useEditorMessages();
   const { editor } = useCurrentEditor();
   const editorState = useEditorState({
     editor,
@@ -25,7 +27,7 @@ export function UndoRedo() {
     {
       tooltipContent: (
         <>
-          Undo <Kbd>{getShortcut("undo")}</Kbd>
+          {messages.undo} <Kbd>{getShortcut("undo")}</Kbd>
         </>
       ),
       type: "undo",
@@ -36,7 +38,7 @@ export function UndoRedo() {
     {
       tooltipContent: (
         <>
-          Redo <Kbd>{getShortcut("redo")}</Kbd>
+          {messages.redo} <Kbd>{getShortcut("redo")}</Kbd>
         </>
       ),
       type: "redo",
