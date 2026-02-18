@@ -384,6 +384,14 @@
     @apply mx-auto my-3 w-full rounded-sm;
   }
 
+  pre:has(code) {
+    direction: ltr;
+
+    code {
+      direction: ltr;
+    }
+  }
+
   audio,
   video,
   iframe,
@@ -393,7 +401,7 @@
   }
 
   .tableWrapper {
-    @apply my-6 overflow-hidden rounded-sm border border-border;
+    @apply my-6 overflow-x-auto overflow-y-hidden rounded-sm border border-border;
   }
 
   ::selection {

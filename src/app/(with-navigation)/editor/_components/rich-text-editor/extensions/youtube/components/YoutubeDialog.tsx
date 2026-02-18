@@ -69,9 +69,7 @@ function Content({ onSuccess }: { onSuccess: () => void }) {
           <YoutubeIcon className="me-2 inline-block" />
           {messages.insertYoutubeVideo}
         </DialogTitle>
-        <DialogDescription>
-          {messages.youtubeDescription}
-        </DialogDescription>
+        <DialogDescription>{messages.youtubeDescription}</DialogDescription>
       </DialogHeader>
 
       <form

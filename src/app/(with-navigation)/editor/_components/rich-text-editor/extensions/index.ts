@@ -31,12 +31,6 @@ export const TIPTAP_EXTENSIONS = [
     types: ["heading", "paragraph"],
   }),
   Typography,
-  TableKit.configure({
-    table: {
-      resizable: true,
-      renderWrapper: true,
-    },
-  }),
   Audio.configure({
     inline: false,
     controls: true,
@@ -55,10 +49,22 @@ export const TIPTAP_EXTENSIONS = [
   }),
   Youtube.configure({
     inline: false,
+    HTMLAttributes: {
+      loading: "lazy",
+    },
   }),
   TableOfContents.configure({
     anchorTypes: ["heading"],
   }),
+  TableKit.configure({
+    table: {
+      resizable: true,
+      renderWrapper: true,
+      lastColumnResizable: false,
+    },
+  }),
+
+  // Custom
   resizableNode,
   videoNode,
   assetUploadNode,

@@ -11,10 +11,15 @@
     cursor: col-resize;
   }
 
+  .tableWrapper {
+    direction: ltr;
+  }
+
   td,
   th {
     position: relative;
   }
+
   .selectedCell:after {
     background: var(--primary);
     content: "";
@@ -32,8 +37,8 @@
     bottom: -2px;
     pointer-events: none;
     position: absolute;
-    inset-inline-end: -2px;
     top: 0;
     width: 4px;
+    right: -2px;
   }
 }
