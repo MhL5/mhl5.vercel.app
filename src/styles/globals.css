@@ -393,7 +393,7 @@
   }
 
   .tableWrapper {
-    @apply my-6 overflow-hidden rounded-lg border border-border;
+    @apply my-6 overflow-hidden rounded-sm border border-border;
   }
 
   ::selection {

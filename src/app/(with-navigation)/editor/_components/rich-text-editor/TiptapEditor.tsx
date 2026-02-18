@@ -1,3 +1,4 @@
+import { useDirection } from "@/components/ui/direction";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
@@ -47,10 +48,12 @@ function TiptapEditor({
   editable = true,
   onUpdate,
 }: TiptapEditorProps) {
+  const direction = useDirection();
   const editor = useEditor({
     extensions: TIPTAP_EXTENSIONS,
     content,
     editable,
+    textDirection: direction,
     editorProps: {
       attributes: {
         class: cn(
@@ -71,7 +74,10 @@ function TiptapEditor({
 
   if (!editor) return <TiptapEditorSkeleton />;
   return (
-    <div className={cn("w-full overflow-hidden rounded-sm border", className)}>
+    <div
+      dir={direction}
+      className={cn("w-full overflow-hidden rounded-sm border", className)}
+    >
       <EditorMessagesProvider messages={editorEnMessages}>
         <EditorContext value={{ editor: memoizedEditor }}>
           <div
