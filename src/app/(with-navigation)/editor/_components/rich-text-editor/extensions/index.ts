@@ -10,7 +10,6 @@ import StarterKit from "@tiptap/starter-kit";
 
 import { ResizableNode } from "../nodes/ResizableNode";
 import { VideoNode } from "../nodes/VideoNode";
-import "./Youtube.css";
 import { assetUploadNodeExtension } from "./asset-upload-node/asset-upload-node";
 
 export const TIPTAP_EXTENSIONS = [

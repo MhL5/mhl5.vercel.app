@@ -66,14 +66,14 @@ function TiptapEditor({
   return (
     <div
       className={cn(
-        "w-full overflow-hidden rounded-lg border border-border bg-background",
+        "w-full overflow-hidden rounded-sm border bg-card text-card-foreground",
         className,
       )}
     >
       <EditorContext value={{ editor: memoizedEditor }}>
         <div
           data-slot="editor-toolbar"
-          className="flex items-center justify-center gap-2 overflow-x-auto bg-card px-2 py-1.75 text-card-foreground"
+          className="flex items-center justify-center gap-2 overflow-x-auto border-b bg-card px-2 py-1.75 text-card-foreground"
         >
           <UndoRedo />
 

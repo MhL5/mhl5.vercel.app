@@ -3,7 +3,9 @@
 
   audio,
   video,
-  iframe {
+  iframe,
+  img,
+  [data-youtube-video] {
     @apply mx-auto my-3 w-full rounded-sm;
   }
 
@@ -18,7 +20,7 @@
 
 .tiptap {
   .ProseMirror-selectednode {
-    @apply rounded-xs outline-3 outline-primary;
+    @apply rounded-sm outline outline-primary;
   }
 
   &.resize-cursor {
@@ -53,5 +55,5 @@
   }
 
   /* while working with tiptap extensions, we need to override the default styles */
-  @apply prose-img:my-0;
+  @apply prose-img:my-0!;
 }

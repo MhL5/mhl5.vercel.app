@@ -59,7 +59,7 @@ export default function AssetUploadNode({
 
   return (
     <NodeViewWrapper className="not-prose my-4 w-full">
-      <Card key={mediaType + title}>
+      <Card key={mediaType + title} className="rounded-sm">
         <CardHeader>
           <CardTitle className="items-center">
             <Icon className="me-1 mb-0.25 inline-block size-5" /> {title}
@@ -320,7 +320,7 @@ function UploadOrUrlField({ field, accept, onPreview }: UploadOrUrlFieldProps) {
             />
             <Button
               size="sm"
-              disabled={isInvalid}
+              disabled={!field.state.value || isInvalid}
               onClick={onPreview}
               type="button"
             >

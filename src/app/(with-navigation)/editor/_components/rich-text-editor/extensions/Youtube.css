@@ -1,8 +1,0 @@
-.tiptap {
-  [data-youtube-video] {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-block: 2rem;
-  }
-}
