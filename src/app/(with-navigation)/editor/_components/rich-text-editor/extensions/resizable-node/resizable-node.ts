@@ -1,8 +1,8 @@
 import { Node as NodeExtension, ResizableNodeView } from "@tiptap/react";
 
-import "./ResizableNode.css";
+import "./resizable-node.css";
 
-export const ResizableNode = NodeExtension.create({
+export const resizableNode = NodeExtension.create({
   name: "resizableNode",
   group: "block",
   content: "block+",

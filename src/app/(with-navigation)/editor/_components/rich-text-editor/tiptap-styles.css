@@ -1,26 +1,9 @@
-.tiptap-typography {
-  @apply prose prose-custom first:mt-0 dark:prose-invert prose-code:w-fit prose-code:rounded-sm prose-code:bg-secondary prose-code:px-1 prose-code:py-0.5 prose-code:tracking-wide prose-code:text-secondary-foreground prose-code:before:content-none prose-code:after:content-none prose-table:first:mt-0 prose-table:first:mb-0 prose-th:border prose-th:p-2 prose-td:border prose-td:first:p-2 prose-img:mx-auto prose-img:rounded-sm prose-pre:[&_code]:rounded-none prose-pre:[&_code]:bg-transparent prose-pre:[&_code]:p-0 prose-pre:[&_code]:tracking-normal prose-table:[&_p]:m-0 prose-table:[&_p]:p-0;
-
-  audio,
-  video,
-  iframe,
-  img,
-  [data-youtube-video] {
-    @apply mx-auto my-3 w-full rounded-sm;
-  }
-
-  .tableWrapper {
-    @apply my-6 overflow-hidden rounded-lg border border-border;
-  }
-
-  ::selection {
-    @apply bg-primary! text-primary-foreground!;
-  }
-}
-
 .tiptap {
   .ProseMirror-selectednode {
-    @apply rounded-sm outline outline-primary;
+    border-radius: calc(var(--radius));
+    outline-style: var(--tw-outline-style);
+    outline-width: 1px;
+    outline-color: var(--primary);
   }
 
   &.resize-cursor {
@@ -45,7 +28,7 @@
   }
 
   .column-resize-handle {
-    @apply bg-primary;
+    background-color: var(--primary);
     bottom: -2px;
     pointer-events: none;
     position: absolute;
@@ -53,7 +36,4 @@
     top: 0;
     width: 4px;
   }
-
-  /* while working with tiptap extensions, we need to override the default styles */
-  @apply prose-img:my-0!;
 }

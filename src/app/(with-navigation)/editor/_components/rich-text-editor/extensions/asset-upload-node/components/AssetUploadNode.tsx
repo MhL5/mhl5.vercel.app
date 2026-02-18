@@ -23,12 +23,14 @@ import { cn } from "@/lib/utils";
 import { type AnyFieldApi, useForm } from "@tanstack/react-form";
 import type { NodeViewProps } from "@tiptap/react";
 import { NodeViewWrapper } from "@tiptap/react";
-import { Eye, Link, Trash2, Upload } from "lucide-react";
+import { Eye, Link, RefreshCcw, Trash2, Upload } from "lucide-react";
 import { useId, useState } from "react";
 import { toast } from "sonner";
 import z from "zod";
 
+import { ToolbarButton } from "../../../components/ToolbarButton";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
+import { focusNextNode } from "../../../utils/focusNextNode";
 import { isValidPosition } from "../../../utils/isValidPosition";
 import type { MediaType } from "../asset-upload-node";
 import { ASSET_UPLOAD_NODE_ICONS } from "../constants";
@@ -130,7 +132,7 @@ function AssetForm({ formId, getPos, node, mediaType }: BaseFormProps) {
 
       switch (mediaType) {
         case "image":
-          return editor
+          editor
             .chain()
             .focus()
             .deleteRange({ from, to })
@@ -139,11 +141,13 @@ function AssetForm({ formId, getPos, node, mediaType }: BaseFormProps) {
               attrs: {
                 src,
                 alt,
+                title: alt,
               },
             })
             .run();
+          break;
         case "audio":
-          return editor
+          editor
             .chain()
             .focus()
             .deleteRange({ from, to })
@@ -152,21 +156,24 @@ function AssetForm({ formId, getPos, node, mediaType }: BaseFormProps) {
               ...videoAndAudioOptions,
             })
             .run();
+          break;
         case "video":
-          return editor
+          editor
             .chain()
             .focus()
             .deleteRange({ from, to })
-            .setVideo({
+            .insertVideo({
               src,
               ...videoAndAudioOptions,
             })
             .run();
+          break;
         default:
-          return toast.error(
-            `Invalid media type: ${mediaType satisfies never}`,
-          );
+          toast.error(`Invalid media type: ${mediaType satisfies never}`);
+          break;
       }
+
+      focusNextNode(editor);
     },
   });
   const [showPreview, setShowPreview] = useState(false);
@@ -183,43 +190,14 @@ function AssetForm({ formId, getPos, node, mediaType }: BaseFormProps) {
         <form.Field name="src">
           {(field) =>
             showPreview ? (
-              <div
-                className={`${mediaType === "audio" ? "grid-cols-[1fr_2rem] gap-2 p-3" : ""} relative isolate grid w-full place-items-center overflow-hidden rounded-sm border`}
-              >
-                {mediaType === "image" ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={field.state.value}
-                    alt={field.state.value}
-                    className="w-full rounded-sm object-cover"
-                    loading="lazy"
-                  />
-                ) : mediaType === "audio" ? (
-                  <audio
-                    {...videoAndAudioOptions}
-                    src={field.state.value}
-                    className="my-0! w-full"
-                  />
-                ) : (
-                  <video
-                    {...videoAndAudioOptions}
-                    src={field.state.value}
-                    className="my-0! w-full"
-                  />
-                )}
-                <Button
-                  onClick={() => {
-                    field.handleChange("");
-                    setShowPreview(false);
-                  }}
-                  variant="destructive"
-                  size="icon"
-                  aria-label="Remove image"
-                  className={`${mediaType === "audio" ? "end-2" : "end-2 top-2"} absolute z-10`}
-                >
-                  <Trash2 />
-                </Button>
-              </div>
+              <Preview
+                mediaType={mediaType}
+                src={field.state.value}
+                onRemovePreview={() => {
+                  field.handleChange("");
+                  setShowPreview(false);
+                }}
+              />
             ) : (
               <UploadOrUrlField
                 onPreview={() => setShowPreview(true)}
@@ -381,5 +359,109 @@ function AssetUploadNodeDropZone({
       disabled={false}
       onFileSelect={(file) => handleUpload(file)}
     />
+  );
+}
+
+type PreviewProps = {
+  mediaType: MediaType;
+  onRemovePreview: () => void;
+  src: string;
+};
+
+function Preview(props: PreviewProps) {
+  const { mediaType, src, onRemovePreview } = props;
+  const [previewError, setPreviewError] = useState<string | null>(null);
+
+  function handleRemove() {
+    setPreviewError(null);
+    onRemovePreview();
+  }
+
+  function createErrorMessage(mediaType: MediaType) {
+    return `Invalid ${mediaType} URL or ${mediaType} failed to load`;
+  }
+
+  if (previewError)
+    return (
+      <div className="relative isolate flex w-full flex-wrap items-center gap-2 overflow-hidden rounded-sm border border-destructive p-3">
+        <p
+          role="alert"
+          data-slot="preview-error-message"
+          aria-live="polite"
+          className="text-destructive"
+        >
+          {previewError}
+        </p>
+
+        <ToolbarButton
+          isActive={false}
+          tooltipContent={"Retry"}
+          onClick={handleRemove}
+          variant="outline"
+          size="icon"
+          className={`ms-auto`}
+          tooltipContentSide="top"
+        >
+          <RefreshCcw />
+        </ToolbarButton>
+        <ExitAndExitPreviewButton onRemove={handleRemove} />
+      </div>
+    );
+  return (
+    <div className="relative isolate grid w-full place-items-center overflow-hidden rounded-sm border [&:has([data-slot='preview-audio'])]:grid-cols-[1fr_2rem] [&:has([data-slot='preview-audio'])]:gap-2 [&:has([data-slot='preview-audio'])]:p-3">
+      {mediaType === "image" ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={src}
+          alt=""
+          data-slot="preview-image"
+          className="w-full rounded-sm object-cover"
+          loading="lazy"
+          onError={() => setPreviewError(createErrorMessage("image"))}
+        />
+      ) : mediaType === "audio" ? (
+        <audio
+          {...videoAndAudioOptions}
+          src={src}
+          data-slot="preview-audio"
+          className="my-0! w-full"
+          onError={() => setPreviewError(createErrorMessage("audio"))}
+        />
+      ) : (
+        <video
+          {...videoAndAudioOptions}
+          src={src}
+          data-slot="preview-video"
+          className="my-0! w-full"
+          onError={() => setPreviewError(createErrorMessage("video"))}
+        />
+      )}
+      <ExitAndExitPreviewButton
+        onRemove={handleRemove}
+        className="absolute end-2.5 top-2.5 ms-auto"
+      />
+    </div>
+  );
+}
+
+function ExitAndExitPreviewButton({
+  onRemove,
+  className,
+}: {
+  className?: string;
+  onRemove: () => void;
+}) {
+  return (
+    <ToolbarButton
+      tooltipContentSide="top"
+      isActive={false}
+      onClick={onRemove}
+      variant="destructive"
+      size="icon"
+      className={className}
+      tooltipContent="Reset and Exit preview"
+    >
+      <Trash2 />
+    </ToolbarButton>
   );
 }

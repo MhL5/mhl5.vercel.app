@@ -8,9 +8,9 @@ import Typography from "@tiptap/extension-typography";
 import Youtube from "@tiptap/extension-youtube";
 import StarterKit from "@tiptap/starter-kit";
 
-import { ResizableNode } from "../nodes/ResizableNode";
-import { VideoNode } from "../nodes/VideoNode";
-import { assetUploadNodeExtension } from "./asset-upload-node/asset-upload-node";
+import { assetUploadNode } from "./asset-upload-node/asset-upload-node";
+import { resizableNode } from "./resizable-node/resizable-node";
+import { videoNode } from "./video-node/video-node";
 
 export const TIPTAP_EXTENSIONS = [
   StarterKit.configure({
@@ -37,7 +37,6 @@ export const TIPTAP_EXTENSIONS = [
       renderWrapper: true,
     },
   }),
-  ResizableNode,
   Audio.configure({
     inline: false,
     controls: true,
@@ -57,14 +56,10 @@ export const TIPTAP_EXTENSIONS = [
   Youtube.configure({
     inline: false,
   }),
-  VideoNode.configure({
-    HTMLAttributes: {
-      class: "rounded-md max-w-full h-auto",
-      style: "max-width: 100%; height: auto;",
-    },
-  }),
   TableOfContents.configure({
     anchorTypes: ["heading"],
   }),
-  assetUploadNodeExtension,
+  resizableNode,
+  videoNode,
+  assetUploadNode,
 ];

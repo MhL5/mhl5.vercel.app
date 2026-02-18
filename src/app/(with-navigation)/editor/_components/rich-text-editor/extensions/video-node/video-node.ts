@@ -1,6 +1,28 @@
 import { Node } from "@tiptap/core";
 
-export const VideoNode = Node.create({
+export type InsertVideoOptions = {
+  src: string;
+  poster?: string | null;
+  controls?: boolean;
+  autoplay?: boolean;
+  loop?: boolean;
+  muted?: boolean;
+  preload?: "auto" | "metadata" | "none" | null;
+  playsInline?: boolean;
+  width?: string | number | null;
+  height?: string | number | null;
+  HTMLAttributes?: Record<string, unknown>;
+};
+
+declare module "@tiptap/core" {
+  interface Commands<ReturnType> {
+    video: {
+      insertVideo: (options: InsertVideoOptions) => ReturnType;
+    };
+  }
+}
+
+export const videoNode = Node.create({
   name: "video",
 
   group: "block",
@@ -85,7 +107,7 @@ export const VideoNode = Node.create({
 
   addCommands() {
     return {
-      setVideo:
+      insertVideo:
         (options) =>
         ({ commands }) =>
           commands.insertContent({
@@ -127,25 +149,3 @@ export const VideoNode = Node.create({
     return ["video", attrs];
   },
 });
-
-export type SetVideoOptions = {
-  src: string;
-  poster?: string | null;
-  controls?: boolean;
-  autoplay?: boolean;
-  loop?: boolean;
-  muted?: boolean;
-  preload?: "auto" | "metadata" | "none" | null;
-  playsInline?: boolean;
-  width?: string | number | null;
-  height?: string | number | null;
-  HTMLAttributes?: Record<string, unknown>;
-};
-
-declare module "@tiptap/core" {
-  interface Commands<ReturnType> {
-    video: {
-      setVideo: (options: SetVideoOptions) => ReturnType;
-    };
-  }
-}

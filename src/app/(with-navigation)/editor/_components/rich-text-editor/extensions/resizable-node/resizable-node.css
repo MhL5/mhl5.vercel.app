@@ -89,6 +89,7 @@
   }
 
   [data-resize-container] {
-    @apply mx-auto w-fit;
+    margin-inline: auto;
+    width: fit-content;
   }
 }

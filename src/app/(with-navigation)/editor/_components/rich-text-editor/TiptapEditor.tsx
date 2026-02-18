@@ -30,6 +30,7 @@ import {
 import { TextAlignPopover } from "./extensions/text-align/components/TextAlignPopover";
 import { YoutubeDialog } from "./extensions/youtube/components/YoutubeDialog";
 import { useSyncEditorEditable } from "./hooks/useSyncEditorEditable";
+import "./tiptap-styles.css";
 
 type TiptapEditorProps = {
   className?: string;
@@ -50,7 +51,11 @@ function TiptapEditor({
     editable,
     editorProps: {
       attributes: {
-        class: `tiptap tiptap-typography px-0.5 w-full mx-auto overflow-x-hidden focus:outline-none`,
+        class: cn(
+          "tiptap typography px-0.5 prose-img:my-0 w-full mx-auto overflow-x-hidden focus:outline-none",
+          // while working with the editor we need to remove the img margin y
+          "prose-img:my-0!",
+        ),
       },
     },
     // Don't render immediately on the server to avoid SSR issues
@@ -73,7 +78,7 @@ function TiptapEditor({
       <EditorContext value={{ editor: memoizedEditor }}>
         <div
           data-slot="editor-toolbar"
-          className="flex items-center justify-center gap-2 overflow-x-auto border-b bg-card px-2 py-1.75 text-card-foreground"
+          className="flex flex-wrap items-center justify-center gap-2 overflow-x-auto border-b bg-card px-2 py-1.75 text-card-foreground"
         >
           <UndoRedo />
 

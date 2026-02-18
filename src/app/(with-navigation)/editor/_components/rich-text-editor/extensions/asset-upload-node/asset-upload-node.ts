@@ -12,7 +12,7 @@ declare module "@tiptap/react" {
   }
 }
 
-export const assetUploadNodeExtension = Node.create({
+export const assetUploadNode = Node.create({
   name: "assetUploadNode",
 
   group: "block",

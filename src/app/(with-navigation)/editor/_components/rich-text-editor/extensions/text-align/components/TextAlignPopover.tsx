@@ -101,7 +101,7 @@ export function TextAlignPopover() {
           tooltipContent={null}
           aria-label={`Current text alignment: ${activeAlignment.alignment || "unset"}`}
           size="default"
-          className="h-8"
+          className="h-8 w-fit px-1!"
         >
           <activeAlignment.icon />
           <ChevronDown className="size-3 shrink-0" />

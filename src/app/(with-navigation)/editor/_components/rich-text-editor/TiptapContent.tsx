@@ -13,7 +13,7 @@ export function TiptapContent({
   return (
     <div
       dangerouslySetInnerHTML={{ __html: htmlContent }}
-      className={cn("tiptap-typography", className)}
+      className={cn("typography", className)}
       {...props}
     />
   );

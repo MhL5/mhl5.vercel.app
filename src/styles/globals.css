@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "../app/(with-navigation)/editor/_components/rich-text-editor/tiptap-styles.css";
 
 @custom-variant dark (&:is(.dark *));
 @plugin "@tailwindcss/typography";
@@ -376,40 +375,64 @@
 }
 
 .typography {
-  @apply prose prose-custom first:mt-0 dark:prose-invert prose-code:w-fit prose-code:rounded-sm prose-code:bg-secondary prose-code:px-1 prose-code:py-0.5 prose-code:tracking-wide prose-code:text-secondary-foreground prose-code:before:content-none prose-code:after:content-none prose-table:first:mt-0 prose-table:first:mb-0 prose-th:border prose-th:p-2 prose-td:border prose-td:first:p-2 prose-img:mx-auto prose-img:my-0 prose-img:rounded-sm prose-pre:[&_code]:rounded-none prose-pre:[&_code]:bg-transparent prose-pre:[&_code]:p-0 prose-pre:[&_code]:tracking-normal prose-table:[&_p]:m-0 prose-table:[&_p]:p-0;
+  @apply prose prose-custom first:mt-0 dark:prose-invert prose-code:w-fit prose-code:rounded-sm prose-code:bg-secondary prose-code:px-1 prose-code:py-0.5 prose-code:tracking-wide prose-code:text-secondary-foreground prose-code:before:content-none prose-code:after:content-none prose-table:first:mt-0 prose-table:first:mb-0 prose-th:border prose-th:p-2 prose-td:border prose-td:first:p-2 prose-img:mx-auto prose-img:rounded-sm prose-pre:[&_code]:rounded-none prose-pre:[&_code]:bg-transparent prose-pre:[&_code]:p-0 prose-pre:[&_code]:tracking-normal prose-table:[&_p]:m-0 prose-table:[&_p]:p-0;
+
+  audio,
+  video,
+  iframe,
+  [data-youtube-video] {
+    @apply mx-auto my-3 w-full rounded-sm;
+  }
+
+  audio,
+  video,
+  iframe,
+  img,
+  [data-youtube-video] {
+    @apply rounded-sm;
+  }
+
+  .tableWrapper {
+    @apply my-6 overflow-hidden rounded-lg border border-border;
+  }
+
+  ::selection {
+    @apply bg-primary! text-primary-foreground!;
+  }
 }
 
 @utility prose-custom {
   --tw-prose-body: var(--foreground);
   --tw-prose-headings: var(--foreground);
   --tw-prose-lead: var(--muted-foreground);
-  --tw-prose-links: var(--foreground);
+  --tw-prose-links: var(--primary);
   --tw-prose-bold: var(--foreground);
-  --tw-prose-counters: var(--muted-foreground);
-  --tw-prose-bullets: var(--muted-foreground);
+  --tw-prose-counters: var(--foreground);
+  --tw-prose-bullets: var(--foreground);
   --tw-prose-hr: var(--border);
   --tw-prose-quotes: var(--foreground);
-  --tw-prose-quote-borders: var(--border);
+  --tw-prose-quote-borders: var(--primary);
   --tw-prose-captions: var(--muted-foreground);
   --tw-prose-code: var(--secondary-foreground);
   --tw-prose-pre-code: var(--muted-foreground);
-  --tw-prose-pre-bg: var(--code-background);
+  --tw-prose-pre-bg: var(--muted);
   --tw-prose-th-borders: var(--border);
   --tw-prose-td-borders: var(--border);
+
   --tw-prose-invert-body: var(--foreground);
   --tw-prose-invert-headings: var(--foreground);
-  --tw-prose-invert-lead: var(--muted-foreground);
-  --tw-prose-invert-links: var(--foreground);
+  --tw-prose-invert-lead: var(--foreground);
+  --tw-prose-invert-links: var(--primary);
   --tw-prose-invert-bold: var(--foreground);
-  --tw-prose-invert-counters: var(--muted-foreground);
-  --tw-prose-invert-bullets: var(--muted-foreground);
+  --tw-prose-invert-counters: var(--foreground);
+  --tw-prose-invert-bullets: var(--foreground);
   --tw-prose-invert-hr: var(--border);
   --tw-prose-invert-quotes: var(--foreground);
-  --tw-prose-invert-quote-borders: var(--border);
+  --tw-prose-invert-quote-borders: var(--primary);
   --tw-prose-invert-captions: var(--muted-foreground);
-  --tw-prose-invert-code: var(--foreground);
+  --tw-prose-invert-code: var(--secondary-foreground);
   --tw-prose-invert-pre-code: var(--muted-foreground);
-  --tw-prose-invert-pre-bg: var(--code-background);
+  --tw-prose-invert-pre-bg: var(--muted);
   --tw-prose-invert-th-borders: var(--border);
   --tw-prose-invert-td-borders: var(--border);
 }
