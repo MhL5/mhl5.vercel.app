@@ -319,6 +319,7 @@ function AssetUploadNodeDropZone({
 }) {
   const { uploadState, handleUpload, handleRemove, handleRetry } =
     useUploadFile({ onSuccess: onUploadSuccess });
+  const { messages } = useEditorMessages();
 
   const showFileItem =
     uploadState.file &&
@@ -331,6 +332,7 @@ function AssetUploadNodeDropZone({
           "w-full rounded-sm",
           isInvalid && "border-destructive text-destructive",
         )}
+        messages={messages.FileItem}
         file={uploadState.file}
         error={uploadState.error}
         uploadSpeed={uploadState.uploadSpeed}
@@ -402,14 +404,14 @@ function Preview(props: PreviewProps) {
       </div>
     );
   return (
-    <div className="relative isolate grid w-full place-items-center overflow-hidden rounded-sm border [&:has([data-slot='preview-audio'])]:grid-cols-[1fr_2rem] [&:has([data-slot='preview-audio'])]:gap-2 [&:has([data-slot='preview-audio'])]:p-3">
+    <div className="relative isolate grid min-h-15.75 w-full place-items-center overflow-hidden rounded-sm border [&:has([data-slot='preview-audio'])]:grid-cols-[1fr_2rem] [&:has([data-slot='preview-audio'])]:gap-2 [&:has([data-slot='preview-audio'])]:p-3">
       {mediaType === "image" ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={src}
           alt=""
           data-slot="preview-image"
-          className="w-full rounded-sm object-cover"
+          className="min-h-15.5 w-full rounded-sm object-cover"
           loading="lazy"
           onError={() => setPreviewError(createErrorMessage("image"))}
         />
@@ -418,7 +420,7 @@ function Preview(props: PreviewProps) {
           {...videoAndAudioOptions}
           src={src}
           data-slot="preview-audio"
-          className="my-0! w-full"
+          className="my-0! min-h-15.5 w-full"
           onError={() => setPreviewError(createErrorMessage("audio"))}
         />
       ) : (
@@ -426,7 +428,7 @@ function Preview(props: PreviewProps) {
           {...videoAndAudioOptions}
           src={src}
           data-slot="preview-video"
-          className="my-0! w-full"
+          className="my-0! min-h-15.5 w-full"
           onError={() => setPreviewError(createErrorMessage("video"))}
         />
       )}

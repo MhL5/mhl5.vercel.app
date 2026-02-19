@@ -86,6 +86,25 @@ export const editorEnMessages = {
   retry: "Retry",
   resetAndExitPreview: "Reset and Exit preview",
   addImageVideoAudio: "Add image, video, or audio",
+  FileItem: {
+    error: {
+      errorTitle: "Upload failed",
+      errorMessage:
+        "Something went wrong while uploading your file. Please try again.",
+      retryLabel: "Retry",
+      removeLabel: "Remove",
+    },
+    progress: {
+      title: "Uploading…",
+      secondsRemaining: "seconds remaining",
+      minutesRemaining: "minutes remaining",
+      hoursRemaining: "hours remaining",
+      cancelUpload: "Cancel upload",
+    },
+    result: {
+      delete: "delete",
+    },
+  },
 
   // YouTube
   addYoutubeVideo: "Add YouTube video",

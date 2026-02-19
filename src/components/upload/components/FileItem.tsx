@@ -18,6 +18,12 @@ type FileItemProps = {
 
   disabled: boolean;
   className?: string;
+
+  messages?: {
+    error: FileItemErrorProps["messages"];
+    progress: FileItemProgressProps["messages"];
+    result: FileItemResultProps["messages"];
+  };
 };
 
 function FileItem({
@@ -29,6 +35,7 @@ function FileItem({
   disabled,
   className,
   file,
+  messages,
 }: FileItemProps) {
   if (error)
     return (
@@ -39,6 +46,7 @@ function FileItem({
         onRemove={onRemove}
         disabled={disabled}
         className={className}
+        messages={messages?.error}
       />
     );
 
@@ -52,6 +60,7 @@ function FileItem({
         onRemove={onRemove}
         disabled={disabled}
         className={className}
+        messages={messages?.progress}
       />
     );
 
@@ -63,9 +72,25 @@ function FileItem({
       onRemove={onRemove}
       disabled={disabled}
       className={className}
+      messages={messages?.result}
     />
   );
 }
+
+type FileItemErrorProps = {
+  className?: string;
+  error: string;
+  fileName: string;
+  onRetry: () => void;
+  onRemove: () => void;
+  disabled: boolean;
+  messages?: {
+    errorTitle: string;
+    errorMessage: string;
+    retryLabel: string;
+    removeLabel: string;
+  };
+};
 
 function FileItemError({
   className,
@@ -74,14 +99,13 @@ function FileItemError({
   onRemove,
   disabled,
   fileName,
-}: {
-  className?: string;
-  error: string;
-  fileName: string;
-  onRetry: () => void;
-  onRemove: () => void;
-  disabled: boolean;
-}) {
+  messages = {
+    errorTitle: "Upload failed!",
+    errorMessage: "Error message",
+    retryLabel: "Retry upload",
+    removeLabel: "Cancel upload",
+  },
+}: FileItemErrorProps) {
   return (
     <div
       data-slot="FileItemError"
@@ -93,7 +117,7 @@ function FileItemError({
     >
       <div className="flex flex-col gap-0.5 overflow-hidden">
         <p className="flex flex-wrap items-center gap-1 text-xs text-destructive">
-          <span> Upload failed!</span>
+          <span>{messages.errorTitle}</span>
           <span className="truncate">{fileName}</span>
         </p>
         <p className="truncate text-xs leading-4 text-destructive/70">
@@ -107,14 +131,14 @@ function FileItemError({
         className="ms-auto"
         onClick={onRetry}
         disabled={disabled}
-        aria-label="retry upload"
+        aria-label={messages.retryLabel}
       >
         <RefreshCcw className="size-4" aria-hidden="true" />
       </Button>
       <Button
         size="icon-sm"
         variant="destructive"
-        aria-label="cancel upload"
+        aria-label={messages.removeLabel}
         onClick={onRemove}
         disabled={disabled}
       >
@@ -124,6 +148,23 @@ function FileItemError({
   );
 }
 
+type FileItemProgressProps = {
+  className?: string;
+  progress: number;
+  uploadSpeed: number;
+  onRemove: () => void;
+  disabled: boolean;
+  fileName: string;
+  fileSize: number;
+  messages?: {
+    title: string;
+    secondsRemaining: string;
+    minutesRemaining: string;
+    hoursRemaining: string;
+    cancelUpload: string;
+  };
+};
+
 function FileItemProgress({
   className,
   progress,
@@ -132,15 +173,14 @@ function FileItemProgress({
   disabled,
   fileName,
   fileSize,
-}: {
-  className?: string;
-  progress: number;
-  uploadSpeed: number;
-  onRemove: () => void;
-  disabled: boolean;
-  fileName: string;
-  fileSize: number;
-}) {
+  messages = {
+    title: "Uploading...",
+    secondsRemaining: "seconds remaining",
+    minutesRemaining: "minutes remaining",
+    hoursRemaining: "hours remaining",
+    cancelUpload: "cancel upload",
+  },
+}: FileItemProgressProps) {
   function calculateRemainingUploadTime() {
     if (!uploadSpeed || progress === 0) return null;
 
@@ -150,10 +190,10 @@ function FileItemProgress({
     const remainingSeconds = remainingBytes / uploadSpeed;
 
     if (remainingSeconds < 60)
-      return `${Math.round(remainingSeconds)} seconds remaining`;
+      return `${Math.round(remainingSeconds)} ${messages.secondsRemaining}`;
     if (remainingSeconds < 3600)
-      return `${Math.round(remainingSeconds / 60)} minutes remaining`;
-    return `${Math.round(remainingSeconds / 3600)} hours remaining`;
+      return `${Math.round(remainingSeconds / 60)} ${messages.minutesRemaining}`;
+    return `${Math.round(remainingSeconds / 3600)} ${messages.hoursRemaining}`;
   }
 
   return (
@@ -164,14 +204,14 @@ function FileItemProgress({
       <div className="flex items-center justify-between gap-2">
         <div className="flex flex-col gap-1 overflow-hidden">
           <p className="flex items-center gap-1 text-sm">
-            <span>Uploading...</span>
+            <span>{messages.title}</span>
             <span className="truncate">{fileName}</span>
           </p>
           <p className="truncate text-xs leading-4 text-muted-foreground">
             <span className="tracking-wide">{`${progress.toFixed(2)}% • `}</span>
             <span>
               {calculateRemainingUploadTime() || ""} {"•"}{" "}
-              {formatBytes(uploadSpeed)}
+              <span dir="auto">{formatBytes(uploadSpeed)}</span>
             </span>
           </p>
         </div>
@@ -179,7 +219,7 @@ function FileItemProgress({
         <Button
           size="icon-sm"
           variant="destructive"
-          aria-label="cancel upload"
+          aria-label={messages.cancelUpload}
           onClick={onRemove}
           disabled={disabled}
           className="mb-auto"
@@ -193,14 +233,7 @@ function FileItemProgress({
   );
 }
 
-function FileItemResult({
-  fileName,
-  fileType,
-  fileSize,
-  onRemove,
-  disabled,
-  className,
-}: {
+type FileItemResultProps = {
   fileName: string;
   fileType: string;
   fileSize?: number;
@@ -208,7 +241,22 @@ function FileItemResult({
   onRemove: () => void;
   disabled: boolean;
   className?: string;
-}) {
+  messages?: {
+    delete: string;
+  };
+};
+
+function FileItemResult({
+  fileName,
+  fileType,
+  fileSize,
+  onRemove,
+  disabled,
+  className,
+  messages = {
+    delete: "delete",
+  },
+}: FileItemResultProps) {
   return (
     <div
       data-slot="FileItemResult"
@@ -233,7 +281,7 @@ function FileItemResult({
       <Button
         size="icon-sm"
         variant="destructive"
-        aria-label="remove upload"
+        aria-label={messages?.delete}
         className="ms-auto"
         onClick={onRemove}
         disabled={disabled}

@@ -88,6 +88,24 @@ export const editorFaMessages = {
   retry: "تلاش مجدد",
   resetAndExitPreview: "بازنشانی و خروج از پیش‌نمایش",
   addImageVideoAudio: "افزودن تصویر، ویدیو یا صدا",
+  FileItem: {
+    error: {
+      errorTitle: "آپلود ناموفق بود",
+      errorMessage: "در آپلود فایل مشکلی پیش آمد. لطفاً دوباره تلاش کنید.",
+      retryLabel: "تلاش مجدد",
+      removeLabel: "حذف",
+    },
+    progress: {
+      title: "در حال آپلود…",
+      secondsRemaining: "ثانیه مانده",
+      minutesRemaining: "دقیقه مانده",
+      hoursRemaining: "ساعت مانده",
+      cancelUpload: "لغو آپلود",
+    },
+    result: {
+      delete: "حذف",
+    },
+  },
 
   // YouTube
   addYoutubeVideo: "افزودن ویدیو یوتیوب",
