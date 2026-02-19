@@ -3,6 +3,6 @@ import type { PropsWithChildren } from "react";
 
 export default function DirectionProvider({ children }: PropsWithChildren) {
   return (
-    <ShadcnDirectionProvider dir="rtl">{children}</ShadcnDirectionProvider>
+    <ShadcnDirectionProvider dir="ltr">{children}</ShadcnDirectionProvider>
   );
 }

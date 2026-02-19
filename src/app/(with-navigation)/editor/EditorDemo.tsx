@@ -1,5 +1,7 @@
 "use client";
 
+import { Badge } from "@/components/ui/badge";
+
 import { TiptapEditorDynamic } from "./_components/rich-text-editor/TiptapEditor";
 
 export const htmlContent = `
@@ -10,12 +12,20 @@ export const htmlContent = `
 
 export default function EditorDemo() {
   return (
-    <TiptapEditorDynamic
-      content={htmlContent}
-      onUpdate={({ editor }) => {
-        // eslint-disable-next-line no-console
-        console.log(editor.getHTML());
-      }}
-    />
+    <>
+      <Badge
+        variant="warning"
+        className="mx-auto mb-8 block px-3 py-2 text-3xl"
+      >
+        Editor BETA
+      </Badge>
+      <TiptapEditorDynamic
+        content={htmlContent}
+        onUpdate={({ editor }) => {
+          // eslint-disable-next-line no-console
+          console.log(editor.getHTML());
+        }}
+      />
+    </>
   );
 }

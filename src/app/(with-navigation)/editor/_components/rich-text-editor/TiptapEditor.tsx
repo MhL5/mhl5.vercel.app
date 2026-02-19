@@ -32,7 +32,7 @@ import {
 import { TextAlignPopover } from "./extensions/text-align/components/TextAlignPopover";
 import { YoutubeDialog } from "./extensions/youtube/components/YoutubeDialog";
 import { useSyncEditorEditable } from "./hooks/useSyncEditorEditable";
-import { editorFaMessages } from "./messages/fa";
+import { editorEnMessages } from "./messages/en";
 import "./tiptap-styles.css";
 
 type TiptapEditorProps = {
@@ -78,7 +78,7 @@ function TiptapEditor({
       dir={direction}
       className={cn("w-full overflow-hidden rounded-sm border", className)}
     >
-      <EditorMessagesProvider messages={editorFaMessages}>
+      <EditorMessagesProvider messages={editorEnMessages}>
         <EditorContext value={{ editor: memoizedEditor }}>
           <div
             data-slot="editor-toolbar"
