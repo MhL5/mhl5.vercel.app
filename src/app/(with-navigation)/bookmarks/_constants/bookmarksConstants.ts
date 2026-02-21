@@ -66,6 +66,13 @@ const toolsBookmarks: Bookmark[] = [
     url: "https://tweakcn.com/",
     category: "tools",
   },
+  {
+    title: "React doctor",
+    description:
+      "One command scans your codebase for security, performance, correctness, and architecture issues, then outputs a 0–100 score with actionable diagnostics.",
+    url: "https://github.com/millionco/react-doctor",
+    category: "tools",
+  },
 ];
 const developmentBookmarks: Bookmark[] = [
   {
