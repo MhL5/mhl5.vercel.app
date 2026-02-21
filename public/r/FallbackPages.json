@@ -5,7 +5,6 @@
   "title": "FallbackPages",
   "description": "loading, error and not found pages.",
   "registryDependencies": [
-    "https://mhl5.vercel.app/r/checks.json",
     "button"
   ],
   "files": [
@@ -16,19 +15,19 @@
     },
     {
       "path": "src/app/not-found.tsx",
-      "content": "import { FallbackPage } from \"@/registry/new-york/FallbackPages/FallbackPages\";\n\nexport default function NotFound() {\n  return <FallbackPage variant=\"not-found\" />;\n}\n",
+      "content": "import { FallbackPage } from \"@/registry/new-york/FallbackPages/FallbackPages\";\r\n\r\nexport default function NotFound() {\r\n  return <FallbackPage variant=\"not-found\" />;\r\n}\r\n",
       "type": "registry:page",
       "target": "src/app/not-found.tsx"
     },
     {
       "path": "src/app/loading.tsx",
-      "content": "import { FallbackPage } from \"@/registry/new-york/FallbackPages/FallbackPages\";\n\nexport default function Loading() {\n  return <FallbackPage variant=\"loading\" />;\n}\n",
+      "content": "import { FallbackPage } from \"@/registry/new-york/FallbackPages/FallbackPages\";\r\n\r\nexport default function Loading() {\r\n  return <FallbackPage variant=\"loading\" />;\r\n}\r\n",
       "type": "registry:page",
       "target": "src/app/loading.tsx"
     },
     {
       "path": "src/app/error.tsx",
-      "content": "\"use client\";\n\nimport { FallbackPage } from \"@/registry/new-york/FallbackPages/FallbackPages\";\n\ntype ErrorProps = {\n  error: Error & { digest?: string };\n  reset: () => void;\n};\n\nexport default function FallbackSection({ reset }: ErrorProps) {\n  return <FallbackPage variant=\"error\" reset={reset} />;\n}\n",
+      "content": "\"use client\";\r\n\r\nimport { FallbackPage } from \"@/registry/new-york/FallbackPages/FallbackPages\";\r\n\r\ntype ErrorProps = {\r\n  error: Error & { digest?: string };\r\n  reset: () => void;\r\n};\r\n\r\nexport default function FallbackSection({ reset }: ErrorProps) {\r\n  return <FallbackPage variant=\"error\" reset={reset} />;\r\n}\r\n",
       "type": "registry:page",
       "target": "src/app/error.tsx"
     },

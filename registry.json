@@ -85,10 +85,7 @@
       "meta": {
         "url": "/snippets/components/FallbackPages"
       },
-      "registryDependencies": [
-        "https://mhl5.vercel.app/r/checks.json",
-        "button"
-      ],
+      "registryDependencies": ["button"],
       "files": [
         {
           "path": "src/registry/new-york/FallbackPages/FallbackPages.tsx",
