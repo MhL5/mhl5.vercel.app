@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
 import { CONTACT_SUPPORT_LINK } from "@/constants";
 import { cn } from "@/lib/utils";
-import { ArrowLeft, Circle, Home, LogIn, RotateCcw } from "lucide-react";
+import { ArrowLeft, Home, LogIn, RotateCcw } from "lucide-react";
 import type { Route } from "next";
 
 const colorClassNames = {
@@ -108,12 +108,10 @@ export function FallbackPage(props: FallbackPageProps) {
         )}
       >
         <div className="isolate grid grid-cols-1 grid-rows-1 place-items-center">
-          <Circle className="z-10 col-start-1 row-start-1 size-22 animate-circleSvgGrow bg-transparent stroke-1 text-primary [--circumference:572px]" />
+          <Logo className="z-10 col-start-1 row-start-1 size-19 animate-scaleUpAndDown rounded-full bg-primary p-1" />
 
-          <Logo className="z-10 col-start-1 row-start-1 size-19 animate-loadingFadeIn rounded-full bg-primary p-1 opacity-0" />
-
-          <div className="col-start-1 col-end-1 row-start-1 row-end-1 h-20 w-20 animate-pingMd rounded-full bg-primary/80 delay-1000 starting:opacity-0" />
-          <div className="col-start-1 col-end-1 row-start-1 row-end-1 h-20 w-20 animate-pingSm rounded-full bg-primary/80 delay-1000 starting:opacity-0" />
+          <div className="col-start-1 col-end-1 row-start-1 row-end-1 h-20 w-20 animate-pingMd rounded-full bg-primary/80" />
+          <div className="col-start-1 col-end-1 row-start-1 row-end-1 h-20 w-20 animate-pingSm rounded-full bg-primary/80" />
         </div>
       </section>
     );
