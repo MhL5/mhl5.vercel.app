@@ -110,6 +110,7 @@ export default function Header() {
               variant="ghost"
               size="icon"
               tooltipContent={<>Website source code</>}
+              asChild
             >
               <Link
                 href={GITHUB_REPO_URL}
