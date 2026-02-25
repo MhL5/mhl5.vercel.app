@@ -60,7 +60,6 @@ export default function Img({
         alt={alt}
         unoptimized
         {...props}
-        loading="lazy"
       />
     );
 
