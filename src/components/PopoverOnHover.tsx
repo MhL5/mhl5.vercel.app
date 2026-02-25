@@ -1,6 +1,12 @@
+"use client";
+
 import {
   Popover,
+  PopoverAnchor,
   PopoverContent,
+  PopoverDescription,
+  PopoverHeader,
+  PopoverTitle,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import {
@@ -13,19 +19,17 @@ import {
   useState,
 } from "react";
 
-type UseHoverWithTimeoutOptions = {
-  onEnter: () => void;
-  onLeave: () => void;
-  enterDelay?: number;
-  leaveDelay?: number;
-};
-
 function useHoverWithTimeout({
   onEnter,
   onLeave,
   enterDelay = 100,
   leaveDelay = 200,
-}: UseHoverWithTimeoutOptions) {
+}: {
+  onEnter: () => void;
+  onLeave: () => void;
+  enterDelay?: number;
+  leaveDelay?: number;
+}) {
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const onEnterRef = useRef(onEnter);
   const onLeaveRef = useRef(onLeave);
@@ -79,9 +83,9 @@ type ContextType = {
   handleMouseLeave: () => void;
 };
 
-const EditorPopoverContext = createContext<ContextType | null>(null);
+const PopoverOnHoverContext = createContext<ContextType | null>(null);
 
-function EditorPopover({
+function PopoverOnHover({
   onOpenChange,
   ...props
 }: ComponentProps<typeof Popover>) {
@@ -92,7 +96,7 @@ function EditorPopover({
   });
 
   return (
-    <EditorPopoverContext
+    <PopoverOnHoverContext
       value={{
         open,
         onOpenChange: setOpen,
@@ -109,23 +113,25 @@ function EditorPopover({
         }}
         {...props}
       />
-    </EditorPopoverContext>
+    </PopoverOnHoverContext>
   );
 }
 
-function useEditorPopover() {
-  const context = use(EditorPopoverContext);
+function usePopoverOnHoverContext() {
+  const context = use(PopoverOnHoverContext);
   if (!context)
-    throw new Error("useEditorPopover must be used within a EditorPopover");
+    throw new Error(
+      "usePopoverOnHoverContext must be used within a PopoverOnHoverContext",
+    );
   return context;
 }
 
-function EditorPopoverTrigger({
+function PopoverOnHoverTrigger({
   onMouseLeave,
   onMouseEnter,
   ...props
 }: ComponentProps<typeof PopoverTrigger>) {
-  const { handleMouseEnter, handleMouseLeave } = useEditorPopover();
+  const { handleMouseEnter, handleMouseLeave } = usePopoverOnHoverContext();
   return (
     <PopoverTrigger
       onMouseLeave={(e) => {
@@ -141,12 +147,12 @@ function EditorPopoverTrigger({
   );
 }
 
-function EditorPopoverContent({
+function PopoverOnHoverContent({
   onMouseEnter,
   onMouseLeave,
   ...props
 }: ComponentProps<typeof PopoverContent>) {
-  const { handleMouseLeave, handleMouseEnter } = useEditorPopover();
+  const { handleMouseLeave, handleMouseEnter } = usePopoverOnHoverContext();
   return (
     <PopoverContent
       onMouseLeave={(e) => {
@@ -162,4 +168,12 @@ function EditorPopoverContent({
   );
 }
 
-export { EditorPopover, EditorPopoverContent, EditorPopoverTrigger };
+export {
+  PopoverOnHover,
+  PopoverOnHoverTrigger,
+  PopoverOnHoverContent,
+  PopoverAnchor as PopoverOnHoverAnchor,
+  PopoverDescription as PopoverOnHoverDescription,
+  PopoverHeader as PopoverOnHoverHeader,
+  PopoverTitle as PopoverOnHoverTitle,
+};

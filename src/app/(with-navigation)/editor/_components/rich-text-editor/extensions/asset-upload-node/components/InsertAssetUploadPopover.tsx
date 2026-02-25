@@ -1,14 +1,14 @@
 "use client";
 
+import {
+  PopoverOnHover,
+  PopoverOnHoverContent,
+  PopoverOnHoverTrigger,
+} from "@/components/PopoverOnHover";
 import { Button } from "@/components/ui/button";
 import { Paperclip } from "lucide-react";
 
 import { EditorButton } from "../../../components/EditorButton";
-import {
-  EditorPopover,
-  EditorPopoverContent,
-  EditorPopoverTrigger,
-} from "../../../components/EditorPopover";
 import { useEditorMessages } from "../../../context/EditorMessagesContext";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 import { ASSET_UPLOAD_NODE_OPTIONS } from "../constants";
@@ -23,8 +23,8 @@ export function InsertAssetUploadPopover() {
   };
 
   return (
-    <EditorPopover>
-      <EditorPopoverTrigger asChild>
+    <PopoverOnHover>
+      <PopoverOnHoverTrigger asChild>
         <EditorButton
           aria-label={messages.addImageVideoAudio}
           tooltipContent={null}
@@ -33,8 +33,8 @@ export function InsertAssetUploadPopover() {
         >
           <Paperclip />
         </EditorButton>
-      </EditorPopoverTrigger>
-      <EditorPopoverContent align="end" className="grid w-fit gap-0.5 p-1">
+      </PopoverOnHoverTrigger>
+      <PopoverOnHoverContent align="end" className="grid w-fit gap-0.5 p-1">
         {ASSET_UPLOAD_NODE_OPTIONS.map(({ mediaType, icon: Icon }) => (
           <Button
             key={mediaType}
@@ -46,7 +46,7 @@ export function InsertAssetUploadPopover() {
             {labelMap[mediaType]}
           </Button>
         ))}
-      </EditorPopoverContent>
-    </EditorPopover>
+      </PopoverOnHoverContent>
+    </PopoverOnHover>
   );
 }

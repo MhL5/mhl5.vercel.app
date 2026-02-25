@@ -1,3 +1,8 @@
+import {
+  PopoverOnHover,
+  PopoverOnHoverContent,
+  PopoverOnHoverTrigger,
+} from "@/components/PopoverOnHover";
 import { DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { Kbd } from "@/components/ui/kbd";
 import { useEditorState } from "@tiptap/react";
@@ -11,11 +16,6 @@ import {
 } from "lucide-react";
 
 import { EditorButton } from "../../../components/EditorButton";
-import {
-  EditorPopover,
-  EditorPopoverContent,
-  EditorPopoverTrigger,
-} from "../../../components/EditorPopover";
 import { useEditorMessages } from "../../../context/EditorMessagesContext";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 import { getShortcut } from "../../../utils/getShortcut";
@@ -100,8 +100,8 @@ export function TextAlignPopover() {
   };
 
   return (
-    <EditorPopover>
-      <EditorPopoverTrigger asChild>
+    <PopoverOnHover>
+      <PopoverOnHoverTrigger asChild>
         <EditorButton
           isActive={activeAlignment.alignment !== null}
           tooltipContent={null}
@@ -112,8 +112,8 @@ export function TextAlignPopover() {
           <activeAlignment.icon />
           <ChevronDown className="size-3 shrink-0" />
         </EditorButton>
-      </EditorPopoverTrigger>
-      <EditorPopoverContent align="start" className="grid w-fit gap-0.5 p-1">
+      </PopoverOnHoverTrigger>
+      <PopoverOnHoverContent align="start" className="grid w-fit gap-0.5 p-1">
         {buttons.map(
           ({ alignment, icon: Icon, isActive, getShortcutKey, label }) => (
             <EditorButton
@@ -146,7 +146,7 @@ export function TextAlignPopover() {
             </EditorButton>
           </>
         )}
-      </EditorPopoverContent>
-    </EditorPopover>
+      </PopoverOnHoverContent>
+    </PopoverOnHover>
   );
 }

@@ -1,3 +1,8 @@
+import {
+  PopoverOnHover,
+  PopoverOnHoverContent,
+  PopoverOnHoverTrigger,
+} from "@/components/PopoverOnHover";
 import { Kbd } from "@/components/ui/kbd";
 import { useEditorState } from "@tiptap/react";
 import {
@@ -12,11 +17,6 @@ import {
 } from "lucide-react";
 
 import { EditorButton } from "../../../components/EditorButton";
-import {
-  EditorPopover,
-  EditorPopoverContent,
-  EditorPopoverTrigger,
-} from "../../../components/EditorPopover";
 import { useEditorMessages } from "../../../context/EditorMessagesContext";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 import { getShortcut } from "../../../utils/getShortcut";
@@ -92,8 +92,8 @@ export function HeadingPopover() {
   };
 
   return (
-    <EditorPopover>
-      <EditorPopoverTrigger asChild>
+    <PopoverOnHover>
+      <PopoverOnHoverTrigger asChild>
         <EditorButton
           isActive={activeHeading.title !== messages.heading}
           tooltipContent={null}
@@ -107,9 +107,9 @@ export function HeadingPopover() {
           <activeHeading.icon className="size-4 shrink-0" />
           <ChevronDown className="size-3 shrink-0" />
         </EditorButton>
-      </EditorPopoverTrigger>
+      </PopoverOnHoverTrigger>
 
-      <EditorPopoverContent align="start" className="grid w-fit gap-0.5 p-1">
+      <PopoverOnHoverContent align="start" className="grid w-fit gap-0.5 p-1">
         {headingsList.map(
           ({ icon: Icon, onClick, title, isActive, shortcut }) => (
             <EditorButton
@@ -126,7 +126,7 @@ export function HeadingPopover() {
             </EditorButton>
           ),
         )}
-      </EditorPopoverContent>
-    </EditorPopover>
+      </PopoverOnHoverContent>
+    </PopoverOnHover>
   );
 }

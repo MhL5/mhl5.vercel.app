@@ -1,3 +1,8 @@
+import {
+  PopoverOnHover,
+  PopoverOnHoverContent,
+  PopoverOnHoverTrigger,
+} from "@/components/PopoverOnHover";
 import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -10,11 +15,6 @@ import { type ComponentProps, Fragment, useId } from "react";
 import z from "zod";
 
 import { EditorButton } from "../../../components/EditorButton";
-import {
-  EditorPopover,
-  EditorPopoverContent,
-  EditorPopoverTrigger,
-} from "../../../components/EditorPopover";
 import { useEditorMessages } from "../../../context/EditorMessagesContext";
 import { useCurrentEditor } from "../../../hooks/useCurrentEditor";
 
@@ -161,8 +161,8 @@ function TableBubbleMenu() {
 function TablePopover() {
   const { messages } = useEditorMessages();
   return (
-    <EditorPopover>
-      <EditorPopoverTrigger asChild>
+    <PopoverOnHover>
+      <PopoverOnHoverTrigger asChild>
         <EditorButton
           isActive={false}
           tooltipContent={null}
@@ -170,12 +170,12 @@ function TablePopover() {
         >
           <TableIcon />
         </EditorButton>
-      </EditorPopoverTrigger>
+      </PopoverOnHoverTrigger>
 
-      <EditorPopoverContent className="w-fit p-3">
+      <PopoverOnHoverContent className="w-fit p-3">
         <TablePopoverContent />
-      </EditorPopoverContent>
-    </EditorPopover>
+      </PopoverOnHoverContent>
+    </PopoverOnHover>
   );
 }
 
