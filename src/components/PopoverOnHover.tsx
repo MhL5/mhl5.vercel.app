@@ -19,7 +19,7 @@ import {
   useState,
 } from "react";
 
-function useHoverWithTimeout({
+function useHoverWithDelay({
   onEnter,
   onLeave,
   enterDelay = 100,
@@ -90,7 +90,7 @@ function PopoverOnHover({
   ...props
 }: ComponentProps<typeof Popover>) {
   const [open, setOpen] = useState(false);
-  const { handleMouseEnter, handleMouseLeave } = useHoverWithTimeout({
+  const { handleMouseEnter, handleMouseLeave } = useHoverWithDelay({
     onEnter: () => setOpen(true),
     onLeave: () => setOpen(false),
   });
