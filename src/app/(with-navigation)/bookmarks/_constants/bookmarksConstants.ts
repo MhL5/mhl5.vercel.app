@@ -139,6 +139,12 @@ const uiBookmarks: Bookmark[] = [
     category: "ui",
   },
   {
+    title: "shadcnspace",
+    description: "Extraordinary Shadcn UI blocks, components, and templates",
+    url: "https://shadcnspace.com/components/badge",
+    category: "ui",
+  },
+  {
     title: "@optics/design-system",
     description:
       "More than just a design system. It's a collection of tools and resources that help build a more accessible, intuitive, and aesthetically pleasing web applications.",
