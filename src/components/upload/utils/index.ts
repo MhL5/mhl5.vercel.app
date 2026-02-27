@@ -28,9 +28,9 @@ export function validateFile({
     const fileExtension = `.${file.name.split(".").pop()}`;
 
     const isAccepted = acceptedTypes.some((type) => {
-      if (type.startsWith(".")) {
+      if (type.startsWith("."))
         return fileExtension.toLowerCase() === type.toLowerCase();
-      }
+
       if (type.endsWith("/*")) {
         const baseType = type.split("/")[0];
         return fileType.startsWith(`${baseType}/`);
@@ -42,4 +42,37 @@ export function validateFile({
   }
 
   return null;
+}
+
+export type FileValidationResult = {
+  validFiles: File[];
+  errors: Array<{ file: File; error: string }>;
+};
+
+export function validateFiles({
+  files,
+  accept,
+  maxSize,
+}: {
+  files: File[];
+  maxSize: number;
+  accept: string;
+}) {
+  if (files.length === 0) return { validFiles: [], errors: [] };
+
+  return files.reduce<FileValidationResult>(
+    (acc, file) => {
+      const error = validateFile({
+        file,
+        maxSize,
+        accept,
+      });
+
+      if (error) acc.errors.push({ file, error });
+      else acc.validFiles.push(file);
+
+      return acc;
+    },
+    { validFiles: [], errors: [] },
+  );
 }

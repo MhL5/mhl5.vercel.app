@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { DropZoneProps } from "@/components/upload/DropZone";
-import DropZone from "@/components/upload/DropZone";
+import { DropZone } from "@/components/upload/DropZone";
 import { useUploadFile } from "@/components/upload/api/uploadFile";
 import { FileItem } from "@/components/upload/components/FileItem";
 import { cn } from "@/lib/utils";

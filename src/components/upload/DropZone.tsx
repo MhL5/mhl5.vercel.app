@@ -5,16 +5,7 @@ import { FileUpIcon } from "lucide-react";
 import { type ChangeEvent, type DragEvent, useRef, useState } from "react";
 import { toast } from "sonner";
 
-import { formatBytes, validateFile } from "./utils";
-
-type BaseProps = {
-  className?: string;
-  disabled: boolean;
-  accept: "image/*" | "video/*" | "audio/*";
-  maxSize?: number;
-  multiple: boolean;
-  inputId?: string;
-};
+import { formatBytes, validateFiles } from "./utils";
 
 type Context = {
   source: "drag-drop" | "click";
@@ -29,44 +20,65 @@ export type DropZoneProps = (
       multiple: false;
       onFileSelect: (file: File, context: Context) => void;
     }
-) &
-  BaseProps;
+) & {
+  className?: string;
+  disabled: boolean;
+  accept: "image/*" | "video/*" | "audio/*";
+  maxSize?: number;
+  multiple: boolean;
+  inputId?: string;
+};
 
 const DEFAULT_MAX_SIZE = 1000 * 1024 * 1024; // 1GB
 
-export default function DropZone(props: DropZoneProps) {
-  function validateFiles(files: File[]) {
-    if (files.length === 0) {
-      toast.error("No files to validate");
-      return null;
-    }
+export function DropZone(props: DropZoneProps) {
+  const { disabled, accept, multiple, maxSize, className, inputId } = props;
 
-    const validFiles = files.filter((file) => {
-      const error = validateFile({
-        file,
-        maxSize: props.maxSize ?? DEFAULT_MAX_SIZE,
-        accept: props.accept,
-      });
-      if (error) {
-        toast.error(error);
-        return false;
-      }
-      return true;
-    });
+  const [isDragging, setIsDragging] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-    if (validFiles.length === 0) return null;
+  /**
+   * Handles the drop event when files are dropped onto the drop zone.
+   */
+  function handleDrop(e: DragEvent<HTMLElement>) {
+    e.preventDefault();
+    e.stopPropagation();
 
-    return validFiles;
+    if (disabled) return;
+
+    const files = Array.from(e.dataTransfer.files);
+    if (!files || files.length === 0) return;
+    handleSelectFiles(files, { source: "drag-drop" });
+
+    setIsDragging(false);
   }
 
+  /**
+   * Handles the click event when the user selects files using the file input.
+   */
+  function handleClick(e: ChangeEvent<HTMLInputElement, Element>) {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+    handleSelectFiles(Array.from(files), { source: "click" });
+  }
+
+  /**
+   * Validates the selected files and calls the appropriate callback based on the `multiple` prop.
+   */
   function handleSelectFiles(files: File[], context: Context) {
-    if (props.disabled) return;
+    if (disabled) return;
 
-    const validFiles = validateFiles(files);
-    if (!validFiles) return;
+    const { validFiles, errors } = validateFiles({
+      files,
+      maxSize: maxSize ?? DEFAULT_MAX_SIZE,
+      accept: accept,
+    });
 
-    if (props.multiple) props.onFilesSelect(validFiles, context);
-    if (!props.multiple) {
+    if (errors) errors.forEach(({ error }) => toast.error(error));
+    if (!validFiles || validFiles.length === 0) return;
+
+    if (multiple) props.onFilesSelect(validFiles, context);
+    if (!multiple) {
       if (validFiles.length > 1)
         return toast.error(
           "Only one file can be uploaded at a time, please select one file at a time.",
@@ -76,84 +88,26 @@ export default function DropZone(props: DropZoneProps) {
   }
 
   return (
-    <DropZoneInternal
-      onDrop={(e) => {
-        const files = Array.from(e.dataTransfer.files);
-        if (!files || files.length === 0) return;
-        handleSelectFiles(files, { source: "drag-drop" });
-      }}
-      onChange={(e) => {
-        const files = e.target.files;
-        if (!files || files.length === 0) return;
-        handleSelectFiles(Array.from(files), { source: "click" });
-      }}
-      {...props}
-    />
-  );
-}
-
-type DropZoneInternalProps = BaseProps & {
-  onDrop: (e: DragEvent<HTMLElement>) => void;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-};
-
-/**
- * for simplicity this component is internal
- * it only handles drag drop and click to browse
- */
-function DropZoneInternal({
-  onDrop,
-  onChange,
-  disabled,
-  accept,
-  multiple,
-  maxSize,
-  className,
-  inputId,
-}: DropZoneInternalProps) {
-  const [isDragging, setIsDragging] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  function handleDragEnter(e: DragEvent<HTMLElement>) {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(true);
-  }
-
-  function handleDragLeave(e: DragEvent<HTMLElement>) {
-    e.preventDefault();
-    e.stopPropagation();
-    if (e.currentTarget.contains(e.relatedTarget as Node)) return;
-
-    setIsDragging(false);
-  }
-
-  function handleClick() {
-    if (inputRef.current) inputRef.current.click();
-  }
-
-  function handleDragOver(e: DragEvent<HTMLElement>) {
-    e.preventDefault();
-    e.stopPropagation();
-  }
-
-  function handleDrop(e: DragEvent<HTMLElement>) {
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (disabled) return;
-    onDrop(e);
-
-    setIsDragging(false);
-  }
-
-  return (
     <button
       type="button"
-      onClick={handleClick}
-      onDragEnter={handleDragEnter}
-      onDragLeave={handleDragLeave}
-      onDragOver={handleDragOver}
+      onClick={() => {
+        if (inputRef.current) inputRef.current.click();
+      }}
+      onDragEnter={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDragging(true);
+      }}
+      onDragLeave={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.currentTarget.contains(e.relatedTarget as Node)) return;
+        setIsDragging(false);
+      }}
+      onDragOver={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      }}
       onDrop={handleDrop}
       data-disabled={disabled}
       data-dragging={isDragging}
@@ -161,10 +115,11 @@ function DropZoneInternal({
         "flex min-h-45 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-border p-6 transition-colors hover:bg-primary/10 has-disabled:pointer-events-none has-disabled:opacity-50 has-[input:focus]:border-ring has-[input:focus]:ring-[3px] has-[input:focus]:ring-ring/50 data-[disabled=true]:opacity-50 data-[dragging=true]:border-solid data-[dragging=true]:bg-primary/10",
         className,
       )}
+      disabled={disabled}
     >
       <input
         type="file"
-        onChange={onChange}
+        onChange={handleClick}
         ref={inputRef}
         disabled={disabled}
         multiple={multiple}
