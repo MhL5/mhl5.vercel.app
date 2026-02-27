@@ -3,8 +3,8 @@
 import { CopyButton } from "@/components/buttons/CopyButton";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useLocalStorage } from "@/registry/hooks/useLocalStorage/useLocalStorage";
 import { TerminalIcon } from "lucide-react";
-import { useState } from "react";
 
 const PackageManagersActions = {
   install: {
@@ -42,7 +42,10 @@ export default function CliCommandCode({
       code: `${code} ${command}`,
     }),
   );
-  const [selectedTab, setSelectedTab] = useState(commands[0].label);
+  const [selectedTab, setSelectedTab] = useLocalStorage(
+    "CliCommandCodeSelectedTab",
+    commands[0].label,
+  );
 
   return (
     <Card className="not-prose bg-code-background p-0">

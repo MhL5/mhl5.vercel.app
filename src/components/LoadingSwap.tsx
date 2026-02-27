@@ -3,11 +3,11 @@
 import { cn } from "@/lib/utils";
 import { type ComponentProps, type ReactNode, createContext, use } from "react";
 
-type LoadingSwapContextType = {
+type LoadingSwapContextValue = {
   isLoading: boolean;
 };
 
-const LoadingSwapContext = createContext<LoadingSwapContextType | null>(null);
+const LoadingSwapContext = createContext<LoadingSwapContextValue | null>(null);
 
 function useLoadingSwap() {
   const context = use(LoadingSwapContext);
@@ -19,7 +19,7 @@ function useLoadingSwap() {
 }
 
 type LoadingSwapProps = {
-  isLoading: LoadingSwapContextType["isLoading"];
+  isLoading: LoadingSwapContextValue["isLoading"];
   children: ReactNode;
 };
 
@@ -54,6 +54,8 @@ function LoadingSwapLoading({ className, ...props }: ComponentProps<"div">) {
   const { isLoading } = useLoadingSwap();
   return (
     <div
+      role="status"
+      aria-label="loading..."
       className={cn(
         "col-start-1 col-end-2 row-start-1 row-end-2",
         isLoading ? "visible" : "invisible",

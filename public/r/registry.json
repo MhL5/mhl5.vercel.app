@@ -90,40 +90,13 @@
         {
           "path": "src/registry/new-york/FallbackPages/FallbackPages.tsx",
           "type": "registry:component"
-        },
-        {
-          "path": "src/app/not-found.tsx",
-          "type": "registry:page",
-          "target": "src/app/not-found.tsx"
-        },
-        {
-          "path": "src/app/loading.tsx",
-          "type": "registry:page",
-          "target": "src/app/loading.tsx"
-        },
-        {
-          "path": "src/app/error.tsx",
-          "type": "registry:page",
-          "target": "src/app/error.tsx"
-        },
-        {
-          "path": "src/app/forbidden.tsx",
-          "type": "registry:page",
-          "target": "src/app/forbidden.tsx"
-        },
-        {
-          "path": "src/app/unauthorized.tsx",
-          "type": "registry:page",
-          "target": "src/app/unauthorized.tsx"
         }
       ],
       "cssVars": {
         "theme": {
           "--animate-scaleUpAndDown": "scaleUpAndDown 1.1s ease infinite",
           "--animate-pingMd": "pingMd 1.1s cubic-bezier(0, 0, 0.2, 1) infinite",
-          "--animate-pingSm": "pingSm 1.1s cubic-bezier(0, 0, 0.2, 1) infinite",
-          "--animate-circleSvgGrow": "circleSvgGrow 1200ms",
-          "--animate-loadingFadeIn": "loadingFadeIn 500ms 600ms forwards, scaleUpAndDown 1.1s ease infinite"
+          "--animate-pingSm": "pingSm 1.1s cubic-bezier(0, 0, 0.2, 1) infinite"
         }
       },
       "css": {
@@ -156,22 +129,6 @@
           "100%": {
             "transform": "scale(1.5)",
             "opacity": "0"
-          }
-        },
-        "@keyframes circleSvgGrow": {
-          "from": {
-            "stroke-dasharray": "calc(var(--circumference) * 0), var(--circumference)"
-          },
-          "to": {
-            "stroke-dasharray": "calc(var(--circumference) * 0.25), var(--circumference)"
-          }
-        },
-        "@keyframes loadingFadeIn": {
-          "from": {
-            "opacity": "0"
-          },
-          "to": {
-            "opacity": "1"
           }
         }
       }

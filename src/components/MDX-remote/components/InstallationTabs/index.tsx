@@ -2,19 +2,16 @@ import {
   type ShadcnRegistry,
   getShadcnRegistry,
 } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
+import { InstallationTabsTabs } from "@/components/MDX-remote/components/InstallationTabs/Internal";
+import { tabs } from "@/components/MDX-remote/components/InstallationTabs/constants";
 import { Link } from "@/components/ui/link";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { absoluteUrl } from "@/utils/absoluteUrl";
 import type { Route } from "next";
 
-import CliCommandCode from "./CliCommandCode";
-import CollapsibleCodeCard from "./CollapsibleCodeCard";
-import ComponentSource from "./ComponentSource";
-
-const tabs = {
-  cli: "cli",
-  manual: "manual",
-};
+import CliCommandCode from "../CliCommandCode";
+import CollapsibleCodeCard from "../CollapsibleCodeCard";
+import ComponentSource from "../ComponentSource";
 
 type InstallationTabsProps = {
   name: string;
@@ -25,15 +22,14 @@ export default async function InstallationTabs({
 }: InstallationTabsProps) {
   const {
     filesToCopy,
-    cssVars,
+    formattedCss,
     npmModulesToInstall,
     registryDependencies,
     npmDevModulesToInstall,
   } = await getCodeModuleData(name);
-  const formattedCssVars = getFormattedCssVars(cssVars);
 
   return (
-    <Tabs className="not-prose" defaultValue={tabs.cli}>
+    <InstallationTabsTabs className="not-prose" defaultValue={tabs.cli}>
       <TabsList>
         <TabsTrigger value={tabs.cli}>CLI</TabsTrigger>
         <TabsTrigger value={tabs.manual}>Manual</TabsTrigger>
@@ -97,19 +93,18 @@ export default async function InstallationTabs({
             ))}
           </div>
         )}
-        {typeof formattedCssVars === "string" &&
-          formattedCssVars.trim().length > 0 && (
-            <div className="flex flex-col gap-4">
-              <p>Add the following colors to your CSS file</p>
-              <CollapsibleCodeCard filePath="globals.css">
-                <ComponentSource lang="css" code={formattedCssVars} />
-              </CollapsibleCodeCard>
-            </div>
-          )}
+        {typeof formattedCss === "string" && formattedCss.trim().length > 0 && (
+          <div className="flex flex-col gap-4">
+            <p>Add the following colors to your CSS file</p>
+            <CollapsibleCodeCard filePath="globals.css">
+              <ComponentSource lang="css" code={formattedCss} />
+            </CollapsibleCodeCard>
+          </div>
+        )}
 
         <p>Update the import paths to match your project setup.</p>
       </TabsContent>
-    </Tabs>
+    </InstallationTabsTabs>
   );
 }
 
@@ -118,7 +113,8 @@ async function getCodeModuleData(registryItem: string) {
     ?.default as ShadcnRegistry["items"][number];
   const shadcnRegistry = await getShadcnRegistry();
 
-  const cssVars = registryJson?.cssVars || null;
+  const css = parseJsonToCss(registryJson?.css || {});
+  const formattedCss = getFormattedCssVars(registryJson?.cssVars, css) || null;
 
   const filesToCopy = registryJson.files?.map((file) => {
     const pathFromType =
@@ -167,12 +163,33 @@ async function getCodeModuleData(registryItem: string) {
     npmModulesToInstall,
     registryDependencies,
     npmDevModulesToInstall,
-    cssVars,
+    formattedCss,
   };
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function parseJsonToCss(obj: Record<string, any>, indent = 0): string {
+  let css = "";
+  const spaces = "  ".repeat(indent);
+
+  for (const [key, value] of Object.entries(obj)) {
+    if (typeof value === "object" && !Array.isArray(value)) {
+      // Handle nested objects (keyframes, rules, etc.)
+      css += `${spaces}${key} {\n`;
+      css += parseJsonToCss(value, indent + 1);
+      css += `${spaces}}\n`;
+    } else {
+      // Handle CSS properties
+      css += `${spaces}${key}: ${value};\n`;
+    }
+  }
+
+  return css;
 }
 
 function getFormattedCssVars(
   cssVars: ShadcnRegistry["items"][number]["cssVars"] | null,
+  additionalCss?: string,
 ) {
   if (cssVars == null) return null;
 
@@ -199,8 +216,18 @@ function getFormattedCssVars(
           break;
       }
 
+      const indentedAdditionalCss = additionalCss
+        ? additionalCss
+            .split("\n")
+            .map((line) => (line ? `   ${line}` : line))
+            .join("\n")
+        : "";
+
       return `${cssSelector} {\n${entries
-        .map(([k, v]) => `   --${k}: ${v};`)
+        .map(
+          ([k, v], i, arr) =>
+            `   --${k}: ${v};${i + 1 === arr.length && indentedAdditionalCss ? `\n\n${indentedAdditionalCss}` : ""}`,
+        )
         .join("\n")}\n}\n`;
     })
     .join("\n")
