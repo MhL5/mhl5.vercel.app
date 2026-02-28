@@ -2,7 +2,7 @@
 
 import { getSnippetsCategoryConfig } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
 import { useSnippetsLinks } from "@/app/(with-navigation)/snippets/_context/SnippetsLinksContext";
-import LinkIndicator from "@/components/LinkIndicator";
+import { LinkIndicator } from "@/components/LinkIndicator";
 import { Link } from "@/components/ui/link";
 import { cn } from "@/lib/utils";
 import type { Route } from "next";
