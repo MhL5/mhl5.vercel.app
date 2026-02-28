@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import EditorDemo from "./EditorDemo";
+import EditorDemo from "./_components/EditorDemo";
 
 export const metadata: Metadata = {
   robots: {
