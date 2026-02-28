@@ -18,11 +18,7 @@ function SnippetsLinksProvider({
 }: SnippetsLinksProviderProps) {
   const links = use(linksPromise);
 
-  return (
-    <SnippetsLinksContext.Provider value={links}>
-      {children}
-    </SnippetsLinksContext.Provider>
-  );
+  return <SnippetsLinksContext value={links}>{children}</SnippetsLinksContext>;
 }
 
 function useSnippetsLinks() {

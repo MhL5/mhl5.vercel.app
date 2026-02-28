@@ -4,14 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 7777",
-    "dev:https": "next dev --port 7777 --experimental-https",
     "lint": "eslint .",
     "build": "next build",
     "start": "next start",
     "test": "bun test",
     "typecheck": "next typegen && tsc --noEmit",
-    "registry:build": "shadcn build",
-    "shadcn:mcp": "npx shadcn@latest mcp init --client cursor"
+    "registry:build": "shadcn build"
   },
   "dependencies": {
     "@next/third-parties": "16.1.6",
@@ -41,7 +39,6 @@
     "@tiptap/react": "^3.19.0",
     "@tiptap/starter-kit": "^3.19.0",
     "@vercel/speed-insights": "^1.2.0",
-    "babel-plugin-react-compiler": "^1.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
@@ -59,6 +56,7 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "babel-plugin-react-compiler": "^1.0.0",
     "@tailwindcss/postcss": "^4",
     "@tailwindcss/typography": "^0.5.19",
     "@trivago/prettier-plugin-sort-imports": "^6.0.0",
