@@ -1,4 +1,8 @@
-.tiptap {
+/* 
+ Editor editor styles, these styles are used for the editor
+ these styles should not contain CONTENT TYPOGRAPHY 
+*/
+.tiptap-editor-styles {
   .ProseMirror-selectednode {
     border-radius: calc(var(--radius));
     outline-style: var(--tw-outline-style);
@@ -9,10 +13,6 @@
   &.resize-cursor {
     cursor: ew-resize;
     cursor: col-resize;
-  }
-
-  .tableWrapper {
-    direction: ltr;
   }
 
   td,

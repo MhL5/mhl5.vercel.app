@@ -5,7 +5,6 @@ import Iframe from "../components/Iframe";
 import MdxCodeClient from "../components/MdxCodeClient";
 import MdxHeading from "../components/MdxHeading";
 import MdxLink from "../components/MdxLink";
-import MdxPre from "../components/MdxPre";
 
 export const mdxClientComponents = {
   a: MdxLink,
@@ -15,7 +14,6 @@ export const mdxClientComponents = {
   h4: (props: ComponentProps<"h4">) => <MdxHeading heading="h4" {...props} />,
   h5: (props: ComponentProps<"h5">) => <MdxHeading heading="h5" {...props} />,
   h6: (props: ComponentProps<"h6">) => <MdxHeading heading="h6" {...props} />,
-  pre: MdxPre,
   Alert,
   AlertDescription,
   AlertTitle,

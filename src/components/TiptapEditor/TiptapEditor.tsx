@@ -2,6 +2,7 @@ import { TiptapEditorSkeleton } from "@/components/TiptapEditor/components/Tipta
 import { useDirection } from "@/components/ui/direction";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
+import { tiptapTypography } from "@/styles/typography";
 import {
   type Content,
   EditorContent,
@@ -33,7 +34,7 @@ import { YoutubeDialog } from "./extensions/youtube/components/YoutubeDialog";
 import { useSyncEditorEditable } from "./hooks/useSyncEditorEditable";
 import { EditorMessagesProvider } from "./i18n/EditorMessagesContext";
 import { editorEnMessages } from "./i18n/messages/en";
-import "./tiptap-styles.css";
+import "./tiptap-editor-styles.css";
 
 type TiptapEditorProps = {
   className?: string;
@@ -57,7 +58,8 @@ function TiptapEditor({
     editorProps: {
       attributes: {
         class: cn(
-          "tiptap typography px-0.5 prose-img:my-0 w-full mx-auto overflow-x-hidden focus:outline-none",
+          tiptapTypography,
+          "tiptap-editor-styles mx-auto w-full overflow-x-hidden px-0.5 focus:outline-none",
           // while working with the editor we need to remove the img margin y
           "prose-img:my-0!",
         ),

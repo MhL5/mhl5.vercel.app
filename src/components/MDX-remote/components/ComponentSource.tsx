@@ -1,8 +1,8 @@
-import type { ComponentProps } from "react";
-import { codeToHtml } from "shiki";
 import { CopyButton } from "@/components/buttons/CopyButton";
 import { cn } from "@/lib/utils";
 import { fileReader } from "@/utils/fileReader";
+import type { ComponentProps } from "react";
+import { codeToHtml } from "shiki";
 
 type ComponentSourceProps = {
   lang?: string;
@@ -37,7 +37,7 @@ export default async function ComponentSource({
         contentToCopy={code}
         side="left"
         aria-label="Copy Code"
-        className="absolute top-3 right-3"
+        className="absolute end-3 top-3"
       />
 
       <code

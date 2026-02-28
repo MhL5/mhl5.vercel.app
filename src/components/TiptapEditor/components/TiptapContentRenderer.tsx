@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { tiptapTypography } from "@/styles/typography";
 import type { ComponentProps } from "react";
 
 type TiptapContentRendererProps = {
@@ -13,7 +14,7 @@ export function TiptapContentRenderer({
   return (
     <div
       dangerouslySetInnerHTML={{ __html: htmlContent }}
-      className={cn("typography", className)}
+      className={cn(tiptapTypography, className)}
       {...props}
     />
   );
