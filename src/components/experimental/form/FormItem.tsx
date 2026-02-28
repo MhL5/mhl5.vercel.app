@@ -1,12 +1,11 @@
 "use client";
 
 import { Field } from "@/components/ui/field";
-import { type AnyFieldApi, type AnyFieldMeta } from "@tanstack/react-form";
+import { type AnyFieldApi } from "@tanstack/react-form";
 import { type ComponentProps, createContext, use, useId } from "react";
 
-type FormFieldContextType = {
+type FormFieldContextValue = {
   isInvalid: boolean;
-  fieldStateMeta: AnyFieldMeta;
   field: AnyFieldApi;
 
   formItemId: string;
@@ -20,7 +19,7 @@ type FormFieldContextType = {
   };
 };
 
-const FormFieldContext = createContext<FormFieldContextType | null>(null);
+const FormFieldContext = createContext<FormFieldContextValue | null>(null);
 
 type FormItemProps = {
   field: AnyFieldApi;
@@ -34,7 +33,6 @@ function FormItem({ field, ...props }: FormItemProps) {
   const id = useId();
 
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
-  const fieldStateMeta = field.state.meta;
   const formItemId = `${id}-item`;
   const formDescriptionId = `${id}-description`;
   const formErrorId = `${id}-error`;
@@ -56,7 +54,6 @@ function FormItem({ field, ...props }: FormItemProps) {
         formErrorId,
         isInvalid,
         field,
-        fieldStateMeta,
       }}
     >
       <Field data-invalid={isInvalid} {...props} />

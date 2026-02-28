@@ -15,9 +15,9 @@ function FormItemLabel(props: ComponentProps<typeof FieldLabel>) {
 }
 
 function FormItemError(props: ComponentProps<typeof FieldError>) {
-  const { fieldStateMeta, formErrorId } = useFormItemContext();
+  const { formErrorId, field } = useFormItemContext();
   return (
-    <FieldError id={formErrorId} errors={fieldStateMeta.errors} {...props} />
+    <FieldError id={formErrorId} errors={field.state.meta.errors} {...props} />
   );
 }
 
@@ -26,4 +26,4 @@ function FormItemDescription(props: ComponentProps<typeof FieldDescription>) {
   return <FieldDescription id={formDescriptionId} {...props} />;
 }
 
-export { FormItemLabel, FormItemError, FormItemDescription };
+export { FormItemDescription, FormItemError, FormItemLabel };
