@@ -1,6 +1,5 @@
 import Spinner from "@/components/ui/spinner";
 import dynamic from "next/dynamic";
-import { lazy } from "react";
 
 /**
  * used for dynamically importing components and their source codes
@@ -46,7 +45,9 @@ export const PreviewComponents = {
   DebouncedInput: dynamic(() => import(componentPaths.DebouncedInput), {
     ...dynamicImportOptions,
   }),
-  DrawerDialog: lazy(() => import(componentPaths.DrawerDialog)),
+  DrawerDialog: dynamic(() => import(componentPaths.DrawerDialog), {
+    ...dynamicImportOptions,
+  }),
   ErrorBoundary: dynamic(() => import(componentPaths.ErrorBoundary), {
     ...dynamicImportOptions,
   }),
@@ -99,7 +100,6 @@ export const PreviewComponents = {
       ...dynamicImportOptions,
     },
   ),
-
   TagsInput: dynamic(() => import(componentPaths.TagsInput), {
     ...dynamicImportOptions,
   }),
