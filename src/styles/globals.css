@@ -5,12 +5,7 @@
 @plugin "@tailwindcss/typography";
 
 @theme inline {
-  --font-space-grotesk:
-    var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-figtree:
-    var(--font-figtree), ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-figtree: var(--font-figtree);
 
   --container-8xl: 96rem;
   --container-9xl: 104rem;

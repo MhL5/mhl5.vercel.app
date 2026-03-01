@@ -10,12 +10,6 @@ const figtree = localFont({
   display: "swap",
 });
 
-const spaceGrotesk = localFont({
-  src: "../assets/fonts/Space_Grotesk/SpaceGrotesk-VariableFont_wght.ttf",
-  variable: "--font-space-grotesk",
-  display: "swap",
-});
-
 export const metadata: Metadata = {
   metadataBase: new URL(domainUrl),
   alternates: {
@@ -60,9 +54,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html data-scroll-behavior="smooth" lang="en" suppressHydrationWarning>
-      <body
-        className={`${spaceGrotesk.variable} ${figtree.variable} min-w-xs font-figtree antialiased`}
-      >
+      <body className={`${figtree.variable} min-w-xs font-figtree antialiased`}>
         <div className="fixed inset-0 -z-10 h-full w-full dark:bg-[radial-gradient(125%_125%_at_50%_100%,var(--background)_40%,#010133_100%)]" />
         <Providers>{children}</Providers>
       </body>

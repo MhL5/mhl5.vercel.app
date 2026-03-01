@@ -13,7 +13,7 @@ const MhlSvgLogo = ({ className }: { className?: string }) => (
     aria-label="Mhl Logo"
   >
     {/* Simple white MHL letters */}
-    <g className="fill-primary-foreground font-space-grotesk text-xs font-bold tracking-tighter">
+    <g className="fill-primary-foreground text-xs font-bold tracking-tighter">
       <text x="18" y="18" textAnchor="middle" dominantBaseline="middle">
         MhL
       </text>
