@@ -27,12 +27,14 @@ export type DropZoneProps = (
   maxSize?: number;
   multiple: boolean;
   inputId?: string;
+  isInvalid?: boolean;
 };
 
 const DEFAULT_MAX_SIZE = 1000 * 1024 * 1024; // 1GB
 
 export function DropZone(props: DropZoneProps) {
-  const { disabled, accept, multiple, maxSize, className, inputId } = props;
+  const { disabled, isInvalid, accept, multiple, maxSize, className, inputId } =
+    props;
 
   const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -111,8 +113,9 @@ export function DropZone(props: DropZoneProps) {
       onDrop={handleDrop}
       data-disabled={disabled}
       data-dragging={isDragging}
+      data-invalid={isInvalid}
       className={cn(
-        "flex min-h-45 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-border p-6 transition-colors hover:bg-primary/10 has-disabled:pointer-events-none has-disabled:opacity-50 has-[input:focus]:border-ring has-[input:focus]:ring-[3px] has-[input:focus]:ring-ring/50 data-[disabled=true]:opacity-50 data-[dragging=true]:border-solid data-[dragging=true]:bg-primary/10",
+        "flex min-h-45 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-border p-6 transition-colors hover:bg-primary/10 has-disabled:pointer-events-none has-disabled:opacity-50 has-[input:focus]:border-ring has-[input:focus]:ring-[3px] has-[input:focus]:ring-ring/50 data-[disabled=true]:opacity-50 data-[dragging=true]:border-solid data-[dragging=true]:bg-primary/10 data-[invalid=true]:border-destructive data-[invalid=true]:text-destructive",
         className,
       )}
       disabled={disabled}
@@ -136,8 +139,16 @@ export function DropZone(props: DropZoneProps) {
         >
           <FileUpIcon className="size-4 opacity-60" />
         </div>
-        <p className="mb-1.5 text-sm font-medium">Upload files</p>
-        <p className="mb-2 text-xs leading-relaxed text-muted-foreground">
+        <p
+          data-invalid={isInvalid}
+          className="mb-1.5 text-sm font-medium text-foreground data-[invalid=true]:text-destructive"
+        >
+          Upload files
+        </p>
+        <p
+          data-invalid={isInvalid}
+          className="mb-2 text-xs leading-relaxed text-muted-foreground data-[invalid=true]:text-destructive"
+        >
           Drag & drop or click to browse.
           <br />
           <span>

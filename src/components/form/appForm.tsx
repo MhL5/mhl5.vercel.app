@@ -62,14 +62,14 @@ function useAppField() {
   const fieldDescriptionId = `${uniqueIdPrefix}-description`;
   const fieldErrorId = `${uniqueIdPrefix}-error`;
 
-  const formControlProps = {
+  const fieldControlProps = {
     id: fieldControllerId,
     "aria-describedby": `${fieldDescriptionId}${isInvalid ? ` ${fieldErrorId}` : ``}`,
     "aria-invalid": isInvalid,
   };
 
   return {
-    formControlProps,
+    fieldControlProps,
     fieldDescriptionId,
     fieldErrorId,
     isInvalid,

@@ -6,11 +6,11 @@ import { useAppField } from "../appForm";
 export default function AppFieldLabel(
   props: ComponentProps<typeof FieldLabel>,
 ) {
-  const { formControlProps, isInvalid } = useAppField();
+  const { fieldControlProps, isInvalid } = useAppField();
   return (
     <FieldLabel
       aria-invalid={isInvalid}
-      htmlFor={formControlProps.id}
+      htmlFor={fieldControlProps.id}
       {...props}
     />
   );
