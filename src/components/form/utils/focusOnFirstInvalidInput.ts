@@ -3,9 +3,8 @@
  * @see https://tanstack.com/form/latest/docs/framework/react/guides/focus-management
  */
 export function focusOnFirstInvalidInput() {
-  const InvalidInput = document.querySelector(
+  const InvalidInput = document.querySelector<HTMLInputElement>(
     '[aria-invalid="true"]',
-  ) as HTMLInputElement;
-
+  );
   InvalidInput?.focus();
 }

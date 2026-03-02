@@ -1,7 +1,8 @@
 import { LoadingButton } from "@/components/buttons/LoadingButton";
-import { useFormContext } from "@/components/form/appForm";
 import { Button } from "@/components/ui/button";
 import type { ComponentProps } from "react";
+
+import { useFormContext } from "../appForm";
 
 export default function SubmitButton({
   disabled,

@@ -1,12 +1,12 @@
-import { useFieldContext, useFormContext } from "@/components/form/appForm";
-import { useAppField } from "@/components/form/components/AppField";
-import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
 import { type ComponentProps } from "react";
 
-export default function AppFieldTextarea({
+import { useAppField, useFieldContext, useFormContext } from "../appForm";
+
+export default function AppFieldInput({
   disabled,
   ...props
-}: ComponentProps<typeof Textarea>) {
+}: ComponentProps<typeof Input>) {
   const { formControlProps } = useAppField();
   const field = useFieldContext<string>();
   const form = useFormContext();
@@ -14,7 +14,7 @@ export default function AppFieldTextarea({
   return (
     <form.Subscribe selector={(state) => state.isSubmitting}>
       {(isSubmitting) => (
-        <Textarea
+        <Input
           name={field.name}
           value={field.state.value}
           onBlur={field.handleBlur}
