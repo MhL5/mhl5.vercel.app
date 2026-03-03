@@ -15,10 +15,10 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import type { DropZoneProps } from "@/components/upload-deprecated/DropZone";
-import { DropZone } from "@/components/upload-deprecated/DropZone";
 import { useUploadFile } from "@/components/upload-deprecated/api/uploadFile";
 import { FileItem } from "@/components/upload-deprecated/components/FileItem";
+import type { DropZoneProps } from "@/components/upload/DropZone";
+import { DropZone } from "@/components/upload/DropZone";
 import { cn } from "@/lib/utils";
 import { type AnyFieldApi, useForm } from "@tanstack/react-form";
 import type { NodeViewProps } from "@tiptap/react";
@@ -344,11 +344,9 @@ function AssetUploadNodeDropZone({
     );
   return (
     <DropZone
-      className={cn(
-        "w-full rounded-sm",
-        isInvalid && "border-destructive text-destructive",
-      )}
+      className="w-full rounded-sm"
       inputId={inputId}
+      isInvalid={isInvalid}
       accept={accept}
       multiple={false}
       disabled={false}

@@ -8,13 +8,12 @@ import {
   VideoIcon,
 } from "lucide-react";
 
-export function FileIconComponent({
-  fileName,
-  fileType,
-}: {
+type FileIconProps = {
   fileName: string;
   fileType: string;
-}) {
+};
+
+export function FileItemIcon({ fileName, fileType }: FileIconProps) {
   if (
     fileType.includes("pdf") ||
     fileName.endsWith(".pdf") ||

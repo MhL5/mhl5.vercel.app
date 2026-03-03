@@ -101,7 +101,7 @@ export function DropZone(props: DropZoneProps) {
       className={cn(
         "flex min-h-45 cursor-pointer flex-col items-center justify-center border-2 border-dashed border-border p-6 transition-none",
         "has-[input:focus-visible]:border-ring has-[input:focus-visible]:ring-[3px] has-[input:focus-visible]:ring-ring/50",
-        "data-[dragging=true]:bg-primary/10",
+        "data-[dragging=true]:border-primary/10 data-[dragging=true]:bg-primary/10",
         "data-[invalid=true]:border-destructive data-[invalid=true]:text-destructive data-[invalid=true]:[&_p]:text-destructive",
         className,
       )}

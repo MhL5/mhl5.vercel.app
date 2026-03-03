@@ -17,14 +17,17 @@ type FileItem = {
 
 type Options<T> = {
   onUploadComplete: (result: T) => void;
-  uploadFile: (options: {
+  uploadHandler: (options: {
     file: FileItem["file"];
     signal: AbortController["signal"];
     onprogress: NonNullable<XMLHttpRequest["upload"]["onprogress"]>;
   }) => Promise<T>;
 };
 
-export function useFileUpload<T>({ onUploadComplete, uploadFile }: Options<T>) {
+export function useFileUpload<T>({
+  onUploadComplete,
+  uploadHandler,
+}: Options<T>) {
   const [files, setFiles] = useState<FileItem[]>([]);
 
   async function handleUpload(filesToUpload?: FileItem[]) {
@@ -48,11 +51,11 @@ export function useFileUpload<T>({ onUploadComplete, uploadFile }: Options<T>) {
 
         // upload the file and upload the file state on upload progress
         const [error, response] = await tryCatch<T>(
-          uploadFile({
+          uploadHandler({
             file: fileWithProgress.file,
             signal: abortController.signal,
-            onprogress: (event) => {
-              return setFiles((prevFiles) =>
+            onprogress: (event) =>
+              setFiles((prevFiles) =>
                 prevFiles.map((file) => {
                   if (file.id !== fileWithProgress.id) return file;
 
@@ -80,8 +83,7 @@ export function useFileUpload<T>({ onUploadComplete, uploadFile }: Options<T>) {
                     startTime,
                   };
                 }),
-              );
-            },
+              ),
           }),
         );
 

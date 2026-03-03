@@ -76,3 +76,11 @@ export function validateFiles({
     { validFiles: [], errors: [] },
   );
 }
+
+export function formatTimeLeftInSeconds(timeLeftInSeconds: number) {
+  if (timeLeftInSeconds < 60)
+    return `${Math.round(timeLeftInSeconds)} seconds remaining`;
+  if (timeLeftInSeconds < 3600)
+    return `${Math.round(timeLeftInSeconds / 60)} minutes remaining`;
+  return `${Math.round(timeLeftInSeconds / 3600)} hours remaining`;
+}

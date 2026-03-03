@@ -1,10 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { FileItemIcon } from "@/components/upload/components/FileIcon";
+import { formatBytes } from "@/components/upload/utils";
 import { cn } from "@/lib/utils";
 import { RefreshCcw, X } from "lucide-react";
-
-import { formatBytes } from "../utils";
-import { FileIconComponent } from "./FileIcon";
 
 type FileItemProps = {
   file: File;
@@ -266,7 +265,7 @@ function FileItemResult({
       )}
     >
       <div className="[&_svg:size-5] flex size-10 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground [&_svg]:text-foreground">
-        <FileIconComponent fileName={fileName} fileType={fileType} />
+        <FileItemIcon fileName={fileName} fileType={fileType} />
       </div>
 
       <div className="flex min-w-0 flex-col gap-0.5">
@@ -292,4 +291,4 @@ function FileItemResult({
   );
 }
 
-export { FileItemError, FileItemProgress, FileItemResult, FileItem };
+export { FileItem, FileItemError, FileItemProgress, FileItemResult };
