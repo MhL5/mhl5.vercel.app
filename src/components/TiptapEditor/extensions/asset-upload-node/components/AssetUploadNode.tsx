@@ -15,10 +15,10 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import type { DropZoneProps } from "@/components/upload/DropZone";
-import { DropZone } from "@/components/upload/DropZone";
-import { useUploadFile } from "@/components/upload/api/uploadFile";
-import { FileItem } from "@/components/upload/components/FileItem";
+import type { DropZoneProps } from "@/components/upload-deprecated/DropZone";
+import { DropZone } from "@/components/upload-deprecated/DropZone";
+import { useUploadFile } from "@/components/upload-deprecated/api/uploadFile";
+import { FileItem } from "@/components/upload-deprecated/components/FileItem";
 import { cn } from "@/lib/utils";
 import { type AnyFieldApi, useForm } from "@tanstack/react-form";
 import type { NodeViewProps } from "@tiptap/react";

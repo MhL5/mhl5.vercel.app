@@ -6,8 +6,8 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { DropZone } from "@/components/upload/DropZone";
-import { formatBytes } from "@/components/upload/utils";
+import { DropZone } from "@/components/upload-deprecated/DropZone";
+import { formatBytes } from "@/components/upload-deprecated/utils";
 import { tryCatch } from "@/registry/utils/tryCatch/tryCatch";
 import { RefreshCcw, Wrench, X } from "lucide-react";
 import { useState } from "react";
@@ -252,6 +252,7 @@ function useHandleUpload() {
  * i want the fetcher logic to not be a part of this component, we might use axios ky xhr ..........
  *
  * we need to somehow sync the state of this component with the form, value and onChange(create delete update)
+ * it should also reset on form reset ...
  */
 export function AppFieldDropzone() {
   const { fieldControlProps } = useAppField();
