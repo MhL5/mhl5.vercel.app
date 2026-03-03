@@ -50,7 +50,7 @@ export function DropZone(props: DropZoneProps) {
 
     const files = Array.from(e.dataTransfer.files);
     if (!files || files.length === 0) return;
-    handleSelectFiles(files, { source: "drag-drop" });
+    handleSelectedFiles(files, { source: "drag-drop" });
 
     setIsDragging(false);
   }
@@ -61,13 +61,13 @@ export function DropZone(props: DropZoneProps) {
   function handleClick(e: ChangeEvent<HTMLInputElement, Element>) {
     const files = e.target.files;
     if (!files || files.length === 0) return;
-    handleSelectFiles(Array.from(files), { source: "click" });
+    handleSelectedFiles(Array.from(files), { source: "click" });
   }
 
   /**
    * Validates the selected files and calls the appropriate callback based on the `multiple` prop.
    */
-  function handleSelectFiles(files: File[], context: Context) {
+  function handleSelectedFiles(files: File[], context: Context) {
     if (disabled) return;
 
     const { validFiles, errors } = validateFiles({
