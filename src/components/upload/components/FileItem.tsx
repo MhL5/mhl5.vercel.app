@@ -1,16 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { FileItemIcon } from "@/components/upload/components/FileIcon";
-import { formatBytes } from "@/components/upload/utils";
+import type { FileItem as FileItemType } from "@/components/upload/hooks/useFileUpload";
+import {
+  formatBytes,
+  formatTimeLeftInSeconds,
+} from "@/components/upload/utils";
 import { cn } from "@/lib/utils";
 import { RefreshCcw, X } from "lucide-react";
 
 type FileItemProps = {
-  file: File;
-
-  progress: number;
-  error?: string;
-  uploadSpeed: number;
+  fileItem: FileItemType;
 
   onRemove: () => void;
   onRetry: () => void;
@@ -26,21 +26,17 @@ type FileItemProps = {
 };
 
 function FileItem({
-  error,
-  progress,
-  uploadSpeed,
   onRemove,
   onRetry,
   disabled,
   className,
-  file,
+  fileItem,
   messages,
 }: FileItemProps) {
-  if (error)
+  if (fileItem.error)
     return (
       <FileItemError
-        error={error}
-        fileName={file.name}
+        fileItem={fileItem}
         onRetry={onRetry}
         onRemove={onRemove}
         disabled={disabled}
@@ -49,13 +45,10 @@ function FileItem({
       />
     );
 
-  if (progress !== 100)
+  if (fileItem.progressPercentage !== 100)
     return (
       <FileItemProgress
-        fileName={file.name}
-        progress={progress}
-        fileSize={file.size}
-        uploadSpeed={uploadSpeed}
+        fileItem={fileItem}
         onRemove={onRemove}
         disabled={disabled}
         className={className}
@@ -65,9 +58,7 @@ function FileItem({
 
   return (
     <FileItemResult
-      fileName={file.name}
-      fileSize={file.size}
-      fileType={file.type}
+      fileItem={fileItem}
       onRemove={onRemove}
       disabled={disabled}
       className={className}
@@ -78,8 +69,7 @@ function FileItem({
 
 type FileItemErrorProps = {
   className?: string;
-  error: string;
-  fileName: string;
+  fileItem: FileItemType;
   onRetry: () => void;
   onRemove: () => void;
   disabled: boolean;
@@ -93,11 +83,10 @@ type FileItemErrorProps = {
 
 function FileItemError({
   className,
-  error,
   onRetry,
   onRemove,
   disabled,
-  fileName,
+  fileItem,
   messages = {
     errorTitle: "Upload failed!",
     errorMessage: "Error message",
@@ -117,10 +106,10 @@ function FileItemError({
       <div className="flex flex-col gap-0.5 overflow-hidden">
         <p className="flex flex-wrap items-center gap-1 text-xs text-destructive">
           <span>{messages.errorTitle}</span>
-          <span className="truncate">{fileName}</span>
+          <span className="truncate">{fileItem.file.name}</span>
         </p>
         <p className="truncate text-xs leading-4 text-destructive/70">
-          {error}
+          {fileItem.error}
         </p>
       </div>
 
@@ -149,12 +138,9 @@ function FileItemError({
 
 type FileItemProgressProps = {
   className?: string;
-  progress: number;
-  uploadSpeed: number;
+  fileItem: FileItemType;
   onRemove: () => void;
   disabled: boolean;
-  fileName: string;
-  fileSize: number;
   messages?: {
     title: string;
     secondsRemaining: string;
@@ -166,12 +152,9 @@ type FileItemProgressProps = {
 
 function FileItemProgress({
   className,
-  progress,
-  uploadSpeed,
   onRemove,
   disabled,
-  fileName,
-  fileSize,
+  fileItem,
   messages = {
     title: "Uploading...",
     secondsRemaining: "seconds remaining",
@@ -180,21 +163,6 @@ function FileItemProgress({
     cancelUpload: "cancel upload",
   },
 }: FileItemProgressProps) {
-  function calculateRemainingUploadTime() {
-    if (!uploadSpeed || progress === 0) return null;
-
-    const totalBytes = fileSize;
-    const uploadedBytes = (progress / 100) * totalBytes;
-    const remainingBytes = totalBytes - uploadedBytes;
-    const remainingSeconds = remainingBytes / uploadSpeed;
-
-    if (remainingSeconds < 60)
-      return `${Math.round(remainingSeconds)} ${messages.secondsRemaining}`;
-    if (remainingSeconds < 3600)
-      return `${Math.round(remainingSeconds / 60)} ${messages.minutesRemaining}`;
-    return `${Math.round(remainingSeconds / 3600)} ${messages.hoursRemaining}`;
-  }
-
   return (
     <div
       data-slot="FileItemProgress"
@@ -204,13 +172,13 @@ function FileItemProgress({
         <div className="flex flex-col gap-1 overflow-hidden">
           <p className="flex items-center gap-1 text-sm">
             <span>{messages.title}</span>
-            <span className="truncate">{fileName}</span>
+            <span className="truncate">{fileItem.file.name}</span>
           </p>
           <p className="truncate text-xs leading-4 text-muted-foreground">
-            <span className="tracking-wide">{`${progress.toFixed(2)}% • `}</span>
+            <span className="tracking-wide">{`${fileItem.progressPercentage.toFixed(2)}% • `}</span>
             <span>
-              {calculateRemainingUploadTime() || ""} {"•"}{" "}
-              <span dir="auto">{formatBytes(uploadSpeed)}</span>
+              {formatTimeLeftInSeconds(fileItem.timeLeftInSeconds) || ""} {"•"}{" "}
+              <span dir="auto">{formatBytes(fileItem.uploadSpeed)}</span>
             </span>
           </p>
         </div>
@@ -227,15 +195,13 @@ function FileItemProgress({
         </Button>
       </div>
 
-      <Progress value={progress} max={100} />
+      <Progress value={fileItem.progressPercentage} max={100} />
     </div>
   );
 }
 
 type FileItemResultProps = {
-  fileName: string;
-  fileType: string;
-  fileSize?: number;
+  fileItem: FileItemType;
 
   onRemove: () => void;
   disabled: boolean;
@@ -246,12 +212,10 @@ type FileItemResultProps = {
 };
 
 function FileItemResult({
-  fileName,
-  fileType,
-  fileSize,
   onRemove,
   disabled,
   className,
+  fileItem,
   messages = {
     delete: "delete",
   },
@@ -265,14 +229,17 @@ function FileItemResult({
       )}
     >
       <div className="[&_svg:size-5] flex size-10 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground [&_svg]:text-foreground">
-        <FileItemIcon fileName={fileName} fileType={fileType} />
+        <FileItemIcon
+          fileName={fileItem.file.name}
+          fileType={fileItem.file.type}
+        />
       </div>
 
       <div className="flex min-w-0 flex-col gap-0.5">
-        <p className="truncate text-[13px] font-medium">{fileName}</p>
-        {fileSize && (
+        <p className="truncate text-[13px] font-medium">{fileItem.file.name}</p>
+        {fileItem.file.size && (
           <p className="text-xs text-muted-foreground">
-            {formatBytes(fileSize)}
+            {formatBytes(fileItem.file.size)}
           </p>
         )}
       </div>

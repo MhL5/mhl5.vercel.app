@@ -1,3 +1,4 @@
+import { uploadFile } from "@/components/form/fieldComponents/AppFieldDropzone";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -15,10 +16,10 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useUploadFile } from "@/components/upload-deprecated/api/uploadFile";
-import { FileItem } from "@/components/upload-deprecated/components/FileItem";
 import type { DropZoneProps } from "@/components/upload/DropZone";
 import { DropZone } from "@/components/upload/DropZone";
+import { FileItem } from "@/components/upload/components/FileItem";
+import { useFileUpload } from "@/components/upload/hooks/useFileUpload";
 import { cn } from "@/lib/utils";
 import { type AnyFieldApi, useForm } from "@tanstack/react-form";
 import type { NodeViewProps } from "@tiptap/react";
@@ -317,15 +318,15 @@ function AssetUploadNodeDropZone({
   isInvalid: boolean;
   inputId: string;
 }) {
-  const { uploadState, handleUpload, handleRemove, handleRetry } =
-    useUploadFile({ onSuccess: onUploadSuccess });
+  const { handleRemove, handleRetry, files, handleAdd } = useFileUpload({
+    uploadHandler: uploadFile,
+    onUploadComplete: (res) => onUploadSuccess(res.file.url),
+  });
   const { messages } = useEditorMessages();
 
-  const showFileItem =
-    uploadState.file &&
-    (uploadState.progressPercentage < 100 || Boolean(uploadState.error));
+  const fileItem = files?.[0];
 
-  if (showFileItem && uploadState.file)
+  if (fileItem)
     return (
       <FileItem
         className={cn(
@@ -333,12 +334,9 @@ function AssetUploadNodeDropZone({
           isInvalid && "border-destructive text-destructive",
         )}
         messages={messages.FileItem}
-        file={uploadState.file}
-        error={uploadState.error}
-        uploadSpeed={uploadState.uploadSpeed}
-        progress={uploadState.progressPercentage}
-        onRemove={handleRemove}
-        onRetry={handleRetry}
+        fileItem={fileItem}
+        onRemove={() => handleRemove(fileItem.id)}
+        onRetry={() => handleRetry(fileItem.id)}
         disabled={false}
       />
     );
@@ -350,7 +348,7 @@ function AssetUploadNodeDropZone({
       accept={accept}
       multiple={false}
       disabled={false}
-      onFileSelect={(file) => handleUpload(file)}
+      onFileSelect={(file) => handleAdd([file])}
     />
   );
 }

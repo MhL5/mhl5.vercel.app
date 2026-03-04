@@ -2,7 +2,7 @@ import { tryCatch } from "@/registry/utils/tryCatch/tryCatch";
 import { useState } from "react";
 import { toast } from "sonner";
 
-type FileItem = {
+export type FileItem = {
   id: string;
   file: File;
 
