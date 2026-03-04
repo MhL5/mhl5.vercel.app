@@ -45,8 +45,8 @@ export function validateFile({
 }
 
 export type FileValidationResult = {
-  validFiles: File[];
-  errors: Array<{ file: File; error: string }>;
+  acceptedFiles: File[];
+  rejectedFiles: Array<{ file: File; error: string }>;
 };
 
 export function validateFiles({
@@ -58,7 +58,7 @@ export function validateFiles({
   maxSize: number;
   accept: string;
 }) {
-  if (files.length === 0) return { validFiles: [], errors: [] };
+  if (files.length === 0) return { acceptedFiles: [], rejectedFiles: [] };
 
   return files.reduce<FileValidationResult>(
     (acc, file) => {
@@ -68,12 +68,12 @@ export function validateFiles({
         accept,
       });
 
-      if (error) acc.errors.push({ file, error });
-      else acc.validFiles.push(file);
+      if (error) acc.rejectedFiles.push({ file, error });
+      else acc.acceptedFiles.push(file);
 
       return acc;
     },
-    { validFiles: [], errors: [] },
+    { acceptedFiles: [], rejectedFiles: [] },
   );
 }
 
