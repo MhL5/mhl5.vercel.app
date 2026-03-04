@@ -13,7 +13,7 @@ import { fileUpload } from "@/components/upload/services/fileUpload";
 import { toast } from "sonner";
 
 export function AppFieldDropzone() {
-  const { isInvalid, fieldControlProps } = useAppField();
+  const { isInvalid, fieldControllerProps } = useAppField();
   const field = useFieldContext();
   const form = useFormContext();
 
@@ -29,7 +29,7 @@ export function AppFieldDropzone() {
           <UploaderDropZone
             multiple={false}
             accept="image/*"
-            inputId={fieldControlProps.id}
+            inputId={fieldControllerProps.id}
             onDropRejected={(errors) => {
               field.setErrorMap({ onChange: errors });
               errors.forEach(

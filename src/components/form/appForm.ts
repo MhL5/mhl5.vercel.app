@@ -1,6 +1,3 @@
-import { getFieldControllerProps } from "@/components/form/utils/getFieldControllerProps";
-import { getFieldIds } from "@/components/form/utils/getFieldIds";
-import { isFieldInvalid } from "@/components/form/utils/isFieldInvalid";
 import { createFormHook, createFormHookContexts } from "@tanstack/react-form";
 import { lazy } from "react";
 
@@ -57,12 +54,22 @@ const { useAppForm, withFieldGroup, withForm } = createFormHook({
 function useAppField() {
   const field = useFieldContext();
 
-  const isInvalid = isFieldInvalid(field);
-  const { fieldDescriptionId, fieldErrorId } = getFieldIds(field);
-  const fieldControlProps = getFieldControllerProps(field);
+  const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+
+  const uniqueIdPrefix = `${field.form.formId}-${field.name}`;
+
+  const fieldControllerId = `${uniqueIdPrefix}-item`;
+  const fieldDescriptionId = `${uniqueIdPrefix}-description`;
+  const fieldErrorId = `${uniqueIdPrefix}-error`;
+
+  const fieldControllerProps = {
+    id: fieldControllerId,
+    "aria-describedby": `${fieldDescriptionId}${isInvalid ? ` ${fieldErrorId}` : ``}`,
+    "aria-invalid": isInvalid,
+  };
 
   return {
-    fieldControlProps,
+    fieldControllerProps,
     fieldDescriptionId,
     fieldErrorId,
     isInvalid,
