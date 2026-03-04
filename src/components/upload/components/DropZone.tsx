@@ -4,38 +4,36 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { FileUpIcon } from "lucide-react";
 import { type ChangeEvent, type DragEvent, useRef, useState } from "react";
-import { toast } from "sonner";
 
-import { formatBytes, validateFiles } from "./utils";
+import { formatBytes, validateFiles } from "../utils";
 
-type Context = {
-  source: "drag-drop" | "click";
-};
+export type DropZoneProps = {
+  onDropAccepted: (files: File[]) => void;
+  onDropRejected: (error: string) => void;
 
-export type DropZoneProps = (
-  | {
-      multiple: true;
-      onFilesSelect: (files: File[], context: Context) => void;
-    }
-  | {
-      multiple?: false;
-      onFileSelect: (file: File, context: Context) => void;
-    }
-) & {
-  className?: string;
-  disabled: boolean;
   accept: "image/*" | "video/*" | "audio/*";
+  multiple: boolean;
+  inputId: string;
+
+  className?: string;
+  disabled?: boolean;
   maxSize?: number;
-  inputId?: string;
   isInvalid?: boolean;
 };
 
 const DEFAULT_MAX_SIZE = 1000 * 1024 * 1024; // 1GB
 
-export function DropZone(props: DropZoneProps) {
-  const { disabled, isInvalid, accept, multiple, maxSize, className, inputId } =
-    props;
-
+export function DropZone({
+  disabled,
+  isInvalid,
+  accept,
+  multiple,
+  maxSize,
+  className,
+  inputId,
+  onDropAccepted,
+  onDropRejected,
+}: DropZoneProps) {
   const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -50,7 +48,7 @@ export function DropZone(props: DropZoneProps) {
 
     const files = Array.from(e.dataTransfer.files);
     if (!files || files.length === 0) return;
-    handleSelectedFiles(files, { source: "drag-drop" });
+    handleSelectedFiles(files);
 
     setIsDragging(false);
   }
@@ -61,31 +59,32 @@ export function DropZone(props: DropZoneProps) {
   function handleClick(e: ChangeEvent<HTMLInputElement, Element>) {
     const files = e.target.files;
     if (!files || files.length === 0) return;
-    handleSelectedFiles(Array.from(files), { source: "click" });
+    handleSelectedFiles(Array.from(files));
   }
 
   /**
-   * Validates the selected files and calls the appropriate callback based on the `multiple` prop.
+   * Validates the selected files
    */
-  function handleSelectedFiles(files: File[], context: Context) {
+  function handleSelectedFiles(files: File[]) {
     if (disabled) return;
 
-    const { validFiles, errors } = validateFiles({
+    const { acceptedFiles, rejectedFiles } = validateFiles({
       files,
       maxSize: maxSize ?? DEFAULT_MAX_SIZE,
       accept: accept,
     });
 
-    if (errors) errors.forEach(({ error }) => toast.error(error));
-    if (!validFiles || validFiles.length === 0) return;
+    if (rejectedFiles)
+      rejectedFiles.forEach(({ error }) => onDropRejected?.(error));
+    if (!acceptedFiles || acceptedFiles.length === 0) return;
 
-    if (multiple) props.onFilesSelect(validFiles, context);
+    if (multiple) onDropAccepted(acceptedFiles);
     if (!multiple) {
-      if (validFiles.length > 1)
-        return toast.error(
+      if (acceptedFiles.length > 1)
+        return onDropRejected?.(
           "Only one file can be uploaded at a time, please select one file at a time.",
         );
-      props.onFileSelect(validFiles[0], context);
+      onDropAccepted(acceptedFiles);
     }
   }
 

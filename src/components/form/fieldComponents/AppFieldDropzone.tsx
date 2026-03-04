@@ -1,5 +1,5 @@
 import { useAppField } from "@/components/form/appForm";
-import { DropZone } from "@/components/upload/DropZone";
+import { DropZone } from "@/components/upload/components/DropZone";
 import { FileItem } from "@/components/upload/components/FileItem";
 import { useFileUpload } from "@/components/upload/hooks/useFileUpload";
 
