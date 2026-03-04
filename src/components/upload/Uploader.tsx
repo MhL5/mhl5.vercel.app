@@ -1,11 +1,8 @@
 "use client";
 
 import { DropZone } from "@/components/upload/components/DropZone";
-import { FileItemError } from "@/components/upload/components/FileItemError";
-import { FileItemProgress } from "@/components/upload/components/FileItemProgress";
-import { FileItemResult } from "@/components/upload/components/FileItemResult";
+import { FileItem } from "@/components/upload/components/FileItem";
 import {
-  type FileItem,
   type UseFileUploadOptions,
   useFileUpload,
 } from "@/components/upload/hooks/useFileUpload";
@@ -96,58 +93,32 @@ function UploaderFilesList({
   );
 }
 
-type UploaderFileItemProps = {
-  fileItem: FileItem;
-
-  disabled?: boolean;
-  className?: string;
-
-  messages?: {
-    error: ComponentProps<typeof FileItemError>["messages"];
-    progress: ComponentProps<typeof FileItemProgress>["messages"];
-    result: ComponentProps<typeof FileItemResult>["messages"];
-  };
-};
+type UploaderFileItemProps = PartialPick<
+  ComponentProps<typeof FileItem>,
+  "onDelete" | "onRemove" | "onRetry"
+>;
 
 function UploaderFileItem({
   disabled: disabledProp,
   fileItem,
-  messages,
+  onRemove,
+  onRetry,
   ...props
 }: UploaderFileItemProps) {
   const { disabled, handleRemove, handleRetry } = useUploaderContext();
 
-  const onCancelUpload = () => handleRemove(fileItem.id);
-  const isWorking = disabledProp || disabled;
-
-  if (fileItem.error)
-    return (
-      <FileItemError
-        fileItem={fileItem}
-        onRetry={() => handleRetry(fileItem.id)}
-        onRemove={onCancelUpload}
-        disabled={isWorking}
-        messages={messages?.error}
-        {...props}
-      />
-    );
-
-  if (fileItem.progressPercentage !== 100)
-    return (
-      <FileItemProgress
-        fileItem={fileItem}
-        onRemove={onCancelUpload}
-        disabled={isWorking}
-        messages={messages?.progress}
-        {...props}
-      />
-    );
-
   return (
-    <FileItemResult
+    <FileItem
+      disabled={disabledProp || disabled}
       fileItem={fileItem}
-      disabled={isWorking}
-      messages={messages?.result}
+      onRemove={() => {
+        onRemove?.();
+        handleRemove(fileItem.id);
+      }}
+      onRetry={() => {
+        onRetry?.();
+        handleRetry(fileItem.id);
+      }}
       {...props}
     />
   );

@@ -1,4 +1,3 @@
-import { uploadFile } from "@/components/form/fieldComponents/AppFieldDropzone";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -23,6 +22,7 @@ import {
   UploaderFilesList,
 } from "@/components/upload/Uploader";
 import type { DropZoneProps } from "@/components/upload/components/DropZone";
+import { fileUpload } from "@/components/upload/services/fileUpload";
 import { type AnyFieldApi, useForm } from "@tanstack/react-form";
 import type { NodeViewProps } from "@tiptap/react";
 import { NodeViewWrapper } from "@tiptap/react";
@@ -323,7 +323,7 @@ function AssetUploadNodeDropZone({
   return (
     <Uploader
       onUploadComplete={({ file }) => onUploadSuccess(file.url)}
-      uploadHandler={uploadFile}
+      uploadHandler={fileUpload}
       disabled={false}
       isInvalid={isInvalid}
     >

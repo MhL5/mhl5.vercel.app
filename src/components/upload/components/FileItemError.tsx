@@ -38,7 +38,7 @@ export function FileItemError({
       )}
     >
       <div className="flex flex-col gap-0.5 overflow-hidden">
-        <p className="truncate text-sm text-destructive">
+        <p className="truncate text-sm font-medium text-destructive">
           {fileItem.file.name}
         </p>
         <p className="truncate text-xs leading-4 text-destructive">
@@ -49,6 +49,7 @@ export function FileItemError({
       <Button
         size="icon-xs"
         variant="ghost"
+        type="button"
         className="ms-auto"
         onClick={onRetry}
         disabled={disabled}
@@ -58,6 +59,7 @@ export function FileItemError({
       </Button>
       <Button
         size="icon-xs"
+        type="button"
         variant="destructiveGhost"
         title={messages.removeLabel}
         onClick={onRemove}

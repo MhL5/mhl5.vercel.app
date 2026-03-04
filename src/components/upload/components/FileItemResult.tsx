@@ -53,6 +53,7 @@ export function FileItemResult({
       {onDelete && (
         <Button
           size="icon-xs"
+          type="button"
           variant="destructive"
           title={messages?.delete}
           className="ms-auto"

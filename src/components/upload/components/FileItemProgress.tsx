@@ -56,8 +56,9 @@ export function FileItemProgress({
 
         <Button
           size="icon-xs"
+          type="button"
           variant="destructiveGhost"
-          aria-label={messages.cancelUpload}
+          title={messages.cancelUpload}
           onClick={onRemove}
           disabled={disabled}
           className="mb-auto"
