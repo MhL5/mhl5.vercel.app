@@ -1,7 +1,14 @@
-import { useAppField } from "@/components/form/appForm";
-import { DropZone } from "@/components/upload/components/DropZone";
-import { FileItem } from "@/components/upload/components/FileItem";
-import { useFileUpload } from "@/components/upload/hooks/useFileUpload";
+import {
+  useAppField,
+  useFieldContext,
+  useFormContext,
+} from "@/components/form/appForm";
+import {
+  Uploader,
+  UploaderDropZone,
+  UploaderFileItem,
+  UploaderFilesList,
+} from "@/components/upload/Uploader";
 
 type UploadFileParams = {
   signal: AbortSignal;
@@ -52,37 +59,39 @@ export async function uploadFile({
  */
 export function AppFieldDropzone() {
   const { fieldControlProps } = useAppField();
-  const { files, handleAdd, handleRemove, handleRetry } = useFileUpload({
-    onUploadComplete: () => {},
-    uploadHandler: uploadFile,
-  });
+  const field = useFieldContext();
+
+  const form = useFormContext();
 
   return (
-    <>
-      <DropZone
-        accept="image/*"
-        disabled={false}
-        multiple
-        onFilesSelect={(file) => {
-          handleAdd(file);
-        }}
-        inputId={fieldControlProps.id}
-        isInvalid={fieldControlProps["aria-invalid"]}
-      />
+    <form.Subscribe selector={(state) => state.isSubmitting}>
+      {(isSubmitting) => (
+        <Uploader
+          onUploadComplete={(res) => field.handleChange(res.file.url)}
+          uploadHandler={uploadFile}
+          disabled={isSubmitting}
+          isInvalid={fieldControlProps["aria-invalid"]}
+        >
+          <UploaderDropZone
+            multiple={false}
+            accept="image/*"
+            inputId={fieldControlProps.id}
+            onDropRejected={(error) => field.setErrorMap({ onChange: error })}
+          />
 
-      {files.length > 0 && (
-        <div className="space-y-4">
-          {files.map((fileItem, i) => (
-            <FileItem
-              key={`${fileItem.id}-${i}`}
-              fileItem={fileItem}
-              onRemove={() => handleRemove(fileItem.id)}
-              onRetry={() => handleRetry(fileItem.id)}
-              disabled={false}
-            />
-          ))}
-        </div>
+          <UploaderFilesList>
+            {(files) =>
+              files.map((fileItem) => (
+                <UploaderFileItem key={fileItem.id} fileItem={fileItem} />
+              ))
+            }
+          </UploaderFilesList>
+        </Uploader>
       )}
-    </>
+    </form.Subscribe>
   );
 }
+
+/* 
+
+*/

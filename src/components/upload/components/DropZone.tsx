@@ -9,7 +9,7 @@ import { formatBytes, validateFiles } from "../utils";
 
 export type DropZoneProps = {
   onDropAccepted: (files: File[]) => void;
-  onDropRejected: (error: string) => void;
+  onDropRejected: (error: Array<{ message?: string } | undefined>) => void;
 
   accept: "image/*" | "video/*" | "audio/*";
   multiple: boolean;
@@ -81,9 +81,12 @@ export function DropZone({
     if (multiple) onDropAccepted(acceptedFiles);
     if (!multiple) {
       if (acceptedFiles.length > 1)
-        return onDropRejected?.(
-          "Only one file can be uploaded at a time, please select one file at a time.",
-        );
+        return onDropRejected?.([
+          {
+            message:
+              "Only one file can be uploaded at a time, please select one file at a time.",
+          },
+        ]);
       onDropAccepted(acceptedFiles);
     }
   }

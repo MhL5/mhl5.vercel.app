@@ -20,7 +20,11 @@ export function validateFile({
   accept: string;
 }) {
   if (file.size > maxSize)
-    return `File "${file.name}" exceeds the maximum size of ${formatBytes(maxSize)}.`;
+    return [
+      {
+        message: `File "${file.name}" exceeds the maximum size of ${formatBytes(maxSize)}.`,
+      },
+    ];
 
   if (accept !== "*") {
     const acceptedTypes = accept.split(",").map((type) => type.trim());
@@ -38,7 +42,8 @@ export function validateFile({
       return fileType === type;
     });
 
-    if (!isAccepted) return `File "${file.name}" is not an accepted file type.`;
+    if (!isAccepted)
+      return [{ message: `File "${file.name}" is not an accepted file type.` }];
   }
 
   return null;
@@ -46,7 +51,10 @@ export function validateFile({
 
 export type FileValidationResult = {
   acceptedFiles: File[];
-  rejectedFiles: Array<{ file: File; error: string }>;
+  rejectedFiles: Array<{
+    file: File;
+    error: Array<{ message?: string } | undefined>;
+  }>;
 };
 
 export function validateFiles({

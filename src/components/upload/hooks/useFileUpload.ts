@@ -7,7 +7,7 @@ export type FileItem = {
   file: File;
 
   progressPercentage: number;
-  uploadSpeed: number;
+  uploadSpeedInSeconds: number;
   timeLeftInSeconds: number;
   startTime: number | null;
 
@@ -15,7 +15,7 @@ export type FileItem = {
   abortController: AbortController | null;
 };
 
-type Options<T> = {
+export type UseFileUploadOptions<T> = {
   onUploadComplete: (result: T) => void;
   uploadHandler: (options: {
     file: FileItem["file"];
@@ -27,7 +27,7 @@ type Options<T> = {
 export function useFileUpload<T>({
   onUploadComplete,
   uploadHandler,
-}: Options<T>) {
+}: UseFileUploadOptions<T>) {
   const [files, setFiles] = useState<FileItem[]>([]);
 
   async function handleUpload(filesToUpload?: FileItem[]) {
@@ -68,20 +68,20 @@ export function useFileUpload<T>({
 
                   const elapsedMs = Date.now() - startTime;
                   const elapsedSec = elapsedMs / 1_000;
-                  const uploadSpeed =
+                  const uploadSpeedInSeconds =
                     elapsedSec > 0 ? event.loaded / elapsedSec : 0;
 
                   const uploadedBytes = progress * event.total;
                   const timeLeftInSeconds =
-                    (event.total - uploadedBytes) / uploadSpeed;
+                    (event.total - uploadedBytes) / uploadSpeedInSeconds;
 
                   return {
                     ...file,
                     progressPercentage,
-                    uploadSpeed,
+                    uploadSpeedInSeconds,
                     timeLeftInSeconds,
                     startTime,
-                  };
+                  } satisfies FileItem;
                 }),
               ),
           }),
@@ -136,7 +136,7 @@ export function useFileUpload<T>({
       file,
 
       progressPercentage: 0,
-      uploadSpeed: 0,
+      uploadSpeedInSeconds: 0,
       timeLeftInSeconds: 0,
       startTime: Date.now(),
 
@@ -167,7 +167,7 @@ export function useFileUpload<T>({
 
       timeLeftInSeconds: 0,
       progressPercentage: 0,
-      uploadSpeed: 0,
+      uploadSpeedInSeconds: 0,
       startTime: Date.now(),
 
       error: null,
