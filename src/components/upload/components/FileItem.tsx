@@ -29,24 +29,13 @@ type FileItemProps = {
   };
 };
 
-export function FileItem({
-  onRemove,
-  onRetry,
-  disabled,
-  className,
-  fileItem,
-  messages,
-  onDelete,
-}: FileItemProps) {
+export function FileItem({ fileItem, messages, ...props }: FileItemProps) {
   if (fileItem.error)
     return (
       <FileItemError
         fileItem={fileItem}
-        onRetry={onRetry}
-        onRemove={onRemove}
-        disabled={disabled}
-        className={className}
         messages={messages?.error}
+        {...props}
       />
     );
 
@@ -54,20 +43,16 @@ export function FileItem({
     return (
       <FileItemProgress
         fileItem={fileItem}
-        onRemove={onRemove}
-        disabled={disabled}
-        className={className}
         messages={messages?.progress}
+        {...props}
       />
     );
 
   return (
     <FileItemResult
       fileItem={fileItem}
-      onDelete={onDelete}
-      disabled={disabled}
-      className={className}
       messages={messages?.result}
+      {...props}
     />
   );
 }

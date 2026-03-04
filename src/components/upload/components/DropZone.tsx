@@ -1,15 +1,18 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { FieldError } from "@/components/ui/field";
 import { cn } from "@/lib/utils";
 import { FileUpIcon } from "lucide-react";
 import { type ChangeEvent, type DragEvent, useRef, useState } from "react";
 
 import { formatBytes, validateFiles } from "../utils";
 
+type DropZoneError = Array<{ message: string }>;
+
 export type DropZoneProps = {
   onDropAccepted: (files: File[]) => void;
-  onDropRejected: (error: Array<{ message?: string } | undefined>) => void;
+  onDropRejected: (error: DropZoneError) => void;
 
   accept: "image/*" | "video/*" | "audio/*";
   multiple: boolean;
@@ -28,7 +31,7 @@ export function DropZone({
   isInvalid,
   accept,
   multiple,
-  maxSize,
+  maxSize = DEFAULT_MAX_SIZE,
   className,
   inputId,
   onDropAccepted,
@@ -36,6 +39,7 @@ export function DropZone({
 }: DropZoneProps) {
   const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [errors, setErrors] = useState<DropZoneError | null>(null);
 
   /**
    * Handles the drop event when files are dropped onto the drop zone.
@@ -62,6 +66,12 @@ export function DropZone({
     handleSelectedFiles(Array.from(files));
   }
 
+  function handleError(error: DropZoneError | null) {
+    if (!error) return setErrors(null);
+    setErrors(error);
+    onDropRejected?.(error);
+  }
+
   /**
    * Validates the selected files
    */
@@ -74,19 +84,20 @@ export function DropZone({
       accept: accept,
     });
 
-    if (rejectedFiles)
-      rejectedFiles.forEach(({ error }) => onDropRejected?.(error));
+    handleError(rejectedFiles.flatMap(({ error }) => error));
+
     if (!acceptedFiles || acceptedFiles.length === 0) return;
 
     if (multiple) onDropAccepted(acceptedFiles);
     if (!multiple) {
-      if (acceptedFiles.length > 1)
-        return onDropRejected?.([
+      if (acceptedFiles.length > 1) {
+        return handleError?.([
           {
             message:
               "Only one file can be uploaded at a time, please select one file at a time.",
           },
         ]);
+      }
       onDropAccepted(acceptedFiles);
     }
   }
@@ -101,7 +112,7 @@ export function DropZone({
       tabIndex={-1}
       disabled={disabled}
       className={cn(
-        "flex min-h-45 cursor-pointer flex-col items-center justify-center border-2 border-dashed border-border p-6 transition-none",
+        "flex h-fit min-h-45 cursor-pointer flex-col items-center justify-center border-2 border-dashed border-border p-6 whitespace-normal transition-none",
         "has-[input:focus-visible]:border-ring has-[input:focus-visible]:ring-[3px] has-[input:focus-visible]:ring-ring/50",
         "data-[dragging=true]:border-primary/10 data-[dragging=true]:bg-primary/10",
         "data-[invalid=true]:border-destructive data-[invalid=true]:text-destructive data-[invalid=true]:[&_p]:text-destructive",
@@ -138,7 +149,7 @@ export function DropZone({
         aria-label="Drop files here"
       />
 
-      <div className="flex flex-col items-center justify-center text-center">
+      <div className="flex flex-col flex-wrap items-center justify-center text-center">
         <div
           className="mb-2 flex size-11 shrink-0 items-center justify-center rounded-full border bg-background"
           aria-hidden="true"
@@ -156,6 +167,7 @@ export function DropZone({
             {`Accepted types: ${accept ? accept : "Any"}.`}
           </span>
         </p>
+        {errors && <FieldError className="mt-1" errors={errors} />}
       </div>
     </Button>
   );

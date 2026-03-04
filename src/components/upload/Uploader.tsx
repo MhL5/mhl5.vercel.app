@@ -58,9 +58,16 @@ function UploaderDropZone({
   onDropAccepted,
   isInvalid: isInvalidProp,
   disabled: disabledProp,
+  multiple,
   ...props
 }: UploaderDropZoneProps) {
-  const { handleAdd, disabled, isInvalid } = useUploaderContext();
+  const { handleAdd, disabled, isInvalid, files } = useUploaderContext();
+
+  const singleUploadProgress = files?.[0]?.progressPercentage;
+  const isSingleUploadInProgress =
+    multiple === false &&
+    singleUploadProgress < 100 &&
+    singleUploadProgress > 0;
 
   return (
     <DropZone
@@ -68,8 +75,9 @@ function UploaderDropZone({
         onDropAccepted?.(file);
         handleAdd(file);
       }}
-      disabled={disabled || disabledProp}
+      disabled={disabled || disabledProp || isSingleUploadInProgress}
       isInvalid={isInvalid || isInvalidProp}
+      multiple={multiple}
       {...props}
     />
   );

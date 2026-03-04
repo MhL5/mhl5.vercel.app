@@ -53,7 +53,7 @@ export type FileValidationResult = {
   acceptedFiles: File[];
   rejectedFiles: Array<{
     file: File;
-    error: Array<{ message?: string } | undefined>;
+    error: Array<{ message: string }>;
   }>;
 };
 
