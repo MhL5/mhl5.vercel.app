@@ -60,7 +60,7 @@ export function DropZone({
   /**
    * Handles the click event when the user selects files using the file input.
    */
-  function handleClick(e: ChangeEvent<HTMLInputElement, Element>) {
+  function handleInputChange(e: ChangeEvent<HTMLInputElement, Element>) {
     const files = e.target.files;
     if (!files || files.length === 0) return;
     handleSelectedFiles(Array.from(files));
@@ -139,7 +139,7 @@ export function DropZone({
     >
       <input
         type="file"
-        onChange={handleClick}
+        onChange={handleInputChange}
         ref={inputRef}
         disabled={disabled}
         multiple={multiple}

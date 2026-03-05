@@ -7,7 +7,7 @@
   "files": [
     {
       "path": "src/registry/utils/tryCatch/tryCatch.ts",
-      "content": "type Result<T, E> = [undefined, T] | [E, undefined];\r\n\r\nexport async function tryCatch<T, E = Error>(\r\n  promise: Promise<T>,\r\n): Promise<Result<T, E>> {\r\n  try {\r\n    return [undefined, await promise];\r\n  } catch (error) {\r\n    return [error as E, undefined];\r\n  }\r\n}\r\n",
+      "content": "type Result<T, E> = [undefined, T] | [E, undefined];\r\n\r\ntype Options<T, E> = {\r\n  onSuccess?: (res: T) => void;\r\n  onError?: (error: E) => void;\r\n};\r\n\r\nexport async function tryCatch<T, E = Error>(\r\n  promise: Promise<T>,\r\n  { onError, onSuccess }: Options<T, E> = {},\r\n): Promise<Result<T, E>> {\r\n  try {\r\n    const res = await promise;\r\n    onSuccess?.(res);\r\n    return [undefined, res];\r\n  } catch (error) {\r\n    onError?.(error as E);\r\n    return [error as E, undefined];\r\n  }\r\n}\r\n",
       "type": "registry:lib",
       "target": "src/utils/tryCatch.ts"
     }

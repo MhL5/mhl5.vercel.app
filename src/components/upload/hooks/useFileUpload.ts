@@ -1,4 +1,5 @@
 import { tryCatch } from "@/registry/utils/tryCatch/tryCatch";
+import { isAbortedError } from "@/utils/error/isAbortedError";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -50,7 +51,7 @@ export function useFileUpload<T>({
         );
 
         // upload the file and upload the file state on upload progress
-        const [error, response] = await tryCatch<T>(
+        await tryCatch<T>(
           uploadHandler({
             file: fileWithProgress.file,
             signal: abortController.signal,
@@ -85,47 +86,42 @@ export function useFileUpload<T>({
                 }),
               ),
           }),
-        );
+          {
+            onSuccess: (res) => {
+              onUploadComplete(res);
+              toast.success(
+                `${fileWithProgress.file.name} uploaded successfully.`,
+              );
+            },
+            onError: (error) => {
+              if (isAbortedError(error)) return;
 
-        if (!error) {
-          onUploadComplete(response);
-          return toast.success(
-            `${fileWithProgress.file.name} uploaded successfully.`,
-          );
-        }
+              setFiles((prevFiles) =>
+                prevFiles.map((fileItem) => {
+                  if (fileItem.id !== fileWithProgress.id) return fileItem;
 
-        // Check if the error is due to request cancellation
-        const isAborted =
-          error.name === "AbortError" ||
-          (error &&
-            typeof error === "object" &&
-            "code" in error &&
-            error.code === "ERR_CANCELED");
-
-        // If aborted, we don't show an error toast as it was intentionally cancelled
-        if (isAborted) return;
-
-        setFiles((prevFiles) =>
-          prevFiles.map((fileItem) => {
-            if (fileItem.id !== fileWithProgress.id) return fileItem;
-
-            fileItem.abortController?.abort();
-            return {
-              ...fileItem,
-              error: `${error?.message || "unknown error!"}`,
-            };
-          }),
-        );
-        toast.error(
-          `${fileWithProgress.file.name} upload failed! ${error?.message || "unknown error!"}`,
+                  fileItem.abortController?.abort();
+                  return {
+                    ...fileItem,
+                    error: `${error?.message || "unknown error!"}`,
+                  };
+                }),
+              );
+              toast.error(
+                `${fileWithProgress.file.name} upload failed! ${error?.message || "unknown error!"}`,
+              );
+            },
+          },
         );
       });
 
-    const [error] = await tryCatch(Promise.all(uploadPromises));
-    if (error)
-      toast.error(
-        `Upload failed! ${error instanceof Error ? error.message : "unknown error!"}`,
-      );
+    await tryCatch(Promise.all(uploadPromises), {
+      onError: (error) => {
+        toast.error(
+          `Upload failed! ${error instanceof Error ? error.message : "unknown error!"}`,
+        );
+      },
+    });
   }
 
   function handleAdd(file: File[]) {
@@ -188,8 +184,8 @@ export function useFileUpload<T>({
   }
 
   function handleAbortAll() {
-    files.forEach(({ abortController }) =>
-      abortController ? abortController.abort() : null,
+    files.forEach(
+      ({ abortController }) => abortController && abortController.abort(),
     );
     setFiles([]);
   }
