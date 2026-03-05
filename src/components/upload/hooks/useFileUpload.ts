@@ -66,7 +66,8 @@ export type UseFileUploadOptions<T> = {
 
 /**
  * Custom hook to manage file uploads.
- * this hook can be used for both single/multiple uploads
+ * controls the uploading process through functions for adding files, removing them, retrying uploads, and aborting them.
+ * adds progress percentage, upload speed and time left for each file using xhr onprogress event.
  */
 export function useFileUpload<T>({
   onUploadComplete,
@@ -129,22 +130,22 @@ export function useFileUpload<T>({
             toast.success(`${fileItem.file.name} uploaded successfully.`);
           })
           .catch((error) => {
+            // If the error is due to a file upload being aborted by our own logic, stop processing the error
             if (isAbortedError(error)) return;
 
+            const errorMessage = error?.message || errorFallbackMessage;
             dispatch({
               type: "UPDATE_FILE",
               payload: {
                 id: fileItem.id,
-                error: `${error?.message || errorFallbackMessage}`,
+                error: errorMessage,
                 abortController: null,
               },
             });
-            toast.error(
-              `${fileItem.file.name}: ${error?.message || errorFallbackMessage}`,
-            );
+            toast.error(`${fileItem.file.name}: ${errorMessage}`);
           })
+          // once upload is complete,removes the abortController
           .finally(() => {
-            // once upload is complete,removes the abortController
             dispatch({
               type: "UPDATE_FILE",
               payload: {
@@ -156,9 +157,7 @@ export function useFileUpload<T>({
       });
 
     await Promise.all(uploadPromises).catch((error) =>
-      toast.error(
-        error instanceof Error ? error.message : errorFallbackMessage,
-      ),
+      toast.error(error?.message || errorFallbackMessage),
     );
   }
 
@@ -186,7 +185,7 @@ export function useFileUpload<T>({
   }
 
   /**
-   * Removes a file and aborts the upload if in progress.
+   * Removes the file and aborts the upload
    */
   function handleRemove(id: FileItem["id"]) {
     dispatch({ type: "REMOVE_FILE", payload: { id } });
