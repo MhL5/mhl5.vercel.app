@@ -7,7 +7,7 @@ export type FileItemErrorProps = {
   className?: string;
   fileItem: FileItem;
   onRetry: () => void;
-  onRemove: () => void;
+  onCancel: () => void;
   disabled?: boolean;
   messages?: {
     errorMessage: string;
@@ -19,7 +19,7 @@ export type FileItemErrorProps = {
 export function FileItemError({
   className,
   onRetry,
-  onRemove,
+  onCancel,
   disabled,
   fileItem,
   messages = {
@@ -62,7 +62,7 @@ export function FileItemError({
         type="button"
         variant="destructiveGhost"
         title={messages.removeLabel}
-        onClick={onRemove}
+        onClick={onCancel}
         disabled={disabled}
       >
         <X className="size-4" aria-hidden="true" />

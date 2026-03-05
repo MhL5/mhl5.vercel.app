@@ -1,7 +1,7 @@
 import { useOnUnMount } from "@/hooks/useOnUnMount";
-import { tryCatch } from "@/registry/utils/tryCatch/tryCatch";
+import type { RequiredPick } from "@/registry/types/RequiredPick/RequiredPick";
 import { isAbortedError } from "@/utils/error/isAbortedError";
-import { useState } from "react";
+import { useReducer } from "react";
 import { toast } from "sonner";
 
 export type FileItem = {
@@ -17,6 +17,44 @@ export type FileItem = {
   abortController: AbortController | null;
 };
 
+type FileAction =
+  | { type: "ADD_FILES"; payload: FileItem[] }
+  | { type: "REMOVE_FILE"; payload: { id: string } }
+  | {
+      type: "UPDATE_FILE";
+      payload: RequiredPick<Partial<FileItem>, "id">;
+    }
+  | { type: "CLEAR_FILES" };
+
+/**
+ * Reducer function to manage the state of uploaded files.
+ */
+function fileReducer(state: FileItem[], action: FileAction): FileItem[] {
+  switch (action.type) {
+    case "ADD_FILES":
+      return [...state, ...action.payload];
+    case "REMOVE_FILE":
+      return state.filter((file) => {
+        const isTargetFile = file.id === action.payload.id;
+        if (isTargetFile) file.abortController?.abort();
+        return !isTargetFile;
+      });
+    case "UPDATE_FILE":
+      return state.map((file) =>
+        file.id === action.payload.id ? { ...file, ...action.payload } : file,
+      );
+    case "CLEAR_FILES":
+      state.forEach(({ abortController }) => abortController?.abort());
+      return [];
+    default:
+      action satisfies never;
+      return state;
+  }
+}
+
+const errorFallbackMessage =
+  "Something went wrong during upload! please try again or contact customer support.";
+
 export type UseFileUploadOptions<T> = {
   onUploadComplete: (result: T) => void;
   uploadHandler: (options: {
@@ -26,113 +64,107 @@ export type UseFileUploadOptions<T> = {
   }) => Promise<T>;
 };
 
+/**
+ * Custom hook to manage file uploads.
+ * this hook can be used for both single/multiple uploads
+ */
 export function useFileUpload<T>({
   onUploadComplete,
   uploadHandler,
 }: UseFileUploadOptions<T>) {
-  const [files, setFiles] = useState<FileItem[]>([]);
+  const [files, dispatch] = useReducer(fileReducer, []);
 
-  async function handleUpload(filesToUpload?: FileItem[]) {
+  /**
+   * internal function, Handles the file upload process.
+   */
+  async function _handleUpload(filesToUpload: FileItem[]) {
     const filesToProcess = filesToUpload || files;
     if (filesToProcess.length === 0) return;
 
     const uploadPromises = filesToProcess
       .filter((file) => !file.error)
-      .map(async (fileWithProgress) => {
+      .map((fileItem) => {
         // Create AbortController for this specific upload
         const abortController = new AbortController();
+        dispatch({
+          type: "UPDATE_FILE",
+          payload: { id: fileItem.id, abortController },
+        });
 
-        // Update the file with the abort controller
-        setFiles((prevFiles) =>
-          prevFiles.map((file) =>
-            file.id === fileWithProgress.id
-              ? { ...file, abortController }
-              : file,
-          ),
-        );
+        // handles the file upload and onprogress
+        uploadHandler({
+          file: fileItem.file,
+          signal: abortController.signal,
+          onprogress: (event) => {
+            if (!event.lengthComputable) return;
 
-        // upload the file and upload the file state on upload progress
-        await tryCatch<T>(
-          uploadHandler({
-            file: fileWithProgress.file,
-            signal: abortController.signal,
-            onprogress: (event) =>
-              setFiles((prevFiles) =>
-                prevFiles.map((file) => {
-                  if (file.id !== fileWithProgress.id) return file;
+            const progress = event.loaded / event.total;
+            const startTime = fileItem.startTime || Date.now();
 
-                  if (!event.lengthComputable) return file;
+            const progressPercentage = progress * 100;
 
-                  const progress = event.loaded / event.total;
-                  const startTime = file.startTime || Date.now();
+            const elapsedMs = Date.now() - startTime;
+            const elapsedSec = elapsedMs / 1_000;
+            const uploadSpeedInSeconds =
+              elapsedSec > 0 ? event.loaded / elapsedSec : 0;
 
-                  const progressPercentage = progress * 100;
+            const uploadedBytes = progress * event.total;
+            const timeLeftInSeconds =
+              (event.total - uploadedBytes) / uploadSpeedInSeconds;
 
-                  const elapsedMs = Date.now() - startTime;
-                  const elapsedSec = elapsedMs / 1_000;
-                  const uploadSpeedInSeconds =
-                    elapsedSec > 0 ? event.loaded / elapsedSec : 0;
-
-                  const uploadedBytes = progress * event.total;
-                  const timeLeftInSeconds =
-                    (event.total - uploadedBytes) / uploadSpeedInSeconds;
-
-                  return {
-                    ...file,
-                    progressPercentage,
-                    uploadSpeedInSeconds,
-                    timeLeftInSeconds,
-                    startTime,
-                  } satisfies FileItem;
-                }),
-              ),
-          }),
-          {
-            onSuccess: (res) => {
-              onUploadComplete(res);
-              toast.success(
-                `${fileWithProgress.file.name} uploaded successfully.`,
-              );
-            },
-            onError: (error) => {
-              if (isAbortedError(error)) return;
-
-              setFiles((prevState) =>
-                prevState.map((fileItem) =>
-                  fileItem.id === fileWithProgress.id
-                    ? {
-                        ...fileItem,
-                        error: `${error?.message || "unknown error!"}`,
-                        abortController: null,
-                      }
-                    : fileItem,
-                ),
-              );
-              toast.error(
-                `${fileWithProgress.file.name} upload failed! ${error?.message || "unknown error!"}`,
-              );
-            },
+            dispatch({
+              type: "UPDATE_FILE",
+              payload: {
+                id: fileItem.id,
+                progressPercentage,
+                uploadSpeedInSeconds,
+                timeLeftInSeconds,
+                startTime,
+              },
+            });
           },
-        );
+        })
+          .then((res) => {
+            onUploadComplete(res);
+            toast.success(`${fileItem.file.name} uploaded successfully.`);
+          })
+          .catch((error) => {
+            if (isAbortedError(error)) return;
 
-        setFiles((prevState) =>
-          prevState.map((fileItem) =>
-            fileItem.id === fileWithProgress.id
-              ? { ...fileItem, abortController: null }
-              : fileItem,
-          ),
-        );
+            dispatch({
+              type: "UPDATE_FILE",
+              payload: {
+                id: fileItem.id,
+                error: `${error?.message || errorFallbackMessage}`,
+                abortController: null,
+              },
+            });
+            toast.error(
+              `${fileItem.file.name}: ${error?.message || errorFallbackMessage}`,
+            );
+          })
+          .finally(() => {
+            // once upload is complete,removes the abortController
+            dispatch({
+              type: "UPDATE_FILE",
+              payload: {
+                id: fileItem.id,
+                abortController: null,
+              },
+            });
+          });
       });
 
-    await tryCatch(Promise.all(uploadPromises), {
-      onError: (error) => {
-        toast.error(
-          `Upload failed! ${error instanceof Error ? error.message : "unknown error!"}`,
-        );
-      },
-    });
+    await Promise.all(uploadPromises).catch((error) =>
+      toast.error(
+        error instanceof Error ? error.message : errorFallbackMessage,
+      ),
+    );
   }
 
+  /**
+   * Adds new files and triggers the upload process.
+   */
   function handleAdd(file: File[]) {
     if (!file || file.length === 0) return;
 
@@ -149,17 +181,20 @@ export function useFileUpload<T>({
       abortController: null,
     }));
 
-    setFiles((prevFiles) => [...prevFiles, ...newFiles]);
-    handleUpload(newFiles);
+    dispatch({ type: "ADD_FILES", payload: newFiles });
+    _handleUpload(newFiles);
   }
 
+  /**
+   * Removes a file and aborts the upload if in progress.
+   */
   function handleRemove(id: FileItem["id"]) {
-    const fileToRemove = files.find((file) => file.id === id);
-    // Abort the ongoing upload request if it exists
-    if (fileToRemove?.abortController) fileToRemove.abortController.abort();
-    setFiles(files.filter((file) => file.id !== id));
+    dispatch({ type: "REMOVE_FILE", payload: { id } });
   }
 
+  /**
+   * Retries the upload for the file with that matches id param.
+   */
   function handleRetry(id: FileItem["id"]) {
     const file = files.find((file) => file.id === id);
     if (!file) return toast.error("File not found");
@@ -179,26 +214,18 @@ export function useFileUpload<T>({
       abortController: null, // Will be set when upload starts
     };
 
-    setFiles(
-      files.map((file) =>
-        file.id === id
-          ? {
-              ...file,
-              ...fileToRetry,
-            }
-          : file,
-      ),
-    );
-    handleUpload([fileToRetry]);
+    dispatch({ type: "UPDATE_FILE", payload: fileToRetry });
+    _handleUpload([fileToRetry]);
   }
 
+  /**
+   * Aborts and removes all the files
+   */
   function handleAbortAll() {
-    files.forEach(
-      ({ abortController }) => abortController && abortController.abort(),
-    );
-    setFiles([]);
+    dispatch({ type: "CLEAR_FILES" });
   }
 
+  // Abort all upload requests when the component unmounts
   useOnUnMount(() =>
     files.forEach(({ abortController }) => abortController?.abort()),
   );

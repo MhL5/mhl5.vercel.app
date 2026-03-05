@@ -11,7 +11,7 @@ import { X } from "lucide-react";
 export type FileItemProgressProps = {
   className?: string;
   fileItem: FileItem;
-  onRemove: () => void;
+  onCancel: () => void;
   disabled?: boolean;
   messages?: {
     title: string;
@@ -24,7 +24,7 @@ export type FileItemProgressProps = {
 
 export function FileItemProgress({
   className,
-  onRemove,
+  onCancel,
   disabled,
   fileItem,
   messages = {
@@ -59,7 +59,7 @@ export function FileItemProgress({
           type="button"
           variant="destructiveGhost"
           title={messages.cancelUpload}
-          onClick={onRemove}
+          onClick={onCancel}
           disabled={disabled}
           className="mb-auto"
         >

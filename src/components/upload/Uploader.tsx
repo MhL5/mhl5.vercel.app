@@ -103,13 +103,13 @@ function UploaderFilesList({
 
 type UploaderFileItemProps = PartialPick<
   ComponentProps<typeof FileItem>,
-  "onDelete" | "onRemove" | "onRetry"
+  "onDelete" | "onCancel" | "onRetry"
 >;
 
 function UploaderFileItem({
   disabled: disabledProp,
   fileItem,
-  onRemove,
+  onCancel,
   onRetry,
   ...props
 }: UploaderFileItemProps) {
@@ -119,8 +119,8 @@ function UploaderFileItem({
     <FileItem
       disabled={disabledProp || disabled}
       fileItem={fileItem}
-      onRemove={() => {
-        onRemove?.();
+      onCancel={() => {
+        onCancel?.();
         handleRemove(fileItem.id);
       }}
       onRetry={() => {

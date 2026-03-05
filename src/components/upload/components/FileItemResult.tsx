@@ -8,7 +8,7 @@ import { Trash2 } from "lucide-react";
 export type FileItemResultProps = {
   fileItem: FileItem;
 
-  onRemove: () => void;
+  onCancel: () => void;
   onDelete?: () => void;
 
   disabled?: boolean;
@@ -23,7 +23,7 @@ export function FileItemResult({
   disabled,
   className,
   fileItem,
-  onRemove,
+  onCancel,
   messages = {
     delete: "delete",
   },
@@ -61,7 +61,7 @@ export function FileItemResult({
           className="ms-auto"
           onClick={() => {
             onDelete?.();
-            onRemove();
+            onCancel();
           }}
           disabled={disabled}
         >

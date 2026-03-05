@@ -15,7 +15,7 @@ import type { FileItem as FileItemType } from "@/components/upload/hooks/useFile
 type FileItemProps = {
   fileItem: FileItemType;
 
-  onRemove: () => void;
+  onCancel: () => void;
   onRetry: () => void;
   onDelete?: () => void;
 
