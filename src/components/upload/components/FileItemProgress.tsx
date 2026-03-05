@@ -42,7 +42,9 @@ export function FileItemProgress({
     >
       <div className="flex items-center justify-between gap-3">
         <div className="flex flex-col gap-1 overflow-hidden">
-          <p className="line-clamp-1 text-sm">{fileItem.file.name}</p>
+          <p title={fileItem.file.name} className="line-clamp-1 text-sm">
+            {fileItem.file.name}
+          </p>
           <p className="line-clamp-1 text-xs leading-4 text-muted-foreground">
             <span className="tracking-wide">{`${fileItem.progressPercentage.toFixed(2)}% • `}</span>
             <span>

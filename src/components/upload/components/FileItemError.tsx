@@ -38,7 +38,10 @@ export function FileItemError({
       )}
     >
       <div className="flex flex-col gap-0.5 overflow-hidden">
-        <p className="line-clamp-1 text-sm font-medium text-destructive">
+        <p
+          title={fileItem.file.name}
+          className="line-clamp-1 text-sm font-medium text-destructive"
+        >
           {fileItem.file.name}
         </p>
         <p className="line-clamp-1 text-xs leading-4 text-destructive">

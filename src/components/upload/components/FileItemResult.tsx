@@ -67,7 +67,9 @@ export function FileItemResult(props: FileItemResultProps) {
       </div>
 
       <div className="mb-auto">
-        <p className="line-clamp-1 text-sm font-medium">{name}</p>
+        <p title={name} className="line-clamp-1 text-sm font-medium">
+          {name}
+        </p>
         {type && <span className="text-xs text-muted-foreground">{type}</span>}
       </div>
 
