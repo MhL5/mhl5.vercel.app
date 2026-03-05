@@ -33,15 +33,15 @@ export function FileItemError({
       data-slot="FileItemError"
       role="alert"
       className={cn(
-        "flex items-center gap-2 rounded-md border border-destructive p-3",
+        "flex items-center gap-2 rounded-md border border-destructive bg-destructive/5 p-3",
         className,
       )}
     >
       <div className="flex flex-col gap-0.5 overflow-hidden">
-        <p className="truncate text-sm font-medium text-destructive">
+        <p className="line-clamp-1 text-sm font-medium text-destructive">
           {fileItem.file.name}
         </p>
-        <p className="truncate text-xs leading-4 text-destructive">
+        <p className="line-clamp-1 text-xs leading-4 text-destructive">
           {fileItem.error}
         </p>
       </div>
@@ -50,7 +50,7 @@ export function FileItemError({
         size="icon-xs"
         variant="ghost"
         type="button"
-        className="ms-auto"
+        className="ms-auto mb-auto"
         onClick={onRetry}
         disabled={disabled}
         title={messages.retryLabel}
@@ -59,8 +59,9 @@ export function FileItemError({
       </Button>
       <Button
         size="icon-xs"
+        className="mb-auto"
         type="button"
-        variant="destructiveGhost"
+        variant="destructive"
         title={messages.removeLabel}
         onClick={onCancel}
         disabled={disabled}

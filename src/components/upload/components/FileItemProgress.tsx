@@ -38,12 +38,12 @@ export function FileItemProgress({
   return (
     <div
       data-slot="FileItemProgress"
-      className={cn("h-full space-y-2 rounded-md border p-3", className)}
+      className={cn("h-full space-y-3 rounded-md border p-3", className)}
     >
       <div className="flex items-center justify-between gap-3">
         <div className="flex flex-col gap-1 overflow-hidden">
-          <p className="truncate text-sm">{fileItem.file.name}</p>
-          <p className="truncate text-xs leading-4 text-muted-foreground">
+          <p className="line-clamp-1 text-sm">{fileItem.file.name}</p>
+          <p className="line-clamp-1 text-xs leading-4 text-muted-foreground">
             <span className="tracking-wide">{`${fileItem.progressPercentage.toFixed(2)}% • `}</span>
             <span>
               {formatTimeLeftInSeconds(fileItem.timeLeftInSeconds) || ""} {"•"}{" "}
@@ -57,7 +57,7 @@ export function FileItemProgress({
         <Button
           size="icon-xs"
           type="button"
-          variant="destructiveGhost"
+          variant="destructive"
           title={messages.cancelUpload}
           onClick={onCancel}
           disabled={disabled}

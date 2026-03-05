@@ -41,6 +41,13 @@ export function FileItemIcon({ fileName, fileType }: FileIconProps) {
   if (fileType.includes("video/")) return <VideoIcon data-slot="file-icon" />;
   if (fileType.includes("audio/"))
     return <HeadphonesIcon data-slot="file-icon" />;
-  if (fileType.startsWith("image/")) return <ImageIcon data-slot="file-icon" />;
+  if (
+    fileType.startsWith("image/") ||
+    fileType.endsWith("svg") ||
+    fileType.endsWith("png") ||
+    fileType.endsWith("jpg") ||
+    fileType.endsWith("jpeg")
+  )
+    return <ImageIcon data-slot="file-icon" />;
   return <FileIcon data-slot="file-icon" />;
 }

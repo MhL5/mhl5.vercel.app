@@ -12,7 +12,7 @@ type DropZoneError = Array<{ message: string }>;
 
 export type DropZoneProps = {
   onDropAccepted: (files: File[]) => void;
-  onDropRejected: (error: DropZoneError) => void;
+  onDropRejected?: (error: DropZoneError) => void;
 
   accept: "image/*" | "video/*" | "audio/*";
   multiple: boolean;
@@ -167,7 +167,7 @@ export function DropZone({
             {`Accepted types: ${accept ? accept : "Any"}.`}
           </span>
         </p>
-        {errors && <FieldError className="mt-1" errors={errors} />}
+        {errors && <FieldError className="mt-1 text-start" errors={errors} />}
       </div>
     </Button>
   );
