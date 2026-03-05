@@ -1,3 +1,4 @@
+import { useOnUnMount } from "@/hooks/useOnUnMount";
 import { tryCatch } from "@/registry/utils/tryCatch/tryCatch";
 import { isAbortedError } from "@/utils/error/isAbortedError";
 import { useState } from "react";
@@ -96,22 +97,30 @@ export function useFileUpload<T>({
             onError: (error) => {
               if (isAbortedError(error)) return;
 
-              setFiles((prevFiles) =>
-                prevFiles.map((fileItem) => {
-                  if (fileItem.id !== fileWithProgress.id) return fileItem;
-
-                  fileItem.abortController?.abort();
-                  return {
-                    ...fileItem,
-                    error: `${error?.message || "unknown error!"}`,
-                  };
-                }),
+              setFiles((prevState) =>
+                prevState.map((fileItem) =>
+                  fileItem.id === fileWithProgress.id
+                    ? {
+                        ...fileItem,
+                        error: `${error?.message || "unknown error!"}`,
+                        abortController: null,
+                      }
+                    : fileItem,
+                ),
               );
               toast.error(
                 `${fileWithProgress.file.name} upload failed! ${error?.message || "unknown error!"}`,
               );
             },
           },
+        );
+
+        setFiles((prevState) =>
+          prevState.map((fileItem) =>
+            fileItem.id === fileWithProgress.id
+              ? { ...fileItem, abortController: null }
+              : fileItem,
+          ),
         );
       });
 
@@ -189,6 +198,10 @@ export function useFileUpload<T>({
     );
     setFiles([]);
   }
+
+  useOnUnMount(() =>
+    files.forEach(({ abortController }) => abortController?.abort()),
+  );
 
   return {
     files,
