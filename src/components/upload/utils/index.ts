@@ -86,9 +86,21 @@ export function validateFiles({
 }
 
 export function formatTimeLeftInSeconds(timeLeftInSeconds: number) {
-  if (timeLeftInSeconds < 60)
-    return `${Math.round(timeLeftInSeconds)} seconds remaining`;
-  if (timeLeftInSeconds < 3600)
-    return `${Math.round(timeLeftInSeconds / 60)} minutes remaining`;
-  return `${Math.round(timeLeftInSeconds / 3600)} hours remaining`;
+  const days = Math.floor(timeLeftInSeconds / 86400);
+  const remainingSecondsAfterDays = timeLeftInSeconds % 86400;
+
+  const hours = Math.floor(remainingSecondsAfterDays / 3600);
+  const remainingSecondsAfterHours = timeLeftInSeconds % 3600;
+
+  const minutes = Math.floor(remainingSecondsAfterHours / 60);
+  const seconds = Math.round(remainingSecondsAfterHours % 60);
+
+  const parts: string[] = [];
+
+  if (days > 0) parts.push(`${days}d`);
+  if (hours > 0) parts.push(`${hours}h`);
+  if (minutes > 0) parts.push(`${minutes}m`);
+  if (seconds > 0) parts.push(`${seconds}s`);
+
+  return parts.join(" ") || "Unknown";
 }

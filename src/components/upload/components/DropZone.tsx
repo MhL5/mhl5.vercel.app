@@ -4,42 +4,142 @@ import { Button } from "@/components/ui/button";
 import { FieldError } from "@/components/ui/field";
 import { cn } from "@/lib/utils";
 import { FileUpIcon } from "lucide-react";
-import { type ChangeEvent, type DragEvent, useRef, useState } from "react";
+import {
+  type ChangeEvent,
+  type ComponentProps,
+  type DragEvent,
+  type ReactNode,
+  createContext,
+  use,
+  useRef,
+  useState,
+} from "react";
 
 import { formatBytes, validateFiles } from "../utils";
 
 type DropZoneError = Array<{ message: string }>;
 
-export type DropZoneProps = {
-  onDropAccepted: (files: File[]) => void;
-  onDropRejected?: (error: DropZoneError) => void;
+type DropZoneContextValue = {
+  errors: DropZoneError;
+  processErrors: (error: DropZoneError) => void;
+  processFiles: (files: File[]) => void;
+
+  isInvalid?: boolean;
+  disabled?: boolean;
 
   accept: "image/*" | "video/*" | "audio/*";
   multiple: boolean;
-  inputId: string;
-
-  className?: string;
-  disabled?: boolean;
   maxSize?: number;
-  isInvalid?: boolean;
 };
 
-const DEFAULT_MAX_SIZE = 1000 * 1024 * 1024; // 1GB
+const DropZoneContext = createContext<DropZoneContextValue | null>(null);
 
-export function DropZone({
+export type DropZoneProps = {
+  onDropRejected?: (error: DropZoneError) => void;
+  onDropAccepted: (files: File[]) => void;
+
+  children: ReactNode;
+
+  isInvalid?: DropZoneContextValue["isInvalid"];
+  disabled?: DropZoneContextValue["disabled"];
+
+  accept: DropZoneContextValue["accept"];
+  multiple: DropZoneContextValue["multiple"];
+  maxSize?: DropZoneContextValue["maxSize"];
+};
+
+function DropZone({
+  children,
+  onDropRejected,
   disabled,
   isInvalid,
   accept,
   multiple,
-  maxSize = DEFAULT_MAX_SIZE,
-  className,
-  inputId,
   onDropAccepted,
-  onDropRejected,
+  maxSize,
 }: DropZoneProps) {
+  const [errors, setErrors] = useState<DropZoneError>([]);
+
+  function processErrors(error: DropZoneError | null) {
+    if (!error) return setErrors([]);
+    setErrors(error);
+    onDropRejected?.(error);
+  }
+
+  /**
+   * Validates the selected files
+   */
+  function processFiles(files: File[]) {
+    if (disabled) return;
+
+    const { acceptedFiles, rejectedFiles } = validateFiles({
+      files,
+      maxSize: maxSize || Infinity,
+      accept: accept,
+    });
+
+    processErrors(rejectedFiles.flatMap(({ error }) => error));
+
+    if (!acceptedFiles || acceptedFiles.length === 0) return;
+
+    if (multiple) onDropAccepted(acceptedFiles);
+    if (!multiple) {
+      if (acceptedFiles.length > 1)
+        return processErrors?.([
+          {
+            message:
+              "Only one file can be uploaded at a time, please select one file at a time.",
+          },
+        ]);
+      onDropAccepted(acceptedFiles);
+    }
+  }
+
+  return (
+    <DropZoneContext
+      value={{
+        errors,
+        processErrors,
+        disabled,
+        isInvalid: isInvalid || errors.length > 0,
+        processFiles,
+        accept,
+        multiple,
+        maxSize,
+      }}
+    >
+      {children}
+    </DropZoneContext>
+  );
+}
+
+function useDropZone() {
+  const context = use(DropZoneContext);
+  if (!context)
+    throw new Error("DropZoneContext was called outside of its provider!");
+  return context;
+}
+
+type DropZoneContentProps = {
+  inputProps?: Omit<
+    ComponentProps<"input">,
+    "ref" | "accept" | "multiple" | "disabled"
+  >;
+  className?: string;
+};
+
+function DropZoneContent({
+  className,
+  inputProps: {
+    className: inputClassName,
+    onChange: inputOnChange,
+    ...inputProps
+  } = {},
+}: DropZoneContentProps) {
   const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [errors, setErrors] = useState<DropZoneError | null>(null);
+  const { disabled, isInvalid, processFiles, accept, multiple, maxSize } =
+    useDropZone();
 
   /**
    * Handles the drop event when files are dropped onto the drop zone.
@@ -47,14 +147,12 @@ export function DropZone({
   function handleDrop(e: DragEvent<HTMLElement>) {
     e.preventDefault();
     e.stopPropagation();
-
-    if (disabled) return;
+    setIsDragging(false);
 
     const files = Array.from(e.dataTransfer.files);
     if (!files || files.length === 0) return;
-    handleSelectedFiles(files);
 
-    setIsDragging(false);
+    processFiles(files);
   }
 
   /**
@@ -63,49 +161,15 @@ export function DropZone({
   function handleInputChange(e: ChangeEvent<HTMLInputElement, Element>) {
     const files = e.target.files;
     if (!files || files.length === 0) return;
-    handleSelectedFiles(Array.from(files));
-  }
 
-  function handleError(error: DropZoneError | null) {
-    if (!error) return setErrors(null);
-    setErrors(error);
-    onDropRejected?.(error);
-  }
-
-  /**
-   * Validates the selected files
-   */
-  function handleSelectedFiles(files: File[]) {
-    if (disabled) return;
-
-    const { acceptedFiles, rejectedFiles } = validateFiles({
-      files,
-      maxSize: maxSize ?? DEFAULT_MAX_SIZE,
-      accept: accept,
-    });
-
-    handleError(rejectedFiles.flatMap(({ error }) => error));
-
-    if (!acceptedFiles || acceptedFiles.length === 0) return;
-
-    if (multiple) onDropAccepted(acceptedFiles);
-    if (!multiple) {
-      if (acceptedFiles.length > 1) {
-        return handleError?.([
-          {
-            message:
-              "Only one file can be uploaded at a time, please select one file at a time.",
-          },
-        ]);
-      }
-      onDropAccepted(acceptedFiles);
-    }
+    processFiles(Array.from(files));
   }
 
   return (
     <Button
       variant="ghost"
       type="button"
+      data-slot="DropZoneContent"
       onDrop={handleDrop}
       data-dragging={isDragging}
       data-invalid={isInvalid}
@@ -118,9 +182,7 @@ export function DropZone({
         "data-[invalid=true]:border-destructive data-[invalid=true]:text-destructive data-[invalid=true]:[&_p]:text-destructive",
         className,
       )}
-      onClick={() => {
-        if (inputRef.current) inputRef.current.click();
-      }}
+      onClick={() => inputRef.current?.click()}
       onDragEnter={(e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -139,14 +201,17 @@ export function DropZone({
     >
       <input
         type="file"
-        onChange={handleInputChange}
+        onChange={(e) => {
+          inputOnChange?.(e);
+          handleInputChange(e);
+        }}
         ref={inputRef}
         disabled={disabled}
         multiple={multiple}
         accept={accept}
-        id={inputId}
-        className="sr-only"
+        className={cn("sr-only", inputClassName)}
         aria-label="Drop files here"
+        {...inputProps}
       />
 
       <div className="flex flex-col flex-wrap items-center justify-center text-center">
@@ -167,13 +232,28 @@ export function DropZone({
             {`Accepted types: ${accept ? accept : "Any"}.`}
           </span>
         </p>
-        {errors && (
-          <FieldError
-            className="mt-1 text-start [&_ul]:text-start"
-            errors={errors}
-          />
-        )}
       </div>
     </Button>
   );
 }
+
+function DropZoneError({
+  className,
+  ...props
+}: ComponentProps<typeof FieldError>) {
+  const { errors } = useDropZone();
+
+  if (!errors) return null;
+  return (
+    <FieldError
+      className={cn(
+        "my-1 flex-wrap text-start break-all [&_ul]:flex-wrap",
+        className,
+      )}
+      errors={errors}
+      {...props}
+    />
+  );
+}
+
+export { DropZone, DropZoneContent, DropZoneError };

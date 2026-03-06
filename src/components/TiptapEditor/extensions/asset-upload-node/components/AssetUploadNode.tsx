@@ -16,12 +16,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
-  Uploader,
-  UploaderDropZone,
-  UploaderFileItem,
-  UploaderFilesList,
-} from "@/components/upload/Uploader";
-import type { DropZoneProps } from "@/components/upload/components/DropZone";
+  DropZone,
+  DropZoneContent,
+  DropZoneError,
+  type DropZoneProps,
+} from "@/components/upload/components/DropZone";
+import { FileItemProgress } from "@/components/upload/components/FileItemProgress";
+import { useFileUpload } from "@/components/upload/hooks/useFileUpload";
 import { fileUpload } from "@/components/upload/services/fileUpload";
 import { type AnyFieldApi, useForm } from "@tanstack/react-form";
 import type { NodeViewProps } from "@tiptap/react";
@@ -320,43 +321,37 @@ function AssetUploadNodeDropZone({
   isInvalid: boolean;
   inputId: string;
 }) {
-  return (
-    <Uploader
-      onUploadComplete={({ file }) => onUploadSuccess(file.url)}
-      uploadHandler={fileUpload}
-      disabled={false}
-      isInvalid={isInvalid}
-    >
-      <UploaderFilesList className="mt-5">
-        {(files) => {
-          const uploadedFile = files?.[0];
-          return (
-            <>
-              {!uploadedFile && (
-                <UploaderDropZone
-                  className="w-full rounded-sm"
-                  multiple={false}
-                  accept={accept}
-                  inputId={inputId}
-                  onDropRejected={(errors) =>
-                    errors
-                      ? errors.forEach(
-                          (error) =>
-                            error?.message && toast.error(error?.message),
-                        )
-                      : null
-                  }
-                />
-              )}
+  const { files, handleAdd, handleRemove, handleRetry } = useFileUpload({
+    onUploadComplete: ({ file }) => onUploadSuccess(file.url),
+    uploadHandler: fileUpload,
+  });
 
-              {files.map((fileItem) => (
-                <UploaderFileItem key={fileItem.id} fileItem={fileItem} />
-              ))}
-            </>
-          );
-        }}
-      </UploaderFilesList>
-    </Uploader>
+  return (
+    <>
+      {files.length === 0 && (
+        <DropZone
+          isInvalid={isInvalid}
+          multiple={false}
+          accept={accept}
+          onDropAccepted={handleAdd}
+        >
+          <DropZoneContent
+            className="w-full rounded-sm"
+            inputProps={{ id: inputId }}
+          />
+          <DropZoneError className="mt-3 mb-0" />
+        </DropZone>
+      )}
+
+      {files.map((fileItem) => (
+        <FileItemProgress
+          onCancel={handleRemove}
+          onRetry={handleRetry}
+          key={fileItem.id}
+          fileItem={fileItem}
+        />
+      ))}
+    </>
   );
 }
 

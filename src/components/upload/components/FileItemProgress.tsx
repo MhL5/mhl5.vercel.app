@@ -6,19 +6,14 @@ import {
   formatTimeLeftInSeconds,
 } from "@/components/upload/utils";
 import { cn } from "@/lib/utils";
-import {
-  RefreshCcw,
-  TriangleAlertIcon,
-  UploadCloudIcon,
-  X,
-} from "lucide-react";
+import { RefreshCcw, X } from "lucide-react";
 import { Fragment } from "react/jsx-runtime";
 
 export type FileItemProgressProps = {
   className?: string;
   fileItem: FileItem;
-  onCancel: () => void;
-  onRetry: () => void;
+  onCancel: (id: FileItem["id"]) => void;
+  onRetry: (id: FileItem["id"]) => void;
   disabled?: boolean;
   messages?: {
     title: string;
@@ -33,8 +28,8 @@ export type FileItemProgressProps = {
 
 export function FileItemProgress({
   className,
-  onCancel,
   disabled,
+  onCancel,
   onRetry,
   fileItem,
   messages = {
@@ -49,13 +44,26 @@ export function FileItemProgress({
   const details = [
     {
       label: "Progress",
-      value: `${formatBytes(fileItem.uploadedBytes)}/${formatBytes(fileItem.file.size)} • ${fileItem.progressPercentage.toFixed(2)}%`,
+      value: (
+        <>
+          <span>{`${formatBytes(fileItem.uploadedBytes)}/${formatBytes(fileItem.file.size)}`}</span>
+
+          <span className="@max-xs:hidden">
+            {` • `}
+            {`${fileItem.progressPercentage.toFixed(2)}%`}
+          </span>
+        </>
+      ),
     },
     {
-      label: "Upload Speed",
-      value: `${formatBytes(fileItem.uploadSpeedInSeconds)}/S • ${formatTimeLeftInSeconds(fileItem.timeLeftInSeconds)}`,
+      label: "Speed",
+      value: `${formatBytes(fileItem.uploadSpeedInSeconds)}/S`,
     },
-  ];
+    {
+      label: "Time Left",
+      value: formatTimeLeftInSeconds(fileItem.timeLeftInSeconds),
+    },
+  ] as const;
 
   const uploadHasFailed = !!fileItem.error;
 
@@ -63,27 +71,33 @@ export function FileItemProgress({
     <div
       data-slot="FileItemProgress"
       data-error={uploadHasFailed}
-      role={uploadHasFailed ? "alert" : undefined}
-      aria-live={uploadHasFailed ? "polite" : undefined}
       className={cn(
-        "h-full space-y-3 rounded-md border p-3 data-[error=true]:bg-destructive/5 data-[error=true]:text-destructive",
+        "@container h-full space-y-3 rounded-md border p-3 data-[error=true]:bg-destructive/5 data-[error=true]:text-destructive",
         className,
       )}
     >
-      <div className="flex gap-2.5">
-        <div className="flex basis-full flex-col gap-2">
-          <p title={fileItem.file.name} className="line-clamp-1 text-sm">
-            {uploadHasFailed ? (
-              <TriangleAlertIcon className="me-2 inline-block size-4" />
-            ) : (
-              <UploadCloudIcon className="me-2 inline-block size-4" />
-            )}
+      <div
+        className={cn(
+          "grid gap-2.5",
+          uploadHasFailed
+            ? "grid-cols-[1fr_auto_auto]"
+            : "grid-cols-[1fr_auto]",
+        )}
+      >
+        <div className="flex flex-col gap-2 overflow-hidden">
+          <p
+            title={fileItem.file.name}
+            className="truncate text-sm"
+            role={uploadHasFailed ? "alert" : undefined}
+            aria-live={uploadHasFailed ? "polite" : undefined}
+          >
             {fileItem.file.name} {fileItem.error}
           </p>
-          <p className="grid grid-cols-[1fr_2fr] gap-1.25 text-xs leading-4 text-muted-foreground">
+
+          <p className="grid grid-cols-[auto_1fr] gap-1.25 text-xs leading-4 text-muted-foreground">
             {details.map(({ label, value }) => (
               <Fragment key={label + value}>
-                <span className="inline-block w-24 font-medium capitalize">
+                <span className="inline-block font-medium capitalize">
                   {label}:
                 </span>
                 <span className="line-clamp-1">{value}</span>
@@ -98,7 +112,7 @@ export function FileItemProgress({
             variant="secondary"
             type="button"
             className="ms-auto mb-auto"
-            onClick={onRetry}
+            onClick={() => onRetry(fileItem.id)}
             disabled={disabled}
             title={messages.retryLabel}
           >
@@ -110,7 +124,7 @@ export function FileItemProgress({
           type="button"
           variant="destructive"
           title={messages.cancelUpload}
-          onClick={onCancel}
+          onClick={() => onCancel(fileItem.id)}
           disabled={disabled}
           className="mb-auto"
         >

@@ -1,8 +1,8 @@
 import {
-  LoadingSwap,
-  LoadingSwapContent,
-  LoadingSwapLoading,
-} from "@/components/LoadingSwap";
+  Swap,
+  SwapActiveContent,
+  SwapInactiveContent,
+} from "@/components/Swap";
 import { Button } from "@/components/ui/button";
 import Spinner from "@/components/ui/spinner";
 import type { ComponentProps } from "react";
@@ -16,12 +16,12 @@ export function LoadingButton({
 
   return (
     <Button disabled={isDisabled} {...props}>
-      <LoadingSwap isLoading={isDisabled}>
-        <LoadingSwapContent>{children}</LoadingSwapContent>
-        <LoadingSwapLoading>
+      <Swap shouldSwap={isDisabled}>
+        <SwapInactiveContent>{children}</SwapInactiveContent>
+        <SwapActiveContent>
           <Spinner />
-        </LoadingSwapLoading>
-      </LoadingSwap>
+        </SwapActiveContent>
+      </Swap>
     </Button>
   );
 }
