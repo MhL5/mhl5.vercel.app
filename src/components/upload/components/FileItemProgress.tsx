@@ -1,4 +1,10 @@
+import {
+  Swap,
+  SwapActiveContent,
+  SwapInactiveContent,
+} from "@/components/Swap";
 import { Button } from "@/components/ui/button";
+import { FieldError } from "@/components/ui/field";
 import { Progress } from "@/components/ui/progress";
 import type { FileItem } from "@/components/upload/hooks/useFileUpload";
 import {
@@ -76,60 +82,70 @@ export function FileItemProgress({
         className,
       )}
     >
-      <div
-        className={cn(
-          "grid gap-2.5",
-          uploadHasFailed
-            ? "grid-cols-[1fr_auto_auto]"
-            : "grid-cols-[1fr_auto]",
-        )}
-      >
+      <div className="grid grid-cols-[1fr_auto] gap-2.5">
         <div className="flex flex-col gap-2 overflow-hidden">
           <p
             title={fileItem.file.name}
-            className="truncate text-sm"
+            className="truncate text-sm font-medium"
             role={uploadHasFailed ? "alert" : undefined}
             aria-live={uploadHasFailed ? "polite" : undefined}
           >
-            {fileItem.file.name} {fileItem.error}
+            {fileItem.file.name}
           </p>
 
-          <p className="grid grid-cols-[auto_1fr] gap-1.25 text-xs leading-4 text-muted-foreground">
-            {details.map(({ label, value }) => (
-              <Fragment key={label + value}>
-                <span className="inline-block font-medium capitalize">
-                  {label}:
-                </span>
-                <span className="line-clamp-1">{value}</span>
-              </Fragment>
-            ))}
-          </p>
+          <Swap shouldSwap={!!fileItem.error}>
+            <SwapInactiveContent>
+              <p className="grid grid-cols-[auto_1fr] gap-1.5 text-xs leading-4 text-muted-foreground">
+                {details.map(({ label, value }) => (
+                  <Fragment key={label + value}>
+                    <span className="inline-block font-medium capitalize">
+                      {label}:
+                    </span>
+                    <span className="line-clamp-1">{value}</span>
+                  </Fragment>
+                ))}
+              </p>
+            </SwapInactiveContent>
+            <SwapActiveContent>
+              {fileItem.error && (
+                <FieldError
+                  className="line-clamp-3"
+                  errors={[
+                    {
+                      message: fileItem.error,
+                    },
+                  ]}
+                />
+              )}
+            </SwapActiveContent>
+          </Swap>
         </div>
 
-        {uploadHasFailed && (
+        <div className="ms-auto mb-auto grid gap-2">
           <Button
             size="icon-xs"
-            variant="secondary"
             type="button"
-            className="ms-auto mb-auto"
-            onClick={() => onRetry(fileItem.id)}
+            variant="destructive"
+            title={messages.cancelUpload}
+            onClick={() => onCancel(fileItem.id)}
             disabled={disabled}
-            title={messages.retryLabel}
           >
-            <RefreshCcw aria-hidden="true" />
+            <X aria-hidden="true" />
           </Button>
-        )}
-        <Button
-          size="icon-xs"
-          type="button"
-          variant="destructive"
-          title={messages.cancelUpload}
-          onClick={() => onCancel(fileItem.id)}
-          disabled={disabled}
-          className="mb-auto"
-        >
-          <X aria-hidden="true" />
-        </Button>
+
+          {uploadHasFailed && (
+            <Button
+              size="icon-xs"
+              variant="secondary"
+              type="button"
+              onClick={() => onRetry(fileItem.id)}
+              disabled={disabled}
+              title={messages.retryLabel}
+            >
+              <RefreshCcw aria-hidden="true" />
+            </Button>
+          )}
+        </div>
       </div>
 
       <Progress value={fileItem.progressPercentage} max={100} />

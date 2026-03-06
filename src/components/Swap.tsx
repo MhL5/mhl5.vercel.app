@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { type ComponentProps, type ReactNode, createContext, use } from "react";
+import { type ComponentProps, createContext, use } from "react";
 
 type SwapContextValue = {
   shouldSwap: boolean;
@@ -15,20 +15,17 @@ function useSwap() {
   return context;
 }
 
-type LoadingSwapProps = {
+type SwapProps = {
   shouldSwap: SwapContextValue["shouldSwap"];
-  children: ReactNode;
-};
+} & ComponentProps<"div">;
 
 /**
- * Swaps the content without any layout shifts when the loading state changes.
+ * Swaps the content without layout shifts using grid and visibility
  */
-function Swap({ shouldSwap, children }: LoadingSwapProps) {
+function Swap({ shouldSwap, className, ...props }: SwapProps) {
   return (
     <SwapContext value={{ shouldSwap }}>
-      <div className="grid grid-cols-1 items-center justify-items-center">
-        {children}
-      </div>
+      <div className={cn("grid grid-cols-1", className)} {...props} />
     </SwapContext>
   );
 }
@@ -61,4 +58,4 @@ function SwapActiveContent({ className, ...props }: ComponentProps<"div">) {
   );
 }
 
-export { Swap, SwapInactiveContent, SwapActiveContent };
+export { Swap, SwapActiveContent, SwapInactiveContent };
