@@ -11,8 +11,10 @@ import {
 } from "@/registry/new-york/TagsInput/TagsInput";
 import { useState } from "react";
 
+const tagsInitialValue = Array.from({ length: 5 }, (_, i) => `tag-${i}`);
+
 export default function Example() {
-  const [tags, setTags] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>(tagsInitialValue);
 
   return (
     <section className="grid w-full place-items-center">

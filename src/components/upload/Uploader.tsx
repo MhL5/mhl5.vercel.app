@@ -1,7 +1,7 @@
 "use client";
 
 import { DropZone } from "@/components/upload/components/DropZone";
-import { FileItem } from "@/components/upload/components/FileItem";
+import { FileItemProgress } from "@/components/upload/components/FileItemProgress";
 import {
   type UseFileUploadOptions,
   useFileUpload,
@@ -63,11 +63,11 @@ function UploaderDropZone({
 }: UploaderDropZoneProps) {
   const { handleAdd, disabled, isInvalid, files } = useUploaderContext();
 
-  const singleUploadProgress = files?.[0]?.progressPercentage;
+  const singleUploadProgressPercentage = files?.[0]?.progressPercentage;
   const isSingleUploadInProgress =
     multiple === false &&
-    singleUploadProgress < 100 &&
-    singleUploadProgress > 0;
+    singleUploadProgressPercentage < 100 &&
+    singleUploadProgressPercentage > 0;
 
   return (
     <DropZone
@@ -101,22 +101,22 @@ function UploaderFilesList({
   );
 }
 
-type UploaderFileItemProps = PartialPick<
-  ComponentProps<typeof FileItem>,
-  "onDelete" | "onCancel" | "onRetry"
+type UploaderFileItemProgressProps = PartialPick<
+  ComponentProps<typeof FileItemProgress>,
+  "onCancel" | "onRetry"
 >;
 
-function UploaderFileItem({
+function UploaderFileItemProgress({
   disabled: disabledProp,
   fileItem,
   onCancel,
   onRetry,
   ...props
-}: UploaderFileItemProps) {
+}: UploaderFileItemProgressProps) {
   const { disabled, handleRemove, handleRetry } = useUploaderContext();
 
   return (
-    <FileItem
+    <FileItemProgress
       disabled={disabledProp || disabled}
       fileItem={fileItem}
       onCancel={() => {
@@ -135,7 +135,7 @@ function UploaderFileItem({
 export {
   Uploader,
   UploaderDropZone,
-  UploaderFileItem,
+  UploaderFileItemProgress,
   UploaderFilesList,
   type UploaderContextValue,
 };

@@ -9,6 +9,7 @@ export type FileItem = {
   file: File;
 
   progressPercentage: number;
+  uploadedBytes: number;
   uploadSpeedInSeconds: number;
   timeLeftInSeconds: number;
   startTime: number | null;
@@ -118,6 +119,7 @@ export function useFileUpload<T>({
               payload: {
                 id: fileItem.id,
                 progressPercentage,
+                uploadedBytes,
                 uploadSpeedInSeconds,
                 timeLeftInSeconds,
                 startTime,
@@ -127,6 +129,10 @@ export function useFileUpload<T>({
         })
           .then((res) => {
             onUploadComplete(res);
+            dispatch({
+              type: "REMOVE_FILE",
+              payload: { id: fileItem.id },
+            });
             toast.success(`${fileItem.file.name} uploaded successfully.`);
           })
           .catch((error) => {
@@ -172,6 +178,7 @@ export function useFileUpload<T>({
       file,
 
       progressPercentage: 0,
+      uploadedBytes: 0,
       uploadSpeedInSeconds: 0,
       timeLeftInSeconds: 0,
       startTime: Date.now(),
@@ -206,6 +213,7 @@ export function useFileUpload<T>({
 
       timeLeftInSeconds: 0,
       progressPercentage: 0,
+      uploadedBytes: 0,
       uploadSpeedInSeconds: 0,
       startTime: Date.now(),
 

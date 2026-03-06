@@ -6,12 +6,19 @@ import {
   formatTimeLeftInSeconds,
 } from "@/components/upload/utils";
 import { cn } from "@/lib/utils";
-import { X } from "lucide-react";
+import {
+  RefreshCcw,
+  TriangleAlertIcon,
+  UploadCloudIcon,
+  X,
+} from "lucide-react";
+import { Fragment } from "react/jsx-runtime";
 
 export type FileItemProgressProps = {
   className?: string;
   fileItem: FileItem;
   onCancel: () => void;
+  onRetry: () => void;
   disabled?: boolean;
   messages?: {
     title: string;
@@ -19,6 +26,8 @@ export type FileItemProgressProps = {
     minutesRemaining: string;
     hoursRemaining: string;
     cancelUpload: string;
+
+    retryLabel: string;
   };
 };
 
@@ -26,6 +35,7 @@ export function FileItemProgress({
   className,
   onCancel,
   disabled,
+  onRetry,
   fileItem,
   messages = {
     title: "Uploading...",
@@ -33,29 +43,68 @@ export function FileItemProgress({
     minutesRemaining: "minutes remaining",
     hoursRemaining: "hours remaining",
     cancelUpload: "cancel upload",
+    retryLabel: "Retry upload",
   },
 }: FileItemProgressProps) {
+  const details = [
+    {
+      label: "Progress",
+      value: `${formatBytes(fileItem.uploadedBytes)}/${formatBytes(fileItem.file.size)} • ${fileItem.progressPercentage.toFixed(2)}%`,
+    },
+    {
+      label: "Upload Speed",
+      value: `${formatBytes(fileItem.uploadSpeedInSeconds)}/S • ${formatTimeLeftInSeconds(fileItem.timeLeftInSeconds)}`,
+    },
+  ];
+
+  const uploadHasFailed = !!fileItem.error;
+
   return (
     <div
       data-slot="FileItemProgress"
-      className={cn("h-full space-y-3 rounded-md border p-3", className)}
+      data-error={uploadHasFailed}
+      role={uploadHasFailed ? "alert" : undefined}
+      aria-live={uploadHasFailed ? "polite" : undefined}
+      className={cn(
+        "h-full space-y-3 rounded-md border p-3 data-[error=true]:bg-destructive/5 data-[error=true]:text-destructive",
+        className,
+      )}
     >
-      <div className="flex items-center justify-between gap-3">
-        <div className="flex flex-col gap-1 overflow-hidden">
+      <div className="flex gap-2.5">
+        <div className="flex basis-full flex-col gap-2">
           <p title={fileItem.file.name} className="line-clamp-1 text-sm">
-            {fileItem.file.name}
+            {uploadHasFailed ? (
+              <TriangleAlertIcon className="me-2 inline-block size-4" />
+            ) : (
+              <UploadCloudIcon className="me-2 inline-block size-4" />
+            )}
+            {fileItem.file.name} {fileItem.error}
           </p>
-          <p className="line-clamp-1 text-xs leading-4 text-muted-foreground">
-            <span className="tracking-wide">{`${fileItem.progressPercentage.toFixed(2)}% • `}</span>
-            <span>
-              {formatTimeLeftInSeconds(fileItem.timeLeftInSeconds) || ""} {"•"}{" "}
-              <span dir="auto">
-                {formatBytes(fileItem.uploadSpeedInSeconds)}/S
-              </span>
-            </span>
+          <p className="grid grid-cols-[1fr_2fr] gap-1.25 text-xs leading-4 text-muted-foreground">
+            {details.map(({ label, value }) => (
+              <Fragment key={label + value}>
+                <span className="inline-block w-24 font-medium capitalize">
+                  {label}:
+                </span>
+                <span className="line-clamp-1">{value}</span>
+              </Fragment>
+            ))}
           </p>
         </div>
 
+        {uploadHasFailed && (
+          <Button
+            size="icon-xs"
+            variant="secondary"
+            type="button"
+            className="ms-auto mb-auto"
+            onClick={onRetry}
+            disabled={disabled}
+            title={messages.retryLabel}
+          >
+            <RefreshCcw aria-hidden="true" />
+          </Button>
+        )}
         <Button
           size="icon-xs"
           type="button"
@@ -65,7 +114,7 @@ export function FileItemProgress({
           disabled={disabled}
           className="mb-auto"
         >
-          <X className="size-4" aria-hidden="true" />
+          <X aria-hidden="true" />
         </Button>
       </div>
 

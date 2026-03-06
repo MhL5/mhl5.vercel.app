@@ -167,7 +167,12 @@ export function DropZone({
             {`Accepted types: ${accept ? accept : "Any"}.`}
           </span>
         </p>
-        {errors && <FieldError className="mt-1 text-start" errors={errors} />}
+        {errors && (
+          <FieldError
+            className="mt-1 text-start [&_ul]:text-start"
+            errors={errors}
+          />
+        )}
       </div>
     </Button>
   );
