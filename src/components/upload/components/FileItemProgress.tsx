@@ -1,8 +1,4 @@
-import {
-  Swap,
-  SwapActiveContent,
-  SwapInactiveContent,
-} from "@/components/Swap";
+import { Swap, SwapItem } from "@/components/Swap";
 import { Button } from "@/components/ui/button";
 import { FieldError } from "@/components/ui/field";
 import { Progress } from "@/components/ui/progress";
@@ -93,8 +89,8 @@ export function FileItemProgress({
             {fileItem.file.name}
           </p>
 
-          <Swap shouldSwap={!!fileItem.error}>
-            <SwapInactiveContent>
+          <Swap swapTo={fileItem.error ? "error" : "uploading"}>
+            <SwapItem value="uploading">
               <p className="grid grid-cols-[auto_1fr] gap-1.5 text-xs leading-4 text-muted-foreground">
                 {details.map(({ label, value }) => (
                   <Fragment key={label + value}>
@@ -105,8 +101,8 @@ export function FileItemProgress({
                   </Fragment>
                 ))}
               </p>
-            </SwapInactiveContent>
-            <SwapActiveContent>
+            </SwapItem>
+            <SwapItem value="error">
               {fileItem.error && (
                 <FieldError
                   className="line-clamp-3"
@@ -117,7 +113,7 @@ export function FileItemProgress({
                   ]}
                 />
               )}
-            </SwapActiveContent>
+            </SwapItem>
           </Swap>
         </div>
 
