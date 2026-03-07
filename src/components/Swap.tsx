@@ -45,7 +45,6 @@ function SwapItem({
 }: ComponentProps<"div"> & { value: string }) {
   const { swapTo } = useSwap();
 
-  if (swapTo !== value) return null;
   return (
     <div
       data-active={swapTo === value}
