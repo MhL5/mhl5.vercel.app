@@ -2,9 +2,11 @@ import { Button } from "@/components/ui/button";
 import { FieldError } from "@/components/ui/field";
 import { Progress } from "@/components/ui/progress";
 import type { FileItem } from "@/components/upload/hooks/useFileUpload";
-import { formatBytes } from "@/components/upload/utils";
 import { cn } from "@/lib/utils";
-import { formatSeconds } from "@/registry/utils/formatters/formatters";
+import {
+  formatBytes,
+  formatSeconds,
+} from "@/registry/utils/formatters/formatters";
 import { RefreshCcw, X } from "lucide-react";
 import { Fragment } from "react/jsx-runtime";
 

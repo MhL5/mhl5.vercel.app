@@ -17,8 +17,6 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   DropZone,
-  DropZoneContent,
-  DropZoneError,
   type DropZoneProps,
 } from "@/components/upload/components/DropZone";
 import { FileItemProgress } from "@/components/upload/components/FileItemProgress";
@@ -276,6 +274,7 @@ function UploadOrUrlField({ field, accept, onPreview }: UploadOrUrlFieldProps) {
               onPreview();
               field.handleChange(url);
             }}
+            onUploadError={(errors) => field.setErrorMap({ onChange: errors })}
             isInvalid={isInvalid}
           />
         </TabsContent>
@@ -314,10 +313,12 @@ function AssetUploadNodeDropZone({
   accept,
   onUploadSuccess,
   isInvalid,
+  onUploadError,
   inputId,
 }: {
   accept: DropZoneProps["accept"];
   onUploadSuccess: (url: string) => void;
+  onUploadError: (error: { message: string }[]) => void;
   isInvalid: boolean;
   inputId: string;
 }) {
@@ -330,17 +331,15 @@ function AssetUploadNodeDropZone({
     <>
       {files.length === 0 && (
         <DropZone
-          isInvalid={isInvalid}
+          data-invalid={isInvalid}
           multiple={false}
           accept={accept}
+          disabled={files.length > 0}
           onDropAccepted={handleAdd}
-        >
-          <DropZoneContent
-            className="w-full rounded-sm"
-            inputProps={{ id: inputId }}
-          />
-          <DropZoneError className="mt-3 mb-0" />
-        </DropZone>
+          onDropRejected={onUploadError}
+          className="w-full rounded-sm"
+          inputProps={{ id: inputId }}
+        />
       )}
 
       {files.map((fileItem) => (

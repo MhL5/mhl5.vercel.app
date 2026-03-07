@@ -1,21 +1,36 @@
 // String formatters
 // ----------------------------------------------------------------
-export const toCamelCase = (str: string) =>
-  str.replace(/[-_ ]+(\w)/g, (_, c) => (c ? c.toUpperCase() : ""));
+export function toCamelCase(str: string) {
+  return str.replace(/[-_ ]+(\w)/g, (_, c) => (c ? c.toUpperCase() : ""));
+}
 
-export const toCapitalize = (str: string) =>
-  str
+export function toCapitalize(str: string) {
+  return str
     .split(" ")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(" ");
+}
 
-export const toKebabCase = (str: string) => str.replaceAll(" ", "-");
+export function toKebabCase(str: string) {
+  return str.replaceAll(" ", "-");
+}
 
 /** @example "userInformation" => "User Information" */
-export const toSentenceCase = (str: string) =>
-  str.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase());
+export function toSentenceCase(str: string) {
+  return str
+    .replace(/([A-Z])/g, " $1")
+    .replace(/^./, (str) => str.toUpperCase());
+}
 
-// Date formatters
+/** @example truncateMiddle("M3GAN.2.0.2025.720p.WEBRip.x264.AAC.YTS.SoftSub.Sermovie.mkv") => "M3GAN.2.0.202....Sermovie.mkv" */
+export function truncateMiddle(str: string, requiredLength: number = 26) {
+  const requiredLengthHalf = Math.round(requiredLength / 2);
+  return str.length > requiredLength
+    ? `${str.slice(0, requiredLengthHalf)}...${str.slice(str.length - requiredLengthHalf)}`
+    : str;
+}
+
+// Date and time formatters
 // ----------------------------------------------------------------
 export function formatDate(
   date: Date | string | number,
@@ -80,6 +95,18 @@ export function formatNumber(
     maximumFractionDigits: opts.maximumFractionDigits ?? 2,
     ...opts,
   }).format(Number(number));
+}
+
+export function formatBytes(bytes: number, decimals = 2) {
+  if (bytes === 0) return "0 Bytes";
+
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+  const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+  return `${Number.parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
 }
 
 // Currency formatters

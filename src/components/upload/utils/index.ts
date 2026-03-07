@@ -1,14 +1,7 @@
-export function formatBytes(bytes: number, decimals = 2) {
-  if (bytes === 0) return "0 Bytes";
-
-  const k = 1024;
-  const dm = decimals < 0 ? 0 : decimals;
-  const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
-
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-
-  return `${Number.parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
-}
+import {
+  formatBytes,
+  truncateMiddle,
+} from "@/registry/utils/formatters/formatters";
 
 export function validateFile({
   file,
@@ -22,7 +15,7 @@ export function validateFile({
   if (file.size > maxSize)
     return [
       {
-        message: `File "${file.name}" exceeds the maximum size of ${formatBytes(maxSize)}.`,
+        message: `File "${truncateMiddle(file.name)}" exceeds the maximum size of ${formatBytes(maxSize)}.`,
       },
     ];
 
@@ -43,7 +36,11 @@ export function validateFile({
     });
 
     if (!isAccepted)
-      return [{ message: `File "${file.name}" is not an accepted file type.` }];
+      return [
+        {
+          message: `File "${truncateMiddle(file.name)}" is not an accepted file type.`,
+        },
+      ];
   }
 
   return null;
