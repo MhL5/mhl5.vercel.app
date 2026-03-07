@@ -29,6 +29,43 @@ export function formatDate(
   }).format(new Date(date));
 }
 
+/**
+ * format seconds
+ * @example
+ * formatSeconds(0.5) => 0.5s
+ * formatSeconds(2) => 2s
+ * formatSeconds(100) => 1m 40s
+ * formatSeconds(8700) => 2h 25m
+ * formatSeconds(28700) => 7h 58m 20s
+ * formatSeconds(2318702) => 26d 20h 5m 2s
+ */
+export function formatSeconds(sec: number) {
+  const days = Math.floor(sec / 86400);
+  const remainingSecondsAfterDays = sec % 86400;
+
+  const hours = Math.floor(remainingSecondsAfterDays / 3600);
+  const remainingSecondsAfterHours = sec % 3600;
+
+  const minutes = Math.floor(remainingSecondsAfterHours / 60);
+  const seconds = remainingSecondsAfterHours % 60;
+  /**
+   * @example
+   * 2 sec left => 2
+   * 0.7 sec left => 0.7
+   */
+  const formattedSeconds =
+    seconds > 1 ? Math.round(seconds) : seconds.toFixed(1);
+
+  const parts: string[] = [];
+
+  if (days > 0) parts.push(`${days}d`);
+  if (hours > 0) parts.push(`${hours}h`);
+  if (minutes > 0) parts.push(`${minutes}m`);
+  if (seconds > 0) parts.push(`${formattedSeconds}s`);
+
+  return parts.join(" ");
+}
+
 // Number formatters
 // ----------------------------------------------------------------
 export function formatNumber(

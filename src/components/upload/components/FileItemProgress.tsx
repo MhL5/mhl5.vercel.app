@@ -1,13 +1,10 @@
-import { Swap, SwapItem } from "@/components/Swap";
 import { Button } from "@/components/ui/button";
 import { FieldError } from "@/components/ui/field";
 import { Progress } from "@/components/ui/progress";
 import type { FileItem } from "@/components/upload/hooks/useFileUpload";
-import {
-  formatBytes,
-  formatTimeLeftInSeconds,
-} from "@/components/upload/utils";
+import { formatBytes } from "@/components/upload/utils";
 import { cn } from "@/lib/utils";
+import { formatSeconds } from "@/registry/utils/formatters/formatters";
 import { RefreshCcw, X } from "lucide-react";
 import { Fragment } from "react/jsx-runtime";
 
@@ -63,7 +60,7 @@ export function FileItemProgress({
     },
     {
       label: "Time Left",
-      value: formatTimeLeftInSeconds(fileItem.timeLeftInSeconds),
+      value: formatSeconds(fileItem.timeLeftInSeconds),
     },
   ] as const;
 
@@ -89,8 +86,17 @@ export function FileItemProgress({
             {fileItem.file.name}
           </p>
 
-          <Swap swapTo={fileItem.error ? "error" : "uploading"}>
-            <SwapItem value="uploading">
+          <div className="h-15">
+            {fileItem.error ? (
+              <FieldError
+                className="line-clamp-3"
+                errors={[
+                  {
+                    message: fileItem.error,
+                  },
+                ]}
+              />
+            ) : (
               <p className="grid grid-cols-[auto_1fr] gap-1.5 text-xs leading-4 text-muted-foreground">
                 {details.map(({ label, value }) => (
                   <Fragment key={label + value}>
@@ -101,20 +107,8 @@ export function FileItemProgress({
                   </Fragment>
                 ))}
               </p>
-            </SwapItem>
-            <SwapItem value="error">
-              {fileItem.error && (
-                <FieldError
-                  className="line-clamp-3"
-                  errors={[
-                    {
-                      message: fileItem.error,
-                    },
-                  ]}
-                />
-              )}
-            </SwapItem>
-          </Swap>
+            )}
+          </div>
         </div>
 
         <div className="ms-auto mb-auto grid gap-2">

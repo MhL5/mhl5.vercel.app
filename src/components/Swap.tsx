@@ -1,11 +1,10 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import type { StringWithAutoComplete } from "@/registry/types/AutoComplete/AutoComplete";
 import { type ComponentProps, createContext, use } from "react";
 
 type SwapContextValue = {
-  swapTo: StringWithAutoComplete<"inactive">;
+  swapTo: string;
 };
 
 const SwapContext = createContext<SwapContextValue | null>(null);
@@ -21,7 +20,15 @@ type SwapProps = {
 } & ComponentProps<"div">;
 
 /**
- * Swaps the content without layout shifts using grid and visibility
+ * Swaps the content without layout shifts using CSS (grid and visibility)
+ *
+ * Warning: this component doesn't un mount SwapItems, use with caution
+ *
+ * @example
+ * <Swap swapTo={fileItem.error ? "error" : "uploading"}>
+ *   <SwapItem value="uploading"> uploading </SwapItem>
+ *   <SwapItem value="error"> error </SwapItem>
+ * </Swap>
  */
 function Swap({ swapTo, className, ...props }: SwapProps) {
   return (
@@ -37,6 +44,8 @@ function SwapItem({
   ...props
 }: ComponentProps<"div"> & { value: string }) {
   const { swapTo } = useSwap();
+
+  if (swapTo !== value) return null;
   return (
     <div
       data-active={swapTo === value}
