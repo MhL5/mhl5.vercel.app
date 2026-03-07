@@ -1,4 +1,5 @@
 import { Input } from "@/components/ui/input";
+import { useStore } from "@tanstack/react-form";
 import { type ComponentProps } from "react";
 
 import { useAppField, useFieldContext, useFormContext } from "../appForm";
@@ -10,20 +11,17 @@ export default function AppFieldInput({
   const { fieldControllerProps } = useAppField();
   const field = useFieldContext<string>();
   const form = useFormContext();
+  const isSubmitting = useStore(form.store, (state) => state.isSubmitting);
 
   return (
-    <form.Subscribe selector={(state) => state.isSubmitting}>
-      {(isSubmitting) => (
-        <Input
-          name={field.name}
-          value={field.state.value}
-          onBlur={field.handleBlur}
-          onChange={(e) => field.handleChange(e.target.value)}
-          disabled={isSubmitting || disabled}
-          {...fieldControllerProps}
-          {...props}
-        />
-      )}
-    </form.Subscribe>
+    <Input
+      name={field.name}
+      value={field.state.value}
+      onBlur={field.handleBlur}
+      onChange={(e) => field.handleChange(e.target.value)}
+      disabled={isSubmitting || disabled}
+      {...fieldControllerProps}
+      {...props}
+    />
   );
 }

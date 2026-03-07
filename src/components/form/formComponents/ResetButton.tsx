@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { useStore } from "@tanstack/react-form";
 import type { ComponentProps } from "react";
 
 import { useFormContext } from "../appForm";
@@ -9,21 +10,18 @@ export default function ResetButton({
   ...props
 }: ComponentProps<typeof Button>) {
   const form = useFormContext();
+  const isSubmitting = useStore(form.store, (state) => state.isSubmitting);
 
   return (
-    <form.Subscribe selector={(state) => state.isSubmitting}>
-      {(isSubmitting) => (
-        <Button
-          disabled={isSubmitting || disabled}
-          type="button"
-          variant="outline"
-          onClick={(e) => {
-            onClick?.(e);
-            form.reset();
-          }}
-          {...props}
-        />
-      )}
-    </form.Subscribe>
+    <Button
+      disabled={isSubmitting || disabled}
+      type="button"
+      variant="outline"
+      onClick={(e) => {
+        onClick?.(e);
+        form.reset();
+      }}
+      {...props}
+    />
   );
 }
