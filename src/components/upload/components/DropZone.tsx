@@ -27,7 +27,7 @@ export type DropZoneProps = {
 
   className?: string;
 
-  "data-invalid": boolean;
+  "aria-invalid": boolean;
   disabled: boolean;
 
   accept: "image/*" | "video/*" | "audio/*";
@@ -48,7 +48,7 @@ export type DropZoneProps = {
  *    onDropAccepted={handleAdd}
  *    onDropRejected={(errors) => field.setErrorMap({ onChange: errors })}
  *    disabled={isSubmitting}
- *    data-invalid={isInvalid}
+ *    aria-invalid={isInvalid}
  *    className="w-full"
  *    inputProps={{id: "input-id","aria-describedby": "example-id","aria-invalid": false}}
  *  />
@@ -65,9 +65,10 @@ function DropZone({
   inputProps: {
     className: inputClassName,
     onChange: inputOnChange,
+    "aria-invalid": inputAriaInvalid,
     ...inputProps
   } = {},
-  ...props
+  "aria-invalid": ariaInvalid,
 }: DropZoneProps) {
   const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -82,13 +83,7 @@ function DropZone({
    */
   function processFiles(files: File[]) {
     if (disabled) return;
-
-    const { acceptedFiles, rejectedFiles } = validateFiles({
-      files,
-      maxSize: maxSize || Infinity,
-      accept: accept,
-    });
-    if (!multiple && acceptedFiles.length > 1)
+    if (!multiple && files.length > 1)
       return processErrors?.([
         {
           message:
@@ -96,11 +91,16 @@ function DropZone({
         },
       ]);
 
+    const { acceptedFiles, rejectedFiles } = validateFiles({
+      files,
+      maxSize: maxSize || Infinity,
+      accept: accept,
+    });
+
     processErrors(rejectedFiles.flatMap(({ error }) => error));
 
     if (!acceptedFiles || acceptedFiles.length === 0) return;
 
-    if (multiple) onDropAccepted(acceptedFiles);
     onDropAccepted(acceptedFiles);
   }
 
@@ -134,14 +134,15 @@ function DropZone({
       type="button"
       data-slot="DropZoneContent"
       onDrop={handleDrop}
-      data-dragging={isDragging}
       tabIndex={-1}
       disabled={disabled}
+      data-dragging={isDragging}
+      aria-invalid={ariaInvalid}
       className={cn(
         "flex h-fit min-h-45 cursor-pointer flex-col items-center justify-center border-2 border-dashed border-border p-6 whitespace-normal transition-none",
         "has-[input:focus-visible]:border-ring has-[input:focus-visible]:ring-[3px] has-[input:focus-visible]:ring-ring/50",
+        "aria-[invalid=true]:border-destructive aria-[invalid=true]:bg-destructive/5 aria-[invalid=true]:text-destructive aria-[invalid=true]:[&_p]:text-destructive",
         "data-[dragging=true]:border-primary/10 data-[dragging=true]:bg-primary/10",
-        "data-[invalid=true]:border-destructive data-[invalid=true]:text-destructive data-[invalid=true]:[&_p]:text-destructive",
         className,
       )}
       onClick={() => inputRef.current?.click()}
@@ -160,10 +161,10 @@ function DropZone({
         e.preventDefault();
         e.stopPropagation();
       }}
-      {...props}
     >
       <input
         type="file"
+        aria-invalid={ariaInvalid || inputAriaInvalid}
         onChange={(e) => {
           inputOnChange?.(e);
           handleInputChange(e);
