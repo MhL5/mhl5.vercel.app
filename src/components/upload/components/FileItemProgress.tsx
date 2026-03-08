@@ -82,8 +82,6 @@ export function FileItemProgress({
           <p
             title={fileItem.file.name}
             className="truncate text-sm font-medium"
-            role={uploadHasFailed ? "alert" : undefined}
-            aria-live={uploadHasFailed ? "polite" : undefined}
           >
             {fileItem.file.name}
           </p>
