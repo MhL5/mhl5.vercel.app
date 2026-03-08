@@ -17,28 +17,37 @@ import { validateFiles } from "../utils";
 type DropZoneError = Array<{ message: string }>;
 
 export type DropZoneProps = {
+  /** optional input element props, excluding ref, accept, multiple, and disabled */
   inputProps?: Omit<
     ComponentProps<"input">,
     "ref" | "accept" | "multiple" | "disabled"
   >;
 
+  /** Callback fired when files are rejected during drop */
   onDropRejected: (error: DropZoneError) => void;
+  /** Callback fired when files are accepted */
   onDropAccepted: (files: File[]) => void;
 
+  /** Optional CSS class name to apply to the component */
   className?: string;
 
+  /** Indicates whether the drop zone has an invalid state */
   "aria-invalid": boolean;
+  /**  Disables the drop zone interaction */
   disabled: boolean;
 
+  /** The type of files accepted by the drop zone, you can add more types if you need */
   accept: "image/*" | "video/*" | "audio/*";
+  /** Whether multiple files can be accepted at once */
   multiple: boolean;
+  /** Maximum file size in bytes allowed */
   maxSize?: number;
 };
 
 /**
  * # DropZone
  *
- * handles drag drop, click to browse and validating files using a hidden input and a button.
+ * handles drag drop, click to browse and validating files.
  *
  * @example
  * ```
@@ -133,7 +142,6 @@ function DropZone({
       variant="ghost"
       type="button"
       data-slot="DropZoneContent"
-      onDrop={handleDrop}
       tabIndex={-1}
       disabled={disabled}
       data-dragging={isDragging}
@@ -145,6 +153,7 @@ function DropZone({
         "data-[dragging=true]:border-primary/10 data-[dragging=true]:bg-primary/10",
         className,
       )}
+      onDrop={handleDrop}
       onClick={() => inputRef.current?.click()}
       onDragEnter={(e) => {
         e.preventDefault();
