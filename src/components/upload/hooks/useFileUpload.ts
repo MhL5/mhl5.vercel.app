@@ -66,7 +66,8 @@ export type UseFileUploadOptions<T> = {
 };
 
 /**
- * Custom hook to manage file uploads.
+ * Custom hook for managing file uploads.
+ *
  * controls the uploading process through functions for adding files, removing them, retrying uploads, and aborting them.
  * adds progress percentage, upload speed and time left for each file using xhr onprogress event.
  */
@@ -203,7 +204,10 @@ export function useFileUpload<T>({
    */
   function handleRetry(id: FileItem["id"]) {
     const file = files.find((file) => file.id === id);
-    if (!file) return toast.error("File not found");
+    if (!file) {
+      toast.error("File not found");
+      return;
+    }
 
     // Abort any existing upload for this file
     if (file.abortController) file.abortController.abort();
