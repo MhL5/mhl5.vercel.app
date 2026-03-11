@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { FileItemIcon } from "@/components/upload/components/FileItemIcon";
 import type { FileItem } from "@/components/upload/hooks/useFileUpload";
 import { cn } from "@/lib/utils";
-import { Trash2 } from "lucide-react";
+import { Eye, Trash2 } from "lucide-react";
 
 export type FileItemResultProps = (
   | {
@@ -59,7 +59,7 @@ export function FileItemResult(props: FileItemResultProps) {
       data-disabled={disabled}
       data-slot="FileItemResult"
       className={cn(
-        "flex items-center gap-3 overflow-hidden rounded-md border p-3 data-[disabled=true]:opacity-50",
+        "flex items-center gap-2 overflow-hidden rounded-md border p-3 data-[disabled=true]:opacity-50",
         className,
       )}
     >
@@ -71,16 +71,42 @@ export function FileItemResult(props: FileItemResultProps) {
         <p title={name} className="truncate text-sm font-medium">
           {name}
         </p>
-        {type && <span className="text-xs text-muted-foreground">{type}</span>}
+        <div className="mt-0.5 flex flex-wrap items-center gap-2">
+          {type && (
+            <span className="text-xs text-muted-foreground">{type}</span>
+          )}
+        </div>
       </div>
 
+      {"url" in props && (
+        <>
+          <Button
+            size="icon-xs"
+            type="button"
+            variant="secondary"
+            title={messages?.delete}
+            className="ms-auto mb-auto"
+            disabled={disabled}
+            asChild
+          >
+            <a
+              href={props.url}
+              target="_blank"
+              title="Open in new window"
+              className="text-xs text-muted-foreground underline underline-offset-3"
+            >
+              <Eye />
+            </a>
+          </Button>
+        </>
+      )}
       {onDelete && (
         <Button
           size="icon-xs"
           type="button"
           variant="destructive"
           title={messages?.delete}
-          className="ms-auto mb-auto"
+          className="mb-auto"
           onClick={() => {
             onDelete?.();
             if ("fileItem" in props) props.onCancel();
