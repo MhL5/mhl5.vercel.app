@@ -1,18 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { FileItemIcon } from "@/components/upload/components/FileItemIcon";
-import type { FileItem } from "@/components/upload/hooks/useFileUpload";
 import { cn } from "@/lib/utils";
 import { Eye, Trash2 } from "lucide-react";
 
-export type FileItemResultProps = (
-  | {
-      url: string;
-    }
-  | {
-      fileItem: FileItem;
-      onCancel: () => void;
-    }
-) & {
+export type FileItemResultProps = {
+  url: string;
   onDelete?: () => void;
 
   disabled?: boolean;
@@ -22,15 +14,16 @@ export type FileItemResultProps = (
   };
 };
 
-export function FileItemResult(props: FileItemResultProps) {
-  const {
-    onDelete,
-    disabled,
-    className,
-    messages = {
-      delete: "delete",
-    },
-  } = props;
+export function FileItemResult({
+  onDelete,
+  disabled,
+  className,
+  url,
+  messages = {
+    delete: "delete",
+  },
+}: FileItemResultProps) {
+  const { name, type = "" } = parseUrl(url);
 
   function parseUrl(url: string) {
     // Extract the pathname part of the URL
@@ -50,9 +43,6 @@ export function FileItemResult(props: FileItemResultProps) {
       type,
     };
   }
-
-  const { name, type = "" } =
-    "fileItem" in props ? props.fileItem.file : parseUrl(props.url);
 
   return (
     <div
@@ -78,28 +68,24 @@ export function FileItemResult(props: FileItemResultProps) {
         </div>
       </div>
 
-      {"url" in props && (
-        <>
-          <Button
-            size="icon-xs"
-            type="button"
-            variant="secondary"
-            title={messages?.delete}
-            className="ms-auto mb-auto"
-            disabled={disabled}
-            asChild
-          >
-            <a
-              href={props.url}
-              target="_blank"
-              title="Open in new window"
-              className="text-xs text-muted-foreground underline underline-offset-3"
-            >
-              <Eye />
-            </a>
-          </Button>
-        </>
-      )}
+      <Button
+        size="icon-xs"
+        type="button"
+        variant="secondary"
+        title={messages?.delete}
+        className="ms-auto mb-auto"
+        disabled={disabled}
+        asChild
+      >
+        <a
+          href={url}
+          target="_blank"
+          title="Open in new window"
+          className="text-xs text-muted-foreground underline underline-offset-3"
+        >
+          <Eye />
+        </a>
+      </Button>
       {onDelete && (
         <Button
           size="icon-xs"
@@ -107,10 +93,7 @@ export function FileItemResult(props: FileItemResultProps) {
           variant="destructive"
           title={messages?.delete}
           className="mb-auto"
-          onClick={() => {
-            onDelete?.();
-            if ("fileItem" in props) props.onCancel();
-          }}
+          onClick={() => onDelete?.()}
           disabled={disabled}
         >
           <Trash2 className="size-4" aria-hidden="true" />

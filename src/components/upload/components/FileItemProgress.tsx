@@ -1,7 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { FieldError } from "@/components/ui/field";
 import { Progress } from "@/components/ui/progress";
-import type { FileItem } from "@/components/upload/hooks/useFileUpload";
+import type {
+  FileItemError,
+  FileItemUploading,
+} from "@/components/upload/hooks/useFileUpload";
 import { cn } from "@/lib/utils";
 import {
   formatBytes,
@@ -12,9 +15,9 @@ import { Fragment } from "react/jsx-runtime";
 
 export type FileItemProgressProps = {
   className?: string;
-  fileItem: FileItem;
-  onCancel: (id: FileItem["id"]) => void;
-  onRetry: (id: FileItem["id"]) => void;
+  fileItem: FileItemUploading | FileItemError;
+  onCancel: (id: string) => void;
+  onRetry: (id: string) => void;
   disabled?: boolean;
   messages?: {
     title: string;
@@ -42,31 +45,33 @@ export function FileItemProgress({
     retryLabel: "Retry upload",
   },
 }: FileItemProgressProps) {
-  const details = [
-    {
-      label: "Progress",
-      value: (
-        <>
-          <span>{`${formatBytes(fileItem.uploadedBytes)}/${formatBytes(fileItem.file.size)}`}</span>
+  const details =
+    fileItem.status === "uploading"
+      ? [
+          {
+            label: "Progress",
+            value: (
+              <>
+                <span>{`${formatBytes(fileItem.progressInfo.uploadedBytes || 0)}/${formatBytes(fileItem.file.size)}`}</span>
+                <span className="@max-xs:hidden">
+                  {` • `}
+                  {`${fileItem.progressInfo.progressPercentage.toFixed(2)}%`}
+                </span>
+              </>
+            ),
+          },
+          {
+            label: "Speed",
+            value: `${formatBytes(fileItem.progressInfo.bytesPerSecond || 0)}/S`,
+          },
+          {
+            label: "Time Left",
+            value: formatSeconds(fileItem?.progressInfo.timeLeftInSeconds || 0),
+          },
+        ]
+      : [];
 
-          <span className="@max-xs:hidden">
-            {` • `}
-            {`${fileItem.progressPercentage.toFixed(2)}%`}
-          </span>
-        </>
-      ),
-    },
-    {
-      label: "Speed",
-      value: `${formatBytes(fileItem.uploadSpeedInSeconds)}/S`,
-    },
-    {
-      label: "Time Left",
-      value: formatSeconds(fileItem.timeLeftInSeconds),
-    },
-  ] as const;
-
-  const uploadHasFailed = !!fileItem.error;
+  const uploadHasFailed = fileItem.status === "error";
 
   return (
     <div
@@ -87,15 +92,8 @@ export function FileItemProgress({
           </p>
 
           <div className="h-15">
-            {fileItem.error ? (
-              <FieldError
-                className="line-clamp-3"
-                errors={[
-                  {
-                    message: fileItem.error,
-                  },
-                ]}
-              />
+            {fileItem.status === "error" ? (
+              <FieldError className="line-clamp-3" errors={fileItem.error} />
             ) : (
               <p className="grid grid-cols-[auto_1fr] gap-1.5 text-xs leading-4 text-muted-foreground">
                 {details.map(({ label, value }) => (
@@ -138,7 +136,12 @@ export function FileItemProgress({
         </div>
       </div>
 
-      <Progress value={fileItem.progressPercentage} max={100} />
+      {fileItem.status === "uploading" && (
+        <Progress
+          value={fileItem?.progressInfo?.progressPercentage || 0}
+          max={100}
+        />
+      )}
     </div>
   );
 }

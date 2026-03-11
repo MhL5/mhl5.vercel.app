@@ -22,11 +22,30 @@ export function toSentenceCase(str: string) {
     .replace(/^./, (str) => str.toUpperCase());
 }
 
-/** @example truncateMiddle("M3GAN.2.0.2025.720p.WEBRip.x264.AAC.YTS.SoftSub.Sermovie.mkv") => "M3GAN.2.0.202....Sermovie.mkv" */
-export function truncateMiddle(str: string, requiredLength: number = 26) {
-  const requiredLengthHalf = Math.round(requiredLength / 2);
+/**
+ * Truncates the string from the middle if it exceeds the specified requiredLength.
+ * If the length is exceeded, the string will be truncated from both the start and the middle.
+ * by default The truncation point for each part will be at the halfway mark of the requiredLength.
+ *
+ * @example
+ * truncateMiddle("M3GAN.2.0.2025.720p.WEBRip.x264.AAC.YTS.SoftSub.Sermovie.mkv") =>  "M3GAN.2.0.2025.720p....SoftSub.Sermovie.mkv"
+ */
+export function truncateMiddle(
+  str: string,
+  {
+    requiredLength = 40,
+    startTruncationLength,
+    endTruncationLength,
+  }: {
+    requiredLength?: number;
+    startTruncationLength?: number;
+    endTruncationLength?: number;
+  } = {},
+) {
+  const halfRequiredLength = Math.round(requiredLength / 2);
+
   return str.length > requiredLength
-    ? `${str.slice(0, requiredLengthHalf)}...${str.slice(str.length - requiredLengthHalf)}`
+    ? `${str.slice(0, startTruncationLength || halfRequiredLength)}...${str.slice(endTruncationLength || str.length - halfRequiredLength)}`
     : str;
 }
 

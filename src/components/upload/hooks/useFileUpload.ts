@@ -1,4 +1,5 @@
 import { useOnUnMount } from "@/hooks/useOnUnMount";
+import { truncateMiddle } from "@/registry/utils/formatters/formatters";
 import { isAbortedError } from "@/utils/error/isAbortedError";
 import { useEffect, useEffectEvent, useState } from "react";
 import { toast } from "sonner";
@@ -31,12 +32,9 @@ type FileItemComplete<AdditionalInfo> = FileItemBase & {
   url: string;
 } & AdditionalInfo;
 
-export type FileItem<T> =
-  | FileItemUploading
-  | FileItemError
-  | FileItemComplete<T>;
+type FileItem<T> = FileItemUploading | FileItemError | FileItemComplete<T>;
 
-type UseFileUpload2Options<T> = {
+type UseFileUploadOptions<T> = {
   defaultValue: Omit<FileItemComplete<T>, "status">[];
   onChange: (files: FileItem<T>[]) => void;
   uploadHandler: (options: {
@@ -46,11 +44,11 @@ type UseFileUpload2Options<T> = {
   }) => Promise<Omit<FileItemComplete<T>, "status" | "id">>;
 };
 
-export function useFileUpload<T>({
+function useFileUpload<T>({
   defaultValue = [],
   onChange,
   uploadHandler,
-}: UseFileUpload2Options<T>) {
+}: UseFileUploadOptions<T>) {
   const [files, setFiles] = useState<FileItem<T>[]>(
     defaultValue.map((fileItem) => ({ ...fileItem, status: "completed" })),
   );
@@ -103,12 +101,12 @@ export function useFileUpload<T>({
           setFiles((prevFiles) =>
             prevFiles.map((fileItem) =>
               fileItem.id === fileItemUploading.id
-                ? { ...fileItem, ...res, status: "completed" }
+                ? { ...fileItem, ...res, id: fileItem.id, status: "completed" }
                 : fileItem,
             ),
           );
           toast.success(
-            `${fileItemUploading.file.name} uploaded successfully.`,
+            `${truncateMiddle(fileItemUploading.file.name)} uploaded successfully.`,
           );
         })
         .catch((error) => {
@@ -119,22 +117,23 @@ export function useFileUpload<T>({
             error?.message ||
             "Something went wrong during upload! please try again or contact customer support.";
 
+          toast.error(
+            `${truncateMiddle(fileItemUploading.file.name)}: ${errorMessage}`,
+          );
           setFiles((prevFiles) =>
             prevFiles.map((fileItem) =>
               fileItem.id === fileItemUploading.id
                 ? ({
-                    ...fileItemUploading,
+                    ...fileItem,
                     status: "error",
                     error: [{ message: errorMessage }],
                   } satisfies FileItemError)
                 : fileItem,
             ),
           );
-          toast.error(`${fileItemUploading.file.name}: ${errorMessage}`);
         }),
     ) satisfies Promise<unknown>[];
 
-    // parallel uploads
     await Promise.allSettled(uploadPromises);
   }
 
@@ -161,7 +160,6 @@ export function useFileUpload<T>({
         }) satisfies FileItemUploading,
     );
 
-    // add new files
     setFiles((prevFiles) => [...prevFiles, ...newFiles]);
     _handleUpload(newFiles);
   }
@@ -174,7 +172,7 @@ export function useFileUpload<T>({
     if (!fileItem) return void toast.error("File not found");
 
     // Abort any existing upload for this file
-    if (fileItem.status === "uploading") fileItem.abortController.abort();
+    if ("abortController" in fileItem) fileItem.abortController.abort();
 
     const retryFileItem: FileItemUploading = {
       ...fileItem,
@@ -189,7 +187,6 @@ export function useFileUpload<T>({
       abortController: new AbortController(),
     };
 
-    // update files
     setFiles((prevFiles) =>
       prevFiles.map((fileItem) =>
         fileItem.id === id ? { ...fileItem, ...retryFileItem } : fileItem,
@@ -205,15 +202,13 @@ export function useFileUpload<T>({
     const fileItem = files.find((fileItem) => fileItem.id === id);
     if (!fileItem) return void toast.error("File not found");
 
-    if (fileItem.status === "uploading") fileItem.abortController.abort();
+    if ("abortController" in fileItem) fileItem.abortController.abort();
 
     setFiles((prevFiles) => prevFiles.filter((fileItem) => fileItem.id !== id));
   }
 
   /**
-   * Aborts all file
-   *
-   *  if a fileItem includes "abortController" it will be aborted
+   * Aborts all files
    */
   function abortAll() {
     files.forEach(
@@ -223,9 +218,9 @@ export function useFileUpload<T>({
   }
 
   /**
-   * Aborts and removes all the files
+   * clears and Aborts all the files
    */
-  function handleAbortAll() {
+  function handleClear() {
     abortAll();
     setFiles([]);
   }
@@ -242,9 +237,17 @@ export function useFileUpload<T>({
 
   return {
     files,
-    handleAbortAll,
+    handleClear,
     handleRemove,
     handleAdd,
     handleRetry,
   };
 }
+
+export {
+  useFileUpload,
+  type FileItem,
+  type FileItemUploading,
+  type FileItemError,
+  type FileItemComplete,
+};
