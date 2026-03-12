@@ -3,7 +3,7 @@ import { FileItemIcon } from "@/components/upload/components/FileItemIcon";
 import { cn } from "@/lib/utils";
 import { Eye, Trash2 } from "lucide-react";
 
-export type FileItemResultProps = {
+export type FileItemCompleteProps = {
   url: string;
   onDelete?: () => void;
 
@@ -14,7 +14,7 @@ export type FileItemResultProps = {
   };
 };
 
-export function FileItemResult({
+export function FileItemComplete({
   onDelete,
   disabled,
   className,
@@ -22,15 +22,12 @@ export function FileItemResult({
   messages = {
     delete: "delete",
   },
-}: FileItemResultProps) {
+}: FileItemCompleteProps) {
   const { name, type = "" } = parseUrl(url);
 
   function parseUrl(url: string) {
-    // Extract the pathname part of the URL
-    const pathname = new URL(url).pathname;
-
     // Split the pathname into parts
-    const parts = pathname.split("/");
+    const parts = url.split("/");
 
     // Get the last part which is the file name with extension
     const fileNameWithExtension = parts[parts.length - 1];
@@ -47,7 +44,7 @@ export function FileItemResult({
   return (
     <div
       data-disabled={disabled}
-      data-slot="FileItemResult"
+      data-slot="FileItemComplete"
       className={cn(
         "flex items-center gap-2 overflow-hidden rounded-md border p-3 data-[disabled=true]:opacity-50",
         className,

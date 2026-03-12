@@ -248,7 +248,8 @@ function useFileUpload<T extends Record<any, any>>({
 export {
   useFileUpload,
   type FileItem,
-  type FileItemUploading,
-  type FileItemError,
   type FileItemComplete,
+  type FileItemError,
+  type FileItemUploading,
+  type UseFileUploadOptions,
 };

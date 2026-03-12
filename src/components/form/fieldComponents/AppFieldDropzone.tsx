@@ -3,50 +3,41 @@ import {
   useFieldContext,
   useFormContext,
 } from "@/components/form/appForm";
-import {
-  Uploader,
-  UploaderDropZone,
-  UploaderFileItem,
-  UploaderFilesList,
-} from "@/components/upload/Uploader";
-import { fileUpload } from "@/components/upload/services/fileUpload";
-import { toast } from "sonner";
+import { DropZone } from "@/components/upload/components/DropZone";
+import { cn } from "@/lib/utils";
+import type { RequiredPick } from "@/registry/types/RequiredPick/RequiredPick";
+import { useStore } from "@tanstack/react-form";
+import type { ComponentProps } from "react";
 
-export function AppFieldDropzone() {
+export function AppFieldDropzone({
+  className,
+  onDropAccepted,
+  disabled = false,
+  "aria-invalid": ariaInvalid = false,
+  ...props
+}: RequiredPick<
+  Partial<Omit<ComponentProps<typeof DropZone>, "inputProps">>,
+  "onDropAccepted"
+>) {
   const { isInvalid, fieldControllerProps } = useAppField();
-  const field = useFieldContext();
+  const field = useFieldContext<string[]>();
   const form = useFormContext();
+  const isSubmitting = useStore(form.store, (state) => state.isSubmitting);
 
   return (
-    <form.Subscribe selector={(state) => state.isSubmitting}>
-      {(isSubmitting) => (
-        <Uploader
-          onUploadComplete={(res) => field.handleChange(res.file.url)}
-          uploadHandler={fileUpload}
-          disabled={isSubmitting}
-          isInvalid={isInvalid}
-        >
-          <UploaderDropZone
-            multiple={false}
-            accept="image/*"
-            inputId={fieldControllerProps.id}
-            onDropRejected={(errors) => {
-              field.setErrorMap({ onChange: errors });
-              errors.forEach(
-                (err) => err?.message && toast.error(err?.message),
-              );
-            }}
-          />
-
-          <UploaderFilesList>
-            {(files) =>
-              files.map((fileItem) => (
-                <UploaderFileItem key={fileItem.id} fileItem={fileItem} />
-              ))
-            }
-          </UploaderFilesList>
-        </Uploader>
-      )}
-    </form.Subscribe>
+    <DropZone
+      multiple
+      accept="image/*"
+      onDropAccepted={onDropAccepted}
+      onDropRejected={(errors) => {
+        field.setErrorMap({ onChange: errors });
+        field.handleBlur();
+      }}
+      disabled={isSubmitting || disabled}
+      aria-invalid={isInvalid || ariaInvalid}
+      className={cn("w-full", className)}
+      {...props}
+      inputProps={fieldControllerProps}
+    />
   );
 }
