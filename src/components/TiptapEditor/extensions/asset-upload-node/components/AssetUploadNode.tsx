@@ -20,6 +20,7 @@ import {
   type DropZoneProps,
 } from "@/components/upload/components/DropZone";
 import { FileItemProgress } from "@/components/upload/components/FileItemProgress";
+import { FileItemResult } from "@/components/upload/components/FileItemResult";
 import { useFileUpload } from "@/components/upload/hooks/useFileUpload";
 import { fileUpload } from "@/components/upload/services/fileUpload";
 import { type AnyFieldApi, useForm } from "@tanstack/react-form";
@@ -322,16 +323,28 @@ function AssetUploadNodeDropZone({
   isInvalid: boolean;
   inputId: string;
 }) {
-  const { files, handleAdd, handleRemove, handleRetry } = useFileUpload({
-    onUploadComplete: ({ file }) => onUploadSuccess(file.url),
-    uploadHandler: fileUpload,
+  const { files, handleAdd, handleRemove, handleRetry } = useFileUpload<{
+    url: string;
+  }>({
+    defaultValue: [],
+    onChange: (files) => {
+      const completedFiles = files.filter(
+        (file) => file.status === "completed",
+      );
+      if (!completedFiles?.length) return;
+      onUploadSuccess(completedFiles[completedFiles.length - 1].url);
+    },
+    uploadHandler: async (params) => {
+      const res = await fileUpload(params);
+      return { url: res.file.url };
+    },
   });
 
   return (
     <>
       {files.length === 0 && (
         <DropZone
-          data-invalid={isInvalid}
+          aria-invalid={isInvalid}
           multiple={false}
           accept={accept}
           disabled={files.length > 0}
@@ -342,14 +355,18 @@ function AssetUploadNodeDropZone({
         />
       )}
 
-      {files.map((fileItem) => (
-        <FileItemProgress
-          onCancel={handleRemove}
-          onRetry={handleRetry}
-          key={fileItem.id}
-          fileItem={fileItem}
-        />
-      ))}
+      {files.map((fileItem) =>
+        fileItem.status === "completed" ? (
+          <FileItemResult url={fileItem.url} key={fileItem.id} />
+        ) : (
+          <FileItemProgress
+            onCancel={handleRemove}
+            onRetry={handleRetry}
+            key={fileItem.id}
+            fileItem={fileItem}
+          />
+        ),
+      )}
     </>
   );
 }
