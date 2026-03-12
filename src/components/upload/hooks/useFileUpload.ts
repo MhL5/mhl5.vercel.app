@@ -27,10 +27,10 @@ type FileItemError = FileItemBase & {
   error: { message: string }[];
 };
 
-type FileItemComplete<AdditionalInfo> = FileItemBase & {
+type FileItemComplete<T> = FileItemBase & {
   status: "completed";
   url: string;
-} & AdditionalInfo;
+} & T;
 
 type FileItem<T> = FileItemUploading | FileItemError | FileItemComplete<T>;
 
@@ -44,7 +44,8 @@ type UseFileUploadOptions<T> = {
   }) => Promise<Omit<FileItemComplete<T>, "status" | "id">>;
 };
 
-function useFileUpload<T>({
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function useFileUpload<T extends Record<any, any>>({
   defaultValue = [],
   onChange,
   uploadHandler,

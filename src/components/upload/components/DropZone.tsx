@@ -55,7 +55,10 @@ export type DropZoneProps = {
  *    multiple={true}
  *    accept="image/*"
  *    onDropAccepted={handleAdd}
- *    onDropRejected={(errors) => field.setErrorMap({ onChange: errors })}
+ *    onDropRejected={(errors) => {
+ *      field.setErrorMap({ onChange: errors });
+ *      field.handleBlur();
+ *    }}
  *    disabled={isSubmitting}
  *    aria-invalid={isInvalid}
  *    className="w-full"
