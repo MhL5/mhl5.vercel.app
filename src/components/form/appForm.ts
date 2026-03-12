@@ -1,3 +1,4 @@
+import { AppFieldDropzone } from "@/components/form/fieldComponents/AppFieldDropzone";
 import { createFormHook, createFormHookContexts } from "@tanstack/react-form";
 import { lazy } from "react";
 
@@ -44,6 +45,7 @@ const { useAppForm, withFieldGroup, withForm } = createFormHook({
     FieldDescription: AppFieldDescription,
     Input: AppFieldInput,
     Textarea: AppFieldTextarea,
+    DropZone: AppFieldDropzone,
   },
   formComponents: {
     SubmitButton,

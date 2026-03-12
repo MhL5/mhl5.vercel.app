@@ -81,3 +81,11 @@ export function validateFiles({
     { acceptedFiles: [], rejectedFiles: [] },
   );
 }
+
+export function isImage(str: string) {
+  // Define a regular expression to check for image file extensions
+  const imageExtensions = /\.(jpg|jpeg|png|gif|bmp|webp|svg)$/i;
+
+  // Test the input string against the regular expression
+  return imageExtensions.test(str);
+}

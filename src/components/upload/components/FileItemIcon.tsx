@@ -1,10 +1,10 @@
 import {
   FileArchiveIcon,
-  FileIcon,
   FileSpreadsheetIcon,
   FileTextIcon,
   HeadphonesIcon,
   ImageIcon,
+  FileIcon as LucideFileIcon,
   VideoIcon,
 } from "lucide-react";
 
@@ -13,7 +13,7 @@ type FileIconProps = {
   fileType: string;
 };
 
-export function FileItemIcon({ fileName, fileType }: FileIconProps) {
+export function FileIcon({ fileName, fileType }: FileIconProps) {
   if (
     fileType.includes("pdf") ||
     fileName.endsWith(".pdf") ||
@@ -49,5 +49,5 @@ export function FileItemIcon({ fileName, fileType }: FileIconProps) {
     fileType.endsWith("jpeg")
   )
     return <ImageIcon data-slot="file-icon" />;
-  return <FileIcon data-slot="file-icon" />;
+  return <LucideFileIcon data-slot="file-icon" />;
 }
