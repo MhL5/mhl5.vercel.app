@@ -19,8 +19,10 @@ import {
   DropZone,
   type DropZoneProps,
 } from "@/components/upload/components/DropZone";
-import { FileItemProgress } from "@/components/upload/components/FileItemProgress";
-import { FileItemResult } from "@/components/upload/components/FileItemResult";
+import {
+  FileItemError,
+  FileItemUploading,
+} from "@/components/upload/components/FileItem";
 import { useFileUpload } from "@/components/upload/hooks/useFileUpload";
 import { fileUpload } from "@/components/upload/services/fileUpload";
 import { type AnyFieldApi, useForm } from "@tanstack/react-form";
@@ -355,18 +357,29 @@ function AssetUploadNodeDropZone({
         />
       )}
 
-      {files.map((fileItem) =>
-        fileItem.status === "completed" ? (
-          <FileItemResult url={fileItem.url} key={fileItem.id} />
-        ) : (
-          <FileItemProgress
-            onCancel={handleRemove}
-            onRetry={handleRetry}
-            key={fileItem.id}
-            fileItem={fileItem}
-          />
-        ),
-      )}
+      {files.map((file) => {
+        const variant = "lg";
+        if (file.status === "uploading")
+          return (
+            <FileItemUploading
+              key={file.id}
+              onCancel={handleRemove}
+              variant={variant}
+              {...file}
+            />
+          );
+        if (file.status === "error")
+          return (
+            <FileItemError
+              key={file.id}
+              variant={variant}
+              onRetry={handleRetry}
+              onCancel={handleRemove}
+              {...file}
+            />
+          );
+        return null;
+      })}
     </>
   );
 }
