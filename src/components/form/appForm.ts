@@ -25,9 +25,6 @@ const AppFieldTextarea = lazy(
 
 // Form Components
 // --------------------------------
-const ResetButton = lazy(
-  () => import("@/components/form/formComponents/ResetButton"),
-);
 const SubmitButton = lazy(
   () => import("@/components/form/formComponents/SubmitButton"),
 );
@@ -49,7 +46,6 @@ const { useAppForm, withFieldGroup, withForm } = createFormHook({
   },
   formComponents: {
     SubmitButton,
-    ResetButton,
   },
 });
 
