@@ -45,7 +45,7 @@ type UseFileUploadOptions<T> = {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function useFileUpload<T extends Record<any, any>>({
+function useFileUpload<T extends Record<string, any>>({
   defaultValue = [],
   onChange,
   uploadHandler,

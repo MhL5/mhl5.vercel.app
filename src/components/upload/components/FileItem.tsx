@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { DotSeparator } from "@/components/ui/dot-separator";
-import { FieldError } from "@/components/ui/field";
 import { FileIcon } from "@/components/upload/components/FileItemIcon";
 import type {
   FileItemComplete as FileItemCompleteType,
@@ -15,7 +14,7 @@ import {
   formatBytes,
   formatSeconds,
 } from "@/registry/utils/formatters/formatters";
-import { RefreshCcw, Trash2, TriangleAlertIcon, X } from "lucide-react";
+import { Eye, RefreshCcw, Trash2, TriangleAlertIcon, X } from "lucide-react";
 import { type ComponentProps, Fragment, type ReactNode } from "react";
 
 /**
@@ -25,23 +24,23 @@ import { type ComponentProps, Fragment, type ReactNode } from "react";
  *  - FileItemContent: a grid container
  *  - FileItemTitle: a p styled as title
  *  - FileItemDescription: a p for descriptions
- *  - FileItemFieldError: for rendering errors
  *
- *
- * FileItem components: useful for single uploads especially when dropZone is remove when upload starts
+ * FileItem components:
  *  - FileItemError
  *  - FileItemUploading
  *  - FileItemComplete
  *
- * FileItem wrapper: simple wrappers for removing boiler plate
+ * FileItem wrappers: simple wrappers for removing boiler plate
  *  - FileItemCompact
  *  - FileItemLg
  */
 
+type FileItemVariant = "compact" | "lg";
+
 type FileItemContainerProps = {
   "data-disabled": boolean;
   "data-error": boolean;
-  variant?: "compact" | "lg";
+  variant: FileItemVariant;
 } & ComponentProps<"div">;
 
 function FileItemContainer({
@@ -77,7 +76,7 @@ type FileItemIConProps = (
       type: string;
     }
 ) & {
-  variant?: "lg" | "compact";
+  variant: FileItemVariant;
 } & ComponentProps<"div">;
 
 function FileItemIcon(props: FileItemIConProps) {
@@ -100,21 +99,18 @@ function FileItemIcon(props: FileItemIConProps) {
       {...rest}
     >
       {status === "error" && <TriangleAlertIcon />}
-      {status === "completed" && (
-        <>
-          {isImage(props.url) ? (
-            <Img
-              src={props.url}
-              alt=""
-              fill
-              sizes="200px"
-              className="size-full object-cover"
-            />
-          ) : (
-            <FileIcon fileType={props.type} fileName="" />
-          )}
-        </>
-      )}
+      {status === "completed" &&
+        (isImage(props.url) ? (
+          <Img
+            src={props.url}
+            alt=""
+            fill
+            sizes="200px"
+            className="size-full object-cover"
+          />
+        ) : (
+          <FileIcon fileType={props.type} fileName="" />
+        ))}
       {status === "uploading" && (
         <span className="font-mono text-base font-semibold">
           {props.progressPercentage.toFixed(0)}
@@ -125,11 +121,15 @@ function FileItemIcon(props: FileItemIConProps) {
   );
 }
 
+type FileItemContentProps = ComponentProps<"div"> & {
+  variant: FileItemVariant;
+};
+
 function FileItemContent({
   className,
   variant = "compact",
   ...props
-}: ComponentProps<"div"> & { variant?: "lg" | "compact" }) {
+}: FileItemContentProps) {
   return (
     <div
       className={cn(
@@ -143,11 +143,13 @@ function FileItemContent({
   );
 }
 
+type FileItemTitleProps = ComponentProps<"p"> & { variant: FileItemVariant };
+
 function FileItemTitle({
   className,
   variant = "compact",
   ...props
-}: ComponentProps<"p"> & { variant?: "lg" | "compact" }) {
+}: FileItemTitleProps) {
   return (
     <p
       className={cn(
@@ -161,36 +163,41 @@ function FileItemTitle({
   );
 }
 
+type FileItemDescriptionProps = ComponentProps<"p"> & {
+  variant: FileItemVariant;
+};
+
 function FileItemDescription({
   className,
   variant = "compact",
+  role,
   ...props
-}: ComponentProps<"p"> & { variant?: "lg" | "compact" }) {
+}: FileItemDescriptionProps) {
   return (
     <p
       className={cn(
-        "mt-auto flex gap-2 truncate text-xs text-muted-foreground",
-        variant === "lg" && "mx-auto",
-        variant === "compact" && "",
+        "mt-auto flex gap-1 text-xs text-muted-foreground",
+        variant === "lg" &&
+          "mx-auto line-clamp-2 w-full max-w-[36ch] gap-1.5 text-center",
+        variant === "compact" && "truncate",
+        role === "alert" && "text-destructive",
         className,
       )}
+      role={role}
       {...props}
     />
   );
 }
 
-function FileItemFieldError({
-  className,
-  ...props
-}: ComponentProps<typeof FieldError>) {
-  return <FieldError className={cn("mt-auto text-xs", className)} {...props} />;
-}
+type FileItemActionsProps = ComponentProps<"div"> & {
+  variant: FileItemVariant;
+};
 
 function FileItemActions({
   className,
   variant = "compact",
   ...props
-}: ComponentProps<"div"> & { variant?: "compact" | "lg" }) {
+}: FileItemActionsProps) {
   return (
     <div
       className={cn(
@@ -211,7 +218,11 @@ type FileItemErrorProps = FileItemErrorType & {
   disabled?: boolean;
   onCancel: (id: string) => void;
   onRetry: (id: string) => void;
-  variant?: "compact" | "lg";
+  variant?: FileItemVariant;
+  messages?: {
+    cancel: string;
+    tryAgain: string;
+  };
 };
 
 function FileItemError({
@@ -223,6 +234,10 @@ function FileItemError({
   onRetry,
   variant = "compact",
   status,
+  messages = {
+    cancel: "cancel",
+    tryAgain: "try again",
+  },
 }: FileItemErrorProps) {
   // the field error will render a list of errors but we don't have enough space here, we wanna render a single p
   const errorsString = error.map(({ message }) => message).join(", ");
@@ -237,20 +252,14 @@ function FileItemError({
 
       <FileItemContent variant={variant}>
         <FileItemTitle variant={variant}>{file.name}</FileItemTitle>
-        <FileItemFieldError
-          className={cn(
-            "",
-            variant === "lg" &&
-              "mx-auto line-clamp-2 w-full max-w-[34ch] gap-1.5 text-center",
-            variant === "compact" && "truncate",
-          )}
+        <FileItemDescription
+          role="alert"
+          aria-live="polite"
+          variant={variant}
           title={errorsString}
-          errors={[
-            {
-              message: errorsString,
-            },
-          ]}
-        />
+        >
+          {errorsString}
+        </FileItemDescription>
       </FileItemContent>
 
       <FileItemActions variant={variant}>
@@ -260,7 +269,7 @@ function FileItemError({
           type="button"
           onClick={() => onRetry(id)}
           disabled={disabled}
-          title="try again"
+          title={messages.tryAgain}
         >
           <RefreshCcw aria-hidden="true" />
         </Button>
@@ -268,7 +277,7 @@ function FileItemError({
           size="icon-xs"
           type="button"
           variant="destructive"
-          title="cancel"
+          title={messages.cancel}
           onClick={() => onCancel(id)}
           disabled={disabled}
         >
@@ -282,8 +291,11 @@ function FileItemError({
 type FileItemUploadingProps = Omit<FileItemUploadingType, "abortController"> & {
   onCancel: (id: string) => void;
   disabled?: boolean;
-  variant?: "lg" | "compact";
+  variant?: FileItemVariant;
   className?: string;
+  messages?: {
+    cancel: string;
+  };
 };
 
 function FileItemUploading({
@@ -294,6 +306,9 @@ function FileItemUploading({
   onCancel,
   disabled = false,
   variant = "compact",
+  messages = {
+    cancel: "cancel",
+  },
   className,
 }: FileItemUploadingProps) {
   const descriptionData = [
@@ -339,13 +354,7 @@ function FileItemUploading({
 
       <FileItemContent variant={variant} className="z-10">
         <FileItemTitle variant={variant}>{file.name}</FileItemTitle>
-        <FileItemDescription
-          className={cn(
-            "flex items-center gap-1",
-            variant === "lg" && "mx-auto",
-            variant === "compact" && "",
-          )}
-        >
+        <FileItemDescription variant={variant}>
           {descriptionData.map(({ className, key, value }) => (
             <Fragment key={key}>
               <span className={className}>{value}</span>
@@ -360,7 +369,7 @@ function FileItemUploading({
           size="icon-xs"
           type="button"
           variant="destructive"
-          title="cancel upload"
+          title={messages.cancel}
           onClick={() => onCancel(id)}
           disabled={disabled}
         >
@@ -439,21 +448,38 @@ function FileItemComplete(props: FileItemCompleteProps) {
       )}
       {props.variant === "lg" && props.children}
 
-      {onDelete && (
-        <FileItemActions variant={variant}>
+      <FileItemActions variant={variant}>
+        <Button
+          size="icon-xs"
+          type="button"
+          variant="secondary"
+          className="ms-auto mb-auto"
+          disabled={disabled}
+          asChild
+        >
+          <a
+            href={url}
+            target="_blank"
+            title={messages.openInNewWindow}
+            className="text-xs text-muted-foreground underline underline-offset-3"
+          >
+            <Eye />
+          </a>
+        </Button>
+        {onDelete && (
           <Button
             size="icon-xs"
             type="button"
             variant="destructive"
-            title={messages?.delete}
+            title={messages.delete}
             className="mb-auto"
             onClick={() => onDelete?.()}
             disabled={disabled}
           >
             <Trash2 className="size-4" aria-hidden="true" />
           </Button>
-        </FileItemActions>
-      )}
+        )}
+      </FileItemActions>
     </FileItemContainer>
   );
 }
@@ -463,32 +489,26 @@ type FileItemLgProps<T> = {
   onRetry: (id: string) => void;
   onCancel: (id: string) => void;
   file: FileItemType<T>;
+  disabled?: boolean;
   renderOnComplete: (file: FileItemCompleteType<T>) => ReactNode;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function FileItemLg<T extends Record<any, any>>(props: FileItemLgProps<T>) {
-  const { onCancel, onDelete, onRetry, file } = props;
-  const variant = "lg";
+function FileItemLg<T extends Record<string, unknown>>({
+  renderOnComplete,
+  file,
+  ...props
+}: FileItemLgProps<T>) {
+  const variant: FileItemVariant = "lg";
 
   if (file?.status === "uploading")
-    return (
-      <FileItemUploading variant={variant} onCancel={onCancel} {...file} />
-    );
+    return <FileItemUploading variant={variant} {...file} {...props} />;
 
   if (file?.status === "error")
-    return (
-      <FileItemError
-        variant={variant}
-        onRetry={onRetry}
-        onCancel={onCancel}
-        {...file}
-      />
-    );
+    return <FileItemError variant={variant} {...file} {...props} />;
 
   return (
-    <FileItemComplete variant={variant} onDelete={onDelete} {...file}>
-      {props.renderOnComplete(file)}
+    <FileItemComplete variant={variant} {...file} {...props}>
+      {renderOnComplete(file)}
     </FileItemComplete>
   );
 }
@@ -498,37 +518,28 @@ type FileItemCompactProps<T> = {
   onRetry: (id: string) => void;
   onCancel: (id: string) => void;
   file: FileItemType<T>;
+  disabled?: boolean;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function FileItemCompact<T extends Record<any, any>>(
-  props: FileItemCompactProps<T>,
-) {
-  const { onCancel, onDelete, onRetry, file } = props;
-  const variant = "compact";
+function FileItemCompact<T extends Record<string, unknown>>({
+  file,
+  ...props
+}: FileItemCompactProps<T>) {
+  const variant: FileItemVariant = "compact";
 
   if (file?.status === "uploading")
-    return (
-      <FileItemUploading variant={variant} onCancel={onCancel} {...file} />
-    );
+    return <FileItemUploading variant={variant} {...file} {...props} />;
 
   if (file?.status === "error")
-    return (
-      <FileItemError
-        variant={variant}
-        onRetry={onRetry}
-        onCancel={onCancel}
-        {...file}
-      />
-    );
+    return <FileItemError variant={variant} {...file} {...props} />;
 
-  return <FileItemComplete variant={variant} onDelete={onDelete} {...file} />;
+  return <FileItemComplete variant={variant} {...file} {...props} />;
 }
 
 export {
   FileItemCompact,
-  FileItemLg,
   FileItemComplete,
   FileItemError,
+  FileItemLg,
   FileItemUploading,
 };
