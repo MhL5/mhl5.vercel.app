@@ -82,6 +82,7 @@ function TiptapEditor({
     >
       <EditorMessagesProvider messages={editorEnMessages}>
         <EditorContext value={{ editor: memoizedEditor }}>
+          {/* Toolbar */}
           <div
             data-slot="editor-toolbar"
             className="flex flex-wrap items-center justify-center gap-2 overflow-x-auto border-b bg-card px-2 py-1.75 text-card-foreground"
@@ -117,9 +118,11 @@ function TiptapEditor({
             <InsertTableOfContentsButton />
           </div>
 
+          {/* Bubble menus */}
           <LinkBubbleMenu />
           <TableBubbleMenu />
 
+          {/* Editor content */}
           <EditorContent
             className="h-200 w-full overflow-x-hidden px-5 py-7 md:h-250"
             editor={editor}
