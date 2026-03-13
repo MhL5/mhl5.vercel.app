@@ -84,8 +84,23 @@ export function validateFiles({
 
 export function isImage(str: string) {
   // Define a regular expression to check for image file extensions
-  const imageExtensions = /\.(jpg|jpeg|png|gif|bmp|webp|svg)$/i;
-
+  const imageExtensions = /\.(avif|jpg|jpeg|png|gif|bmp|webp|svg)$/i;
   // Test the input string against the regular expression
   return imageExtensions.test(str);
+}
+
+export function parseFileUrl(url: string) {
+  // Split the pathname into parts
+  const parts = url.split("/");
+
+  // Get the last part which is the file name with extension
+  const fileNameWithExtension = parts[parts.length - 1];
+
+  // Split the file name and extension
+  const [name, type] = fileNameWithExtension.split(".");
+
+  return {
+    name: name || url,
+    type,
+  };
 }

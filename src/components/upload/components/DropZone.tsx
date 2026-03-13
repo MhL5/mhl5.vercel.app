@@ -41,7 +41,7 @@ export type DropZoneProps = {
   /** Whether multiple files can be accepted at once */
   multiple: boolean;
   /** Maximum file size in bytes allowed */
-  maxSize?: number;
+  maxSizeInBytes?: number;
 };
 
 /**
@@ -72,7 +72,7 @@ function DropZone({
   accept,
   multiple,
   disabled,
-  maxSize,
+  maxSizeInBytes,
   className,
   inputProps: {
     className: inputClassName,
@@ -105,7 +105,7 @@ function DropZone({
 
     const { acceptedFiles, rejectedFiles } = validateFiles({
       files,
-      maxSize: maxSize || Infinity,
+      maxSize: maxSizeInBytes || Infinity,
       accept: accept,
     });
 
@@ -204,7 +204,7 @@ function DropZone({
           Drag & drop or click to browse.
           <br />
           <span>
-            {`Max size: ${maxSize ? formatBytes(maxSize) : "N/A"}. `}
+            {`Max size: ${maxSizeInBytes ? formatBytes(maxSizeInBytes) : "N/A"}. `}
             {`Accepted types: ${accept ? accept : "Any"}.`}
           </span>
         </p>

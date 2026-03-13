@@ -7,7 +7,7 @@ import type {
   FileItem as FileItemType,
   FileItemUploading as FileItemUploadingType,
 } from "@/components/upload/hooks/useFileUpload";
-import { isImage } from "@/components/upload/utils";
+import { isImage, parseFileUrl } from "@/components/upload/utils";
 import { cn } from "@/lib/utils";
 import Img from "@/registry/new-york/Img/Img";
 import {
@@ -295,6 +295,7 @@ type FileItemUploadingProps = Omit<FileItemUploadingType, "abortController"> & {
   className?: string;
   messages?: {
     cancel: string;
+    progressAriaLabel: string;
   };
 };
 
@@ -308,19 +309,21 @@ function FileItemUploading({
   variant = "compact",
   messages = {
     cancel: "cancel",
+    progressAriaLabel: "Upload progress",
   },
   className,
 }: FileItemUploadingProps) {
+  const progressInfoDecimals = variant === "lg" ? 2 : 0;
   const descriptionData = [
     {
       key: "FileItemUploading-descriptionData-uploadedBytes",
       className: "",
-      value: `${formatBytes(progressInfo.uploadedBytes)}/${formatBytes(file.size)}`,
+      value: `${formatBytes(progressInfo.uploadedBytes, progressInfoDecimals)}/${formatBytes(file.size, progressInfoDecimals)}`,
     },
     {
       key: "FileItemUploading-descriptionData-bytesPerSecond",
       className: variant === "lg" ? "" : "@max-sm:hidden",
-      value: `${formatBytes(progressInfo.bytesPerSecond)}/S`,
+      value: `${formatBytes(progressInfo.bytesPerSecond, progressInfoDecimals)}/S`,
     },
     {
       key: "FileItemUploading-descriptionData-timeLeftInSeconds",
@@ -336,7 +339,12 @@ function FileItemUploading({
       className={className}
       data-error={false}
     >
-      <progress value={progressInfo.progressPercentage} className="sr-only" />
+      <progress
+        value={progressInfo.progressPercentage}
+        max={100}
+        className="sr-only"
+        aria-label={messages.progressAriaLabel}
+      />
       <div
         aria-hidden
         style={{
@@ -406,23 +414,7 @@ function FileItemComplete(props: FileItemCompleteProps) {
       openInNewWindow: "Open in new window",
     },
   } = props;
-  const { name, type = "" } = parseUrl(url);
-
-  function parseUrl(url: string) {
-    // Split the pathname into parts
-    const parts = url.split("/");
-
-    // Get the last part which is the file name with extension
-    const fileNameWithExtension = parts[parts.length - 1];
-
-    // Split the file name and extension
-    const [name, type] = fileNameWithExtension.split(".");
-
-    return {
-      name: name || url,
-      type,
-    };
-  }
+  const { name, type = "" } = parseFileUrl(url);
 
   return (
     <FileItemContainer
@@ -457,12 +449,7 @@ function FileItemComplete(props: FileItemCompleteProps) {
           disabled={disabled}
           asChild
         >
-          <a
-            href={url}
-            target="_blank"
-            title={messages.openInNewWindow}
-            className="text-xs text-muted-foreground underline underline-offset-3"
-          >
+          <a href={url} target="_blank" title={messages.openInNewWindow}>
             <Eye />
           </a>
         </Button>

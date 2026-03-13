@@ -14,8 +14,11 @@ export async function fileUpload({
 
   const response = await new Promise<Response>((resolve, reject) => {
     const xhr = new XMLHttpRequest();
+    const abortRequest = () => xhr.abort();
 
     xhr.upload.onprogress = (event) => onprogress.call(xhr, event);
+
+    xhr.onloadend = () => signal.removeEventListener("abort", abortRequest);
 
     xhr.onload = () => {
       if (xhr.status >= 200 && xhr.status < 300)
@@ -27,7 +30,7 @@ export async function fileUpload({
 
     xhr.onabort = () => reject(new DOMException("Aborted", "AbortError"));
 
-    signal.addEventListener("abort", () => xhr.abort());
+    signal.addEventListener("abort", abortRequest);
 
     xhr.open("POST", "http://localhost:4000/upload");
     xhr.send(formData);

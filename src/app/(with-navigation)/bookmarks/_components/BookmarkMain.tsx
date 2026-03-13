@@ -66,7 +66,7 @@ function BookmarkMainContent() {
                 setBookmarks(filteredBookmarks);
               });
             }}
-            className="py-2 pr-4 pl-10 text-sm"
+            className="border-ring/20 py-2 pr-4 pl-10 text-sm"
           />
         </div>
 
