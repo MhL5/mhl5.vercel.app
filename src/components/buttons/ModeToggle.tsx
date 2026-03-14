@@ -5,7 +5,7 @@ import { useTheme } from "next-themes";
 
 import ButtonWithTooltip from "./ButtonWithTooltip";
 
-export function ThemeToggle() {
+export function ModeToggle() {
   const { setTheme } = useTheme();
 
   return (

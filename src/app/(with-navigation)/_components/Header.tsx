@@ -1,7 +1,8 @@
 "use client";
 
+import { AppearanceDisplay } from "@/components/AppearanceDisplay";
 import ButtonWithTooltip from "@/components/buttons/ButtonWithTooltip";
-import { ThemeToggle } from "@/components/buttons/ThemeToggle";
+import { ModeToggle } from "@/components/buttons/ModeToggle";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
 import {
@@ -9,6 +10,7 @@ import {
   SheetClose,
   SheetContent,
   SheetDescription,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -75,6 +77,9 @@ export default function Header() {
                   );
                 })}
               </div>
+              <SheetFooter>
+                <AppearanceDisplay />
+              </SheetFooter>
             </SheetContent>
           </Sheet>
 
@@ -129,7 +134,7 @@ export default function Header() {
                 </svg>
               </Link>
             </ButtonWithTooltip>
-            <ThemeToggle />
+            <ModeToggle />
           </div>
         </nav>
       </header>

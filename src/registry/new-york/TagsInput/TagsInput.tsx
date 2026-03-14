@@ -309,26 +309,17 @@ function TagsInputTag({
     >
       {children}
 
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button
-            variant="destructive"
-            size="icon"
-            disabled={disabled}
-            type="button"
-            onClick={handleClick}
-            className="size-5"
-          >
-            <X />
-          </Button>
-        </TooltipTrigger>
-        <TooltipContent>
-          click to remove the tag{" "}
-          <span className="mx-1 inline-block rounded-sm bg-muted px-2 py-1 text-muted-foreground">
-            {value}
-          </span>
-        </TooltipContent>
-      </Tooltip>
+      <Button
+        variant="destructive"
+        size="icon"
+        disabled={disabled}
+        type="button"
+        onClick={handleClick}
+        className="size-5"
+        title={`click to remove the tag "${value}"`}
+      >
+        <X />
+      </Button>
     </li>
   );
 }

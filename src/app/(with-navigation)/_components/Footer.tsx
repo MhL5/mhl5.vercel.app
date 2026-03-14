@@ -1,4 +1,7 @@
+import { ModeToggleGroup } from "@/components/buttons/ModeToggleGroup";
 import { Link } from "@/components/ui/link";
+import { Skeleton } from "@/components/ui/skeleton";
+import ClientOnly from "@/components/utils/ClientOnly";
 import { CONTACT_INFO } from "@/constants";
 
 export default function Footer() {
@@ -10,6 +13,9 @@ export default function Footer() {
           Mohammad Lashani
         </Link>
       </div>
+      <ClientOnly fallback={<Skeleton className="h-7 w-21 rounded-md" />}>
+        <ModeToggleGroup />
+      </ClientOnly>
     </footer>
   );
 }

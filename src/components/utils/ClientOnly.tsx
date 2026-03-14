@@ -1,3 +1,5 @@
+"use client";
+
 import { useIsMounted } from "@/registry/hooks/useIsMounted/useIsMounted";
 import type { ReactNode } from "react";
 
