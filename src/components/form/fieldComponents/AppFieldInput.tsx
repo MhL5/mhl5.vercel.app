@@ -6,6 +6,8 @@ import { useAppField, useFieldContext, useFormContext } from "../appForm";
 
 export default function AppFieldInput({
   disabled,
+  onChange,
+  onBlur,
   ...props
 }: ComponentProps<typeof Input>) {
   const { fieldControllerProps } = useAppField();
@@ -17,8 +19,14 @@ export default function AppFieldInput({
     <Input
       name={field.name}
       value={field.state.value}
-      onBlur={field.handleBlur}
-      onChange={(e) => field.handleChange(e.target.value)}
+      onBlur={(e) => {
+        onBlur?.(e);
+        field.handleBlur();
+      }}
+      onChange={(e) => {
+        onChange?.(e);
+        field.handleChange(e.target.value);
+      }}
       disabled={isSubmitting || disabled}
       {...fieldControllerProps}
       {...props}

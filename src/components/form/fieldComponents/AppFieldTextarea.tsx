@@ -6,6 +6,8 @@ import { useAppField, useFieldContext, useFormContext } from "../appForm";
 
 export default function AppFieldTextarea({
   disabled,
+  onBlur,
+  onChange,
   ...props
 }: ComponentProps<typeof Textarea>) {
   const { fieldControllerProps } = useAppField();
@@ -17,8 +19,14 @@ export default function AppFieldTextarea({
     <Textarea
       name={field.name}
       value={field.state.value}
-      onBlur={field.handleBlur}
-      onChange={(e) => field.handleChange(e.target.value)}
+      onBlur={(e) => {
+        onBlur?.(e);
+        field.handleBlur();
+      }}
+      onChange={(e) => {
+        onChange?.(e);
+        field.handleChange(e.target.value);
+      }}
       disabled={isSubmitting || disabled}
       {...fieldControllerProps}
       {...props}
