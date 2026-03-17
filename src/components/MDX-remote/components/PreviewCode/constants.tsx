@@ -28,7 +28,9 @@ export const componentPaths = {
     "@/registry/new-york/FallbackPages/examples/LoadingExample.tsx",
 
   TagsInput: "@/registry/new-york/TagsInput/example.tsx",
+
   useDebounce: "@/registry/hooks/useDebounce/example.tsx",
+  useStepper: "@/registry/hooks/useStepper/example.tsx",
 } as const;
 
 const dynamicImportOptions = {
@@ -104,6 +106,9 @@ export const PreviewComponents = {
     ...dynamicImportOptions,
   }),
   useDebounce: dynamic(() => import(componentPaths.useDebounce), {
+    ...dynamicImportOptions,
+  }),
+  useStepper: dynamic(() => import(componentPaths.useStepper), {
     ...dynamicImportOptions,
   }),
 };

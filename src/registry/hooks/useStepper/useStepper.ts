@@ -1,94 +1,88 @@
 "use client";
 
-import { type ReactNode, useCallback, useMemo, useState } from "react";
+import type { NumberRange } from "@/types/NumberRange";
+import { useState } from "react";
 
-type UseStepperOptions = {
-  initialStep?: number;
+type Range<Steps extends number> = NumberRange<1, Steps> | 1;
+
+type UseStepperOptions<Range extends number> = {
+  initialStep?: Range;
   loop?: boolean;
 };
 
-type BaseReturnType = {
-  currentStep: number;
-  isFirstStep: boolean;
-  isLastStep: boolean;
-  goTo: (index: number) => void;
-  next: () => void;
-  back: () => void;
-};
-
-export function useStepper(
-  steps: number,
-  options?: UseStepperOptions,
-): BaseReturnType;
-
-export function useStepper(
-  steps: ReactNode[],
-  options?: UseStepperOptions,
-): BaseReturnType & { step: ReactNode };
-
 /**
- * a reusable hook for managing steps
+ * Type safe reusable hook for managing steps,
+ * steps start from 1
  *
- * 0 based index
  * @example
- * const stepper = useStepper(3); // you get step 0 1 2
+ * const stepper = useStepper(3);
+ * const stepper = useStepper(3, {initialStep:2});
+ * const stepper = useStepper(3, {initialStep:2,loop:true});
  */
-export function useStepper(
-  steps: ReactNode[] | number,
-  { initialStep = 0, loop = false }: UseStepperOptions = {},
+export function useStepper<const Steps extends number>(
+  steps: Range<Steps>,
+  {
+    initialStep = 1,
+    loop = false,
+  }: UseStepperOptions<NoInfer<Range<Steps>>> = {},
 ) {
-  const [currentStep, setCurrentStep] = useState(initialStep);
+  const [currentStep, setCurrentStep] = useState<Range<Steps>>(initialStep);
 
-  const lastStep = useMemo(() => {
-    if (Array.isArray(steps)) return steps.length - 1;
-    return steps;
-  }, [steps]);
-  const isFirstStep = useMemo(() => currentStep === 0, [currentStep]);
-  const isLastStep = useMemo(
-    () => currentStep === lastStep,
-    [currentStep, lastStep],
-  );
+  const firstStep = 1;
+  const lastStep = steps;
 
-  const next = useCallback(() => {
-    if (isLastStep) {
-      if (loop) setCurrentStep(0);
-      return;
-    }
-    setCurrentStep((step) => step + 1);
-  }, [isLastStep, loop]);
+  function isFirstStep(step: Range<Steps>) {
+    return step === firstStep;
+  }
 
-  const back = useCallback(() => {
-    if (isFirstStep) {
-      if (loop) setCurrentStep(lastStep);
-      return;
-    }
-    setCurrentStep((step) => step - 1);
-  }, [isFirstStep, loop, lastStep]);
+  function isLastStep(step: Range<Steps>) {
+    return step === lastStep;
+  }
 
-  const goTo = useCallback(
-    (index: number) => {
-      if (index < 0 || index > lastStep) {
-        throw new Error(
-          `Invalid step index: ${index}. Must be between 0 and ${lastStep}`,
-        );
-      }
-      setCurrentStep(index);
-    },
-    [lastStep],
-  );
+  function isValidStep(step: number): step is Range<Steps> {
+    return Number.isInteger(step) && step >= firstStep && step <= lastStep;
+  }
 
-  const output = useMemo(
-    () => ({
-      currentStep,
-      isFirstStep,
-      isLastStep,
-      goTo,
-      next,
-      back,
-    }),
-    [back, currentStep, goTo, next, isFirstStep, isLastStep],
-  );
+  function next() {
+    setCurrentStep((step) => {
+      if (isLastStep(step) && loop) return firstStep;
 
-  if (Array.isArray(steps)) return { ...output, step: steps[currentStep] };
-  return output;
+      const newStep = step + 1;
+      return isValidStep(newStep) ? newStep : step;
+    });
+  }
+
+  function back() {
+    setCurrentStep((step) => {
+      if (isFirstStep(step) && loop) return lastStep;
+
+      const newStep = step - 1;
+      return isValidStep(newStep) ? newStep : step;
+    });
+  }
+
+  function canGoTo(step: Range<Steps>) {
+    return isValidStep(step);
+  }
+
+  function goTo(index: Range<Steps>) {
+    if (!canGoTo(index))
+      throw new Error(
+        `Invalid step index: ${index}. Must be an integer between ${firstStep} and ${lastStep}.`,
+      );
+    setCurrentStep(index);
+  }
+
+  const canGoNext = loop || !isLastStep(currentStep);
+  const canGoBack = loop || !isFirstStep(currentStep);
+
+  return {
+    currentStep,
+    goTo,
+    next,
+    back,
+    canGoNext,
+    canGoBack,
+    canGoTo,
+  } as const;
 }

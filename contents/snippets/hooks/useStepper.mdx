@@ -1,3 +1,5 @@
+<PreviewCode name="useStepper" />
+
 ## Installation
 
 <InstallationTabs name="useStepper" />
@@ -11,13 +13,5 @@ import { useStepper } from "@/hooks/useStepper";
 <br />
 
 ```tsx
-// With number of steps
-const { currentStep, isFirstStep, isLastStep, goTo, next, back } = useStepper(
-  3,
-  { initialStep: 0, loop: false },
-);
-
-// With step components
-const steps = [<Step1 />, <Step2 />, <Step3 />];
-const { currentStep, step, next, back } = useStepper(steps);
+const { back, currentStep, goTo, next, canGoBack, canGoNext, canGoTo } = useStepper(steps);
 ```
