@@ -320,6 +320,11 @@
         {
           "path": "src/registry/hooks/useStepper/useStepper.ts",
           "type": "registry:hook"
+        },
+        {
+          "path": "src/types/NumberRange.ts",
+          "type": "registry:lib",
+          "target": "src/types/NumberRange.ts"
         }
       ]
     },

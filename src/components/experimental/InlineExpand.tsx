@@ -32,7 +32,7 @@ function InlineExpand({
     <InlineExpandContext value={{ expand, toggleExpand }}>
       <div
         className={cn(
-          "flex flex-wrap items-center gap-2 rounded-sm bg-muted p-2 text-foreground",
+          "group/InlineExpand flex flex-wrap items-center gap-2 rounded-sm bg-muted p-2 text-foreground",
           className,
         )}
         data-expanded={expand}
@@ -69,6 +69,16 @@ function InlineExpandTrigger({
   );
 }
 
+function InlineExpandTriggerSpan({
+  hideOnExpand = true,
+  ...props
+}: ComponentProps<"span"> & { hideOnExpand?: boolean }) {
+  const { expand } = useInlineExpandContext();
+
+  if (expand && hideOnExpand) return null;
+  return <span data-slot="InlineExpandTriggerSpan" {...props} />;
+}
+
 function InlineExpandContent(props: ComponentProps<"div">) {
   const { expand } = useInlineExpandContext();
 
@@ -78,4 +88,9 @@ function InlineExpandContent(props: ComponentProps<"div">) {
   );
 }
 
-export { InlineExpand, InlineExpandContent, InlineExpandTrigger };
+export {
+  InlineExpand,
+  InlineExpandContent,
+  InlineExpandTrigger,
+  InlineExpandTriggerSpan,
+};
