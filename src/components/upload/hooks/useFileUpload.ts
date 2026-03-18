@@ -44,8 +44,43 @@ type UseFileUploadOptions<T> = {
   }) => Promise<Omit<FileItemComplete<T>, "status" | "id">>;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function useFileUpload<T extends Record<string, any>>({
+/**
+ * A type-safe hook for managing file uploads with support for custom fields
+ * on completed files.
+ *
+ * ⚠️ **Important: Generic inference limitation**
+ * TypeScript cannot reliably infer the extra fields (`T`) from `defaultValue`
+ * or `uploadHandler`. As a result, additional properties (e.g. `m`, `size`, etc.)
+ * may cause type errors unless you explicitly provide the generic.
+ *
+ * ✅ **Recommended usage (explicit generic):**
+ *
+ * ```ts
+ * const { files } = useFileUpload<{ size: string }>({
+ *   defaultValue: [{ id: "1", url: "", size: "1" }],
+ *   onChange: () => {},
+ *   uploadHandler: async () => {
+ *     return { url: "example", size: "1" };
+ *   },
+ * });
+ * ```
+ *
+ * ❌ **Without generic (may fail):**
+ *
+ * ```ts
+ * useFileUpload({
+ *   defaultValue: [{ id: "1", url: "", size: "1" }], // ❌ 'size' not recognized
+ *   uploadHandler: async () => ({ url: "x" }), // ❌ no type safety for 'size'
+ * });
+ * ```
+ *
+ * 💡 **Why?**
+ * Because `T` is used across multiple properties (including function params),
+ * TypeScript cannot consistently infer it and falls back to `{}`.
+ *
+ * 👉 Always pass a generic when adding custom fields to completed file items.
+ */
+function useFileUpload<T>({
   defaultValue = [],
   onChange,
   uploadHandler,
