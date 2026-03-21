@@ -48,12 +48,16 @@
   --color-sidebar-ring: var(--sidebar-ring);
 
   --color-success: var(--success);
+  --color-success-border: var(--success-border);
   --color-success-foreground: var(--success-foreground);
   --color-info: var(--info);
+  --color-info-border: var(--info-border);
   --color-info-foreground: var(--info-foreground);
   --color-warning: var(--warning);
+  --color-warning-border: var(--warning-border);
   --color-warning-foreground: var(--warning-foreground);
   --color-error: var(--error);
+  --color-error-border: var(--error-border);
   --color-error-foreground: var(--error-foreground);
 
   --color-code-background: var(--code-background);
@@ -158,14 +162,18 @@
   --site-header-height: 3.25rem;
   --code-background: var(--color-muted);
 
-  --success: oklch(95.5% 0.025 158.883);
-  --success-foreground: oklch(35% 0.18 146.625);
-  --info: oklch(95% 0.015 244.483);
-  --info-foreground: oklch(35% 0.19 255.001);
-  --warning: oklch(97% 0.02 95.255);
-  --warning-foreground: oklch(68.1% 0.162 75.834);
-  --error: oklch(95% 0.02 17.066);
-  --error-foreground: oklch(40% 0.25 29.223);
+  --success: oklch(97.878% 0.02211 160.513);
+  --success-border: oklch(94.045% 0.07759 159.386);
+  --success-foreground: oklch(55.157% 0.16568 146.625);
+  --info: oklch(97.515% 0.01276 244.483);
+  --info-border: oklch(92.71% 0.03191 266.188);
+  --info-foreground: oklch(56.29% 0.18149 255.001);
+  --warning: oklch(99.012% 0.01597 95.255);
+  --warning-border: oklch(94.506% 0.07889 97.528);
+  --warning-foreground: lch(48.47% 49.92 63.74);
+  --error: oklch(96.694% 0.01621 17.066);
+  --error-border: oklch(93.246% 0.03429 15.395);
+  --error-foreground: oklch(58.079% 0.23834 29.223);
 
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -204,12 +212,16 @@
   --code-background: #171717;
 
   --success: oklch(21.066% 0.04977 157.455);
+  --success-border: oklch(31.552% 0.0818 152.692);
   --success-foreground: oklch(86.352% 0.16984 157.782);
   --info: oklch(15.718% 0.04534 250.707);
+  --info-border: oklch(26.168% 0.05283 267.358);
   --info-foreground: oklch(67.441% 0.15279 258.345);
   --warning: oklch(22.938% 0.05121 113.206);
+  --warning-border: oklch(29.154% 0.06353 109.783);
   --warning-foreground: oklch(86.347% 0.1414 92.293);
   --error: oklch(19.941% 0.06431 23.545);
+  --error-border: oklch(26.884% 0.10326 25.303);
   --error-foreground: oklch(79.847% 0.11592 17.944);
 
   --background: oklch(0.145 0 0);

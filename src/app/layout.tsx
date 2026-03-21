@@ -55,7 +55,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html data-scroll-behavior="smooth" lang="en" suppressHydrationWarning>
       <body className={`${figtree.variable} min-w-xs font-figtree antialiased`}>
-        <div className="fixed inset-0 -z-10 h-full w-full dark:bg-[radial-gradient(125%_125%_at_50%_100%,var(--background)_40%,#010133_100%)]" />
+        <div className="fixed inset-0 -z-10 size-full dark:bg-[radial-gradient(125%_125%_at_50%_100%,var(--background)_40%,#010133_100%)]" />
         <Providers>{children}</Providers>
       </body>
     </html>
