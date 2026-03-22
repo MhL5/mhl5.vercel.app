@@ -1,31 +1,42 @@
 "use client";
 
-import { isDev } from "@/registry/utils/checks/checks";
+import { jsonParseWithFallback } from "@/utils/jsonParseWithFallback";
 import { useCallback, useMemo, useSyncExternalStore } from "react";
 
 const SESSION_STORAGE_CHANGE_EVENT = "session-storage-change";
 
-const getServerSnapshot = () => null;
+function createSessionStorageStore(key: string) {
+  function getServerSnapshot() {
+    return null;
+  }
 
-export function useSessionStorage<T>(key: string, defaultValue: T | (() => T)) {
-  const getSnapshot = useCallback(() => sessionStorage.getItem(key), [key]);
-  const subscribe = useCallback(
-    (onChange: () => void) => {
-      const abortController = new AbortController();
+  function getSnapshot() {
+    return sessionStorage.getItem(key);
+  }
 
-      window.addEventListener(
-        SESSION_STORAGE_CHANGE_EVENT,
-        (e) => {
-          const customEvent = e as CustomEvent;
-          if (customEvent.detail.key === key) onChange();
-        },
-        {
-          signal: abortController.signal,
-        },
-      );
+  function subscribe(onStoreChange: () => void) {
+    const abortController = new AbortController();
 
-      return () => abortController.abort();
-    },
+    window.addEventListener(
+      SESSION_STORAGE_CHANGE_EVENT,
+      (e) => {
+        const customEvent = e as CustomEvent;
+        if (customEvent.detail.key === key) onStoreChange();
+      },
+      {
+        signal: abortController.signal,
+      },
+    );
+
+    return () => abortController.abort();
+  }
+
+  return { subscribe, getSnapshot, getServerSnapshot };
+}
+
+function useSessionStorage<T>(key: string, defaultValue: T | (() => T)) {
+  const { getServerSnapshot, getSnapshot, subscribe } = useMemo(
+    () => createSessionStorageStore(key),
     [key],
   );
 
@@ -40,21 +51,16 @@ export function useSessionStorage<T>(key: string, defaultValue: T | (() => T)) {
     getServerSnapshot,
   );
 
-  const parsedSnapshot: T = useMemo(() => {
+  const parsedSnapshot = useMemo(() => {
     const resolvedInitialValue =
       defaultValue instanceof Function ? defaultValue() : defaultValue;
-    try {
-      return jsonSnapshot ? JSON.parse(jsonSnapshot) : resolvedInitialValue;
-    } catch (error) {
-      if (isDev())
-        // eslint-disable-next-line no-console
-        console.error(
-          `Error parsing value for ${key} in sessionStorage`,
-          error,
-        );
-      return resolvedInitialValue;
-    }
-  }, [jsonSnapshot, defaultValue, key]);
+    return jsonSnapshot
+      ? (jsonParseWithFallback({
+          fallback: resolvedInitialValue,
+          json: jsonSnapshot,
+        }) as T)
+      : resolvedInitialValue;
+  }, [defaultValue, jsonSnapshot]);
 
   const setData = useCallback(
     (value: T | ((prev: T) => T)) => {
@@ -74,8 +80,7 @@ export function useSessionStorage<T>(key: string, defaultValue: T | (() => T)) {
     [key, parsedSnapshot],
   );
 
-  return useMemo(
-    () => [parsedSnapshot, setData] as const,
-    [parsedSnapshot, setData],
-  );
+  return [parsedSnapshot, setData] as const;
 }
+
+export { useSessionStorage };

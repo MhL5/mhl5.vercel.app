@@ -14,10 +14,11 @@ export default function Example() {
 }
 
 function Content() {
-  const [value, setValue] = useSessionStorage("test", () => ({
+  const [value, setValue] = useSessionStorage("test", {
     text: "",
     createdAt: new Date(),
-  }));
+    updatedAt: new Date(),
+  });
 
   return (
     <div className="grid size-full place-items-center">
@@ -31,12 +32,27 @@ function Content() {
             second: "2-digit",
           })}
         </span>
+        <span className="text-sm">
+          Updated at:{" "}
+          {formatDate(value?.updatedAt, {
+            month: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          })}
+        </span>
         <div className="flex items-center gap-2">
           <Input
             value={value.text}
             placeholder="Try useSessionStorage"
             className="w-full max-w-sm"
-            onChange={(e) => setValue({ ...value, text: e.target.value })}
+            onChange={(e) =>
+              setValue({
+                ...value,
+                text: e.target.value,
+                updatedAt: new Date(),
+              })
+            }
           />
           <Button
             variant="destructive"
@@ -45,6 +61,7 @@ function Content() {
               setValue({
                 text: "",
                 createdAt: new Date(),
+                updatedAt: new Date(),
               });
             }}
             className="w-fit"

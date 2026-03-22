@@ -1,33 +1,25 @@
-import { AppFieldDropzone } from "@/components/form/fieldComponents/AppFieldDropzone";
 import { createFormHook, createFormHookContexts } from "@tanstack/react-form";
-import { lazy } from "react";
 
-// Field Components
-// --------------------------------
-const AppField = lazy(
-  () => import("@/components/form/fieldComponents/AppField"),
-);
-const AppFieldLabel = lazy(
-  () => import("@/components/form/fieldComponents/AppFieldLabel"),
-);
-const AppFieldError = lazy(
-  () => import("@/components/form/fieldComponents/AppFieldError"),
-);
-const AppFieldDescription = lazy(
-  () => import("@/components/form/fieldComponents/AppFieldDescription"),
-);
-const AppFieldInput = lazy(
-  () => import("@/components/form/fieldComponents/AppFieldInput"),
-);
-const AppFieldTextarea = lazy(
-  () => import("@/components/form/fieldComponents/AppFieldTextarea"),
-);
-
-// Form Components
-// --------------------------------
-const SubmitButton = lazy(
-  () => import("@/components/form/formComponents/SubmitButton"),
-);
+import AppField from "./fieldComponents/AppField";
+import AppFieldDescription from "./fieldComponents/AppFieldDescription";
+import { AppFieldDropzone } from "./fieldComponents/AppFieldDropzone";
+import AppFieldError from "./fieldComponents/AppFieldError";
+import AppFieldInput from "./fieldComponents/AppFieldInput";
+import AppFieldLabel from "./fieldComponents/AppFieldLabel";
+import {
+  AppFieldSelect,
+  AppFieldSelectContent,
+  AppFieldSelectGroup,
+  AppFieldSelectItem,
+  AppFieldSelectLabel,
+  AppFieldSelectScrollDownButton,
+  AppFieldSelectScrollUpButton,
+  AppFieldSelectSeparator,
+  AppFieldSelectTrigger,
+  AppFieldSelectValue,
+} from "./fieldComponents/AppFieldSelect";
+import AppFieldTextarea from "./fieldComponents/AppFieldTextarea";
+import SubmitButton from "./formComponents/SubmitButton";
 
 const { fieldContext, formContext, useFormContext, useFieldContext } =
   createFormHookContexts();
@@ -43,6 +35,17 @@ const { useAppForm, withFieldGroup, withForm } = createFormHook({
     Input: AppFieldInput,
     Textarea: AppFieldTextarea,
     DropZone: AppFieldDropzone,
+    // Select
+    Select: AppFieldSelect,
+    SelectTrigger: AppFieldSelectTrigger,
+    SelectContent: AppFieldSelectContent,
+    SelectGroup: AppFieldSelectGroup,
+    SelectItem: AppFieldSelectItem,
+    SelectLabel: AppFieldSelectLabel,
+    SelectScrollDownButton: AppFieldSelectScrollDownButton,
+    SelectScrollUpButton: AppFieldSelectScrollUpButton,
+    SelectSeparator: AppFieldSelectSeparator,
+    SelectValue: AppFieldSelectValue,
   },
   formComponents: {
     SubmitButton,
@@ -78,9 +81,13 @@ function useAppField() {
   };
 
   return {
+    /** Props to spread on the form control element (id, aria-describedby, aria-invalid) */
     fieldControllerProps,
+    /** id for the field description element */
     fieldDescriptionId,
+    /** id for the field error message element */
     fieldErrorId,
+    /** Whether the field has been touched and contains validation errors */
     isInvalid,
   };
 }
