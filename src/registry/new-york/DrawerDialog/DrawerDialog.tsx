@@ -1,6 +1,5 @@
 "use client";
 
-import { type ComponentProps, createContext, type ReactNode, use } from "react";
 import {
   Dialog,
   DialogClose,
@@ -27,6 +26,7 @@ import {
 } from "@/components/ui/drawer";
 import { cn } from "@/lib/utils";
 import { useMediaQueryBreakpoint } from "@/registry/hooks/useMediaQuery/useMediaQuery";
+import { type ComponentProps, type ReactNode, createContext, use } from "react";
 
 type DrawerDialogContextType = {
   isSm: boolean | undefined;
@@ -95,7 +95,7 @@ function DrawerDialogContent({
       <DialogContent
         data-slot="drawer-dialog-content"
         className={cn(
-          "sm:[&:has([data-slot='drawer-dialog-scroll-area'])]:p-0",
+          "overflow-hidden sm:[&:has([data-slot='drawer-dialog-scroll-area'])]:p-0",
           className,
         )}
         {...props}
@@ -104,7 +104,7 @@ function DrawerDialogContent({
   return (
     <DrawerContent
       data-slot="drawer-dialog-content"
-      className={className}
+      className={cn("overflow-hidden", className)}
       {...props}
     />
   );
@@ -206,6 +206,7 @@ function DrawerDialogScrollArea({
         isSm
           ? dialogContentScrollAreaClassNames
           : drawerContentScrollAreaClassNames,
+        "[scrollbar-color:var(--muted-foreground)_transparent] [scrollbar-width:thin]",
         className,
       )}
       {...props}

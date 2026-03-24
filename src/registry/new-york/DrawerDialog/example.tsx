@@ -1,4 +1,3 @@
-import { OctagonAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DialogClose } from "@/components/ui/dialog";
 import {
@@ -10,6 +9,7 @@ import {
   DrawerDialogTitle,
   DrawerDialogTrigger,
 } from "@/registry/new-york/DrawerDialog/DrawerDialog";
+import { OctagonAlert } from "lucide-react";
 
 export default function Example() {
   return (
@@ -31,7 +31,7 @@ export default function Example() {
               account and remove your data from our servers.
             </DrawerDialogDescription>
 
-            <div className="mt-3 grid grid-cols-1 items-center justify-center gap-3 sm:mx-auto sm:max-w-xs sm:grid-cols-2">
+            <div className="mt-3 grid grid-cols-2 items-center justify-center gap-3 sm:mx-auto sm:max-w-xs">
               <DrawerDialogClose asChild>
                 <Button variant="outline">Cancel</Button>
               </DrawerDialogClose>
