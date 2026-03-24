@@ -1,50 +1,56 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { MonitorIcon, MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
+import type { ComponentProps } from "react";
 
-/**
- * TODO: once internet is available, we should shadcn ui button groups instead of this custom group implementation
- */
-export function ModeToggleGroup() {
+function ModeToggleGroup({ className, ...props }: ComponentProps<"div">) {
   const { theme, setTheme } = useTheme();
 
   const options = [
     {
       label: "dark",
-      onClick: () => setTheme("dark"),
+      value: "dark",
       icon: MoonIcon,
-      isActive: theme === "dark",
     },
     {
       label: "light",
-      onClick: () => setTheme("light"),
+      value: "light",
       icon: SunIcon,
-      isActive: theme === "light",
     },
     {
       label: "system",
-      onClick: () => setTheme("system"),
+      value: "system",
       icon: MonitorIcon,
-      isActive: theme === "system",
     },
   ];
 
   return (
-    <div className="flex items-center overflow-hidden rounded-md border">
-      {options.map(({ icon: Icon, label, onClick, isActive }) => (
+    <div
+      className={cn(
+        "flex items-center overflow-hidden rounded-md border",
+        className,
+      )}
+      {...props}
+    >
+      {options.map(({ icon: Icon, label, value }) => (
         <Button
-          className="rounded-none border-none"
+          className="group rounded-none border-none"
           title={label}
+          type="button"
           size="icon-sm"
-          onClick={onClick}
-          variant={isActive ? "default" : "secondary"}
+          data-active={value === theme}
+          onClick={() => setTheme(value)}
+          variant={value === theme ? "default" : "secondary"}
           key={label}
         >
-          <Icon />
+          <Icon className="transition-all duration-200 group-data-[active=true]:scale-105" />
         </Button>
       ))}
     </div>
   );
 }
+
+export { ModeToggleGroup };
