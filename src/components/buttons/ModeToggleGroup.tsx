@@ -32,12 +32,12 @@ export function ModeToggleGroup() {
   ];
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center overflow-hidden rounded-md border">
       {options.map(({ icon: Icon, label, onClick, isActive }) => (
         <Button
-          className="first:rounded-e-none last:rounded-s-none nth-[2]:rounded-none"
+          className="rounded-none border-none"
           title={label}
-          size="icon-xs"
+          size="icon-sm"
           onClick={onClick}
           variant={isActive ? "default" : "secondary"}
           key={label}
