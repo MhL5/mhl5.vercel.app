@@ -4,14 +4,17 @@
   "type": "registry:hook",
   "title": "useSessionStorage",
   "description": "A React hook built on top of `useSyncExternalStore` for managing state with `sessionStorage`.",
-  "registryDependencies": [
-    "https://mhl5.vercel.app/r/checks.json"
-  ],
   "files": [
     {
       "path": "src/registry/hooks/useSessionStorage/useSessionStorage.ts",
       "content": "\"use client\";\r\n\r\nimport { jsonParseWithFallback } from \"@/utils/jsonParseWithFallback\";\r\nimport { useCallback, useMemo, useSyncExternalStore } from \"react\";\r\n\r\nconst SESSION_STORAGE_CHANGE_EVENT = \"session-storage-change\";\r\n\r\nfunction createSessionStorageStore(key: string) {\r\n  function getServerSnapshot() {\r\n    return null;\r\n  }\r\n\r\n  function getSnapshot() {\r\n    return sessionStorage.getItem(key);\r\n  }\r\n\r\n  function subscribe(onStoreChange: () => void) {\r\n    const abortController = new AbortController();\r\n\r\n    window.addEventListener(\r\n      SESSION_STORAGE_CHANGE_EVENT,\r\n      (e) => {\r\n        const customEvent = e as CustomEvent;\r\n        if (customEvent.detail.key === key) onStoreChange();\r\n      },\r\n      {\r\n        signal: abortController.signal,\r\n      },\r\n    );\r\n\r\n    return () => abortController.abort();\r\n  }\r\n\r\n  return { subscribe, getSnapshot, getServerSnapshot };\r\n}\r\n\r\nfunction useSessionStorage<T>(key: string, defaultValue: T | (() => T)) {\r\n  const { getServerSnapshot, getSnapshot, subscribe } = useMemo(\r\n    () => createSessionStorageStore(key),\r\n    [key],\r\n  );\r\n\r\n  /**\r\n   * we cant parse the json here\r\n   * because if the parsed value is an object, it will cause an infinite loop\r\n   * we will only return a string snapshot and parse it after (string is a primitive value)\r\n   */\r\n  const jsonSnapshot = useSyncExternalStore(\r\n    subscribe,\r\n    getSnapshot,\r\n    getServerSnapshot,\r\n  );\r\n\r\n  const parsedSnapshot = useMemo(() => {\r\n    const resolvedInitialValue =\r\n      defaultValue instanceof Function ? defaultValue() : defaultValue;\r\n    return jsonSnapshot\r\n      ? (jsonParseWithFallback({\r\n          fallback: resolvedInitialValue,\r\n          json: jsonSnapshot,\r\n        }) as T)\r\n      : resolvedInitialValue;\r\n  }, [defaultValue, jsonSnapshot]);\r\n\r\n  const setData = useCallback(\r\n    (value: T | ((prev: T) => T)) => {\r\n      const resolvedValue =\r\n        value instanceof Function ? value(parsedSnapshot) : value;\r\n\r\n      const isResolvedValueInvalid =\r\n        resolvedValue === undefined || resolvedValue === null;\r\n\r\n      if (isResolvedValueInvalid) sessionStorage.removeItem(key);\r\n      else sessionStorage.setItem(key, JSON.stringify(resolvedValue));\r\n\r\n      window.dispatchEvent(\r\n        new CustomEvent(SESSION_STORAGE_CHANGE_EVENT, { detail: { key } }),\r\n      );\r\n    },\r\n    [key, parsedSnapshot],\r\n  );\r\n\r\n  return [parsedSnapshot, setData] as const;\r\n}\r\n\r\nexport { useSessionStorage };\r\n",
       "type": "registry:hook"
+    },
+    {
+      "path": "src/utils/jsonParseWithFallback.ts",
+      "content": "export function jsonParseWithFallback({\r\n  fallback,\r\n  json,\r\n}: {\r\n  json: string;\r\n  fallback: unknown;\r\n}) {\r\n  try {\r\n    return JSON.parse(json);\r\n  } catch {\r\n    return fallback;\r\n  }\r\n}\r\n",
+      "type": "registry:lib",
+      "target": "src/utils/jsonParseWithFallback.ts"
     }
   ],
   "meta": {
