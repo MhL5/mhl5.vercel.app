@@ -6,7 +6,7 @@ import { useCallbackRef } from "./useCallbackRef";
 import { useOnUnMount } from "./useOnUnMount";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function throttle<T extends (...args: any[]) => any>(
+function throttle<T extends (...args: any[]) => any>(
   callback: T,
   delay: number,
 ) {
@@ -45,7 +45,7 @@ export function throttle<T extends (...args: any[]) => any>(
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useThrottle<T extends (...args: any[]) => any>(
+function useThrottle<T extends (...args: any[]) => any>(
   callback: T,
   delay: number,
 ) {
@@ -60,3 +60,5 @@ export function useThrottle<T extends (...args: any[]) => any>(
 
   return throttled;
 }
+
+export { useThrottle, throttle };
