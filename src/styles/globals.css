@@ -261,16 +261,17 @@
   * {
     @apply scroll-smooth border-border outline-ring/50;
   }
+
   body {
     @apply mx-auto bg-background text-foreground;
   }
 
-  [id] {
-    @apply scroll-m-24;
-  }
-
   ::selection {
     @apply bg-primary text-primary-foreground;
+  }
+
+  [id] {
+    scroll-margin: calc(var(--site-header-height) + 1.25rem);
   }
 
   *:not(body, html) {

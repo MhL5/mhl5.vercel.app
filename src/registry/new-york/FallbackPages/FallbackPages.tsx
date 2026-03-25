@@ -8,33 +8,6 @@ import { cn } from "@/lib/utils";
 import { ArrowLeft, Home, LogIn, RotateCcw } from "lucide-react";
 import type { Route } from "next";
 
-const colorClassNames = {
-  warning:
-    "from-amber-500 via-yellow-600 to-orange-500 dark:from-amber-600 dark:via-yellow-500 dark:to-orange-500",
-  error:
-    "from-red-600 via-rose-700 to-pink-500 dark:from-red-600 dark:via-rose-500 dark:to-pink-500",
-  info: "from-sky-600 via-blue-700 to-indigo-500 dark:from-sky-600 dark:via-blue-500 dark:to-indigo-500",
-} as const;
-
-const status = {
-  "not-found": {
-    code: 404,
-    statusClassName: colorClassNames.warning,
-  },
-  forbidden: {
-    code: 403,
-    statusClassName: colorClassNames.error,
-  },
-  unauthorized: {
-    code: 401,
-    statusClassName: colorClassNames.info,
-  },
-  error: {
-    code: 500,
-    statusClassName: colorClassNames.error,
-  },
-} as const;
-
 const defaultMessages = {
   home: "Home",
   goBack: "Go back",
@@ -44,7 +17,7 @@ const defaultMessages = {
   "not-found": {
     title: "Nothing to see here",
     description:
-      "Page you are trying to open does not exist. You may have mistyped the address, or the page has been moved to another URL.",
+      "The page you are trying to access does not exist. You may have mistyped the address, or the page has been moved to another URL.",
   },
   forbidden: {
     title: "Access Denied",
@@ -53,12 +26,14 @@ const defaultMessages = {
   },
   unauthorized: {
     title: "Authentication Required",
-    description: "You need to sign in to access this page.",
+    description:
+      "You need to sign in to your account to access this page. Please sign in with your credentials to continue.",
     secondaryActionLabel: "Sign in",
   },
   error: {
     title: "Something went wrong!",
-    description: "Please try again or contact support if the problem persists.",
+    description:
+      "An unexpected error occurred while processing your request. Please try again or contact support if the problem persists.",
     secondaryActionLabel: "try again",
   },
 } as const;
@@ -129,7 +104,25 @@ export function FallbackPage(props: FallbackPageProps) {
     variant,
     contactSupportMessage,
   } = props;
-  const { statusClassName, code } = status[variant];
+
+  let code = 500;
+  switch (variant) {
+    case "not-found":
+      code = 404;
+      break;
+    case "forbidden":
+      code = 403;
+      break;
+    case "unauthorized":
+      code = 401;
+      break;
+    case "error":
+      code = 500;
+      break;
+    default:
+      variant satisfies never;
+      code = 500;
+  }
 
   return (
     <section
@@ -141,10 +134,8 @@ export function FallbackPage(props: FallbackPageProps) {
       <div className="relative z-10 max-w-md space-y-8 text-center">
         <header className="space-y-6">
           <div
-            className={cn(
-              "bg-linear-to-br bg-clip-text font-mono text-[10rem] leading-none font-bold tracking-tighter text-transparent",
-              statusClassName,
-            )}
+            data-code={code}
+            className="font-mono text-[10rem] leading-none font-bold tracking-tighter text-primary"
           >
             {code}
           </div>
