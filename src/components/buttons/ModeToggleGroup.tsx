@@ -30,14 +30,14 @@ function ModeToggleGroup({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       className={cn(
-        "flex items-center overflow-hidden rounded-md border",
+        "flex shrink-0 items-center gap-1 rounded-md bg-secondary",
         className,
       )}
       {...props}
     >
       {options.map(({ icon: Icon, label, value }) => (
         <Button
-          className="group rounded-none border-none"
+          className="group rounded-none border-none first:rounded-s-md last:rounded-e-md"
           title={label}
           type="button"
           size="icon-sm"
