@@ -277,7 +277,10 @@ function UploadOrUrlField({ field, accept, onPreview }: UploadOrUrlFieldProps) {
               onPreview();
               field.handleChange(url);
             }}
-            onUploadError={(errors) => field.setErrorMap({ onChange: errors })}
+            onUploadError={(errors) => {
+              field.setErrorMap({ onChange: errors });
+              field.handleBlur();
+            }}
             isInvalid={isInvalid}
           />
         </TabsContent>
