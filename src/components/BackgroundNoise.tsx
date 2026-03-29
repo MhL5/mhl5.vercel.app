@@ -26,7 +26,7 @@ export default function BackgroundNoise({
 
   return (
     <div
-      className={cn("pointer-events-none absolute inset-0 z-[1]", className)}
+      className={cn("pointer-events-none absolute inset-0 z-1", className)}
       style={{ ...style, filter: `url(#${filterId})`, opacity }}
       aria-hidden="true"
       {...props}
