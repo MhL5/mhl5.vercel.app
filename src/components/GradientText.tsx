@@ -1,22 +1,25 @@
-import type { ComponentProps, ElementType } from "react";
 import { cn } from "@/lib/utils";
+import type { ComponentProps, ElementType } from "react";
 
-type GradientTextProps<T extends ElementType> = {
-  as: T;
-} & ComponentProps<T>;
+type GradientTextProps<E extends ElementType> = { as?: E } & Omit<
+  ComponentProps<E>,
+  "as"
+>;
 
-export default function GradientText<T extends ElementType>({
-  as: As,
+export default function GradientText<E extends ElementType = "div">({
+  as,
   className,
-  ...props
-}: GradientTextProps<T>) {
+  ...rest
+}: GradientTextProps<E>) {
+  const Component = as || "div";
+
   return (
-    <As
+    <Component
       className={cn(
-        "bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent",
+        "bg-linear-to-r from-[#0F172A] from-0% to-[#334F90] to-80% bg-clip-text text-transparent dark:from-primary",
         className,
       )}
-      {...props}
+      {...rest}
     />
   );
 }
