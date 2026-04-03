@@ -1,10 +1,23 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { CONTACT_SUPPORT_LINK } from "@/constants";
 import { cn } from "@/lib/utils";
 import { isDev } from "@/registry/utils/checks/checks";
-import { Loader2 } from "lucide-react";
+import {
+  AlertTriangleIcon,
+  HeadsetIcon,
+  Loader2,
+  RefreshCcw,
+} from "lucide-react";
 import type { ReactNode } from "react";
 import { Component, useTransition } from "react";
 
@@ -93,56 +106,60 @@ function ErrorBoundaryFallback({
 }: ErrorBoundaryFallbackProps) {
   const [isPending, startTransition] = useTransition();
 
-  function handleRetry() {
-    startTransition(() => onRetry());
-  }
-
-  const errorParagraph = `${error?.name ? `${error.name}: ` : ""} ${error?.message || "Something went wrong!"}`;
-
   return (
-    <div
+    <Card
       role="alert"
       aria-busy={isPending}
       aria-live="polite"
       className={cn(
-        "my-8 flex w-full flex-col items-center justify-center gap-3 text-center font-medium",
+        "gap-3 border-none bg-error text-center text-error-foreground shadow-error-border transition-all duration-100 dark:shadow-none starting:scale-90 starting:opacity-0",
         className,
       )}
-      data-slot="ErrorBoundaryFallback"
     >
-      <p
-        data-slot="ErrorBoundaryFallbackMessage"
-        className="line-clamp-2! text-destructive"
-        title={errorParagraph}
-      >
-        {errorParagraph}
-      </p>
-      <div
-        data-slot="ErrorBoundaryFallbackActions"
-        className="flex items-center gap-2"
-      >
-        <Button
-          data-slot="ErrorBoundaryFallbackRetryButton"
-          onClick={handleRetry}
-          variant="ghost"
-          type="button"
-          className="underline underline-offset-8"
-          disabled={isPending}
+      <CardHeader>
+        <CardTitle className="flex items-center justify-center gap-1.5 text-lg text-error-foreground">
+          <AlertTriangleIcon className="inline-block size-5 stroke-[0.15rem]" />
+          {error.name}
+        </CardTitle>
+      </CardHeader>
+
+      <CardContent>
+        <CardDescription
+          title={error.message}
+          className="line-clamp-3 text-sm text-balance text-error-foreground/95"
         >
-          {isPending ? <Loader2 className="animate-spin" /> : "Retry"}
-        </Button>
-        <Button asChild variant="ghost">
+          {error.message}
+        </CardDescription>
+
+        <CardAction className="mx-auto mt-5 grid w-full max-w-xs grid-cols-2 gap-3">
           <a
             data-slot="ErrorBoundaryFallbackSupportLink"
             target="_blank"
-            href={CONTACT_SUPPORT_LINK(`${errorParagraph}\n`)}
-            className="underline underline-offset-8"
+            className={buttonVariants({
+              variant: "secondary",
+              size: "sm",
+              className: "border",
+            })}
+            href={CONTACT_SUPPORT_LINK(
+              `${error?.name ? `${error.name}: ` : ""} ${error?.message || "Something went wrong!"}`,
+            )}
           >
-            Contact support
+            <HeadsetIcon /> Contact support
           </a>
-        </Button>
-      </div>
-    </div>
+
+          <Button
+            data-slot="ErrorBoundaryFallbackRetryButton"
+            onClick={() => startTransition(() => onRetry())}
+            type="button"
+            size="sm"
+            disabled={isPending}
+          >
+            {isPending ? <Loader2 className="animate-spin" /> : <RefreshCcw />}
+            Try again
+          </Button>
+        </CardAction>
+      </CardContent>
+    </Card>
   );
 }
 

@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "useIsMounted",
-  "type": "registry:hook",
   "title": "useIsMounted",
   "description": "A hook for checking if the component is mounted.",
   "files": [
@@ -13,5 +12,6 @@
   ],
   "meta": {
     "url": "/snippets/hooks/useIsMounted"
-  }
+  },
+  "type": "registry:hook"
 }

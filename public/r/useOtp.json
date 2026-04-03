@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "useOtp",
-  "type": "registry:hook",
   "title": "useOtp",
   "description": "A hook for grabbing OTP codes from the user device.",
   "files": [
@@ -13,5 +12,6 @@
   ],
   "meta": {
     "url": "/snippets/hooks/useOtp"
-  }
+  },
+  "type": "registry:hook"
 }

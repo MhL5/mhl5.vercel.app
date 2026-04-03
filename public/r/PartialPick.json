@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "PartialPick",
-  "type": "registry:lib",
   "title": "PartialPick",
   "description": "by default, the partial makes everything optional, but you can use this type to make a partial pick of a type.",
   "files": [
@@ -14,5 +13,6 @@
   ],
   "meta": {
     "url": "/snippets/types/PartialPick"
-  }
+  },
+  "type": "registry:lib"
 }

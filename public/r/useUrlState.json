@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "useUrlState",
-  "type": "registry:hook",
   "title": "useUrlState",
   "description": "A hook for managing state in the URL search parameters.",
   "files": [
@@ -13,5 +12,6 @@
   ],
   "meta": {
     "url": "/snippets/hooks/useUrlState"
-  }
+  },
+  "type": "registry:hook"
 }

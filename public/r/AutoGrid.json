@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "AutoGrid",
-  "type": "registry:component",
   "title": "AutoGrid",
   "description": "a component that automatically adjusts the grid columns without relying on breakpoints.",
   "files": [
@@ -13,5 +12,6 @@
   ],
   "meta": {
     "url": "/snippets/components/AutoGrid"
-  }
+  },
+  "type": "registry:component"
 }

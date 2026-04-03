@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "useMediaQuery",
-  "type": "registry:hook",
   "title": "useMediaQuery",
   "description": "`useMediaQuery` uses `useSyncExternalStore` to reactively track media query matches.",
   "registryDependencies": [
@@ -16,5 +15,6 @@
   ],
   "meta": {
     "url": "/snippets/hooks/useMediaQuery"
-  }
+  },
+  "type": "registry:hook"
 }

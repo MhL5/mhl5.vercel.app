@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "RequiredPick",
-  "type": "registry:lib",
   "title": "RequiredPick",
   "description": "by default, the required makes everything required, but you can use this type to make a required pick of a type.",
   "files": [
@@ -14,5 +13,6 @@
   ],
   "meta": {
     "url": "/snippets/types/RequiredPick"
-  }
+  },
+  "type": "registry:lib"
 }

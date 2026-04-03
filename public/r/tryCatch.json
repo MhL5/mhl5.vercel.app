@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "tryCatch",
-  "type": "registry:lib",
   "title": "tryCatch",
   "description": "utility function for catching errors, it aims to replace `try-catch` blocks. it returns a tuple of `[error, data]` and its fully type safe.",
   "files": [
@@ -14,5 +13,6 @@
   ],
   "meta": {
     "url": "/snippets/utils/tryCatch"
-  }
+  },
+  "type": "registry:lib"
 }

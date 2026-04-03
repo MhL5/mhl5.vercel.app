@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "formatters",
-  "type": "registry:lib",
   "title": "formatters",
   "description": "A collection of formatters for strings, dates, numbers and currencies.",
   "files": [
@@ -14,5 +13,6 @@
   ],
   "meta": {
     "url": "/snippets/utils/formatters"
-  }
+  },
+  "type": "registry:lib"
 }

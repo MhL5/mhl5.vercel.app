@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "Img",
-  "type": "registry:ui",
   "title": "Img",
   "description": "a component that renders an image with a fallback if the image fails to load.",
   "files": [
@@ -13,5 +12,6 @@
   ],
   "meta": {
     "url": "/snippets/components/Img"
-  }
+  },
+  "type": "registry:ui"
 }

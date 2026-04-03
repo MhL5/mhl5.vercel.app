@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "FallbackPages",
-  "type": "registry:component",
   "title": "FallbackPages",
   "description": "loading, error and not found pages.",
   "registryDependencies": [
@@ -56,5 +55,6 @@
   },
   "meta": {
     "url": "/snippets/components/FallbackPages"
-  }
+  },
+  "type": "registry:component"
 }

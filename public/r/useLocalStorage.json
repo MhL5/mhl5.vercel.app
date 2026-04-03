@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "useLocalStorage",
-  "type": "registry:hook",
   "title": "useLocalStorage",
   "description": "A React hook built on top of `useSyncExternalStore` that synchronizes state with `localStorage`, providing reactive updates across browser tabs and windows.",
   "registryDependencies": [
@@ -16,5 +15,6 @@
   ],
   "meta": {
     "url": "/snippets/hooks/useLocalStorage"
-  }
+  },
+  "type": "registry:hook"
 }

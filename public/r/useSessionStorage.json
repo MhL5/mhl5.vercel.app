@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "useSessionStorage",
-  "type": "registry:hook",
   "title": "useSessionStorage",
   "description": "A React hook built on top of `useSyncExternalStore` for managing state with `sessionStorage`.",
   "files": [
@@ -19,5 +18,6 @@
   ],
   "meta": {
     "url": "/snippets/hooks/useSessionStorage"
-  }
+  },
+  "type": "registry:hook"
 }

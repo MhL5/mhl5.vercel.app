@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "useCopyToClipboard",
-  "type": "registry:hook",
   "title": "useCopyToClipboard",
   "description": "A hook for copying content to clipboard.",
   "files": [
@@ -13,5 +12,6 @@
   ],
   "meta": {
     "url": "/snippets/hooks/useCopyToClipboard"
-  }
+  },
+  "type": "registry:hook"
 }

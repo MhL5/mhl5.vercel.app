@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "useStepper",
-  "type": "registry:hook",
   "title": "useStepper",
   "description": "A hook for managing step-based navigation logic.",
   "files": [
@@ -19,5 +18,6 @@
   ],
   "meta": {
     "url": "/snippets/hooks/useStepper"
-  }
+  },
+  "type": "registry:hook"
 }

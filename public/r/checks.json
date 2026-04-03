@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "checks",
-  "type": "registry:lib",
   "title": "checks",
   "description": "a collection of utility functions for checking the environment of the code is running on.",
   "files": [
@@ -14,5 +13,6 @@
   ],
   "meta": {
     "url": "/snippets/utils/checks"
-  }
+  },
+  "type": "registry:lib"
 }

@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "DebouncedInput",
-  "type": "registry:ui",
   "title": "DebouncedInput",
   "description": "An input that debounces the input value.",
   "registryDependencies": [
@@ -17,5 +16,6 @@
   ],
   "meta": {
     "url": "/snippets/components/DebouncedInput"
-  }
+  },
+  "type": "registry:ui"
 }

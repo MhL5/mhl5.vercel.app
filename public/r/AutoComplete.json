@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "AutoComplete",
-  "type": "registry:lib",
   "title": "AutoComplete",
   "description": "a generic type that allows you to autocomplete the string or number",
   "files": [
@@ -14,5 +13,6 @@
   ],
   "meta": {
     "url": "/snippets/types/AutoComplete"
-  }
+  },
+  "type": "registry:lib"
 }

@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "useEventListener",
-  "type": "registry:hook",
   "title": "useEventListener",
   "description": "A hook for adding event listeners with proper cleanup.",
   "files": [
@@ -13,5 +12,6 @@
   ],
   "meta": {
     "url": "/snippets/hooks/useEventListener"
-  }
+  },
+  "type": "registry:hook"
 }

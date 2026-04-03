@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "useInterval",
-  "type": "registry:hook",
   "title": "useInterval",
   "description": "A hook for setting an interval.",
   "files": [
@@ -13,5 +12,6 @@
   ],
   "meta": {
     "url": "/snippets/hooks/useInterval"
-  }
+  },
+  "type": "registry:hook"
 }

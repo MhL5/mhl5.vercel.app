@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "useDebounce",
-  "type": "registry:hook",
   "title": "useDebounce",
   "description": "A hook for debouncing a value.",
   "registryDependencies": [
@@ -16,5 +15,6 @@
   ],
   "meta": {
     "url": "/snippets/hooks/useDebounce"
-  }
+  },
+  "type": "registry:hook"
 }

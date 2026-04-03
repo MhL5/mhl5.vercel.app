@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "useOnClickOutside",
-  "type": "registry:hook",
   "title": "useOnClickOutside",
   "description": "A hook to handle clicks outside of a component.",
   "registryDependencies": [
@@ -17,5 +16,6 @@
   ],
   "meta": {
     "url": "/snippets/hooks/useOnClickOutside"
-  }
+  },
+  "type": "registry:hook"
 }

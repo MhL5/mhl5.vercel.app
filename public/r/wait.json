@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "wait",
-  "type": "registry:lib",
   "title": "wait",
   "description": "A collection of wait functions for simulating a delay.",
   "files": [
@@ -14,5 +13,6 @@
   ],
   "meta": {
     "url": "/snippets/utils/wait"
-  }
+  },
+  "type": "registry:lib"
 }

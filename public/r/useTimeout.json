@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "useTimeout",
-  "type": "registry:hook",
   "title": "useTimeout",
   "description": "A hook for setting a timeout.",
   "files": [
@@ -13,5 +12,6 @@
   ],
   "meta": {
     "url": "/snippets/hooks/useTimeout"
-  }
+  },
+  "type": "registry:hook"
 }

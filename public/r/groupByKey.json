@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "groupByKey",
-  "type": "registry:lib",
   "title": "groupByKey",
   "description": "a utility function for grouping an array of objects by a key.",
   "files": [
@@ -14,5 +13,6 @@
   ],
   "meta": {
     "url": "/snippets/utils/groupByKey"
-  }
+  },
+  "type": "registry:lib"
 }

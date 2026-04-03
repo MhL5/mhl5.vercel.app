@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "StructuredDataScript",
-  "type": "registry:component",
   "title": "StructuredDataScript",
   "description": "A type-safe component for adding structured data to the page.",
   "devDependencies": [
@@ -16,5 +15,6 @@
   ],
   "meta": {
     "url": "/snippets/components/StructuredDataScript"
-  }
+  },
+  "type": "registry:component"
 }
