@@ -1,13 +1,13 @@
 "use client";
 
-import { CodeIcon } from "lucide-react";
-import { type ReactNode, useState } from "react";
-import InlineScroll from "@/components/experimental/InlineScroll";
+import InlineScroll from "@/components/experimental/ScrollFadeArea";
 import CssSvg from "@/components/icons/CssSvg";
 import TypeScriptSvg from "@/components/icons/TypeScriptSvg";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { CodeIcon } from "lucide-react";
+import { type ReactNode, useState } from "react";
 
 type CollapsibleCodeCardProps = {
   filePath: string;
@@ -23,7 +23,7 @@ export default function CollapsibleCodeCard({
   return (
     <Card className="not-content overflow-hidden bg-code-background p-0">
       <CardContent className="p-0">
-        <div className="flex items-center border-input border-b px-3 py-1">
+        <div className="flex items-center border-b border-input px-3 py-1">
           <Icon filePath={filePath} />
           <InlineScroll
             fadeShadowClassNames="from-code-background"
@@ -51,7 +51,7 @@ export default function CollapsibleCodeCard({
             <button
               onClick={() => setIsExpanded(true)}
               type="button"
-              className="absolute inset-x-0 bottom-0 h-18 bg-gradient-to-t from-code-background via-70% via-code-background/70 to-transparent text-muted-foreground text-sm"
+              className="absolute inset-x-0 bottom-0 h-18 bg-linear-to-t from-code-background via-code-background/70 via-70% to-transparent text-sm text-muted-foreground"
             >
               Expand
             </button>
