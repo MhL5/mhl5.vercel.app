@@ -16,7 +16,7 @@ function Component() {
   const [error, setError] = useState(false);
   useTimeout(() => {
     setError(true);
-  }, 1000);
+  }, 3_000);
 
   if (error) {
     const error = new Error(
@@ -28,8 +28,11 @@ function Component() {
 
   return (
     <div className="text-center">
-      I will throw an error in 1 seconds,the error will be caught by the
-      ErrorBoundary
+      I will throw an error in{" "}
+      <strong className="font-bold text-info-foreground underline underline-offset-6">
+        3 seconds
+      </strong>
+      , the error will be caught by the ErrorBoundary
     </div>
   );
 }
