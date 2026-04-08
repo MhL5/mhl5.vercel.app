@@ -214,21 +214,6 @@
       ]
     },
     {
-      "name": "useEventListener",
-      "type": "registry:hook",
-      "title": "useEventListener",
-      "description": "A hook for adding event listeners with proper cleanup.",
-      "meta": {
-        "url": "/snippets/hooks/useEventListener"
-      },
-      "files": [
-        {
-          "path": "src/registry/hooks/useEventListener/useEventListener.ts",
-          "type": "registry:hook"
-        }
-      ]
-    },
-    {
       "name": "useIsMounted",
       "type": "registry:hook",
       "title": "useIsMounted",
@@ -282,10 +267,7 @@
       "meta": {
         "url": "/snippets/hooks/useOnClickOutside"
       },
-      "registryDependencies": [
-        "https://mhl5.vercel.app/r/useEventListener.json",
-        "https://mhl5.vercel.app/r/checks.json"
-      ],
+      "registryDependencies": ["https://mhl5.vercel.app/r/checks.json"],
       "files": [
         {
           "path": "src/registry/hooks/useOnClickOutside/useOnClickOutside.ts",
