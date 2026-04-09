@@ -1,0 +1,327 @@
+{
+	// Helpers
+	// ------------------------------------------------------------------
+	// ------------------------------------------------------------------
+	"PrintToConsole": {
+		"prefix": "cl",
+		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"body": [
+			"console.log($1)"
+		],
+		"description": "console.log"
+	},
+	"PrintToConsoleDir": {
+		"prefix": "cd",
+		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"body": [
+			"console.dir($1,{depth:Infinity})"
+		],
+		"description": "console.dir"
+	},
+	"PrintToConsolePurple": {
+		"prefix": "clp",
+		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"body": [
+			"console.log('\\x1b[35m' + $0 + '\\x1b[0m');"
+		],
+		"description": "consoleLogPurple"
+	},
+	"tsIgnore": {
+		"prefix": "tsIgnore",
+		"scope": "typescript,typescriptreact",
+		"body": [
+			"// @ts-expect-error todo: temp solution ⏰"
+		],
+		"description": "ts Ignore"
+	},
+	"asyncFunction": {
+		"prefix": "async function",
+		"description": "async function",
+		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"body": [
+			"async function ${TM_FILENAME_BASE}() {",
+			" return $0",
+			"}",
+		]
+	},
+	"function": {
+		"prefix": "function",
+		"description": "async function",
+		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"body": [
+			"function ${TM_FILENAME_BASE}() {",
+			" return $0",
+			"}",
+			"",
+			"export { ${TM_FILENAME_BASE} };"
+		]
+	},
+	// file name helpers
+	// ------------------------------------------------------------------
+	// ------------------------------------------------------------------	
+	"fileName": {
+		"prefix": "fileName",
+		"scope": "javascript,typescript,javascriptreact,typescriptreact,markdown,mdx",
+		"body": [
+			"${TM_FILENAME_BASE}"
+		],
+	},
+	"fileNameCapitalized": {
+		"prefix": "fileNameCapitalized",
+		"scope": "javascript,typescript,javascriptreact,typescriptreact,markdown,mdx",
+		"body": [
+			"${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}"
+		]
+	},
+	"fileNameProps": {
+		"prefix": "fileNameProps",
+		"scope": "javascript,typescript,javascriptreact,typescriptreact,markdown,mdx",
+		"body": [
+			"type ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Props = {",
+			"$0",
+			"}"
+		],
+	},
+	"fileNameParams": {
+		"prefix": "fileNameParams",
+		"description": "props",
+		"scope": "javascript,typescript,javascriptreact,typescriptreact,markdown,mdx",
+		"body": [
+			"type ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Params = {",
+			"$0",
+			"}"
+		]
+	},
+	"fileNameResponse": {
+		"prefix": "fileNameResponse",
+		"scope": "javascript,typescript,javascriptreact,typescriptreact,markdown,mdx",
+		"body": [
+			"type ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Response = {",
+			"$0",
+			"}"
+		]
+	},
+	// React
+	// ------------------------------------------------------------------
+	// ------------------------------------------------------------------	
+	"reactJsonInJsx": {
+		"prefix": "reactJsonInJsx",
+		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"body": [
+			"<pre dir='auto' className='text-base text-wrap wrap-break-word [word-break:break-word] [direction:ltr] [word-wrap:break-word]'>",
+			"\t{JSON.stringify($0, null, 2)}",
+			"</pre>",
+		],
+		"description": "quickly render json in jsx"
+	},
+	"reactComponentNamedExport": {
+		"prefix": "rfc",
+		"scope": "typescriptreact,typescript",
+		"body": [
+			"function ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}() {",
+			"  return <>$0</>;",
+			"}",
+			"",
+			"export { ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g} };",
+		],
+		"description": "React typescript component with props"
+	},
+	"reactComponentDefaultExport": {
+		"prefix": "rfc",
+		"scope": "typescriptreact,typescript",
+		"body": [
+			"function ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}() {",
+			"  return <>$0</>;",
+			"}",
+			"",
+			"export default ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g};",
+		],
+		"description": "React typescript component with props"
+	},
+	"reactHook": {
+		"prefix": "rfh",
+		"scope": "typescriptreact,typescript",
+		"body": [
+			"function ${TM_FILENAME_BASE}() {",
+			" return $0;",
+			"}",
+			"",
+			"export { ${TM_FILENAME_BASE} };",
+		],
+		"description": "React typescript hook "
+	},
+	"reactContext": {
+		"prefix": "reactContext",
+		"description": "a react context boilerplate",
+		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"body": [
+			"'use client';",
+			"",
+			"import { createContext, use, type ReactNode } from 'react';",
+			"",
+			"type ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Value = {};",
+			"",
+			"const ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g} = createContext<${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Value | null>(null);",
+			"",
+			"type ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}ProviderProps = {",
+			"  children: ReactNode;",
+			"};",
+			"",
+			"function ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Provider({ children }: ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}ProviderProps) {",
+			"  return <${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g} value={{}}>{children}</${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}>;",
+			"}",
+			"",
+			"function use${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}() {",
+			"  const context = use(${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g});",
+			"  if (!context)",
+			"    throw new Error('${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g} was called outside of its provider!');",
+			"  return context;",
+			"}",
+			"",
+			"export { use${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}, ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Provider, type ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Value };"
+		]
+	},
+	// Api/fetch snippets
+	// ------------------------------------------------------------------
+	// ------------------------------------------------------------------
+	"apiMutation": {
+		"prefix": "apiMutation",
+		"description": "ky api mutation request with a useMutation hook",
+		"body": [
+			"import { api } from \"@/lib/ky\";",
+			"import { useMutation } from \"@tanstack/react-query\";",
+			"",
+			"type ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Params = {};",
+			"",
+			"type ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Response = {};",
+			"",
+			"function ${TM_FILENAME_BASE}({}: ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Params) {",
+			"  return api",
+			"    .post<${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Response>(\"$0\").json();",
+			"}",
+			"",
+			"function use${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}() {",
+			"  return useMutation({",
+			"    mutationFn: ${TM_FILENAME_BASE},",
+			"  });",
+			"}",
+			"",
+			"export { ${TM_FILENAME_BASE}, use${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g} };",
+		]
+	},
+	"apiQuery": {
+		"prefix": "apiQuery",
+		"description": "ky api query request with a useQuery hook",
+		"body": [
+			"import { api } from \"@/lib/ky\";",
+			"import { queryOptions } from \"@tanstack/react-query\";",
+			"",
+			"type ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Params = { ",
+			"  signal?: AbortSignal;",
+			"}",
+			"",
+			"type ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Response = {};",
+			"",
+			"function ${TM_FILENAME_BASE}({ signal }: ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Params = {}) {",
+			"  return api.get<${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Response>(\"$0\",{ signal }).json();",
+			"}",
+			"",
+			"const ${TM_FILENAME_BASE}QueryKeys = {",
+			"  all: [\"${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}All\"] as const,",
+			"}",
+			"",
+			"function ${TM_FILENAME_BASE}QueryOptions() {",
+			"  return queryOptions({",
+			"    queryKey: ${TM_FILENAME_BASE}QueryKeys.all,",
+			"    queryFn: ${TM_FILENAME_BASE},",
+			"  });",
+			"}",
+			"",
+			"export { ${TM_FILENAME_BASE}, ${TM_FILENAME_BASE}QueryOptions, ${TM_FILENAME_BASE}QueryKeys };"
+		]
+	},
+	// Next js snippets
+	// ------------------------------------------------------------------
+	// ------------------------------------------------------------------	
+	"nextJsSimplePage": {
+		"prefix": "nextJsSimplePage",
+		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"body": [
+			"'use client';",
+			"",
+			"import { Button } from '@/components/ui/button';",
+			"",
+			"export default function Page() {",
+			"\tasync function handleClick() {$0}",
+			"",
+			"\treturn (",
+			"\t\t<section className='grid min-h-dvh w-full place-items-center'>",
+			"\t\t\t<div>",
+			"\t\t\t\t<Button size='lg' onClick={handleClick}>Click me </Button>",
+			"\t\t\t</div>",
+			"\t\t</section>",
+			"\t);",
+			"}"
+		]
+	},
+	"nextJsLayout": {
+		"prefix": "nextJsLayout",
+		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"body": [
+			"export default function Layout({ children }: LayoutProps<'$0'>) {",
+			"  return children;",
+			"}",
+		],
+		"description": "next js layout snippet"
+	},
+	"nextJsPage": {
+		"prefix": "nextJsPage",
+		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"body": [
+			"export default function Page({}: PageProps<'$0'>) {",
+			"  return null;",
+			"}",
+		],
+		"description": "next js layout snippet"
+	},
+	"nextJsGenerateMetadata": {
+		"prefix": "nextJsGenerateMetadata",
+		"description": "next js generate metadata",
+		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"body": [
+			"import type { Metadata } from 'next'",
+			"",
+			"export async function generateMetadata(): Promise<Metadata> {",
+			"  return {",
+			"    title: \"\",",
+			"    description: \"\",",
+			"  };",
+			"}"
+		]
+	},
+	"nextJsMetaData": {
+		"prefix": "nextJsMetaData",
+		"description": "next js metadata",
+		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"body": [
+			"import type { Metadata } from 'next'",
+			" ",
+			"export const metadata: Metadata = {",
+			"  title: '$0',",
+			"  description: '',",
+			"};",
+			" ",
+			""
+		]
+	},
+	"nextJsGenerateStaticParams": {
+		"prefix": "nextJsGenerateStaticParams",
+		"description": "next js generateStaticParams",
+		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"body": [
+			"export function generateStaticParams() {",
+			"  return []",
+			"}"
+		]
+	},
+}
