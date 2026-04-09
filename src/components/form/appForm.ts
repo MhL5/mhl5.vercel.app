@@ -1,4 +1,7 @@
-import { createFormHook, createFormHookContexts } from "@tanstack/react-form";
+import {
+  createFormHook,
+  createFormHookContexts,
+} from "@tanstack/react-form-nextjs";
 
 import AppField from "./fieldComponents/AppField";
 import AppFieldDescription from "./fieldComponents/AppFieldDescription";

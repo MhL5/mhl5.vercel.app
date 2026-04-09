@@ -15,7 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useStore } from "@tanstack/react-form";
+import { useStore } from "@tanstack/react-form-nextjs";
 import type { ComponentProps } from "react";
 
 function AppFieldSelect({

@@ -6,7 +6,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
-import { useForm } from "@tanstack/react-form";
+import { useForm } from "@tanstack/react-form-nextjs";
 import { useEditorState } from "@tiptap/react";
 import { BubbleMenu } from "@tiptap/react/menus";
 import { CheckIcon, ExternalLink, LinkIcon, Unlink } from "lucide-react";

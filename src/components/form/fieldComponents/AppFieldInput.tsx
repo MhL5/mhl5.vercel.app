@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import { useStore } from "@tanstack/react-form";
+import { useStore } from "@tanstack/react-form-nextjs";
 import { type ComponentProps } from "react";
 
 import { useAppField, useFieldContext, useFormContext } from "../appForm";

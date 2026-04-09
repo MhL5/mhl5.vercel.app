@@ -1,4 +1,4 @@
-import type { AnyFieldApi } from "@tanstack/react-form";
+import type { AnyFieldApi } from "@tanstack/react-form-nextjs";
 
 export function getFieldIds(field: AnyFieldApi) {
   const uniqueIdPrefix = `${field.form.formId}-${field.name}`;

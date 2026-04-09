@@ -5,13 +5,12 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
-import type { TooltipContentProps } from "@radix-ui/react-tooltip";
 import type { ComponentProps, ReactNode } from "react";
 
 type EditorButtonProps = ComponentProps<typeof Button> & {
   isActive: boolean;
   tooltipContent: null | ReactNode;
-  tooltipContentSide?: TooltipContentProps["side"];
+  tooltipContentSide?: ComponentProps<typeof TooltipContent>["side"];
 };
 
 export function EditorButton({

@@ -6,7 +6,7 @@ import {
 import { DropZone } from "@/components/upload/components/DropZone";
 import { cn } from "@/lib/utils";
 import type { RequiredPick } from "@/registry/types/RequiredPick/RequiredPick";
-import { useStore } from "@tanstack/react-form";
+import { useStore } from "@tanstack/react-form-nextjs";
 import type { ComponentProps } from "react";
 
 export function AppFieldDropzone({

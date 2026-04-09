@@ -1,5 +1,5 @@
 import { Textarea } from "@/components/ui/textarea";
-import { useStore } from "@tanstack/react-form";
+import { useStore } from "@tanstack/react-form-nextjs";
 import { type ComponentProps } from "react";
 
 import { useAppField, useFieldContext, useFormContext } from "../appForm";

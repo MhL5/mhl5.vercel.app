@@ -1,6 +1,6 @@
 import { LoadingButton } from "@/components/buttons/LoadingButton";
 import { Button } from "@/components/ui/button";
-import { useStore } from "@tanstack/react-form";
+import { useStore } from "@tanstack/react-form-nextjs";
 import type { ComponentProps } from "react";
 
 import { useFormContext } from "../appForm";

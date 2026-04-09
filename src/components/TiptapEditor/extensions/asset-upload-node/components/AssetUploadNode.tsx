@@ -25,7 +25,7 @@ import {
 } from "@/components/upload/components/FileItem";
 import { useFileUpload } from "@/components/upload/hooks/useFileUpload";
 import { fileUpload } from "@/components/upload/services/fileUpload";
-import { type AnyFieldApi, useForm } from "@tanstack/react-form";
+import { type AnyFieldApi, useForm } from "@tanstack/react-form-nextjs";
 import type { NodeViewProps } from "@tiptap/react";
 import { NodeViewWrapper } from "@tiptap/react";
 import { Eye, Link, RefreshCcw, Trash2, Upload } from "lucide-react";
@@ -62,7 +62,7 @@ export default function AssetUploadNode({
       <Card key={mediaType + title} className="rounded-sm">
         <CardHeader>
           <CardTitle className="items-center">
-            <Icon className="me-1 mb-0.25 inline-block size-5" /> {title}
+            <Icon className="me-1 mb-px inline-block size-5" /> {title}
           </CardTitle>
           <CardDescription>{messages.insertMedia(mediaType)}</CardDescription>
         </CardHeader>
