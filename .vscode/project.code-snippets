@@ -4,7 +4,6 @@
 	// ------------------------------------------------------------------
 	"PrintToConsole": {
 		"prefix": "cl",
-		"scope": "javascript,typescript,javascriptreact,typescriptreact",
 		"body": [
 			"console.log($1)"
 		],
@@ -12,7 +11,6 @@
 	},
 	"PrintToConsoleDir": {
 		"prefix": "cd",
-		"scope": "javascript,typescript,javascriptreact,typescriptreact",
 		"body": [
 			"console.dir($1,{depth:Infinity})"
 		],
@@ -20,7 +18,6 @@
 	},
 	"PrintToConsolePurple": {
 		"prefix": "clp",
-		"scope": "javascript,typescript,javascriptreact,typescriptreact",
 		"body": [
 			"console.log('\\x1b[35m' + $0 + '\\x1b[0m');"
 		],
@@ -28,7 +25,6 @@
 	},
 	"tsIgnore": {
 		"prefix": "tsIgnore",
-		"scope": "typescript,typescriptreact",
 		"body": [
 			"// @ts-expect-error todo: temp solution ⏰"
 		],
@@ -36,8 +32,6 @@
 	},
 	"asyncFunction": {
 		"prefix": "async function",
-		"description": "async function",
-		"scope": "javascript,typescript,javascriptreact,typescriptreact",
 		"body": [
 			"async function ${TM_FILENAME_BASE}() {",
 			" return $0",
@@ -46,14 +40,10 @@
 	},
 	"function": {
 		"prefix": "function",
-		"description": "async function",
-		"scope": "javascript,typescript,javascriptreact,typescriptreact",
 		"body": [
 			"function ${TM_FILENAME_BASE}() {",
 			" return $0",
 			"}",
-			"",
-			"export { ${TM_FILENAME_BASE} };"
 		]
 	},
 	// file name helpers
@@ -61,21 +51,19 @@
 	// ------------------------------------------------------------------	
 	"fileName": {
 		"prefix": "fileName",
-		"scope": "javascript,typescript,javascriptreact,typescriptreact,markdown,mdx",
 		"body": [
 			"${TM_FILENAME_BASE}"
 		],
 	},
 	"fileNameCapitalized": {
 		"prefix": "fileNameCapitalized",
-		"scope": "javascript,typescript,javascriptreact,typescriptreact,markdown,mdx",
 		"body": [
 			"${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}"
 		]
 	},
 	"fileNameProps": {
 		"prefix": "fileNameProps",
-		"scope": "javascript,typescript,javascriptreact,typescriptreact,markdown,mdx",
+		"scope": "javascriptreact,typescriptreact",
 		"body": [
 			"type ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Props = {",
 			"$0",
@@ -85,7 +73,6 @@
 	"fileNameParams": {
 		"prefix": "fileNameParams",
 		"description": "props",
-		"scope": "javascript,typescript,javascriptreact,typescriptreact,markdown,mdx",
 		"body": [
 			"type ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Params = {",
 			"$0",
@@ -94,7 +81,6 @@
 	},
 	"fileNameResponse": {
 		"prefix": "fileNameResponse",
-		"scope": "javascript,typescript,javascriptreact,typescriptreact,markdown,mdx",
 		"body": [
 			"type ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Response = {",
 			"$0",
@@ -106,7 +92,7 @@
 	// ------------------------------------------------------------------	
 	"reactJsonInJsx": {
 		"prefix": "reactJsonInJsx",
-		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"scope": "javascriptreact,typescriptreact",
 		"body": [
 			"<pre dir='auto' className='text-base text-wrap wrap-break-word [word-break:break-word] [direction:ltr] [word-wrap:break-word]'>",
 			"\t{JSON.stringify($0, null, 2)}",
@@ -115,8 +101,8 @@
 		"description": "quickly render json in jsx"
 	},
 	"reactComponentNamedExport": {
-		"prefix": "rfc",
-		"scope": "typescriptreact,typescript",
+		"prefix": "reactComponentNamedExport",
+		"scope": "javascriptreact,typescriptreact",
 		"body": [
 			"function ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}() {",
 			"  return <>$0</>;",
@@ -127,8 +113,8 @@
 		"description": "React typescript component with props"
 	},
 	"reactComponentDefaultExport": {
-		"prefix": "rfc",
-		"scope": "typescriptreact,typescript",
+		"prefix": "reactComponentDefaultExport",
+		"scope": "javascriptreact,typescriptreact",
 		"body": [
 			"function ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}() {",
 			"  return <>$0</>;",
@@ -139,8 +125,7 @@
 		"description": "React typescript component with props"
 	},
 	"reactHook": {
-		"prefix": "rfh",
-		"scope": "typescriptreact,typescript",
+		"prefix": "reactHook",
 		"body": [
 			"function ${TM_FILENAME_BASE}() {",
 			" return $0;",
@@ -153,7 +138,7 @@
 	"reactContext": {
 		"prefix": "reactContext",
 		"description": "a react context boilerplate",
-		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"scope": "javascriptreact,typescriptreact",
 		"body": [
 			"'use client';",
 			"",
@@ -245,7 +230,7 @@
 	// ------------------------------------------------------------------	
 	"nextJsSimplePage": {
 		"prefix": "nextJsSimplePage",
-		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"scope": "javascriptreact,typescriptreact",
 		"body": [
 			"'use client';",
 			"",
@@ -266,7 +251,7 @@
 	},
 	"nextJsLayout": {
 		"prefix": "nextJsLayout",
-		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"scope": "javascriptreact,typescriptreact",
 		"body": [
 			"export default function Layout({ children }: LayoutProps<'$0'>) {",
 			"  return children;",
@@ -276,7 +261,7 @@
 	},
 	"nextJsPage": {
 		"prefix": "nextJsPage",
-		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"scope": "javascriptreact,typescriptreact",
 		"body": [
 			"export default function Page({}: PageProps<'$0'>) {",
 			"  return null;",
@@ -287,7 +272,7 @@
 	"nextJsGenerateMetadata": {
 		"prefix": "nextJsGenerateMetadata",
 		"description": "next js generate metadata",
-		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"scope": "javascriptreact,typescriptreact",
 		"body": [
 			"import type { Metadata } from 'next'",
 			"",
@@ -302,7 +287,7 @@
 	"nextJsMetaData": {
 		"prefix": "nextJsMetaData",
 		"description": "next js metadata",
-		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"scope": "javascriptreact,typescriptreact",
 		"body": [
 			"import type { Metadata } from 'next'",
 			" ",
@@ -317,7 +302,7 @@
 	"nextJsGenerateStaticParams": {
 		"prefix": "nextJsGenerateStaticParams",
 		"description": "next js generateStaticParams",
-		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"scope": "javascriptreact,typescriptreact",
 		"body": [
 			"export function generateStaticParams() {",
 			"  return []",
