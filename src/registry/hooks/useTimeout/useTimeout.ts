@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef } from "react";
 
-export function useTimeout(callback: () => void, delay: number) {
+function useTimeout(callback: () => void, delay: number) {
   const callbackRef = useRef(callback);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -34,3 +34,5 @@ export function useTimeout(callback: () => void, delay: number) {
 
   return { reset, clear };
 }
+
+export { useTimeout };
