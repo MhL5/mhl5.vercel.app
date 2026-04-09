@@ -464,7 +464,7 @@ function Preview(props: PreviewProps) {
       )}
       <ExitAndExitPreviewButton
         onRemove={handleRemove}
-        className="absolute end-2.5 top-2.5 ms-auto"
+        className="absolute inset-e-2.5 top-2.5 ms-auto"
       />
     </div>
   );

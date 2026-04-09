@@ -3,8 +3,8 @@ import {
   PopoverOnHoverContent,
   PopoverOnHoverTrigger,
 } from "@/components/PopoverOnHover";
-import { DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { Kbd } from "@/components/ui/kbd";
+import { Separator } from "@/components/ui/separator";
 import { useEditorState } from "@tiptap/react";
 import {
   AlignCenter,
@@ -133,7 +133,7 @@ export function TextAlignPopover() {
 
         {activeAlignment.alignment !== null && (
           <>
-            <DropdownMenuSeparator className="my-1" />
+            <Separator className="my-1" />
             <EditorButton
               onClick={() => handleClick("unset")}
               isActive={activeAlignment.alignment === null}
