@@ -11,7 +11,6 @@ import {
   useEditor,
 } from "@tiptap/react";
 import dynamic from "next/dynamic";
-import { useMemo } from "react";
 
 import { TIPTAP_EXTENSIONS } from "./extensions";
 import { InsertAssetUploadPopover } from "./extensions/asset-upload-node/components/InsertAssetUploadPopover";
@@ -70,8 +69,6 @@ function TiptapEditor({
     onUpdate,
   });
 
-  const memoizedEditor = useMemo(() => editor, [editor]);
-
   useSyncEditorEditable({ editable, editor });
 
   if (!editor) return <TiptapEditorSkeleton />;
@@ -81,7 +78,7 @@ function TiptapEditor({
       className={cn("w-full overflow-hidden rounded-sm border", className)}
     >
       <EditorMessagesProvider messages={editorEnMessages}>
-        <EditorContext value={{ editor: memoizedEditor }}>
+        <EditorContext value={{ editor }}>
           {/* Toolbar */}
           <div
             data-slot="editor-toolbar"

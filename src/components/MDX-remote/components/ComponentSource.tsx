@@ -37,7 +37,7 @@ export default async function ComponentSource({
         contentToCopy={code}
         side="left"
         aria-label="Copy Code"
-        className="absolute end-3 top-3"
+        className="absolute inset-e-3 top-3"
       />
 
       <code

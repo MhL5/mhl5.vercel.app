@@ -152,7 +152,7 @@ function DropZone({
       className={cn(
         "flex h-fit min-h-45 cursor-pointer flex-col items-center justify-center border-2 border-dashed border-border p-6 whitespace-normal transition-none",
         "has-[input:focus-visible]:border-ring has-[input:focus-visible]:ring-[3px] has-[input:focus-visible]:ring-ring/50",
-        "aria-[invalid=true]:border-destructive aria-[invalid=true]:bg-destructive/5 aria-[invalid=true]:text-destructive aria-[invalid=true]:[&_p]:text-destructive",
+        "aria-invalid:border-destructive aria-invalid:bg-destructive/5 aria-invalid:text-destructive aria-invalid:[&_p]:text-destructive",
         "data-[dragging=true]:border-primary/10 data-[dragging=true]:bg-primary/10",
         className,
       )}

@@ -202,7 +202,7 @@ function FileItemActions({
     <div
       className={cn(
         "flex gap-2",
-        variant === "lg" && "absolute end-2 top-2",
+        variant === "lg" && "absolute inset-e-2 top-2",
         variant === "compact" && "",
         className,
       )}
@@ -350,7 +350,7 @@ function FileItemUploading({
         style={{
           width: `${progressInfo.progressPercentage}%`,
         }}
-        className="absolute top-1/2 left-0 z-0 h-full w-full -translate-x-0 -translate-y-1/2 bg-primary/5 transition-all duration-300 ease-out"
+        className="absolute top-1/2 left-0 z-0 h-full w-full translate-x-0 -translate-y-1/2 bg-primary/5 transition-all duration-300 ease-out"
       />
 
       <FileItemIcon
@@ -481,7 +481,7 @@ type FileItemLgProps<T> = {
 };
 
 function FileItemLg<T extends Record<string, unknown>>({
-  renderOnComplete,
+  renderOnComplete: RenderOnComplete,
   file,
   ...props
 }: FileItemLgProps<T>) {
@@ -495,7 +495,7 @@ function FileItemLg<T extends Record<string, unknown>>({
 
   return (
     <FileItemComplete variant={variant} {...file} {...props}>
-      {renderOnComplete(file)}
+      <RenderOnComplete {...file} />
     </FileItemComplete>
   );
 }

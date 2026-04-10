@@ -92,7 +92,6 @@ function Content({ onSuccess }: { onSuccess: () => void }) {
                 </FieldLabel>
                 <Input
                   id={youtubeInputId}
-                  autoFocus
                   name={field.name}
                   value={field.state.value}
                   onBlur={field.handleBlur}

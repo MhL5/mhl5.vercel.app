@@ -48,7 +48,7 @@ export default function PreviewCodeInternal({
       </div>
 
       <Card
-        className="h-[var(--preview-code-height)] overflow-y-auto rounded-lg bg-transparent p-0 [scrollbar-color:var(--muted-foreground)_var(--code-background)]"
+        className="h-(--preview-code-height) overflow-y-auto rounded-lg bg-transparent p-0 [scrollbar-color:var(--muted-foreground)_var(--code-background)]"
         style={
           {
             "--preview-code-height": height === "default" ? "460px" : "600px",
@@ -62,9 +62,8 @@ export default function PreviewCodeInternal({
           >
             <ButtonWithTooltip
               tooltipContent={<>Re render</>}
-              size="sm"
               variant="ghost"
-              className="absolute end-3 top-3 ms-auto"
+              className="absolute inset-e-3 top-3 ms-auto"
               onClick={() => setPreviewComponentKey(Date.now())}
             >
               <RefreshCcw />

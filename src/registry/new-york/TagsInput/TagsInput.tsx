@@ -56,6 +56,30 @@ type TagsInputProviderProps = {
   maxTags?: number;
 };
 
+/**
+ * TagsInput is a flexible input component for letting users add and remove tags.
+ *  
+ * @example
+  <TagsInput
+     disabled={false}
+     value={tags}
+     onChange={setTags}
+     maxTags={10}
+   >
+     <TagsInputInput placeholder="Enter tags" />
+     <TagsInputErrorMessage />
+
+    <TagsInputList>
+      {(value) =>
+        value.map((tag) => (
+          <TagsInputTag key={tag} value={tag}>
+            {tag}
+          </TagsInputTag>
+        ))
+      }
+    </TagsInputList>
+  </TagsInput>
+ */
 function TagsInput({
   value,
   onChange,
