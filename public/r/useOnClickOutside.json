@@ -3,11 +3,13 @@
   "name": "useOnClickOutside",
   "title": "useOnClickOutside",
   "description": "A hook to handle clicks outside of a component.",
-  "registryDependencies": ["https://mhl5.vercel.app/r/checks.json"],
+  "registryDependencies": [
+    "https://mhl5.vercel.app/r/checks.json"
+  ],
   "files": [
     {
       "path": "src/registry/hooks/useOnClickOutside/useOnClickOutside.ts",
-      "content": "\"use client\";\r\n\r\nimport { type RefObject, useEffect, useEffectEvent } from \"react\";\r\n\r\nexport default function useOnClickOutside(\r\n  ref: RefObject<HTMLElement | null>,\r\n  cb: (e: MouseEvent) => void,\r\n) {\r\n  const onClickEvent = useEffectEvent((e: PointerEvent) =>\r\n    ref.current && !ref.current.contains(e.target as HTMLElement)\r\n      ? cb(e)\r\n      : null,\r\n  );\r\n\r\n  useEffect(() => {\r\n    const abortController = new AbortController();\r\n\r\n    ref.current?.addEventListener(\"click\", onClickEvent, {\r\n      signal: abortController.signal,\r\n    });\r\n\r\n    return () => abortController.abort();\r\n  }, [ref]);\r\n}\r\n",
+      "content": "\"use client\";\r\n\r\nimport { type RefObject, useEffect, useEffectEvent } from \"react\";\r\n\r\nexport default function useOnClickOutside(\r\n  ref: RefObject<HTMLElement | null>,\r\n  cb: (e: MouseEvent) => void,\r\n) {\r\n  const onClickEvent = useEffectEvent((e: PointerEvent) =>\r\n    ref.current && !ref.current.contains(e.target as HTMLElement)\r\n      ? cb(e)\r\n      : null,\r\n  );\r\n\r\n  useEffect(() => {\r\n    const abortController = new AbortController();\r\n\r\n    document.addEventListener(\"click\", onClickEvent, {\r\n      signal: abortController.signal,\r\n    });\r\n\r\n    return () => abortController.abort();\r\n  }, [ref]);\r\n}\r\n",
       "type": "registry:hook"
     }
   ],

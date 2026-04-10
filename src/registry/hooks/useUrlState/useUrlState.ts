@@ -2,17 +2,8 @@
 
 import type { Route } from "next";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import {
-  useCallback,
-  useEffect,
-  useEffectEvent,
-  useRef,
-  useState,
-  useTransition,
-} from "react";
 
 type Options = {
-  defaultValue?: string | (() => string);
   history?: "push" | "replace";
   /**
    * If true, updates the URL using window.history (pushState/replaceState) instead of Next.js router,
@@ -21,73 +12,32 @@ type Options = {
   shallow?: boolean;
 };
 
-export default function useUrlState(name: string, options: Options = {}) {
-  const optionsRef = useRef(options);
-  const [isPending, startTransition] = useTransition();
+function useSearchParam(name: string, options: Options = {}) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
-  const [state, setState] = useState<string>(() => {
-    const value = searchParams.get(name);
-    if (value) return value;
 
-    const defaultValue =
-      options.defaultValue instanceof Function
-        ? options.defaultValue()
-        : options.defaultValue;
+  function createQueryString(value: string | null) {
+    const params = new URLSearchParams(searchParams.toString());
 
-    return defaultValue ?? "";
-  });
+    if (value) params.set(name, value);
+    else params.delete(name);
 
-  const handleSetState = useCallback(
-    (value: string | ((prev: string) => string)) => {
-      const newValue = typeof value === "function" ? value(state) : value;
-      setState(newValue);
+    return params.toString();
+  }
 
-      const newPath = `${pathname}?${createQueryString({
-        searchParams: searchParams,
-        name,
-        value: newValue,
-      })}`;
+  function setValue(value: string | null) {
+    const queryString = createQueryString(value);
+    const newPath = `${pathname}${queryString ? `?${queryString}` : ``}`;
 
-      startTransition(() => {
-        const historyMethod = optionsRef.current.history || "push";
-        if (optionsRef.current.shallow)
-          return window.history[`${historyMethod}State`](null, "", newPath);
+    const historyMethod = options?.history || "push";
 
-        router[historyMethod](newPath as Route, {
-          scroll: false,
-        });
-      });
-    },
-    [name, pathname, router, searchParams, state],
-  );
+    if (options?.shallow)
+      return window.history[`${historyMethod}State`](null, "", newPath);
+    router[historyMethod](newPath as Route);
+  }
 
-  const onSearchParamValueChange = useEffectEvent((value: string) => {
-    setState(value);
-  });
-
-  useEffect(() => {
-    const value = searchParams.get(name);
-    if (value) onSearchParamValueChange(value); // updates the state when the search params change
-  }, [name, searchParams]);
-
-  return [state, handleSetState, isPending] as const;
+  return [searchParams.get(name), setValue] as const;
 }
 
-type CreateQueryStringParams = {
-  searchParams: URLSearchParams;
-  name: string;
-  value: string;
-};
-
-function createQueryString({
-  searchParams,
-  name,
-  value,
-}: CreateQueryStringParams) {
-  const params = new URLSearchParams(searchParams.toString());
-  if (value) params.set(name, value);
-  else params.delete(name);
-  return params.toString();
-}
+export { useSearchParam };

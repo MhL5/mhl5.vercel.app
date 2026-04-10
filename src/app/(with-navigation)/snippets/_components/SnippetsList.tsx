@@ -12,7 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import useUrlState from "@/registry/hooks/useUrlState/useUrlState";
+import { useUrlState } from "@/registry/hooks/useUrlState/useUrlState";
 import AutoGrid from "@/registry/new-york/AutoGrid/AutoGrid";
 import DebouncedInput from "@/registry/new-york/DebouncedInput/DebouncedInput";
 import type { Route } from "next";
@@ -21,7 +21,6 @@ import { Fragment, useState } from "react";
 export default function SnippetsList() {
   const [categoryFiler, setCategoryFilter] = useUrlState("category", {
     history: "replace",
-    defaultValue: "all",
     shallow: true,
   });
   const [search, setSearch] = useState("");
@@ -43,7 +42,7 @@ export default function SnippetsList() {
           <div className="flex flex-wrap items-center gap-2 capitalize">
             <Select
               defaultValue="all"
-              value={categoryFiler}
+              value={categoryFiler || "all"}
               onValueChange={setCategoryFilter}
             >
               <SelectTrigger
@@ -88,6 +87,7 @@ export default function SnippetsList() {
       >
         {links.map((link) => {
           if (
+            categoryFiler &&
             categoryFiler !== "all" &&
             !link.title
               .trim()

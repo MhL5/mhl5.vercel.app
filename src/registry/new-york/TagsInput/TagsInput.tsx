@@ -326,7 +326,7 @@ function TagsInputTag({
   return (
     <li
       className={cn(
-        "group inline-flex items-center gap-2 rounded-md bg-primary/10 py-1 pr-1 pl-2.5 text-sm font-medium text-primary transition-colors hover:bg-primary/20",
+        "group inline-flex items-center gap-2 rounded-md bg-primary/10 py-1 ps-2.5 pe-1 text-sm font-medium text-primary transition-colors hover:bg-primary/20",
         className,
       )}
       {...props}
@@ -339,7 +339,7 @@ function TagsInputTag({
         disabled={disabled}
         type="button"
         onClick={handleClick}
-        className="size-5"
+        className="size-5 rounded-sm"
         title={`click to remove the tag "${value}"`}
       >
         <X />
