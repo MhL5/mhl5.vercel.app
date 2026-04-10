@@ -13,34 +13,24 @@ You will most likely want to use this hook with debounce since each url update t
   </AlertDescription>
 </Alert>
 
-<PreviewCode name="useUrlState" />
+<PreviewCode name="useSearchParam" />
 
 ## Installation
 
-<InstallationTabs name="useUrlState" />
+<InstallationTabs name="useSearchParam" />
 
 ## Usage
 
 ### Basic Usage
 
 ```tsx
-const [value, setValue] = useUrlState("name");
-```
-
-### With default value
-
-You can pass a value or a function to the `defaultValue` option to set the state initial value.
-
-```tsx
-const [value, setValue] = useUrlState("name", {
-  defaultValue: () => "default value",
-});
+const [value, setValue] = useSearchParam("name");
 ```
 
 ### With history replace
 
 ```tsx
-const [value, setValue] = useUrlState("name", {
+const [value, setValue] = useSearchParam("name", {
   history: "replace",
 });
 ```

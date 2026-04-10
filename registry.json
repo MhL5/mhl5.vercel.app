@@ -377,16 +377,16 @@
       ]
     },
     {
-      "name": "useUrlState",
+      "name": "useSearchParam",
       "type": "registry:hook",
-      "title": "useUrlState",
+      "title": "useSearchParam",
       "description": "A hook for managing state in the URL search parameters.",
       "meta": {
-        "url": "/snippets/hooks/useUrlState"
+        "url": "/snippets/hooks/useSearchParam"
       },
       "files": [
         {
-          "path": "src/registry/hooks/useUrlState/useUrlState.ts",
+          "path": "src/registry/hooks/useSearchParam/useSearchParam.ts",
           "type": "registry:hook"
         }
       ]

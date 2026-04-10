@@ -13,7 +13,7 @@ export const componentPaths = {
   useSessionStorage: "@/registry/hooks/useSessionStorage/example.tsx",
   useCopyToClipboard: "@/registry/hooks/useCopyToClipboard/example.tsx",
   useIsMounted: "@/registry/hooks/useIsMounted/example.tsx",
-  useUrlState: "@/registry/hooks/useUrlState/example.tsx",
+  useSearchParam: "@/registry/hooks/useSearchParam/example.tsx",
   AutoGrid: "@/registry/new-york/AutoGrid/example.tsx",
 
   FallbackPagesError:
@@ -68,7 +68,7 @@ export const PreviewComponents = {
   useIsMounted: dynamic(() => import(componentPaths.useIsMounted), {
     ...dynamicImportOptions,
   }),
-  useUrlState: dynamic(() => import(componentPaths.useUrlState), {
+  useSearchParam: dynamic(() => import(componentPaths.useSearchParam), {
     ...dynamicImportOptions,
   }),
   AutoGrid: dynamic(() => import(componentPaths.AutoGrid), {

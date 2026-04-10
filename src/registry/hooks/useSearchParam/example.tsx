@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useUrlState } from "@/registry/hooks/useUrlState/useUrlState";
+import { useSearchParam } from "@/registry/hooks/useSearchParam/useSearchParam";
 import DebouncedInput from "@/registry/new-york/DebouncedInput/DebouncedInput";
 import { Suspense } from "react";
 
@@ -15,8 +15,8 @@ export default function Example() {
 }
 
 function ExampleSuspended() {
-  const [value, setValue] = useUrlState("name");
-  const [shallow, setShallow] = useUrlState("shallow", {
+  const [value, setValue] = useSearchParam("name");
+  const [shallow, setShallow] = useSearchParam("shallow", {
     shallow: true,
     history: "push",
   });

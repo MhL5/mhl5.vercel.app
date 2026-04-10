@@ -12,14 +12,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { useUrlState } from "@/registry/hooks/useUrlState/useUrlState";
+import { useSearchParam } from "@/registry/hooks/useSearchParam/useSearchParam";
 import AutoGrid from "@/registry/new-york/AutoGrid/AutoGrid";
 import DebouncedInput from "@/registry/new-york/DebouncedInput/DebouncedInput";
 import type { Route } from "next";
 import { Fragment, useState } from "react";
 
 export default function SnippetsList() {
-  const [categoryFiler, setCategoryFilter] = useUrlState("category", {
+  const [categoryFiler, setCategoryFilter] = useSearchParam("category", {
     history: "replace",
     shallow: true,
   });
