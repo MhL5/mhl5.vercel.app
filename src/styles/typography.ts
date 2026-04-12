@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 const typography = cn(
   // Base
-  "prose prose-custom selection:bg-primary! selection:text-primary-foreground! first:mt-0 dark:prose-invert",
+  "prose prose-custom selection:bg-primary! selection:text-primary-foreground! first:mt-0",
   // Code
   "prose-code:w-fit prose-code:rounded-sm prose-code:bg-secondary prose-code:px-1 prose-code:py-0.5 prose-code:tracking-wide prose-code:text-secondary-foreground prose-code:before:content-none prose-code:after:content-none",
   // Pre
