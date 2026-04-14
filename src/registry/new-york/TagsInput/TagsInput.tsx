@@ -27,22 +27,20 @@ const COMMA_CHARS = [",", "،"] as const;
 
 const defaultMessages = {
   addTagButtonTitle: (tag: string) =>
-    tag ? `click to add the tag "${tag}"` : ("click to add a tag" as const),
-  removeTagButtonTitle: (tag: string) =>
-    `click to remove the tag "${tag}"` as const,
-  infoParagraph:
-    `Press "Enter" or "," to add a tag, or click the add button.` as const,
+    tag ? `click to add the tag "${tag}"` : "click to add a tag",
+  removeTagButtonTitle: (tag: string) => `click to remove the tag "${tag}"`,
+  infoParagraph: `Press "Enter" or "," to add a tag, or click the add button.`,
   infoAriaLabel: "Info",
   TagsInputInputPlaceholder: "write a tag...",
 
   errors: {
-    duplicate: (tag: string) => `"${tag}" already exists` as const,
-    invalidTag: (tag: string) => `"${tag}" is invalid` as const,
-    noValidTags: "No valid tags to add" as const,
+    duplicate: (tag: string) => `"${tag}" already exists`,
+    invalidTag: (tag: string) => `"${tag}" is invalid`,
+    noValidTags: "No valid tags to add",
     maxTagsReached: (maxTags: number) =>
-      `You have reached the maximum number of tags (${maxTags})` as const,
+      `You have reached the maximum number of tags (${maxTags})`,
   },
-} as const;
+};
 
 type TagsInputContextType = {
   value: string[];
@@ -61,7 +59,7 @@ type TagsInputContextType = {
 
 const TagsInputContext = createContext<TagsInputContextType | null>(null);
 
-type TagsInputProviderProps = {
+type TagsInputProps = {
   value: TagsInputContextType["value"];
   onChange: TagsInputContextType["onChange"];
   onError: (error: Array<{ message: string }>) => void;
@@ -114,7 +112,7 @@ function TagsInput({
   disabled,
   maxTags,
   messages = defaultMessages,
-}: TagsInputProviderProps) {
+}: TagsInputProps) {
   const [inputValue, setInputValue] = useState("");
 
   const addTag: TagsInputContextType["addTag"] = (tag) => {
@@ -313,6 +311,7 @@ function TagsInputInput({
         size="sm"
         title={messages.addTagButtonTitle(inputValue)}
         type="button"
+        disabled={disabled || disabledProp}
         onClick={() => addTag(inputValue)}
       >
         <Plus />
