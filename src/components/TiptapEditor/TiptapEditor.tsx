@@ -71,6 +71,10 @@ function TiptapEditor({
 
   useSyncEditorEditable({ editable, editor });
 
+  function handleClickInsideEditorContent() {
+    editor?.commands.focus();
+  }
+
   if (!editor) return <TiptapEditorSkeleton />;
   return (
     <div
@@ -121,6 +125,7 @@ function TiptapEditor({
 
           {/* Editor content */}
           <EditorContent
+            onClick={handleClickInsideEditorContent}
             className="h-200 w-full overflow-x-hidden px-5 py-7 md:h-250"
             editor={editor}
           />
