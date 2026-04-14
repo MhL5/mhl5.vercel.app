@@ -1,9 +1,9 @@
 "use client";
 
+import { FieldError } from "@/components/ui/field";
 import { Label } from "@/components/ui/label";
 import {
   TagsInput,
-  TagsInputErrorMessage,
   TagsInputInfo,
   TagsInputInput,
   TagsInputList,
@@ -15,22 +15,24 @@ const tagsInitialValue = Array.from({ length: 5 }, (_, i) => `tag-${i}`);
 
 export default function Example() {
   const [tags, setTags] = useState<string[]>(tagsInitialValue);
+  const [errors, setErrors] = useState<Array<{ message: string }>>([]);
 
   return (
     <section className="grid w-full place-items-center">
       <div className="mx-auto w-full max-w-sm space-y-3 px-5">
-        <Label>
-          Tags <TagsInputInfo />
-        </Label>
-
         <TagsInput
           disabled={false}
           value={tags}
           onChange={setTags}
           maxTags={10}
+          onError={setErrors}
         >
-          <TagsInputInput placeholder="Enter tags" />
-          <TagsInputErrorMessage />
+          <Label>
+            Tags <TagsInputInfo />
+          </Label>
+
+          <TagsInputInput />
+          <FieldError errors={errors} />
 
           <TagsInputList>
             {(value) =>

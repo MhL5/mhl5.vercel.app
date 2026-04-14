@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Kbd } from "@/components/ui/kbd";
 import {
   Tooltip,
   TooltipContent,
@@ -21,11 +20,29 @@ import {
   type SetStateAction,
   createContext,
   use,
-  useId,
   useState,
 } from "react";
 
 const COMMA_CHARS = [",", "،"] as const;
+
+const defaultMessages = {
+  addTagButtonTitle: (tag: string) =>
+    tag ? `click to add the tag "${tag}"` : ("click to add a tag" as const),
+  removeTagButtonTitle: (tag: string) =>
+    `click to remove the tag "${tag}"` as const,
+  infoParagraph:
+    `Press "Enter" or "," to add a tag, or click the add button.` as const,
+  infoAriaLabel: "Info",
+  TagsInputInputPlaceholder: "write a tag...",
+
+  errors: {
+    duplicate: (tag: string) => `"${tag}" already exists` as const,
+    invalidTag: (tag: string) => `"${tag}" is invalid` as const,
+    noValidTags: "No valid tags to add" as const,
+    maxTagsReached: (maxTags: number) =>
+      `You have reached the maximum number of tags (${maxTags})` as const,
+  },
+} as const;
 
 type TagsInputContextType = {
   value: string[];
@@ -33,13 +50,13 @@ type TagsInputContextType = {
 
   inputValue: string;
   setInputValue: Dispatch<SetStateAction<string>>;
-  error: string | null;
-  errorMessageId: string;
 
   addTag: (tag: string) => void;
   addTags: (tags: string[]) => void;
   removeTag: (indexToRemove: number) => void;
   disabled?: boolean;
+
+  messages: typeof defaultMessages;
 };
 
 const TagsInputContext = createContext<TagsInputContextType | null>(null);
@@ -47,6 +64,7 @@ const TagsInputContext = createContext<TagsInputContextType | null>(null);
 type TagsInputProviderProps = {
   value: TagsInputContextType["value"];
   onChange: TagsInputContextType["onChange"];
+  onError: (error: Array<{ message: string }>) => void;
 
   disabled: TagsInputContextType["disabled"];
   children: ReactNode;
@@ -54,44 +72,50 @@ type TagsInputProviderProps = {
   validate?: (tag: string) => boolean;
   validateMessage?: (tag: string | string[]) => string;
   maxTags?: number;
+
+  messages?: typeof defaultMessages;
 };
 
 /**
  * TagsInput is a flexible input component for letting users add and remove tags.
- *  
+ *
  * @example
-  <TagsInput
-     disabled={false}
-     value={tags}
-     onChange={setTags}
-     maxTags={10}
-   >
-     <TagsInputInput placeholder="Enter tags" />
-     <TagsInputErrorMessage />
-
-    <TagsInputList>
-      {(value) =>
-        value.map((tag) => (
-          <TagsInputTag key={tag} value={tag}>
-            {tag}
-          </TagsInputTag>
-        ))
-      }
-    </TagsInputList>
-  </TagsInput>
+ *  <TagsInput
+ *    disabled={false}
+ *    value={tags}
+ *    onChange={setTags}
+ *    maxTags={10}
+ *    onError={(errors)=> {
+ *     // tanstack form example
+ *      field.setErrorMap({ onChange: errors });
+ *      field.handleBlur();
+ *    }}
+ *  >
+ *    <TagsInputInput />
+ *
+ *   <TagsInputList>
+ *     {(value) =>
+ *       value.map((tag) => (
+ *         <TagsInputTag key={tag} value={tag}>
+ *           {tag}
+ *         </TagsInputTag>
+ *       ))
+ *     }
+ *   </TagsInputList>
+ *  </TagsInput>
  */
 function TagsInput({
   value,
   onChange,
+  onError,
   children,
   validate,
   validateMessage,
   disabled,
   maxTags,
+  messages = defaultMessages,
 }: TagsInputProviderProps) {
   const [inputValue, setInputValue] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const errorMessageId = useId();
 
   const addTag: TagsInputContextType["addTag"] = (tag) => {
     const trimmedTag = tag.trim();
@@ -99,30 +123,39 @@ function TagsInput({
 
     // Check max tags limit
     if (maxTags && value.length >= maxTags) {
-      setError(
-        `You can add up to ${maxTags} tag${maxTags === 1 ? "" : "s"} only`,
-      );
+      onError([
+        {
+          message: messages.errors.maxTagsReached(maxTags),
+        },
+      ]);
       setInputValue("");
       return;
     }
 
     // Check for duplicates
     if (value.includes(trimmedTag)) {
-      setError(`"${tag}" already exists`);
+      onError([
+        {
+          message: messages.errors.duplicate(tag),
+        },
+      ]);
       setInputValue("");
       return;
     }
 
     // Validate tag if validate function is provided
     if (validate && !validate(trimmedTag)) {
-      setError(
-        validateMessage ? validateMessage(trimmedTag) : `"${tag}" is invalid`,
-      );
+      onError([
+        {
+          message: validateMessage
+            ? validateMessage(trimmedTag)
+            : messages.errors.invalidTag(tag),
+        },
+      ]);
       setInputValue("");
       return;
     }
 
-    setError(null);
     onChange?.([trimmedTag, ...value]);
     setInputValue("");
   };
@@ -145,21 +178,26 @@ function TagsInput({
       });
 
     if (!newTags.length)
-      return setError(
-        validateMessage ? validateMessage(invalidTags) : "No valid tags to add",
-      );
+      return onError([
+        {
+          message: validateMessage
+            ? validateMessage(invalidTags)
+            : messages.errors.noValidTags,
+        },
+      ]);
 
     if (maxTags) {
       const remainingSlots = maxTags - value.length;
       newTags = newTags.slice(0, remainingSlots);
       if (!newTags.length)
-        return setError(
-          `You have reached the maximum number of tags (${maxTags})`,
-        );
+        return onError([
+          {
+            message: messages.errors.maxTagsReached(maxTags),
+          },
+        ]);
     }
 
     onChange?.([...newTags, ...value]);
-    setError(null);
     setInputValue("");
   };
 
@@ -168,13 +206,12 @@ function TagsInput({
       ...value.slice(0, indexToRemove),
       ...value.slice(indexToRemove + 1),
     ]);
-    setError(null);
   };
 
   return (
     <TagsInputContext
       value={{
-        errorMessageId,
+        messages,
         value,
         onChange,
         inputValue,
@@ -183,7 +220,6 @@ function TagsInput({
         addTags,
         removeTag,
         disabled,
-        error,
       }}
     >
       {children}
@@ -194,7 +230,7 @@ function TagsInput({
 function useTagsInput() {
   const context = use(TagsInputContext);
   if (!context)
-    throw new Error("useTagsInput must be used within a TagsInputProvider");
+    throw new Error("useTagsInput must be used within a <TagsInputProvider />");
   return context;
 }
 
@@ -213,9 +249,8 @@ function TagsInputInput({
     addTags,
     removeTag,
     value,
-    error,
     disabled,
-    errorMessageId,
+    messages,
   } = useTagsInput();
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -264,24 +299,19 @@ function TagsInputInput({
   return (
     <div className="flex items-center gap-2">
       <Input
-        {...props}
         disabled={disabled || disabledProp}
         value={inputValue}
         onChange={handleChange}
+        placeholder={messages.TagsInputInputPlaceholder}
         onKeyDown={handleKeyDown}
         onBlur={handleBlur}
         onPaste={handlePaste}
-        aria-describedby={errorMessageId}
-        aria-invalid={!!error}
+        {...props}
       />
 
       <Button
         size="sm"
-        title={
-          inputValue
-            ? `click to add the tag "${inputValue}"`
-            : "click to add a tag"
-        }
+        title={messages.addTagButtonTitle(inputValue)}
         type="button"
         onClick={() => addTag(inputValue)}
       >
@@ -315,7 +345,7 @@ function TagsInputTag({
   className,
   ...props
 }: TagsInputTagProps) {
-  const { removeTag, value: contextValue, disabled } = useTagsInput();
+  const { removeTag, value: contextValue, disabled, messages } = useTagsInput();
 
   function handleClick() {
     const valueIndex = contextValue.indexOf(value);
@@ -339,8 +369,8 @@ function TagsInputTag({
         disabled={disabled}
         type="button"
         onClick={handleClick}
-        className="size-5 rounded-sm"
-        title={`click to remove the tag "${value}"`}
+        className="size-5"
+        title={messages.removeTagButtonTitle(value)}
       >
         <X />
       </Button>
@@ -349,40 +379,22 @@ function TagsInputTag({
 }
 
 function TagsInputInfo() {
+  const { messages } = useTagsInput();
+
   return (
     <Tooltip>
-      <TooltipTrigger aria-label="Info">
+      <TooltipTrigger aria-label={messages.infoAriaLabel}>
         <InfoIcon className="size-4" />
       </TooltipTrigger>
       <TooltipContent>
-        <p>
-          Press <Kbd className="mx-1">Enter</Kbd> or{" "}
-          <Kbd className="mx-1">,</Kbd> to add a tag, or click the add button.
-        </p>
+        <p>{messages.infoParagraph}</p>
       </TooltipContent>
     </Tooltip>
   );
 }
 
-function TagsInputErrorMessage() {
-  const { error, errorMessageId } = useTagsInput();
-
-  if (!error) return null;
-  return (
-    <p
-      id={errorMessageId}
-      className="text-sm font-medium text-destructive"
-      role="alert"
-      aria-live="polite"
-    >
-      {error}
-    </p>
-  );
-}
-
 export {
   TagsInput,
-  TagsInputErrorMessage,
   TagsInputInfo,
   TagsInputInput,
   TagsInputList,
