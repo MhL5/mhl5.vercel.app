@@ -180,6 +180,7 @@ function AssetForm({ formId, getPos, node, mediaType }: BaseFormProps) {
       id={formId}
       onSubmit={(e) => {
         e.preventDefault();
+        e.stopPropagation();
         form.handleSubmit();
       }}
     >

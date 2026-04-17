@@ -108,6 +108,7 @@ function Content() {
         className="flex w-fit items-start gap-2"
         onSubmit={(e) => {
           e.preventDefault();
+          e.stopPropagation();
           form.handleSubmit();
         }}
       >

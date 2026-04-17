@@ -224,6 +224,7 @@ function TablePopoverContent() {
     <form
       onSubmit={(e) => {
         e.preventDefault();
+        e.stopPropagation();
         form.handleSubmit();
       }}
       className="grid grid-cols-[6rem_6rem] items-end gap-3"

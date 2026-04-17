@@ -59,7 +59,7 @@ export const assetUploadNode = Node.create({
   },
 
   parseHTML() {
-    return [{ tag: 'div[data-type="asset-upload-node"]' }];
+    return [];
   },
 
   renderHTML({ HTMLAttributes }) {

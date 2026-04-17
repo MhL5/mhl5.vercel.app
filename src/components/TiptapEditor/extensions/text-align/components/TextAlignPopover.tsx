@@ -12,7 +12,6 @@ import {
   AlignLeft,
   AlignRight,
   ChevronDown,
-  XIcon,
 } from "lucide-react";
 
 import { EditorButton } from "../../../components/EditorButton";
@@ -120,7 +119,7 @@ export function TextAlignPopover() {
               key={alignment}
               onClick={() => handleClick(alignment)}
               isActive={isActive}
-              className="w-52 justify-start gap-3 px-2 py-1"
+              className="min-w-52 justify-start gap-3 px-2 py-1"
               variant="ghost"
               tooltipContent={null}
             >
@@ -137,11 +136,10 @@ export function TextAlignPopover() {
             <EditorButton
               onClick={() => handleClick("unset")}
               isActive={activeAlignment.alignment === null}
-              className="w-52 justify-start gap-3 px-2 py-1"
-              variant="destructive"
+              className="min-w-52 justify-center gap-3 px-2 py-1"
+              variant="ghost"
               tooltipContent={null}
             >
-              <XIcon className="shrink-0" />
               {messages.unset}
             </EditorButton>
           </>

@@ -72,7 +72,7 @@ export function ListPopover() {
             key={type}
             onClick={() => handleClick(type)}
             isActive={isActive}
-            className="w-52 justify-start gap-3 px-2 py-1"
+            className="min-w-52 justify-start gap-3 px-2 py-1"
             variant="ghost"
             tooltipContent={null}
           >
