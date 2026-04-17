@@ -1,11 +1,10 @@
 "use client";
 
+import type { editorMessages } from "@/components/TiptapEditor/i18n/messages";
 import { type ReactNode, createContext, use } from "react";
 
-import type { editorEnMessages } from "./messages/en";
-
 type EditorMessagesContextType = {
-  messages: typeof editorEnMessages;
+  messages: (typeof editorMessages)["en"];
 };
 
 const EditorMessagesContext = createContext<EditorMessagesContextType | null>(

@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import type { ComponentProps, ReactNode } from "react";
 
 type EditorButtonProps = ComponentProps<typeof Button> & {
-  isActive: boolean;
+  isActive: boolean | null;
   tooltipContent: null | ReactNode;
   tooltipContentSide?: ComponentProps<typeof TooltipContent>["side"];
 };

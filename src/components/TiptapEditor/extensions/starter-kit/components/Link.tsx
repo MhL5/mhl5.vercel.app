@@ -145,7 +145,7 @@ function Content() {
           type="submit"
           className="ms-auto"
           tooltipContent={messages.apply}
-          isActive={false}
+          isActive={null}
         >
           <CheckIcon />
         </EditorButton>
@@ -161,7 +161,7 @@ function Content() {
           <EditorButton
             tooltipContentSide="top"
             tooltipContent={messages.openInNewWindow}
-            isActive={false}
+            isActive={null}
             onClick={() => window.open(href, "_blank")}
           >
             <ExternalLink />
@@ -172,7 +172,7 @@ function Content() {
       <EditorButton
         tooltipContentSide="top"
         tooltipContent={messages.removeLink}
-        isActive={false}
+        isActive={null}
         variant="destructive"
         onClick={() => editor.chain().focus().unsetLink().run()}
       >

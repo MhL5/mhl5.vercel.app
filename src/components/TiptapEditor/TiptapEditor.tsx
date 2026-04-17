@@ -1,4 +1,5 @@
 import { TiptapEditorSkeleton } from "@/components/TiptapEditor/components/TiptapEditorSkeleton";
+import { editorMessages } from "@/components/TiptapEditor/i18n/messages";
 import { useDirection } from "@/components/ui/direction";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
@@ -32,7 +33,6 @@ import { TextAlignPopover } from "./extensions/text-align/components/TextAlignPo
 import { YoutubeDialog } from "./extensions/youtube/components/YoutubeDialog";
 import { useSyncEditorEditable } from "./hooks/useSyncEditorEditable";
 import { EditorMessagesProvider } from "./i18n/EditorMessagesContext";
-import { editorEnMessages } from "./i18n/messages/en";
 import "./tiptap-editor-styles.css";
 
 type TiptapEditorProps = {
@@ -40,12 +40,14 @@ type TiptapEditorProps = {
   content: Content;
   onUpdate: (props: EditorEvents["update"]) => void;
   editable?: boolean;
+  locale?: keyof typeof editorMessages;
 };
 
 function TiptapEditor({
   className,
   content,
   editable = true,
+  locale = "en",
   onUpdate,
 }: TiptapEditorProps) {
   const direction = useDirection();
@@ -69,11 +71,11 @@ function TiptapEditor({
     onUpdate,
   });
 
-  useSyncEditorEditable({ editable, editor });
-
   function handleClickInsideEditorContent() {
     editor?.commands.focus();
   }
+
+  useSyncEditorEditable({ editable, editor });
 
   if (!editor) return <TiptapEditorSkeleton />;
   return (
@@ -81,7 +83,7 @@ function TiptapEditor({
       dir={direction}
       className={cn("w-full overflow-hidden rounded-sm border", className)}
     >
-      <EditorMessagesProvider messages={editorEnMessages}>
+      <EditorMessagesProvider messages={editorMessages[locale]}>
         <EditorContext value={{ editor }}>
           {/* Toolbar */}
           <div
@@ -126,7 +128,7 @@ function TiptapEditor({
           {/* Editor content */}
           <EditorContent
             onClick={handleClickInsideEditorContent}
-            className="h-200 w-full overflow-x-hidden px-5 py-7 md:h-250"
+            className="h-200 w-full overflow-x-hidden px-5 py-7"
             editor={editor}
           />
         </EditorContext>
