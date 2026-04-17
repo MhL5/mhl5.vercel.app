@@ -128,7 +128,7 @@ function TiptapEditor({
           {/* Editor content */}
           <EditorContent
             onClick={handleClickInsideEditorContent}
-            className="h-200 w-full overflow-x-hidden px-5 py-7"
+            className="h-200 w-full overflow-x-hidden overscroll-contain px-5 py-7"
             editor={editor}
           />
         </EditorContext>

@@ -1,8 +1,11 @@
 "use client";
 
 import { TiptapEditorDynamic } from "@/components/TiptapEditor/TiptapEditor";
+import { TiptapContentRenderer } from "@/components/TiptapEditor/components/TiptapContentRenderer";
 import type { editorMessages } from "@/components/TiptapEditor/i18n/messages";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import { toast } from "sonner";
 
 const htmlContent = {
@@ -28,6 +31,10 @@ function TiptapEditorDemo({
 }: {
   locale?: keyof typeof editorMessages;
 }) {
+  const [content, setContent] = useState(htmlContent[locale]);
+  const [displayMode, setDisplayMode] = useState<
+    "editor" | "preview-html-output"
+  >("editor");
   return (
     <form
       onSubmit={() => {
@@ -36,23 +43,46 @@ function TiptapEditorDemo({
         console.error(message);
         toast.error(message);
       }}
+      className="space-y-6"
     >
       <Badge variant="warning" className="mx-auto mb-8 block px-3 py-2 text-lg">
         Editor BETA
       </Badge>
-      <Badge variant="info" className="mx-auto mb-8 block px-3 py-2 text-base">
+
+      <Badge variant="info" className="mx-auto block px-3 py-2 text-base">
         Changing the locale {"doesn't"} update the direction, You should handle
         the direction change
       </Badge>
 
-      <TiptapEditorDynamic
-        content={htmlContent[locale]}
-        locale={locale}
-        onUpdate={({ editor }) => {
-          // eslint-disable-next-line no-console
-          console.log(editor.getHTML());
-        }}
-      />
+      <div className="relative isolate">
+        <Button
+          type="button"
+          onClick={() =>
+            setDisplayMode((m) =>
+              m === "editor" ? "preview-html-output" : "editor",
+            )
+          }
+          variant="outline"
+          data-display-mode={displayMode}
+          className="absolute inset-e-5 top-15 z-50 shrink-0 transition-normal duration-200 data-[display-mode=content]:top-5"
+        >
+          {displayMode === "editor" ? "preview html output" : "back to editor"}
+        </Button>
+        {displayMode === "editor" ? (
+          <TiptapEditorDynamic
+            content={content}
+            locale={locale}
+            onUpdate={({ editor }) => setContent(editor.getHTML())}
+          />
+        ) : (
+          <div className="mx-auto max-w-7xl overflow-y-auto overscroll-contain rounded-md border p-10">
+            <TiptapContentRenderer
+              htmlContent={content}
+              className="mx-auto h-200 w-full max-w-2xl px-2 py-8"
+            />
+          </div>
+        )}
+      </div>
     </form>
   );
 }
