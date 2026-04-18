@@ -115,7 +115,7 @@ function TagsInput({
 }: TagsInputProps) {
   const [inputValue, setInputValue] = useState("");
 
-  const addTag: TagsInputContextType["addTag"] = (tag) => {
+  function addTag(tag: Parameters<TagsInputContextType["addTag"]>[0]) {
     const trimmedTag = tag.trim();
     if (!trimmedTag) return;
 
@@ -156,9 +156,9 @@ function TagsInput({
 
     onChange?.([trimmedTag, ...value]);
     setInputValue("");
-  };
+  }
 
-  const addTags: TagsInputContextType["addTags"] = (tags) => {
+  function addTags(tags: Parameters<TagsInputContextType["addTags"]>[0]) {
     if (!tags.length) return;
 
     const trimmedTags = tags.map((tag) => tag.trim());
@@ -197,14 +197,16 @@ function TagsInput({
 
     onChange?.([...newTags, ...value]);
     setInputValue("");
-  };
+  }
 
-  const removeTag: TagsInputContextType["removeTag"] = (indexToRemove) => {
+  function removeTag(
+    indexToRemove: Parameters<TagsInputContextType["removeTag"]>[0],
+  ) {
     onChange?.([
       ...value.slice(0, indexToRemove),
       ...value.slice(indexToRemove + 1),
     ]);
-  };
+  }
 
   return (
     <TagsInputContext
