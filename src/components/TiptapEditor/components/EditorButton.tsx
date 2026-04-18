@@ -59,6 +59,7 @@ function EditorButtonInternal({
     <Button
       variant={isActive ? "default" : variant || "ghost"}
       size={size}
+      // type="button"
       data-active={isActive}
       className={cn(
         `transition-colors duration-300 data-[active=false]:text-muted-foreground`,

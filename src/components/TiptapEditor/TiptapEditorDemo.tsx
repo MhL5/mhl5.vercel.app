@@ -37,7 +37,8 @@ function TiptapEditorDemo({
   >("editor");
   return (
     <form
-      onSubmit={() => {
+      onSubmit={(e) => {
+        e.preventDefault();
         const message = `UN EXPECTED FORM SUBMISSION! TIPTAP EDITOR SUBMITTED THE WRAPPER FORM! THIS IS A BUG!`;
         // eslint-disable-next-line no-console
         console.error(message);
