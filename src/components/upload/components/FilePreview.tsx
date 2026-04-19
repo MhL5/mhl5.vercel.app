@@ -1,8 +1,11 @@
+import { Button } from "@/components/ui/button";
 import { DotSeparator } from "@/components/ui/dot-separator";
 import { FieldError } from "@/components/ui/field";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useTranslations } from "@/hooks/useTranslations";
 import { cn } from "@/lib/utils";
 import { formatBytes } from "@/registry/utils/formatters/formatters";
+import { Trash2Icon } from "lucide-react";
 import {
   type ComponentProps,
   useEffect,
@@ -14,46 +17,177 @@ type Error = Array<{ message: string }>;
 
 type FileType = "image" | "video" | "audio" | "pdf";
 
-const defaultMessages = {
-  loadingPreview: "Loading preview...",
-  failedToLoadImage: "Failed to load image",
-  failedToLoadVideo: "Failed to load video",
-  failedToLoadAudio: "Failed to load audio",
-  failedToLoadPdf: "Failed to load PDF",
-  unsupportedFileType: "Unsupported file type",
-  unknownType: "Unknown type",
-  videoNotSupported: "Your browser does not support the video tag.",
-  audioNotSupported: "Your browser does not support the audio tag.",
-  previewNotSupportedFor: "Preview not supported for",
-};
-
-type FilePreviewProps = {
-  file: File;
+type FilePreviewProps = (
+  | {
+      file: File;
+    }
+  | {
+      file: string;
+      fileType: FileType;
+    }
+) & {
   className?: string;
+  onRemove: () => void;
+  disabled?: boolean;
   onError?: (error: Error) => void;
-  messages?: typeof defaultMessages;
 };
 
-function FilePreview({
+function FilePreview(props: FilePreviewProps) {
+  if ("fileType" in props) return <FilePreviewUrl {...props} />;
+
+  return <FilePreviewFile {...props} />;
+}
+
+function FilePreviewUrl({
+  file,
+  fileType,
+  className,
+  disabled,
+  onRemove,
+  onError,
+}: Extract<FilePreviewProps, { file: string }>) {
+  const [error, setError] = useState<Error | null>(null);
+  const t = useTranslations("components.upload.FilePreview");
+
+  function handleError(type: string) {
+    const err = [{ message: t("failedToLoad", { fileType: type }) }];
+    setError(err);
+    onError?.(err);
+  }
+
+  if (error)
+    return (
+      <FilePreviewContainer className={className}>
+        <FieldError errors={error} />
+      </FilePreviewContainer>
+    );
+
+  return (
+    <RenderPreview
+      src={file}
+      fileType={fileType}
+      className={className}
+      disabled={disabled}
+      onRemove={onRemove}
+      onError={handleError}
+    />
+  );
+}
+
+type RenderPreviewProps = {
+  src: string;
+  fileType: FileType | null;
+  fileName?: string;
+  className?: string;
+  disabled?: boolean;
+  fileSize?: number;
+  onRemove: () => void;
+  onError: (type: string) => void;
+};
+
+function RenderPreview({
+  src,
+  fileType,
+  fileName,
+  className,
+  disabled,
+  fileSize,
+  onRemove,
+  onError,
+}: RenderPreviewProps) {
+  const t = useTranslations("components.upload.FilePreview");
+
+  if (fileType === "image")
+    return (
+      <FilePreviewContainer className={className}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={src}
+          alt={fileName ?? ""}
+          className="size-full object-contain"
+          onError={() => onError("image")}
+        />
+        <FilePreviewRemoveButton onClick={onRemove} disabled={disabled} />
+      </FilePreviewContainer>
+    );
+
+  if (fileType === "video")
+    return (
+      <FilePreviewContainer className={className}>
+        <video
+          src={src}
+          controls
+          className="size-full rounded-lg"
+          onError={() => onError("video")}
+        >
+          {t("htmlElementNotSupported", { element: "Video" })}
+        </video>
+        <FilePreviewRemoveButton onClick={onRemove} disabled={disabled} />
+      </FilePreviewContainer>
+    );
+
+  if (fileType === "audio")
+    return (
+      <FilePreviewContainer className={className}>
+        <audio
+          src={src}
+          controls
+          className="w-full"
+          onError={() => onError("audio")}
+        >
+          {t("htmlElementNotSupported", { element: "Audio" })}
+        </audio>
+        <FilePreviewRemoveButton onClick={onRemove} disabled={disabled} />
+      </FilePreviewContainer>
+    );
+
+  if (fileType === "pdf")
+    return (
+      <FilePreviewContainer className={className}>
+        <iframe
+          src={`${src}#toolbar=0`}
+          title={fileName}
+          className="size-full"
+          onError={() => onError("pdf")}
+        />
+        <FilePreviewRemoveButton onClick={onRemove} disabled={disabled} />
+      </FilePreviewContainer>
+    );
+
+  return (
+    <FilePreviewContainer
+      className={`${className} grid place-content-center gap-1 overflow-hidden text-center`}
+    >
+      <p className="text-sm font-medium text-foreground">
+        {t("previewNotSupportedFor")} {fileName || "Unknown!"}
+      </p>
+      <p className="text-xs text-muted-foreground">
+        {!!fileSize && (
+          <>
+            {formatBytes(fileSize)} <DotSeparator />
+          </>
+        )}
+        {fileType || t("unknownType")}
+      </p>
+      <FilePreviewRemoveButton onClick={onRemove} disabled={disabled} />
+    </FilePreviewContainer>
+  );
+}
+
+function FilePreviewFile({
+  onRemove,
+  disabled,
   file,
   className = "",
   onError,
-  messages: customMessages,
-}: FilePreviewProps) {
+}: Extract<FilePreviewProps, { file: File }>) {
   const [previewUrl, setPreviewUrl] = useState("");
   const [fileType, setFileType] = useState<FileType | null>(null);
   const [error, setError] = useState<Error | null>(null);
-
-  const messages = { ...defaultMessages, ...customMessages };
+  const t = useTranslations("components.upload.FilePreview");
 
   function handleError(fileType: string) {
-    let message = `Failed to load ${fileType}`;
-    if (fileType === "image") message = messages.failedToLoadImage;
-    if (fileType === "video") message = messages.failedToLoadVideo;
-    if (fileType === "audio") message = messages.failedToLoadAudio;
-    if (fileType === "pdf") message = messages.failedToLoadPdf;
-
-    const error = [{ message }];
+    const error = [{ message: t("failedToLoad", { fileType }) }];
     setError(error);
     onError?.(error);
   }
@@ -86,7 +220,7 @@ function FilePreview({
   if (!previewUrl)
     return (
       <FilePreviewContainer className="p-0">
-        <Skeleton aria-label={messages.loadingPreview} className="size-full" />
+        <Skeleton aria-label={t("loadingPreview")} className="size-full" />
       </FilePreviewContainer>
     );
 
@@ -97,72 +231,17 @@ function FilePreview({
       </FilePreviewContainer>
     );
 
-  if (fileType === "image")
-    return (
-      <FilePreviewContainer className={className}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={previewUrl}
-          alt={file.name}
-          className="size-full object-contain"
-          onError={() => handleError("image")}
-        />
-      </FilePreviewContainer>
-    );
-
-  if (fileType === "video")
-    return (
-      <FilePreviewContainer className={className}>
-        <video
-          src={previewUrl}
-          controls
-          className="size-full rounded-lg"
-          onError={() => handleError("video")}
-        >
-          {messages.videoNotSupported}
-        </video>
-      </FilePreviewContainer>
-    );
-
-  if (fileType === "audio")
-    return (
-      <FilePreviewContainer className={className}>
-        <audio
-          src={previewUrl}
-          controls
-          className="w-full"
-          onError={() => handleError("audio")}
-        >
-          {messages.audioNotSupported}
-        </audio>
-      </FilePreviewContainer>
-    );
-
-  if (fileType === "pdf")
-    return (
-      <FilePreviewContainer className={className}>
-        <iframe
-          src={`${previewUrl}#toolbar=0`}
-          title={file.name}
-          className="size-full"
-          onError={() => handleError("pdf")}
-        />
-      </FilePreviewContainer>
-    );
-
-  // Unsupported file type
   return (
-    <FilePreviewContainer
-      className={`${className} grid place-content-center gap-1 overflow-hidden text-center`}
-    >
-      <p className="text-sm font-medium text-foreground">
-        {messages.previewNotSupportedFor} {file.name}
-      </p>
-      <p className="text-xs text-muted-foreground">
-        {formatBytes(file.size)} <DotSeparator />{" "}
-        {file.type || messages.unknownType}
-      </p>
-    </FilePreviewContainer>
+    <RenderPreview
+      src={previewUrl}
+      fileType={fileType}
+      fileSize={file.size}
+      fileName={file.name}
+      className={className}
+      disabled={disabled}
+      onRemove={onRemove}
+      onError={handleError}
+    />
   );
 }
 
@@ -170,11 +249,29 @@ function FilePreviewContainer({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       className={cn(
-        "flex h-50 w-full items-center justify-center rounded-lg border bg-card p-3 text-card-foreground",
+        "relative isolate flex h-50 w-full items-center justify-center rounded-lg border bg-card p-3 text-card-foreground",
         className,
       )}
       {...props}
     />
+  );
+}
+
+function FilePreviewRemoveButton({
+  className,
+  ...props
+}: ComponentProps<typeof Button>) {
+  const t = useTranslations("components.upload.FilePreview");
+
+  return (
+    <Button
+      variant="destructive"
+      title={t("remove")}
+      className={cn("absolute inset-e-3 top-3", className)}
+      {...props}
+    >
+      <Trash2Icon />
+    </Button>
   );
 }
 
