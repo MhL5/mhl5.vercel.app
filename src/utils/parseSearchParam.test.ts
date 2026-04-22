@@ -2,108 +2,66 @@ import { parseNumberSearchParam } from "@/utils/parseSearchParam";
 import { describe, expect, test } from "bun:test";
 
 describe("parseNumberSearchParam", () => {
-  test("should return valid positive integers as-is", () => {
-    expect(parseNumberSearchParam({ searchParam: "1", fallback: 1 })).toBe(1);
-    expect(parseNumberSearchParam({ searchParam: "5", fallback: 1 })).toBe(5);
-    expect(parseNumberSearchParam({ searchParam: "10", fallback: 1 })).toBe(10);
-    expect(parseNumberSearchParam({ searchParam: "100", fallback: 1 })).toBe(
-      100,
-    );
+  test("should return valid integers", () => {
+    expect(parseNumberSearchParam("1")).toBe(1);
+    expect(parseNumberSearchParam("5")).toBe(5);
+    expect(parseNumberSearchParam("10")).toBe(10);
+    expect(parseNumberSearchParam("100")).toBe(100);
   });
 
   test("should floor decimal numbers", () => {
-    expect(parseNumberSearchParam({ searchParam: "5.7", fallback: 1 })).toBe(5);
-    expect(parseNumberSearchParam({ searchParam: "10.9", fallback: 1 })).toBe(
-      10,
-    );
-    expect(parseNumberSearchParam({ searchParam: "2.1", fallback: 1 })).toBe(2);
-    expect(parseNumberSearchParam({ searchParam: "99.99", fallback: 1 })).toBe(
-      99,
-    );
+    expect(parseNumberSearchParam("5.7")).toBe(5);
+    expect(parseNumberSearchParam("10.9")).toBe(10);
+    expect(parseNumberSearchParam("2.1")).toBe(2);
+    expect(parseNumberSearchParam("99.99")).toBe(99);
   });
 
   test("should handle array of strings", () => {
-    expect(parseNumberSearchParam({ searchParam: ["12"], fallback: 1 })).toBe(
-      12,
-    );
-    expect(parseNumberSearchParam({ searchParam: ["0"], fallback: 1 })).toBe(1);
-    expect(parseNumberSearchParam({ searchParam: [], fallback: 1 })).toBe(1);
-    expect(
-      parseNumberSearchParam({ searchParam: ["12", "131"], fallback: 1 }),
-    ).toBe(1);
+    expect(parseNumberSearchParam(["12"])).toBe(12);
+    expect(parseNumberSearchParam(["5", "10"])).toBe(5); // only first used
+    expect(parseNumberSearchParam([])).toBeNull();
   });
 
-  test("should return fallback for incorrect values", () => {
-    expect(
-      parseNumberSearchParam({ searchParam: undefined, fallback: 1 }),
-    ).toBe(1);
-    expect(parseNumberSearchParam({ searchParam: null, fallback: 1 })).toBe(1);
-    expect(parseNumberSearchParam({ searchParam: "", fallback: 1 })).toBe(1);
-    expect(parseNumberSearchParam({ searchParam: "0", fallback: 1 })).toBe(1);
-    expect(parseNumberSearchParam({ searchParam: "false", fallback: 1 })).toBe(
-      1,
-    );
-    expect(parseNumberSearchParam({ searchParam: "true", fallback: 1 })).toBe(
-      1,
-    );
-    expect(parseNumberSearchParam({ searchParam: "NaN", fallback: 1 })).toBe(1);
-    expect(
-      parseNumberSearchParam({ searchParam: "Infinity", fallback: 1 }),
-    ).toBe(1);
-    expect(
-      parseNumberSearchParam({ searchParam: "-Infinity", fallback: 1 }),
-    ).toBe(1);
-    expect(parseNumberSearchParam({ searchParam: [], fallback: 1 })).toBe(1);
-    expect(parseNumberSearchParam({ searchParam: "{}", fallback: 1 })).toBe(1);
+  test("should return null for invalid values", () => {
+    expect(parseNumberSearchParam(undefined)).toBeNull();
+    expect(parseNumberSearchParam(null)).toBeNull();
+    expect(parseNumberSearchParam("")).toBeNull();
+    expect(parseNumberSearchParam("false")).toBeNull();
+    expect(parseNumberSearchParam("true")).toBeNull();
+    expect(parseNumberSearchParam("NaN")).toBeNull();
+    expect(parseNumberSearchParam("Infinity")).toBeNull();
+    expect(parseNumberSearchParam("-Infinity")).toBeNull();
+    expect(parseNumberSearchParam("{}")).toBeNull();
 
-    // negative numbers
-    expect(parseNumberSearchParam({ searchParam: "-1", fallback: 1 })).toBe(1);
-    expect(parseNumberSearchParam({ searchParam: "-5", fallback: 1 })).toBe(1);
-    expect(parseNumberSearchParam({ searchParam: "-10.5", fallback: 1 })).toBe(
-      1,
-    );
+    // negative numbers return null now
+    expect(parseNumberSearchParam("-1")).toBeNull();
+    expect(parseNumberSearchParam("-5")).toBeNull();
+    expect(parseNumberSearchParam("-10.5")).toBeNull();
 
     // invalid strings
-    expect(parseNumberSearchParam({ searchParam: "abc", fallback: 1 })).toBe(1);
-    expect(
-      parseNumberSearchParam({ searchParam: "not-a-number", fallback: 1 }),
-    ).toBe(1);
-    expect(parseNumberSearchParam({ searchParam: "12abc", fallback: 1 })).toBe(
-      1,
-    );
-    expect(parseNumberSearchParam({ searchParam: "abc123", fallback: 1 })).toBe(
-      1,
-    );
+    expect(parseNumberSearchParam("abc")).toBeNull();
+    expect(parseNumberSearchParam("not-a-number")).toBeNull();
+    expect(parseNumberSearchParam("12abc")).toBeNull();
+    expect(parseNumberSearchParam("abc123")).toBeNull();
 
-    // whitespace strings
-    expect(parseNumberSearchParam({ searchParam: "   ", fallback: 1 })).toBe(1);
+    // whitespace
+    expect(parseNumberSearchParam("   ")).toBeNull();
   });
 
   test("should parse numbers with whitespace", () => {
-    expect(parseNumberSearchParam({ searchParam: " 5 ", fallback: 1 })).toBe(5);
-    expect(parseNumberSearchParam({ searchParam: "2 ", fallback: 1 })).toBe(2);
-    expect(parseNumberSearchParam({ searchParam: " 11 ", fallback: 1 })).toBe(
-      11,
-    );
-    expect(parseNumberSearchParam({ searchParam: " 7", fallback: 1 })).toBe(7);
+    expect(parseNumberSearchParam(" 5 ")).toBe(5);
+    expect(parseNumberSearchParam("2 ")).toBe(2);
+    expect(parseNumberSearchParam(" 11 ")).toBe(11);
+    expect(parseNumberSearchParam(" 7")).toBe(7);
   });
 
   test("should handle very large numbers", () => {
-    expect(parseNumberSearchParam({ searchParam: "999999", fallback: 1 })).toBe(
-      999999,
-    );
-    expect(parseNumberSearchParam({ searchParam: "1e10", fallback: 1 })).toBe(
-      10000000000,
-    );
+    expect(parseNumberSearchParam("999999")).toBe(999999);
+    expect(parseNumberSearchParam("1e10")).toBe(10000000000);
   });
 
   test("should handle string representations of numbers", () => {
-    expect(parseNumberSearchParam({ searchParam: "42", fallback: 1 })).toBe(42);
-    expect(parseNumberSearchParam({ searchParam: "007", fallback: 1 })).toBe(7);
-  });
-
-  test("should respect custom fallback", () => {
-    expect(parseNumberSearchParam({ searchParam: "abc", fallback: 5 })).toBe(5);
-    expect(parseNumberSearchParam({ searchParam: "-10", fallback: 3 })).toBe(3);
+    expect(parseNumberSearchParam("42")).toBe(42);
+    expect(parseNumberSearchParam("007")).toBe(7);
   });
 });

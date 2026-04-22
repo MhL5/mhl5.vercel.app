@@ -1,29 +1,28 @@
 "use client";
 
-import { Button, buttonVariants } from "@/components/ui/button";
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { LoadingButton } from "@/components/buttons/LoadingButton";
+import { buttonVariants } from "@/components/ui/button";
+import { CardDescription, CardTitle } from "@/components/ui/card";
 import { CONTACT_SUPPORT_LINK } from "@/constants";
 import { cn } from "@/lib/utils";
 import { isDev } from "@/registry/utils/checks/checks";
-import {
-  AlertTriangleIcon,
-  HeadsetIcon,
-  Loader2,
-  RefreshCcw,
-} from "lucide-react";
-import type { ReactNode } from "react";
+import { HeadsetIcon, RefreshCcw } from "lucide-react";
+import { useRouter } from "next/navigation";
+import type { ComponentProps, ReactNode } from "react";
 import { Component, useTransition } from "react";
 
-type ErrorBoundaryProps = {
+type ErrorBoundaryProps = (
+  | {
+      fallback?: ((props: ErrorBoundaryFallbackProps) => ReactNode) | ReactNode;
+    }
+  | {
+      defaultFallbackProps?: Omit<
+        ErrorBoundaryFallbackProps,
+        "error" | "onRetry"
+      >;
+    }
+) & {
   children: ReactNode;
-  fallback?: ((props: ErrorBoundaryFallbackProps) => ReactNode) | ReactNode;
 };
 
 type ErrorBoundaryState = {
@@ -75,21 +74,32 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
     if (!capturedError) return this.props.children;
 
-    if (this.props.fallback === undefined)
-      return (
-        <ErrorBoundaryFallback
-          error={capturedError}
-          onRetry={this.handleRetry}
-        />
-      );
+    const defaultFallbackProps =
+      "defaultFallbackProps" in this.props
+        ? this.props?.defaultFallbackProps || {}
+        : {};
 
-    if (this.props.fallback instanceof Function)
-      return this.props.fallback({
-        error: capturedError,
-        onRetry: this.handleRetry,
-      });
+    if ("fallback" in this.props && this.props.fallback !== undefined) {
+      // fallback is a component
+      if (this.props.fallback instanceof Function)
+        return this.props.fallback({
+          error: capturedError,
+          onRetry: this.handleRetry,
+          ...defaultFallbackProps,
+        });
 
-    return this.props.fallback;
+      // fallback is a reactNode
+      return this.props.fallback;
+    }
+
+    // fallback is not provided, falling back to default fallback
+    return (
+      <ErrorBoundaryFallback
+        error={capturedError}
+        onRetry={this.handleRetry}
+        {...defaultFallbackProps}
+      />
+    );
   }
 }
 
@@ -97,69 +107,86 @@ type ErrorBoundaryFallbackProps = {
   className?: string;
   error: Error;
   onRetry: () => void;
-};
+  shouldRefreshRouter?: boolean;
+  variant?: "default" | "minimal" | "inline";
+} & ComponentProps<"div">;
 
 function ErrorBoundaryFallback({
   className,
   error,
   onRetry,
+  variant = "default",
+  shouldRefreshRouter = false,
+  ...props
 }: ErrorBoundaryFallbackProps) {
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
+
+  function handleRetry() {
+    startTransition(() => {
+      onRetry();
+      if (shouldRefreshRouter) router.refresh();
+    });
+  }
 
   return (
-    <Card
+    <div
       role="alert"
       aria-busy={isPending}
       aria-live="polite"
+      data-variant={variant}
       className={cn(
-        "gap-3 border-none bg-error text-center text-error-foreground shadow-error-border transition-all duration-100 dark:shadow-none starting:scale-90 starting:opacity-0",
+        "group @container-normal mx-auto flex w-fit flex-wrap items-center justify-center overflow-hidden rounded-md bg-error text-center text-error-foreground",
+        "data-[variant=minimal]:p-3",
+        "data-[variant=default]:flex-col data-[variant=default]:gap-3 data-[variant=default]:p-4",
+        "data-[variant=inline]:flex-nowrap data-[variant=inline]:px-3 data-[variant=inline]:py-2",
         className,
       )}
+      {...props}
     >
-      <CardHeader>
-        <CardTitle className="flex items-center justify-center gap-1.5 text-lg text-error-foreground">
-          <AlertTriangleIcon className="inline-block size-5 stroke-[0.15rem]" />
-          {error.name}
-        </CardTitle>
-      </CardHeader>
+      <CardTitle className="group-data-[variant=inline]:hidden group-data-[variant=minimal]:hidden @max-xs:break-all">
+        {error.name}
+      </CardTitle>
 
-      <CardContent>
-        <CardDescription
-          title={error.message}
-          className="line-clamp-3 text-sm text-balance text-error-foreground/95"
+      <CardDescription
+        title={error.message}
+        className="mb-1 line-clamp-6 text-error-foreground group-data-[variant=inline]:line-clamp-none group-data-[variant=inline]:truncate"
+      >
+        {error.message}
+      </CardDescription>
+
+      <footer className="@container-normal mx-auto flex w-full max-w-xs flex-wrap items-center justify-center gap-3 group-data-[variant=inline]:w-fit">
+        <a
+          data-slot="ErrorBoundaryFallbackSupportLink"
+          target="_blank"
+          className={buttonVariants({
+            variant: "secondary",
+            size: "xs",
+            className:
+              "basis-[calc(50%-0.375rem)] border group-data-[variant=inline]:hidden group-data-[variant=minimal]:hidden @max-xs:text-xs @max-[11rem]:basis-full",
+          })}
+          href={CONTACT_SUPPORT_LINK(
+            `${error?.name ? `${error.name}: ` : ""} ${error?.message || "Something went wrong!"}`,
+          )}
         >
-          {error.message}
-        </CardDescription>
+          <HeadsetIcon className="@max-xs:hidden" />
+          Support
+        </a>
 
-        <CardAction className="mx-auto mt-5 grid w-full max-w-xs grid-cols-2 gap-3">
-          <a
-            data-slot="ErrorBoundaryFallbackSupportLink"
-            target="_blank"
-            className={buttonVariants({
-              variant: "secondary",
-              size: "sm",
-              className: "border",
-            })}
-            href={CONTACT_SUPPORT_LINK(
-              `${error?.name ? `${error.name}: ` : ""} ${error?.message || "Something went wrong!"}`,
-            )}
-          >
-            <HeadsetIcon /> Contact support
-          </a>
-
-          <Button
-            data-slot="ErrorBoundaryFallbackRetryButton"
-            onClick={() => startTransition(() => onRetry())}
-            type="button"
-            size="sm"
-            disabled={isPending}
-          >
-            {isPending ? <Loader2 className="animate-spin" /> : <RefreshCcw />}
-            Try again
-          </Button>
-        </CardAction>
-      </CardContent>
-    </Card>
+        <LoadingButton
+          data-slot="ErrorBoundaryFallbackRetryButton"
+          onClick={handleRetry}
+          type="button"
+          size="xs"
+          variant={variant === "default" ? "default" : "link"}
+          className="h-fit basis-[calc(50%-0.375rem)] p-0! group-data-[variant=inline]:basis-auto @max-xs:text-xs @max-[11rem]:basis-full"
+          disabled={isPending}
+        >
+          <RefreshCcw className="group-data-[variant=inline]:hidden group-data-[variant=minimal]:hidden @max-xs:hidden" />
+          Try again
+        </LoadingButton>
+      </footer>
+    </div>
   );
 }
 
