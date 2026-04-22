@@ -169,7 +169,7 @@ function ErrorBoundaryFallback({
             `${error?.name ? `${error.name}: ` : ""} ${error?.message || "Something went wrong!"}`,
           )}
         >
-          <HeadsetIcon className="@max-xs:hidden" />
+          <HeadsetIcon className="size-3.25 @max-xs:hidden" />
           Support
         </a>
 
@@ -182,7 +182,7 @@ function ErrorBoundaryFallback({
           className="h-fit basis-[calc(50%-0.375rem)] p-0! group-data-[variant=inline]:basis-auto @max-xs:text-xs @max-[11rem]:basis-full"
           disabled={isPending}
         >
-          <RefreshCcw className="group-data-[variant=inline]:hidden group-data-[variant=minimal]:hidden @max-xs:hidden" />
+          <RefreshCcw className="size-3.25 group-data-[variant=inline]:hidden group-data-[variant=minimal]:hidden @max-xs:hidden" />
           Try again
         </LoadingButton>
       </footer>

@@ -43,7 +43,7 @@ export default function ProjectCard({
       variant="outline"
       className={cn(
         CardClassName,
-        "block h-full cursor-pointer gap-0 overflow-hidden px-0 pt-0 pb-3",
+        "block h-full cursor-pointer gap-0 overflow-hidden px-0 pt-0 pb-3 whitespace-normal",
         className,
       )}
       target="_blank"
@@ -71,22 +71,28 @@ export default function ProjectCard({
           <div className="flex flex-wrap items-center justify-between gap-2">
             <CardTitle className="text-xl">{title}</CardTitle>
             {status === "in progress" && (
-              <Badge variant="warning" className="text-sm capitalize">
+              <Badge
+                variant="warning"
+                className="rounded-sm text-xs capitalize"
+              >
                 {status}
               </Badge>
             )}
             {status === "completed" && (
-              <Badge variant="success" className="text-sm capitalize">
+              <Badge
+                variant="success"
+                className="rounded-sm text-xs capitalize"
+              >
                 {status}
               </Badge>
             )}
             {status === "coming soon" && (
-              <Badge variant="info" className="text-sm capitalize">
+              <Badge variant="info" className="rounded-sm text-xs capitalize">
                 {status}
               </Badge>
             )}
           </div>
-          <time className="mb-2 inline-block text-sm">{dates}</time>
+          <time className="mb-2 inline-block text-xs">{dates}</time>
           <p className="max-w-full text-sm text-pretty text-muted-foreground">
             {description}
           </p>

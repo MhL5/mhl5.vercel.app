@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [{ hostname: "localhost" }],
   },
-
+  logging: { browserToTerminal: true },
   experimental: {
     typedEnv: true,
     authInterrupts: true,
