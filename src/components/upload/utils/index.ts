@@ -97,10 +97,10 @@ export function parseFileUrl(url: string) {
   const fileNameWithExtension = parts[parts.length - 1];
 
   // Split the file name and extension
-  const [name, type] = fileNameWithExtension.split(".");
+  const result = fileNameWithExtension?.split(".");
 
   return {
-    name: name || url,
-    type,
+    name: result?.[0] || url,
+    type: result?.[1] || "",
   };
 }

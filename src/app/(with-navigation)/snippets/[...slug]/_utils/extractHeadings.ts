@@ -8,10 +8,10 @@ export function extractHeadings(markdown: string, maxDepth = 6): Heading[] {
     const match = line.match(/^\s*(#{1,6})\s+(.+?)\s*$/);
     if (!match) continue;
 
-    const depth = match[1].length;
+    const depth = match?.[1]?.length || 0;
     if (depth > maxDepth) continue;
 
-    const title = match[2].trim();
+    const title = match?.[2]?.trim();
     if (!title) continue;
 
     const id = title.toLowerCase().replaceAll(" ", "-");

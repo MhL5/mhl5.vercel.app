@@ -7,5 +7,5 @@ export const isProd = () => process.env.NODE_ENV === "production";
 export const isTest = () => process.env.NODE_ENV === "test";
 
 // Next.js runtime checks
-export const isNode = () => process.env.NEXT_RUNTIME === "nodejs";
-export const isEdge = () => process.env.NEXT_RUNTIME === "edge";
+export const isNode = () => process.env["NEXT_RUNTIME"] === "nodejs";
+export const isEdge = () => process.env["NEXT_RUNTIME"] === "edge";

@@ -46,7 +46,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     };
   }
 
-  componentDidCatch(_error: Error, _errorInfo: React.ErrorInfo) {
+  override componentDidCatch(_error: Error, _errorInfo: React.ErrorInfo) {
     // log errors here
     // this is an example of how to log errors in here
     if (!isDev()) return;
@@ -69,7 +69,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     this.setState({ hasError: false, error: null });
   }
 
-  render() {
+  override render() {
     const capturedError = this.state.hasError && this.state.error;
 
     if (!capturedError) return this.props.children;

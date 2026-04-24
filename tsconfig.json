@@ -29,7 +29,12 @@
     "allowUnreachableCode": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "verbatimModuleSyntax": true
+    "verbatimModuleSyntax": true,
+    "noUncheckedSideEffectImports": true,
+    "noImplicitOverride": true,
+    "erasableSyntaxOnly": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true
   },
   "include": [
     "next-env.d.ts",

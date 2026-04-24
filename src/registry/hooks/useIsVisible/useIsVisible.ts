@@ -50,7 +50,7 @@ export default function useIsVisible({
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!isMounted) return;
+        if (!isMounted || !entry) return;
 
         setIsVisible(entry.isIntersecting);
         if (once && entry.isIntersecting) observer.disconnect();

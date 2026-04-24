@@ -44,7 +44,7 @@ export default function CliCommandCode({
   );
   const [selectedTab, setSelectedTab] = useLocalStorage(
     "CliCommandCodeSelectedTab",
-    commands[0].label,
+    commands?.[0]?.label,
   );
 
   return (

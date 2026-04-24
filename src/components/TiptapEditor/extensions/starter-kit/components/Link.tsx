@@ -51,7 +51,7 @@ function LinkBubbleMenu() {
     editor,
     selector: (ctx) => ({
       isLinkActive: ctx.editor.isActive("link"),
-      href: ctx.editor.getAttributes("link").href,
+      href: ctx.editor.getAttributes("link")["href"],
     }),
   });
 
@@ -73,7 +73,7 @@ function Content() {
   const editorState = useEditorState({
     editor,
     selector: (ctx) => ({
-      href: ctx.editor.getAttributes("link").href,
+      href: ctx.editor.getAttributes("link")["href"],
       text: ctx.editor.getAttributes("link"),
       from: ctx.editor.state.selection.from,
       to: ctx.editor.state.selection.to,

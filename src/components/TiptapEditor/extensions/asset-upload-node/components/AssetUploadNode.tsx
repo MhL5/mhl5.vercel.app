@@ -48,7 +48,7 @@ export default function AssetUploadNode({
 }: NodeViewProps) {
   const { messages } = useEditorMessages();
   const formId = useId();
-  const mediaType = node.attrs.mediaType as MediaType;
+  const mediaType = node.attrs["mediaType"] as MediaType;
   const titleMap = {
     image: messages.image,
     audio: messages.audio,
@@ -338,7 +338,9 @@ function AssetUploadNodeDropZone({
         (file) => file.status === "completed",
       );
       if (!completedFiles?.length) return;
-      onUploadSuccess(completedFiles[completedFiles.length - 1].url);
+      const url = completedFiles?.[completedFiles?.length - 1]?.url;
+      if (!url) return;
+      onUploadSuccess(url);
     },
     uploadHandler: async (params) => {
       const res = await fileUpload(params);

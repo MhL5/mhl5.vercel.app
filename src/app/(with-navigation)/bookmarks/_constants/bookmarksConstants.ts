@@ -463,6 +463,31 @@ const uiBookmarks: Bookmark[] = [
     description:
       "with a growing library of ready-to-use react components & micro interactions. free & open source.. very good documentation",
   },
+  {
+    url: "https://lucide-animated.com/",
+    category: "ui",
+    title: "Lucid animated",
+    description:
+      "an open-source (MIT License) collection of smooth animated icons for your projects. feel free to use them, share your feedback, and let's make this library awesome together,Crafted with Motion & Lucide",
+  },
+  {
+    url: "https://wigggle-ui.vercel.app/",
+    category: "ui",
+    title: "Wigggle UI",
+    description: "The first ever collection of Widgets for the Web.",
+  },
+  {
+    url: "https://www.pixel-perfect.space/",
+    category: "ui",
+    title: "Pixel Perfect",
+    description: "A pixel-perfect React component library for modern web apps",
+  },
+  {
+    url: "https://chanhdai.com/",
+    category: "ui",
+    title: "Chánh Đại",
+    description: "a Design Engineer, Creating with code. Small details matter.",
+  },
 ];
 
 export const allBookmarks: Bookmark[] = [

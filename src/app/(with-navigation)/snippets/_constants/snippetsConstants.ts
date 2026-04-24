@@ -69,6 +69,7 @@ const getSnippetsLinks = cache(async () => {
   const linksWithItems = shadcnRegistry.items.reduce((acc, item) => {
     const category = item.meta.url.split("/")[2];
     const isValidCategory =
+      category &&
       category in acc &&
       typeof acc[category as keyof typeof acc] === "object" &&
       !!category;

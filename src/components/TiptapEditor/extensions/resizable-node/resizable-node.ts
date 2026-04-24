@@ -29,7 +29,7 @@ export const resizableNode = NodeExtension.create({
       "div",
       {
         "data-resizer": "",
-        style: `width: ${HTMLAttributes.width}; height: ${HTMLAttributes.height}; border: 1px solid var(--border); box-sizing: border-box;`,
+        style: `width: ${HTMLAttributes["width"]}; height: ${HTMLAttributes["height"]}; border: 1px solid var(--border); box-sizing: border-box;`,
       },
       0,
     ];
@@ -37,11 +37,11 @@ export const resizableNode = NodeExtension.create({
 
   addNodeView() {
     return (props) => {
-      const width = props.node.attrs.width;
-      const height = props.node.attrs.height;
+      const width = props.node.attrs["width"];
+      const height = props.node.attrs["height"];
 
       const el = document.createElement("div");
-      el.dataset.resizer = "";
+      el.dataset["resizer"] = "";
       const content = document.createElement("div");
       content.innerText = `Width: ${width}, Height: ${height}`;
 

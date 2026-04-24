@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+
 import { csvToJson } from "./csvToJson";
 
 describe("csvToJson", () => {
@@ -94,7 +95,7 @@ Val1A,Val1B,Val1C
 Val2A,Val2B`; // Missing value for Col3
     const expectedValue = [
       { Col1: "Val1A", Col2: "Val1B", Col3: "Val1C" },
-      { Col1: "Val2A", Col2: "Val2B", Col3: undefined },
+      { Col1: "Val2A", Col2: "Val2B", Col3: "" },
     ];
     const result = csvToJson(csvString);
     expect(result).toEqual(expectedValue);

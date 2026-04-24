@@ -43,7 +43,7 @@ export const assetUploadNode = Node.create({
         parseHTML: (el) =>
           (el.getAttribute("data-media-type") as MediaType) || "image",
         renderHTML: (attrs) => ({
-          "data-media-type": attrs.mediaType ?? "image",
+          "data-media-type": attrs["mediaType"] ?? "image",
         }),
       },
       accept: {

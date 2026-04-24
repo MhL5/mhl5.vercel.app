@@ -16,7 +16,7 @@ export function focusNextNode(editor: Editor) {
     return true;
   }
 
-  const paragraphType = state.schema.nodes.paragraph;
+  const paragraphType = state.schema.nodes["paragraph"];
   if (!paragraphType) {
     console.warn("No paragraph node type found in schema.");
     return false;

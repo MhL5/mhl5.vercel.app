@@ -49,58 +49,58 @@ export const videoNode = Node.create({
         default: null,
         parseHTML: (element) => element.getAttribute("src"),
         renderHTML: (attributes) =>
-          attributes.src ? { src: attributes.src } : {},
+          attributes["src"] ? { src: attributes["src"] } : {},
       },
       controls: {
         default: true,
         parseHTML: (element) => element.hasAttribute("controls"),
         renderHTML: (attributes) =>
-          attributes.controls ? { controls: "" } : {},
+          attributes["controls"] ? { controls: "" } : {},
       },
       autoplay: {
         default: false,
         parseHTML: (element) => element.hasAttribute("autoplay"),
         renderHTML: (attributes) =>
-          attributes.autoplay ? { autoplay: "" } : {},
+          attributes["autoplay"] ? { autoplay: "" } : {},
       },
       loop: {
         default: false,
         parseHTML: (element) => element.hasAttribute("loop"),
-        renderHTML: (attributes) => (attributes.loop ? { loop: "" } : {}),
+        renderHTML: (attributes) => (attributes["loop"] ? { loop: "" } : {}),
       },
       muted: {
         default: false,
         parseHTML: (element) => element.hasAttribute("muted"),
-        renderHTML: (attributes) => (attributes.muted ? { muted: "" } : {}),
+        renderHTML: (attributes) => (attributes["muted"] ? { muted: "" } : {}),
       },
       preload: {
         default: "metadata",
         parseHTML: (element) => element.getAttribute("preload") ?? "metadata",
-        renderHTML: (attributes) => ({ preload: attributes.preload }),
+        renderHTML: (attributes) => ({ preload: attributes["preload"] }),
       },
       playsInline: {
         default: true,
         parseHTML: (element) => element.hasAttribute("playsinline"),
         renderHTML: (attributes) =>
-          attributes.playsInline ? { playsinline: "" } : {},
+          attributes["playsInline"] ? { playsinline: "" } : {},
       },
       poster: {
         default: null,
         parseHTML: (element) => element.getAttribute("poster"),
         renderHTML: (attributes) =>
-          attributes.poster ? { poster: attributes.poster } : {},
+          attributes["poster"] ? { poster: attributes["poster"] } : {},
       },
       width: {
         default: null,
         parseHTML: (element) => element.getAttribute("width"),
         renderHTML: (attributes) =>
-          attributes.width ? { width: attributes.width } : {},
+          attributes["width"] ? { width: attributes["width"] } : {},
       },
       height: {
         default: null,
         parseHTML: (element) => element.getAttribute("height"),
         renderHTML: (attributes) =>
-          attributes.height ? { height: attributes.height } : {},
+          attributes["height"] ? { height: attributes["height"] } : {},
       },
     };
   },

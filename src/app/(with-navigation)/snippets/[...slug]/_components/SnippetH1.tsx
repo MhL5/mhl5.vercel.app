@@ -37,7 +37,9 @@ function GoToNeighbor({
   neighbor,
   position,
 }: {
-  neighbor: Awaited<ReturnType<typeof findSnippetsNeighbors>>[number] | null;
+  neighbor:
+    | Awaited<ReturnType<typeof findSnippetsNeighbors>>[number]
+    | undefined;
   position: "previous" | "next";
 }) {
   if (!neighbor)
@@ -72,13 +74,15 @@ function GoToNeighbor({
 
 async function findSnippetsNeighbors(slug: string) {
   const links = await getSnippetsLinks();
-  let neighbors: { title: string; url: string }[] = [];
+  let neighbors: ({ title: string; url: string } | undefined)[] = [];
 
   for (const category of links) {
     if (!category.items) continue;
 
     for (let i = 0; i < category.items.length; i++) {
-      const categoryItemTitle = category.items[i].title.trim().toLowerCase();
+      const item = category.items[i];
+      if (!item) continue;
+      const categoryItemTitle = item.title.trim().toLowerCase();
       const slugLowerCase = slug.trim().toLowerCase();
 
       if (categoryItemTitle !== slugLowerCase) continue;
