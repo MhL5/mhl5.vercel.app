@@ -9,7 +9,7 @@ import { isDev } from "@/registry/utils/checks/checks";
 import { HeadsetIcon, RefreshCcw } from "lucide-react";
 import { useRouter } from "next/navigation";
 import type { ComponentProps, ReactNode } from "react";
-import { Component, useTransition } from "react";
+import { Component, useState, useTransition } from "react";
 
 type ErrorBoundaryProps = (
   | {
@@ -103,6 +103,13 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 }
 
+function useErrorBoundary() {
+  const [error, setError] = useState<Error | null>(null);
+
+  if (error) throw error;
+  return { setError } as const;
+}
+
 type ErrorBoundaryFallbackProps = {
   className?: string;
   error: Error;
@@ -139,7 +146,7 @@ function ErrorBoundaryFallback({
         "group @container-normal mx-auto flex w-fit flex-wrap items-center justify-center overflow-hidden rounded-md bg-error text-center text-error-foreground",
         "data-[variant=minimal]:p-3",
         "data-[variant=default]:flex-col data-[variant=default]:gap-3 data-[variant=default]:p-4",
-        "data-[variant=inline]:flex-nowrap data-[variant=inline]:px-3 data-[variant=inline]:py-2",
+        "data-[variant=inline]:flex-nowrap data-[variant=inline]:p-2",
         className,
       )}
       {...props}
@@ -150,7 +157,7 @@ function ErrorBoundaryFallback({
 
       <CardDescription
         title={error.message}
-        className="mb-1 line-clamp-6 text-error-foreground group-data-[variant=inline]:line-clamp-none group-data-[variant=inline]:truncate"
+        className="mb-1 line-clamp-6 text-error-foreground group-data-[variant=inline]:mb-0 group-data-[variant=inline]:line-clamp-none group-data-[variant=inline]:truncate"
       >
         {error.message}
       </CardDescription>
@@ -179,15 +186,15 @@ function ErrorBoundaryFallback({
           type="button"
           size="xs"
           variant={variant === "default" ? "default" : "link"}
-          className="h-fit basis-[calc(50%-0.375rem)] p-0! group-data-[variant=inline]:basis-auto @max-xs:text-xs @max-[11rem]:basis-full"
+          className="h-fit basis-[calc(50%-0.375rem)] group-data-[variant=inline]:basis-auto group-data-[variant=inline]:p-0 @max-xs:text-xs @max-[11rem]:basis-full"
           disabled={isPending}
         >
           <RefreshCcw className="size-3.25 group-data-[variant=inline]:hidden group-data-[variant=minimal]:hidden @max-xs:hidden" />
-          Try again
+          try again
         </LoadingButton>
       </footer>
     </div>
   );
 }
 
-export { ErrorBoundary, ErrorBoundaryFallback };
+export { ErrorBoundary, ErrorBoundaryFallback, useErrorBoundary };
