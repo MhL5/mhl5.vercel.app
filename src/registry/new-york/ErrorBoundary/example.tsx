@@ -17,7 +17,6 @@ const errorBoundaryItems = [
     id: "default-fallback",
     heading: "default fallback",
     ErrorComponent: DuringRenderErrorComponent,
-    errorBoundaryProps: {},
   },
   {
     id: "default-fallback-minimal",
@@ -25,14 +24,6 @@ const errorBoundaryItems = [
     ErrorComponent: WithUseErrorBoundaryComponent,
     errorBoundaryProps: {
       defaultFallbackProps: { variant: "minimal" },
-    },
-  },
-  {
-    id: "inline-fallback-minimal",
-    heading: "inline fallback minimal",
-    ErrorComponent: DuringRenderErrorComponent,
-    errorBoundaryProps: {
-      defaultFallbackProps: { variant: "inline" },
     },
   },
   {
@@ -83,7 +74,7 @@ function DuringRenderErrorComponent() {
   if (showError) throw simulatedError;
   return (
     <Button size="xs" type="button" onClick={() => setShowError(true)}>
-      Trigger Error
+      Throw error during render
     </Button>
   );
 }
@@ -93,7 +84,7 @@ function WithUseErrorBoundaryComponent() {
 
   return (
     <Button size="xs" type="button" onClick={() => setError(simulatedError)}>
-      Trigger Error
+      Throw error with useErrorBoundary
     </Button>
   );
 }
