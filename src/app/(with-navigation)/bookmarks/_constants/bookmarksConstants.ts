@@ -488,6 +488,25 @@ const uiBookmarks: Bookmark[] = [
     title: "Chánh Đại",
     description: "a Design Engineer, Creating with code. Small details matter.",
   },
+  {
+    url: "https://www.ui-layouts.com/blocks",
+    category: "ui",
+    title: "ui layouts",
+    description:
+      "Beautifully designed sections you can copy and paste straight into your apps. Creatively crafted with Tailwind CSS and shadcn/ui, these blocks are built for real-world React and Next.js projects",
+  },
+  {
+    url: "https://shadcnuikit.com/",
+    category: "ui",
+    title: "shadcn ui kit",
+    description: "Build faster with pre-built assets using the Shadcn UI Kit",
+  },
+  // {
+  //   url: "",
+  //   category: "ui",
+  //   title: "",
+  //   description: "",
+  // },
 ];
 
 export const allBookmarks: Bookmark[] = [
