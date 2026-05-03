@@ -1,7 +1,7 @@
 import { isProd } from "@/registry/utils/checks/checks";
 
 export const domainUrl = isProd()
-  ? process.env["NEXT_PUBLIC_FRONTEND_DOMAIN"]
+  ? `${process.env["NEXT_PUBLIC_FRONTEND_DOMAIN"]}`
   : `http://localhost:${process.env["PORT"] || 7777}`;
 
 /**

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
 import { CONTACT_SUPPORT_LINK } from "@/constants";
 import { cn } from "@/lib/utils";
+import { isDev } from "@/registry/utils/checks/checks";
 import { ArrowLeft, Home, LogIn, RotateCcw } from "lucide-react";
 import type { Route } from "next";
 
@@ -57,6 +58,7 @@ type FallbackPageProps = (
       variant: "error";
       contactSupportMessage?: string;
       reset: () => void;
+      error: Error;
       messages?: BaseMessages & { tryAgain: string };
     }
   | {
@@ -149,7 +151,9 @@ export function FallbackPage(props: FallbackPageProps) {
             role="alert"
             aria-live="polite"
           >
-            {messages.description}
+            {props.variant === "error" && isDev()
+              ? props.error.message
+              : messages.description}
           </p>
         </header>
 

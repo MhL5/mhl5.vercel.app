@@ -168,7 +168,7 @@ function ErrorBoundaryFallback({
       data-variant={variant}
       data-size={size}
       className={cn(
-        "group @container flex w-full min-w-28 flex-col flex-wrap items-center justify-center gap-1 p-3! text-center data-[size=lg]:gap-2 data-[size=xl]:gap-3",
+        "group @container flex w-full min-w-28 flex-col flex-wrap items-center justify-center gap-1.5 p-3! text-center data-[size=lg]:gap-2 data-[size=xl]:gap-3",
         className,
       )}
       {...props}
@@ -177,7 +177,7 @@ function ErrorBoundaryFallback({
         {error.name}
       </AlertTitle>
 
-      <AlertDescription className="mb-2.25 group-data-[size=lg]:text-base group-data-[size=xl]:text-lg group-data-[variant=minimal]:mb-0">
+      <AlertDescription className="mb-1.5 group-data-[size=lg]:text-base group-data-[size=xl]:text-lg group-data-[variant=minimal]:mb-0">
         {error.message}
       </AlertDescription>
 

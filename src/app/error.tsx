@@ -7,6 +7,6 @@ type ErrorProps = {
   reset: () => void;
 };
 
-export default function FallbackSection({ reset }: ErrorProps) {
-  return <FallbackPage variant="error" reset={reset} />;
+export default function FallbackSection({ error, reset }: ErrorProps) {
+  return <FallbackPage error={error} variant="error" reset={reset} />;
 }
