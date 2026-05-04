@@ -2,6 +2,8 @@ import { Badge } from "@/components/ui/badge";
 import {
   CardClassName,
   CardContent,
+  CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -43,7 +45,7 @@ export default function ProjectCard({
       variant="outline"
       className={cn(
         CardClassName,
-        "block h-full cursor-pointer gap-0 overflow-hidden px-0 pt-0 pb-3 whitespace-normal",
+        "flex h-full cursor-pointer flex-col gap-0 overflow-hidden px-0 pt-0 pb-3 whitespace-normal",
         className,
       )}
       target="_blank"
@@ -66,41 +68,38 @@ export default function ProjectCard({
           className="h-50 w-full overflow-hidden object-cover object-top"
         />
       )}
-      <CardHeader className="mt-2.25 px-2">
-        <div className="space-y-1">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <CardTitle className="text-xl">{title}</CardTitle>
-            {status === "in progress" && (
-              <Badge
-                variant="warning"
-                className="rounded-sm text-xs capitalize"
-              >
-                {status}
-              </Badge>
-            )}
-            {status === "completed" && (
-              <Badge
-                variant="success"
-                className="rounded-sm text-xs capitalize"
-              >
-                {status}
-              </Badge>
-            )}
-            {status === "coming soon" && (
-              <Badge variant="info" className="rounded-sm text-xs capitalize">
-                {status}
-              </Badge>
-            )}
-          </div>
-          <time className="mb-2 inline-block text-xs">{dates}</time>
-          <p className="max-w-full text-sm text-pretty text-muted-foreground">
-            {description}
-          </p>
+
+      <CardHeader className="mt-2.25 mb-auto w-full px-2">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <CardTitle className="text-xl">{title}</CardTitle>
+          {status === "in progress" && (
+            <Badge variant="warning" className="rounded-sm text-xs capitalize">
+              {status}
+            </Badge>
+          )}
+          {status === "completed" && (
+            <Badge variant="success" className="rounded-sm text-xs capitalize">
+              {status}
+            </Badge>
+          )}
+          {status === "coming soon" && (
+            <Badge variant="info" className="rounded-sm text-xs capitalize">
+              {status}
+            </Badge>
+          )}
         </div>
+
+        <time className="inline-block text-xs">{dates}</time>
       </CardHeader>
 
-      <CardContent className="mt-auto flex flex-col px-2 pt-2">
-        {technologies && technologies.length > 0 && (
+      <CardContent className="mb-auto flex w-full flex-col px-2 pt-2">
+        <CardDescription className="w-full text-sm text-pretty text-muted-foreground">
+          {description}
+        </CardDescription>
+      </CardContent>
+
+      {technologies && technologies.length > 0 && (
+        <CardFooter className="mt-auto px-2 pt-2">
           <div className="flex flex-wrap gap-1">
             {technologies?.map((tag) => (
               <Badge className="text-xs" variant="outline" key={tag}>
@@ -108,8 +107,8 @@ export default function ProjectCard({
               </Badge>
             ))}
           </div>
-        )}
-      </CardContent>
+        </CardFooter>
+      )}
     </Link>
   );
 }
