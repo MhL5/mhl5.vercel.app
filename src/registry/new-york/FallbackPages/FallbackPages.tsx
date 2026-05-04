@@ -8,6 +8,8 @@ import { cn } from "@/lib/utils";
 import { isDev } from "@/registry/utils/checks/checks";
 import { ArrowLeft, Home, LogIn, RotateCcw } from "lucide-react";
 import type { Route } from "next";
+import { useRouter } from "next/navigation";
+import { useTransition } from "react";
 
 const defaultMessages = {
   home: "Home",
@@ -74,6 +76,16 @@ type FallbackPageProps = (
 ) & { className?: string };
 
 export function FallbackPage(props: FallbackPageProps) {
+  const router = useRouter();
+  const [isRetrying, startTransition] = useTransition();
+
+  function handleRetry() {
+    startTransition(() => {
+      if (props.variant === "error") props.reset();
+      router.refresh();
+    });
+  }
+
   if (props.variant === "loading")
     return (
       <section
@@ -167,7 +179,7 @@ export function FallbackPage(props: FallbackPageProps) {
           </Link>
 
           {props.variant === "error" ? (
-            <Button onClick={props.reset}>
+            <Button onClick={handleRetry} disabled={isRetrying}>
               <RotateCcw />{" "}
               {props.messages?.tryAgain ||
                 defaultMessages.error.secondaryActionLabel}
@@ -179,7 +191,7 @@ export function FallbackPage(props: FallbackPageProps) {
                 defaultMessages.unauthorized.secondaryActionLabel}
             </Link>
           ) : (
-            <Button onClick={() => window.history.back()}>
+            <Button onClick={() => window.history.back()} disabled={isRetrying}>
               <ArrowLeft /> {messages.goBack}
             </Button>
           )}

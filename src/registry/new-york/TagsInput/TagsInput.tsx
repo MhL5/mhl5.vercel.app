@@ -384,7 +384,7 @@ function TagsInputInfo() {
 
   return (
     <Tooltip>
-      <TooltipTrigger aria-label={messages.infoAriaLabel}>
+      <TooltipTrigger asChild aria-label={messages.infoAriaLabel}>
         <InfoIcon className="size-4" />
       </TooltipTrigger>
       <TooltipContent>
