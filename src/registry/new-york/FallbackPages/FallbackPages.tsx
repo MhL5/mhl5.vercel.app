@@ -3,6 +3,7 @@
 import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
+import Spinner from "@/components/ui/spinner";
 import { CONTACT_SUPPORT_LINK } from "@/constants";
 import { cn } from "@/lib/utils";
 import { isDev } from "@/registry/utils/checks/checks";
@@ -180,7 +181,7 @@ export function FallbackPage(props: FallbackPageProps) {
 
           {props.variant === "error" ? (
             <Button onClick={handleRetry} disabled={isRetrying}>
-              <RotateCcw />{" "}
+              {isRetrying ? <Spinner /> : <RotateCcw />}{" "}
               {props.messages?.tryAgain ||
                 defaultMessages.error.secondaryActionLabel}
             </Button>
