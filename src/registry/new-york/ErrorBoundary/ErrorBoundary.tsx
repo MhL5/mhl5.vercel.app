@@ -15,17 +15,20 @@ import { useRouter } from "next/navigation";
 import type { ComponentProps, ReactNode } from "react";
 import { Component, useState, useTransition } from "react";
 
-type ErrorBoundaryProps = (
-  | {
-      fallback?: ((props: ErrorBoundaryFallbackProps) => ReactNode) | ReactNode;
-    }
-  | {
-      defaultFallbackProps?: Omit<
+type ErrorBoundaryProps =
+  | ({
+      fallback: ((props: ErrorBoundaryFallbackProps) => ReactNode) | ReactNode;
+      defaultFallbackProps?: never;
+    } & BaseProps)
+  | ({
+      defaultFallbackProps: Omit<
         ErrorBoundaryFallbackProps,
         "error" | "onRetry"
       >;
-    }
-) & {
+      fallback?: never;
+    } & BaseProps);
+
+type BaseProps = {
   onComponentDidCatch?: (error: Error) => void;
   children: ReactNode;
 };
@@ -117,6 +120,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     );
   }
 }
+
 function useErrorBoundary() {
   const [error, setError] = useState<Error | null>(null);
 

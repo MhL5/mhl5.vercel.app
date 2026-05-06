@@ -58,7 +58,7 @@ const errorBoundaryItems = [
       ),
     },
   },
-];
+] as const;
 
 export default function Example() {
   const [size, setSize] =
@@ -92,11 +92,6 @@ export default function Example() {
           >
             <ErrorBoundary
               {...item.errorBoundaryProps}
-              defaultFallbackProps={
-                item?.errorBoundaryProps?.defaultFallbackProps
-                  ? { ...item?.errorBoundaryProps?.defaultFallbackProps, size }
-                  : undefined
-              }
               onComponentDidCatch={(err) =>
                 toast.error(
                   <pre dir="auto" className="text-xs text-wrap">
