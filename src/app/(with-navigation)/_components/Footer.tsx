@@ -1,20 +1,6 @@
-"use client";
-
+import { ModeToggleGroupDynamic } from "@/components/buttons/ModeToggleGroup";
 import { Link } from "@/components/ui/link";
-import { Skeleton } from "@/components/ui/skeleton";
 import { CONTACT_INFO } from "@/constants";
-import dynamic from "next/dynamic";
-
-const ModeToggleGroupDynamic = dynamic(
-  () =>
-    import("@/components/buttons/ModeToggleGroup").then(
-      (m) => m.ModeToggleGroup,
-    ),
-  {
-    ssr: false,
-    loading: () => <Skeleton className="h-7 w-21 rounded-md" />,
-  },
-);
 
 export default function Footer() {
   return (

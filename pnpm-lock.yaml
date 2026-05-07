@@ -106,6 +106,9 @@ importers:
         specifier: ^4.3.6
         version: 4.3.6
     devDependencies:
+      '@rsc-boundary/next':
+        specifier: ^0.3.2
+        version: 0.3.2(next@16.2.4(@babel/core@7.29.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.2.2
@@ -1416,6 +1419,22 @@ packages:
 
   '@remirror/core-constants@3.0.0':
     resolution: {integrity: sha512-42aWfPrimMfDKDi4YegyS7x+/0tlzaqwPQCULLanv3DMIlu96KTJR0fM5isWX2UViOqlGnX6YFgqWepcX+XMNg==}
+
+  '@rsc-boundary/core@0.3.2':
+    resolution: {integrity: sha512-YqBuc8LErGjSxZIM9VvHc7KYjeA60e7WIoRT1OPgEBL/jbOpPhTEl1RBqDmY0tF2o5f8QJxj4J55Z1vz1+HbWA==}
+    peerDependencies:
+      react: ^19.0.0
+      react-dom: ^19.0.0
+
+  '@rsc-boundary/next@0.3.2':
+    resolution: {integrity: sha512-3xGMvk8d2LtRb+aKalwPiccMlX0PlVMtCRG96Jm/9PB+jm768+b04sf2mzgQ9cx31EHZCQX+0nh+vDZIVcLhjA==}
+    peerDependencies:
+      next: ^16.0.0
+      react: ^19.0.0
+      react-dom: ^19.0.0
+    peerDependenciesMeta:
+      next:
+        optional: true
 
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
@@ -6090,6 +6109,19 @@ snapshots:
   '@radix-ui/rect@1.1.1': {}
 
   '@remirror/core-constants@3.0.0': {}
+
+  '@rsc-boundary/core@0.3.2(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+    dependencies:
+      react: 19.2.5
+      react-dom: 19.2.5(react@19.2.5)
+
+  '@rsc-boundary/next@0.3.2(next@16.2.4(@babel/core@7.29.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+    dependencies:
+      '@rsc-boundary/core': 0.3.2(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      react: 19.2.5
+      react-dom: 19.2.5(react@19.2.5)
+    optionalDependencies:
+      next: 16.2.4(@babel/core@7.29.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
 
   '@rtsao/scc@1.1.0': {}
 

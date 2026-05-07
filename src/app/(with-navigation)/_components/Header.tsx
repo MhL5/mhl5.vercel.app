@@ -1,5 +1,4 @@
-"use client";
-
+import { HeaderLink } from "@/app/(with-navigation)/_components/HeaderLink";
 import { AppearanceDisplay } from "@/components/AppearanceDisplay";
 import ButtonWithTooltip from "@/components/buttons/ButtonWithTooltip";
 import { ModeToggle } from "@/components/buttons/ModeToggle";
@@ -16,9 +15,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { GITHUB_REPO_URL } from "@/constants";
-import { cn } from "@/lib/utils";
 import { MenuIcon } from "lucide-react";
-import { usePathname } from "next/navigation";
 
 const links = [
   {
@@ -32,8 +29,6 @@ const links = [
 ] as const;
 
 export default function Header() {
-  const pathname = usePathname();
-
   return (
     <>
       <header className="fixed top-0 z-50 h-(--site-header-height) w-[calc(100%-var(--removed-body-scroll-bar-size,0px))] border-b border-border/20 bg-background/20 backdrop-blur-md dark:border-border/30">
@@ -92,22 +87,9 @@ export default function Header() {
               MhL
             </Link>
 
-            {links.map(({ href, label }) => {
-              const isActive = pathname.startsWith(href);
-              return (
-                <Link
-                  variant="link"
-                  key={href}
-                  className={cn(
-                    "hidden w-fit px-0 font-medium no-underline hover:underline lg:inline-block",
-                    isActive && "underline",
-                  )}
-                  href={href}
-                >
-                  {label}
-                </Link>
-              );
-            })}
+            {links.map(({ href, label }) => (
+              <HeaderLink key={href} label={label} href={href} />
+            ))}
           </div>
 
           <div className="flex items-center gap-2 px-2">

@@ -1,9 +1,11 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { MonitorIcon, MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
+import dynamic from "next/dynamic";
 import type { ComponentProps } from "react";
 
 function ModeToggleGroup({ className, ...props }: ComponentProps<"div">) {
@@ -53,4 +55,15 @@ function ModeToggleGroup({ className, ...props }: ComponentProps<"div">) {
   );
 }
 
-export { ModeToggleGroup };
+const ModeToggleGroupDynamic = dynamic(
+  () =>
+    import("@/components/buttons/ModeToggleGroup").then(
+      (m) => m.ModeToggleGroup,
+    ),
+  {
+    ssr: false,
+    loading: () => <Skeleton className="h-7 w-21 rounded-md" />,
+  },
+);
+
+export { ModeToggleGroup, ModeToggleGroupDynamic };
