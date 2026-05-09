@@ -11,9 +11,10 @@ type LinkIndicatorProps = ComponentProps<typeof Loader2>;
  * LinkIndicator displays a loading spinner when a link navigation is in progress.
  * To avoid unnecessary flicker on quick navigation, it uses a fade-in animation for smoother UX.
  */
-export function LinkIndicator(props: LinkIndicatorProps) {
+export function LinkIndicator({ children, ...props }: LinkIndicatorProps) {
   const { pending } = useLinkStatus();
 
-  if (!pending) return null;
+  if (!pending && typeof children !== "undefined") return children;
+  if (!pending) return children;
   return <Spinner {...props} />;
 }

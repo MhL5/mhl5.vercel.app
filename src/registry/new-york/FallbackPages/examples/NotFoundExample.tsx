@@ -1,5 +1,5 @@
-import { FallbackPage } from "../FallbackPages";
+import { FallbackPageNotfound } from "@/registry/new-york/FallbackPages/FallbackPages";
 
 export default function NotFoundExample() {
-  return <FallbackPage variant="not-found" className="min-h-auto" />;
+  return <FallbackPageNotfound className="min-h-auto" />;
 }

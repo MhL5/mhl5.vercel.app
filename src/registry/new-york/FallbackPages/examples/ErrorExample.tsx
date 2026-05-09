@@ -1,6 +1,6 @@
 "use client";
 
-import { FallbackPage } from "../FallbackPages";
+import { FallbackPageError } from "@/registry/new-york/FallbackPages/FallbackPages";
 
 export default function ErrorExample() {
   const exampleError = Error(
@@ -9,9 +9,8 @@ export default function ErrorExample() {
   exampleError.digest = "1234567890";
 
   return (
-    <FallbackPage
+    <FallbackPageError
       error={exampleError}
-      variant="error"
       reset={() => {}}
       className="min-h-auto"
     />

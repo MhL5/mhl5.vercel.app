@@ -1,6 +1,6 @@
 "use client";
 
-import { FallbackPage } from "@/registry/new-york/FallbackPages/FallbackPages";
+import { FallbackPageError } from "@/registry/new-york/FallbackPages/FallbackPages";
 
 type ErrorProps = {
   error: Error & { digest?: string };
@@ -8,5 +8,5 @@ type ErrorProps = {
 };
 
 export default function FallbackSection({ error, reset }: ErrorProps) {
-  return <FallbackPage error={error} variant="error" reset={reset} />;
+  return <FallbackPageError error={error} reset={reset} />;
 }

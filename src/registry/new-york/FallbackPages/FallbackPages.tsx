@@ -1,5 +1,6 @@
 "use client";
 
+import { LinkIndicator } from "@/components/LinkIndicator";
 import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
@@ -7,9 +8,10 @@ import Spinner from "@/components/ui/spinner";
 import { CONTACT_SUPPORT_LINK } from "@/constants";
 import { cn } from "@/lib/utils";
 import { isDev } from "@/registry/utils/checks/checks";
-import { ArrowLeft, Home, LogIn, RotateCcw } from "lucide-react";
+import { absoluteUrl } from "@/utils/absoluteUrl";
+import { ArrowLeft, HomeIcon, LogIn, RotateCcw } from "lucide-react";
 import type { Route } from "next";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useTransition } from "react";
 
 const defaultMessages = {
@@ -53,59 +55,30 @@ type BaseMessages = {
 
 type FallbackPageProps = (
   | {
-      variant: "not-found" | "forbidden";
-      contactSupportMessage?: string;
+      variant: "not-found";
+      messages?: BaseMessages;
+    }
+  | {
+      variant: "forbidden";
       messages?: BaseMessages;
     }
   | {
       variant: "error";
-      contactSupportMessage?: string;
       reset: () => void;
       error: Error;
       messages?: BaseMessages & { tryAgain: string };
     }
   | {
       variant: "unauthorized";
-      contactSupportMessage?: string;
-      loginPagePathname: string;
       messages?: BaseMessages & { signIn: string };
+      loginPageHref: string;
     }
-  | {
-      variant: "loading";
-      messages?: { "aria-label": string };
-    }
-) & { className?: string };
+) & {
+  className?: string;
+  contactSupportMessage?: string;
+};
 
-export function FallbackPage(props: FallbackPageProps) {
-  const router = useRouter();
-  const [isRetrying, startTransition] = useTransition();
-
-  function handleRetry() {
-    startTransition(() => {
-      if (props.variant === "error") props.reset();
-      router.refresh();
-    });
-  }
-
-  if (props.variant === "loading")
-    return (
-      <section
-        aria-label={props.messages?.["aria-label"] || "Loading..."}
-        aria-busy={true}
-        className={cn(
-          "grid min-h-svh w-full place-items-center",
-          props.className,
-        )}
-      >
-        <div className="isolate grid grid-cols-1 grid-rows-1 place-items-center">
-          <Logo className="z-10 col-start-1 row-start-1 size-19 animate-scaleUpAndDown rounded-full bg-primary p-1" />
-
-          <div className="col-start-1 col-end-1 row-start-1 row-end-1 h-20 w-20 animate-pingMd rounded-full bg-primary/80" />
-          <div className="col-start-1 col-end-1 row-start-1 row-end-1 h-20 w-20 animate-pingSm rounded-full bg-primary/80" />
-        </div>
-      </section>
-    );
-
+function FallbackPage(props: FallbackPageProps) {
   const {
     className,
     messages = {
@@ -119,6 +92,8 @@ export function FallbackPage(props: FallbackPageProps) {
     variant,
     contactSupportMessage,
   } = props;
+  const router = useRouter();
+  const [isWorking, startTransition] = useTransition();
 
   let code = 500;
   switch (variant) {
@@ -176,24 +151,35 @@ export function FallbackPage(props: FallbackPageProps) {
           aria-label="actions"
         >
           <Link href="/" variant="outline">
-            <Home /> {messages.home}
+            <LinkIndicator>
+              <HomeIcon />
+            </LinkIndicator>
+            {messages.home}
           </Link>
 
           {props.variant === "error" ? (
-            <Button onClick={handleRetry} disabled={isRetrying}>
-              {isRetrying ? <Spinner /> : <RotateCcw />}{" "}
+            <Button
+              onClick={() => startTransition(() => props.reset())}
+              disabled={isWorking}
+            >
+              {isWorking ? <Spinner /> : <RotateCcw />}{" "}
               {props.messages?.tryAgain ||
                 defaultMessages.error.secondaryActionLabel}
             </Button>
           ) : props.variant === "unauthorized" ? (
-            <Link href={props.loginPagePathname as Route}>
-              <LogIn />{" "}
+            <Link href={props.loginPageHref as Route}>
+              <LinkIndicator>
+                <LogIn />
+              </LinkIndicator>
               {props.messages?.signIn ||
                 defaultMessages.unauthorized.secondaryActionLabel}
             </Link>
           ) : (
-            <Button onClick={() => window.history.back()} disabled={isRetrying}>
-              <ArrowLeft /> {messages.goBack}
+            <Button
+              onClick={() => startTransition(() => router.back())}
+              disabled={isWorking}
+            >
+              {isWorking ? <Spinner /> : <ArrowLeft />} {messages.goBack}
             </Button>
           )}
         </nav>
@@ -212,3 +198,114 @@ export function FallbackPage(props: FallbackPageProps) {
     </section>
   );
 }
+
+type FallbackPageLoadingProps = {
+  messages?: { "aria-label": string };
+  className?: string;
+};
+
+function FallbackPageLoading({
+  messages = { "aria-label": "Loading..." },
+  className,
+}: FallbackPageLoadingProps) {
+  return (
+    <section
+      aria-label={messages["aria-label"]}
+      aria-busy={true}
+      className={cn("grid min-h-svh w-full place-items-center", className)}
+    >
+      <div className="isolate grid grid-cols-1 grid-rows-1 place-items-center">
+        <Logo className="z-10 col-start-1 row-start-1 size-19 animate-scaleUpAndDown rounded-full bg-primary p-1" />
+
+        <div className="col-start-1 col-end-1 row-start-1 row-end-1 h-20 w-20 animate-pingMd rounded-full bg-primary/80" />
+        <div className="col-start-1 col-end-1 row-start-1 row-end-1 h-20 w-20 animate-pingSm rounded-full bg-primary/80" />
+      </div>
+    </section>
+  );
+}
+
+function FallbackPageError({
+  reset,
+  ...props
+}: Omit<Extract<FallbackPageProps, { variant: "error" }>, "variant">) {
+  const router = useRouter();
+
+  function handleRetry() {
+    reset();
+    // for server components
+    router.refresh();
+  }
+
+  return (
+    <FallbackPage
+      variant="error"
+      reset={handleRetry}
+      contactSupportMessage={`
+        ${props.error.name}:
+        \`\`\`
+        ${props.error.message}
+        \`\`\`
+        `}
+      {...props}
+    />
+  );
+}
+
+function FallbackPageNotfound(
+  props: Omit<Extract<FallbackPageProps, { variant: "not-found" }>, "variant">,
+) {
+  const pathname = usePathname();
+
+  return (
+    <FallbackPage
+      variant="not-found"
+      contactSupportMessage={`Not found page url:${absoluteUrl(pathname as `/${string}`)}`}
+      {...props}
+    />
+  );
+}
+
+function FallbackPageUnAuthorized(
+  props: Omit<
+    Extract<FallbackPageProps, { variant: "unauthorized" }>,
+    "variant" | "loginPageHref"
+  >,
+) {
+  const pathname = usePathname();
+  const query = useSearchParams().toString();
+
+  const callbackUrl = encodeURIComponent(
+    `${pathname}${query ? `?${query}` : ``}`,
+  );
+
+  return (
+    <FallbackPage
+      contactSupportMessage={`Un authorized page url:${absoluteUrl(pathname as `/${string}`)}`}
+      loginPageHref={`/login?callback-url=${callbackUrl}`}
+      variant="unauthorized"
+      {...props}
+    />
+  );
+}
+
+function FallbackPageForbidden(
+  props: Omit<Extract<FallbackPageProps, { variant: "forbidden" }>, "variant">,
+) {
+  const pathname = usePathname();
+
+  return (
+    <FallbackPage
+      contactSupportMessage={`Forbidden page url:${absoluteUrl(pathname as `/${string}`)}`}
+      variant="forbidden"
+      {...props}
+    />
+  );
+}
+
+export {
+  FallbackPageError,
+  FallbackPageForbidden,
+  FallbackPageLoading,
+  FallbackPageNotfound,
+  FallbackPageUnAuthorized,
+};
