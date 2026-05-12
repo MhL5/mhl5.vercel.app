@@ -14,7 +14,6 @@ type LinkIndicatorProps = ComponentProps<typeof Loader2>;
 export function LinkIndicator({ children, ...props }: LinkIndicatorProps) {
   const { pending } = useLinkStatus();
 
-  if (!pending && typeof children !== "undefined") return children;
   if (!pending) return children;
   return <Spinner {...props} />;
 }
