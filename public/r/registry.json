@@ -254,7 +254,7 @@
       "registryDependencies": ["https://mhl5.vercel.app/r/AutoComplete.json"],
       "files": [
         {
-          "path": "src/registry/hooks/useMediaQuery/useMediaQuery.ts",
+          "path": "src/registry/hooks/useMediaQuery/useMediaQuery.tsx",
           "type": "registry:hook"
         }
       ]

@@ -117,7 +117,7 @@ function FallbackPage(props: FallbackPageProps) {
   return (
     <section
       className={cn(
-        "relative grid min-h-dvh place-items-center p-4",
+        "relative grid min-h-svh place-items-center p-4",
         className,
       )}
     >
