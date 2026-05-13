@@ -1,3 +1,4 @@
+import { isDev } from "@/registry/utils/checks/checks";
 import { Selection, TextSelection } from "@tiptap/pm/state";
 import type { Editor } from "@tiptap/react";
 
@@ -18,7 +19,8 @@ export function focusNextNode(editor: Editor) {
 
   const paragraphType = state.schema.nodes["paragraph"];
   if (!paragraphType) {
-    console.warn("No paragraph node type found in schema.");
+    // eslint-disable-next-line no-console
+    if (isDev()) console.warn("No paragraph node type found in schema.");
     return false;
   }
 

@@ -2,22 +2,28 @@
 
 import { useSyncExternalStore } from "react";
 
-function subscribe(query: string, onChange: () => void) {
-  const mediaQueryList = window.matchMedia(query);
-  mediaQueryList.addEventListener("change", onChange);
-  return () => mediaQueryList.removeEventListener("change", onChange);
-}
+type UseSyncExternalStoreParameters = Parameters<typeof useSyncExternalStore>;
 
-function getSnapshot(query: string) {
-  return window.matchMedia(query).matches;
+function createMediaQueryStore(query: string) {
+  const subscribe: UseSyncExternalStoreParameters[0] = (onStoreChange) => {
+    const mediaQueryList = window.matchMedia(query);
+    mediaQueryList.addEventListener("change", onStoreChange);
+    return () => mediaQueryList.removeEventListener("change", onStoreChange);
+  };
+
+  const getSnapshot: UseSyncExternalStoreParameters[1] = () =>
+    window.matchMedia(query).matches;
+
+  const getServerSnapshot: UseSyncExternalStoreParameters[2] = () => undefined;
+
+  return { subscribe, getSnapshot, getServerSnapshot };
 }
 
 function useMediaQuery(query: string) {
-  return useSyncExternalStore(
-    (onChange) => subscribe(query, onChange),
-    () => getSnapshot(query),
-    () => undefined,
-  );
+  const { getServerSnapshot, getSnapshot, subscribe } =
+    createMediaQueryStore(query);
+
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }
 
 /**
