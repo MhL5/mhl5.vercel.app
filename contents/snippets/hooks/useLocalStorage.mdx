@@ -19,7 +19,7 @@
 3. Dispatches custom `local-storage-change` events (for changes in the current tab)
 4. Returns a string snapshot to prevent infinite loops, then parses it in a `useMemo`
 
-<Alert variant="warning">
+<Alert variant="warning" className="not-prose">
   <AlertTitle>Don't refactor this hook blindly</AlertTitle>
   <AlertDescription>
     Be careful with `useSyncExternalStore`. The store snapshot returned by

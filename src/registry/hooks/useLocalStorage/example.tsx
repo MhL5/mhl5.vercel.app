@@ -1,10 +1,10 @@
 "use client";
 
+import MdxCodeClient from "@/components/MDX-remote/components/MdxCodeClient";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useIsMounted } from "@/registry/hooks/useIsMounted/useIsMounted";
 import { useLocalStorage } from "@/registry/hooks/useLocalStorage/useLocalStorage";
-import { formatDate } from "@/registry/utils/formatters/formatters";
 
 export default function Example() {
   const isMounted = useIsMounted();
@@ -20,22 +20,17 @@ function Content() {
   }));
 
   return (
-    <div className="grid size-full place-items-center">
-      <div className="flex flex-col gap-2">
-        <span className="text-sm">
-          Created at:{" "}
-          {formatDate(value.createdAt, {
-            month: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit",
-          })}
-        </span>
-        <div className="flex items-center gap-2">
+    <div className="mx-auto grid size-full max-w-xs place-items-center sm:max-w-md">
+      <div className="flex max-w-xs flex-col gap-2 overflow-x-hidden! sm:max-w-md">
+        <h2>LocalStorage Value:</h2>
+        <MdxCodeClient className="language-ts text-sm text-wrap break-all">
+          {JSON.stringify(value, null, 2)}
+        </MdxCodeClient>
+        <div className="flex w-full max-w-xs items-center gap-2 overflow-x-auto sm:max-w-md">
           <Input
             value={value.text}
             placeholder="Try useLocalStorage"
-            className="w-full max-w-sm"
+            className="w-full"
             onChange={(e) => setValue({ ...value, text: e.target.value })}
           />
           <Button

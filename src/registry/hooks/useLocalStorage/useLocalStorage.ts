@@ -1,42 +1,52 @@
 "use client";
 
-import { isDev } from "@/registry/utils/checks/checks";
+import { jsonParseWithFallback } from "@/utils/jsonParseWithFallback";
 import { useCallback, useMemo, useSyncExternalStore } from "react";
 
 const LOCAL_STORAGE_CHANGE_EVENT = "local-storage-change";
 
-const getServerSnapshot = () => null;
+function createLocalStorageStore(key: string) {
+  function subscribe(onStoreChange: () => void) {
+    const abortController = new AbortController();
 
-export function useLocalStorage<T>(key: string, initialValue: T | (() => T)) {
-  const getSnapshot = useCallback(() => localStorage.getItem(key), [key]);
-  const subscribe = useCallback(
-    (onChange: () => void) => {
-      const abortController = new AbortController();
+    window.addEventListener(
+      "storage",
+      (e) => {
+        if (e.key === key) onStoreChange();
+      },
+      {
+        signal: abortController.signal,
+      },
+    );
 
-      window.addEventListener(
-        "storage",
-        (e) => {
-          if (e.key === key) onChange();
-        },
-        {
-          signal: abortController.signal,
-        },
-      );
-      window.addEventListener(
-        LOCAL_STORAGE_CHANGE_EVENT,
-        (e) => {
-          const customEvent = e as CustomEvent;
-          if (customEvent.detail.key === key) onChange();
-        },
-        {
-          signal: abortController.signal,
-        },
-      );
+    window.addEventListener(
+      LOCAL_STORAGE_CHANGE_EVENT,
+      (e) => {
+        const customEvent = e as CustomEvent;
+        if (customEvent.detail.key === key) onStoreChange();
+      },
+      {
+        signal: abortController.signal,
+      },
+    );
 
-      return () => abortController.abort();
-    },
-    [key],
-  );
+    return () => abortController.abort();
+  }
+
+  function getSnapshot() {
+    return localStorage.getItem(key);
+  }
+
+  function getServerSnapshot() {
+    return undefined;
+  }
+
+  return { subscribe, getServerSnapshot, getSnapshot };
+}
+
+function useLocalStorage<T>(key: string, initialValue: T | (() => T)) {
+  const { getServerSnapshot, getSnapshot, subscribe } =
+    createLocalStorageStore(key);
 
   /**
    * we cant parse the json here
@@ -52,15 +62,14 @@ export function useLocalStorage<T>(key: string, initialValue: T | (() => T)) {
   const parsedSnapshot: T = useMemo(() => {
     const resolvedInitialValue =
       initialValue instanceof Function ? initialValue() : initialValue;
-    try {
-      return jsonSnapshot ? JSON.parse(jsonSnapshot) : resolvedInitialValue;
-    } catch (error) {
-      if (isDev())
-        // eslint-disable-next-line no-console
-        console.error(`Error parsing value for ${key} in localStorage`, error);
-      return resolvedInitialValue;
-    }
-  }, [jsonSnapshot, initialValue, key]);
+
+    if (!jsonSnapshot) return resolvedInitialValue;
+
+    return jsonParseWithFallback({
+      json: jsonSnapshot,
+      fallback: resolvedInitialValue,
+    });
+  }, [jsonSnapshot, initialValue]);
 
   const setData = useCallback(
     (value: T | ((prev: T) => T)) => {
@@ -84,3 +93,5 @@ export function useLocalStorage<T>(key: string, initialValue: T | (() => T)) {
     [parsedSnapshot, setData],
   );
 }
+
+export { useLocalStorage };
