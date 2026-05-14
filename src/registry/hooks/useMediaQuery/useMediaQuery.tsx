@@ -46,7 +46,10 @@ type Direction = "min" | "max";
 /**
  * a type safe wrapper around useMediaQuery to use tailwind css breakpoints
  */
-function useMediaQueryBreakpoint(breakpoint: Breakpoint, direction: Direction) {
+function useMediaQueryBreakpoint(
+  breakpoint: Breakpoint,
+  direction: Direction = "min",
+) {
   return useMediaQuery(
     `(${direction}-width: ${tailwindCssBreakpoints[breakpoint]})`,
   );
