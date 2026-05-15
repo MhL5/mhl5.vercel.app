@@ -1,18 +1,18 @@
 "use client";
 
-import { exampleTracks } from "@/app/(with-navigation)/audio-player/audio-player/constants";
+import { AudioPlayerButton } from "@/app/(with-navigation)/audio-player/audio-player/components/AudioPlayerButton";
+import { AudioPlayerDuration } from "@/app/(with-navigation)/audio-player/audio-player/components/AudioPlayerDuration";
+import { AudioPlayerProgress } from "@/app/(with-navigation)/audio-player/audio-player/components/AudioPlayerProgress";
+import { AudioPlayerSpeedDropdown } from "@/app/(with-navigation)/audio-player/audio-player/components/AudioPlayerSpeedDropdown";
+import { AudioPlayerTime } from "@/app/(with-navigation)/audio-player/audio-player/components/AudioPlayerTime";
+import { exampleTracks } from "@/app/(with-navigation)/audio-player/audio-player/constants/exampleTracks";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { PauseIcon, PlayIcon } from "lucide-react";
 
 import {
-  AudioPlayerButton,
-  AudioPlayerDuration,
-  AudioPlayerProgress,
   AudioPlayerProvider,
-  AudioPlayerSpeed,
-  AudioPlayerTime,
   useAudioPlayer,
 } from "./audio-player/audio-player";
 
@@ -24,7 +24,7 @@ type Track = {
 
 export function AudioPlayerDemo() {
   return (
-    <AudioPlayerProvider<Track>>
+    <AudioPlayerProvider>
       <Content />
     </AudioPlayerProvider>
   );
@@ -54,7 +54,7 @@ const Content = () => {
 };
 
 const Player = () => {
-  const player = useAudioPlayer<Track>();
+  const player = useAudioPlayer();
 
   return (
     <div className="flex flex-1 items-center p-4 sm:p-6">
@@ -75,7 +75,7 @@ const Player = () => {
             <AudioPlayerTime className="text-xs tabular-nums" />
             <AudioPlayerProgress className="min-w-40 flex-1" />
             <AudioPlayerDuration className="text-xs tabular-nums" />
-            <AudioPlayerSpeed variant="ghost" size="icon" />
+            <AudioPlayerSpeedDropdown variant="ghost" size="icon" />
           </div>
         </div>
       </div>
@@ -90,7 +90,7 @@ const SongListItem = ({
   song: Track;
   trackNumber: number;
 }) => {
-  const player = useAudioPlayer<Track>();
+  const player = useAudioPlayer();
   const isActive = player.isItemActive(song.id);
   const isCurrentlyPlaying = isActive && player.isPlaying;
 
