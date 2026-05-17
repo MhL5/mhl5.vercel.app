@@ -12,6 +12,7 @@ const textSizeClassNames = {
     "gap-3.5 text-2xl [&>svg]:mt-1.5 [&>svg:not([class*='size-'])]:size-5.5",
   "3xl": "gap-4 text-3xl [&>svg]:mt-1.75 [&>svg:not([class*='size-'])]:size-6",
   "4xl": "gap-4.5 text-4xl [&>svg]:mt-2 [&>svg:not([class*='size-'])]:size-6.5",
+  "5xl": "gap-5 text-5xl [&>svg]:mt-2.25 [&>svg:not([class*='size-'])]:size-7",
 };
 
 const titleVariants = cva(
@@ -28,6 +29,8 @@ const titleVariants = cva(
         lg: textSizeClassNames.xl,
         xl: textSizeClassNames["2xl"],
         "2xl": textSizeClassNames["3xl"],
+        "3xl": textSizeClassNames["4xl"],
+        "4xl": textSizeClassNames["5xl"],
       },
     },
     defaultVariants: {
@@ -73,6 +76,8 @@ const paragraphVariants = cva(
         lg: textSizeClassNames.lg,
         xl: textSizeClassNames.xl,
         "2xl": textSizeClassNames["2xl"],
+        "3xl": textSizeClassNames["3xl"],
+        "4xl": textSizeClassNames["4xl"],
       },
     },
     defaultVariants: {
@@ -113,6 +118,8 @@ const spanVariants = cva(
         lg: textSizeClassNames.base,
         xl: textSizeClassNames.lg,
         "2xl": textSizeClassNames.xl,
+        "3xl": textSizeClassNames["2xl"],
+        "4xl": textSizeClassNames["3xl"],
       },
     },
     defaultVariants: {

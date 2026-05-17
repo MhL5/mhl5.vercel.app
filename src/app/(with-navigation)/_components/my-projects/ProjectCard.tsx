@@ -71,19 +71,19 @@ export default function ProjectCard({
 
       <CardHeader className="mt-2.25 mb-auto w-full px-2">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <CardTitle className="text-xl">{title}</CardTitle>
+          <CardTitle className="text-base">{title}</CardTitle>
           {status === "in progress" && (
-            <Badge variant="warning" className="rounded-sm text-xs capitalize">
+            <Badge variant="warning" className="capitalize">
               {status}
             </Badge>
           )}
           {status === "completed" && (
-            <Badge variant="success" className="rounded-sm text-xs capitalize">
+            <Badge variant="success" className="capitalize">
               {status}
             </Badge>
           )}
           {status === "coming soon" && (
-            <Badge variant="info" className="rounded-sm text-xs capitalize">
+            <Badge variant="info" className="capitalize">
               {status}
             </Badge>
           )}
@@ -93,7 +93,7 @@ export default function ProjectCard({
       </CardHeader>
 
       <CardContent className="mb-auto flex w-full flex-col px-2 pt-2">
-        <CardDescription className="w-full text-sm text-pretty text-muted-foreground">
+        <CardDescription className="w-full text-pretty text-muted-foreground">
           {description}
         </CardDescription>
       </CardContent>
