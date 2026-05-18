@@ -101,7 +101,7 @@
 		],
 	},
 	"reactComponentNamedExport": {
-		"prefix": "reactComponentNamedExport",
+		"prefix": "rfcNamedExport",
 		"scope": "javascriptreact,typescriptreact",
 		"description": "React component named export",
 		"body": [
@@ -112,8 +112,25 @@
 			"export { ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g} };"
 		],
 	},
+	"reactComponentNamedExportWihProps": {
+		"prefix": "rfcNamedExportWithProps",
+		"scope": "javascriptreact,typescriptreact",
+		"description": "React component named export with props",
+		"body": [
+			"import { cn } from \"@/lib/utils\";",
+			"import type { ComponentProps } from \"react\";",
+			"",
+			"type ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Props = ComponentProps<\"div\">",
+			"",
+			"function ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}({className,...props}: ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Props) {",
+			"  return <div className={cn(\"\",className)} {...props}>$0</div>;",
+			"}",
+			"",
+			"export { ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g} };"
+		],
+	},
 	"reactComponentDefaultExport": {
-		"prefix": "reactComponentDefaultExport",
+		"prefix": "rfcDefaultExport",
 		"scope": "javascriptreact,typescriptreact",
 		"description": "React component default export",
 		"body": [
@@ -174,13 +191,13 @@
 			"import { api } from \"@/lib/ky\";",
 			"import { useMutation } from \"@tanstack/react-query\";",
 			"",
-			"type ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Params = {};",
-			"",
 			"type ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Response = {};",
+			"",
+			"type ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Params = {};",
 			"",
 			"function ${TM_FILENAME_BASE}({}: ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Params) {",
 			"  return api",
-			"    .post<${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Response>(\"$0\")",
+			"    .post<${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Response>(`$0`)",
 			"    .json();",
 			"}",
 			"",
@@ -190,7 +207,12 @@
 			"  });",
 			"}",
 			"",
-			"export { ${TM_FILENAME_BASE}, use${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g} };"
+			"export {",
+			"  ${TM_FILENAME_BASE},",
+			"  use${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g},",
+			"  type ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Params,",
+			"  type ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Response,",
+			"};",
 		]
 	},
 	"apiQuery": {
@@ -200,15 +222,15 @@
 			"import { api } from \"@/lib/ky\";",
 			"import { queryOptions } from \"@tanstack/react-query\";",
 			"",
+			"type ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Response = {};",
+			"",
 			"type ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Params = {",
 			"  signal?: AbortSignal;",
 			"};",
 			"",
-			"type ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Response = {};",
-			"",
 			"function ${TM_FILENAME_BASE}({ signal }: ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Params = {}) {",
 			"  return api",
-			"    .get<${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Response>(\"$0\", { signal })",
+			"    .get<${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Response>(`$0`, { signal })",
 			"    .json();",
 			"}",
 			"",
@@ -219,11 +241,17 @@
 			"function ${TM_FILENAME_BASE}QueryOptions() {",
 			"  return queryOptions({",
 			"    queryKey: ${TM_FILENAME_BASE}QueryKeys.all,",
-			"    queryFn: ${TM_FILENAME_BASE}",
+			"    queryFn: ({ signal }) => ${TM_FILENAME_BASE}({ signal })",
 			"  });",
 			"}",
 			"",
-			"export { ${TM_FILENAME_BASE}, ${TM_FILENAME_BASE}QueryOptions, ${TM_FILENAME_BASE}QueryKeys };"
+			"export {",
+			"  ${TM_FILENAME_BASE},",
+			"  ${TM_FILENAME_BASE}QueryOptions,",
+			"  ${TM_FILENAME_BASE}QueryKeys,",
+			"  type ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Params,",
+			"  type ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Response,",
+			"};",
 		]
 	},
 	// =========================================================
@@ -245,7 +273,7 @@
 			"  return (",
 			"    <section className='grid min-h-dvh w-full place-items-center'>",
 			"      <div>",
-			"        <Button size='lg' onClick={handleClick}>Click me</Button>",
+			"        <Button size='lg' onClick={handleClick}>{\"Click me\"}</Button>",
 			"      </div>",
 			"    </section>",
 			"  );",
@@ -257,9 +285,12 @@
 		"scope": "javascriptreact,typescriptreact",
 		"description": "Next.js layout",
 		"body": [
-			"export default function Layout({ children }: LayoutProps<'$0'>) {",
+			"function Layout({ children }: LayoutProps<'$0'>) {",
+			"",
 			"  return children;",
-			"}"
+			"}",
+			"",
+			"export default Layout"
 		]
 	},
 	"nextJsPage": {
@@ -268,8 +299,42 @@
 		"description": "Next.js page",
 		"body": [
 			"export default function Page({}: PageProps<'$0'>) {",
+			"",
 			"  return null;",
-			"}"
+			"}",
+			"",
+		]
+	},
+	"nextJsLayoutNextIntl": {
+		"prefix": "nextJsLayoutNextIntl",
+		"scope": "javascriptreact,typescriptreact",
+		"description": "Next.js layout",
+		"body": [
+			"import { validateAndSetLocale } from '@/i18n/utils/validateAndSetLocale';",
+			"",
+			"export default async function Layout({ children, params }: LayoutProps<'$0'>) {",
+			"  const { locale } = await params;",
+			"  validateAndSetLocale(locale);",
+			"",
+			"  return children;",
+			"}",
+			"",
+		]
+	},
+	"nextJsPageNextIntl": {
+		"prefix": "nextJsPageNextIntl",
+		"scope": "javascriptreact,typescriptreact",
+		"description": "Next.js page",
+		"body": [
+			"import { validateAndSetLocale } from '@/i18n/utils/validateAndSetLocale';",
+			"",
+			"export default async function Page({ params }: PageProps<'$0'>) {",
+			"  const { locale } = await params;",
+			"  validateAndSetLocale(locale);",
+			"",
+			"  return null;",
+			"}",
+			"",
 		]
 	},
 	"nextJsGenerateMetadata": {
