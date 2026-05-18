@@ -18,7 +18,9 @@ function useSearchParam(name: string, options: Options = {}) {
   const router = useRouter();
 
   function createQueryString(value: string | null) {
-    const params = new URLSearchParams(searchParams.toString());
+    // TODO: how searchParams.toString() becomes stale?
+    // searchParams.toString() can be stale, so we use window.location.search instead
+    const params = new URLSearchParams(window.location.search);
 
     if (value) params.set(name, value);
     else params.delete(name);

@@ -129,6 +129,22 @@
 			"export { ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g} };"
 		],
 	},
+	"reactComponentNamedExportWihClassNameProp": {
+		"prefix": "rfcNamedExportWithClassNameProp",
+		"scope": "javascriptreact,typescriptreact",
+		"description": "React component named export with className prop",
+		"body": [
+			"import { cn } from \"@/lib/utils\";",
+			"",
+			"type ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Props = { className?:string }",
+			"",
+			"function ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}({ className }: ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g}Props) {",
+			"  return <div className={cn(\"\",className)}>$0</div>;",
+			"}",
+			"",
+			"export { ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g} };"
+		],
+	},
 	"reactComponentDefaultExport": {
 		"prefix": "rfcDefaultExport",
 		"scope": "javascriptreact,typescriptreact",
