@@ -8,6 +8,7 @@ type Range<Steps extends number> = NumberRange<1, Steps> | 1;
 type UseStepperOptions<Range extends number> = {
   initialStep?: Range;
   loop?: boolean;
+  onStepChange?: (params: { currentStep: Range; nextStep: Range }) => void;
 };
 
 /**
@@ -24,6 +25,7 @@ export function useStepper<const Steps extends number>(
   {
     initialStep = 1,
     loop = false,
+    onStepChange,
   }: UseStepperOptions<NoInfer<Range<Steps>>> = {},
 ) {
   const [currentStep, setCurrentStep] = useState<Range<Steps>>(initialStep);
@@ -44,21 +46,23 @@ export function useStepper<const Steps extends number>(
   }
 
   function next() {
-    setCurrentStep((step) => {
-      if (isLastStep(step) && loop) return firstStep;
+    const nextStep =
+      isLastStep(currentStep) && loop ? firstStep : currentStep + 1;
 
-      const newStep = step + 1;
-      return isValidStep(newStep) ? newStep : step;
-    });
+    if (!isValidStep(nextStep)) return;
+
+    onStepChange?.({ currentStep, nextStep });
+    setCurrentStep(nextStep);
   }
 
   function back() {
-    setCurrentStep((step) => {
-      if (isFirstStep(step) && loop) return lastStep;
+    const nextStep =
+      isFirstStep(currentStep) && loop ? lastStep : currentStep - 1;
 
-      const newStep = step - 1;
-      return isValidStep(newStep) ? newStep : step;
-    });
+    if (!isValidStep(nextStep)) return;
+
+    onStepChange?.({ currentStep, nextStep });
+    setCurrentStep(nextStep);
   }
 
   function canGoTo(step: Range<Steps>) {
@@ -70,6 +74,8 @@ export function useStepper<const Steps extends number>(
       throw new Error(
         `Invalid step index: ${index}. Must be an integer between ${firstStep} and ${lastStep}.`,
       );
+
+    onStepChange?.({ currentStep, nextStep: index });
     setCurrentStep(index);
   }
 

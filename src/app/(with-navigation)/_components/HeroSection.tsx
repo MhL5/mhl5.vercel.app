@@ -27,7 +27,11 @@ export default function HeroSection({
       <div className="h-px w-full animate-fade-right bg-linear-to-r from-zinc-300/0 via-muted to-zinc-300/0" />
 
       <div className="mt-3 animate-fade-in px-5 text-center">
-        <Title as="h2" size="default" className="text-muted-foreground">
+        <Title
+          as="h2"
+          size="default"
+          className="mx-auto w-[50ch] leading-relaxed text-muted-foreground"
+        >
           a Software engineer passionate about building user-friendly and
           efficient web applications.
         </Title>

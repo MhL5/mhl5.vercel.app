@@ -4,12 +4,26 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useStepper } from "@/registry/hooks/useStepper/useStepper";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export default function Example() {
   const steps = 3;
   const [loop, setLoop] = useState(false);
   const { back, currentStep, goTo, next, canGoBack, canGoNext, canGoTo } =
-    useStepper(steps, { loop, initialStep: 2 });
+    useStepper(steps, {
+      loop,
+      initialStep: 2,
+      onStepChange: (p) => {
+        toast.info(
+          <pre
+            dir="auto"
+            className="text-sm text-wrap wrap-break-word [word-break:break-word] [direction:ltr] [word-wrap:break-word]"
+          >
+            {JSON.stringify(p, null, 2)}
+          </pre>,
+        );
+      },
+    });
   const goToStep = 2;
 
   const infos = [
