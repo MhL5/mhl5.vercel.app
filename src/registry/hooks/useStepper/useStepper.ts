@@ -8,7 +8,11 @@ type Range<Steps extends number> = NumberRange<1, Steps> | 1;
 type UseStepperOptions<Range extends number> = {
   initialStep?: Range;
   loop?: boolean;
-  onStepChange?: (params: { currentStep: Range; nextStep: Range }) => void;
+  onStepChange?: (params: {
+    currentStep: Range;
+    nextStep: Range;
+    action: "back" | "next" | "goTo";
+  }) => void;
 };
 
 /**
@@ -51,7 +55,7 @@ export function useStepper<const Steps extends number>(
 
     if (!isValidStep(nextStep)) return;
 
-    onStepChange?.({ currentStep, nextStep });
+    onStepChange?.({ currentStep, nextStep, action: "next" });
     setCurrentStep(nextStep);
   }
 
@@ -61,7 +65,7 @@ export function useStepper<const Steps extends number>(
 
     if (!isValidStep(nextStep)) return;
 
-    onStepChange?.({ currentStep, nextStep });
+    onStepChange?.({ currentStep, nextStep, action: "back" });
     setCurrentStep(nextStep);
   }
 
@@ -75,7 +79,7 @@ export function useStepper<const Steps extends number>(
         `Invalid step index: ${index}. Must be an integer between ${firstStep} and ${lastStep}.`,
       );
 
-    onStepChange?.({ currentStep, nextStep: index });
+    onStepChange?.({ currentStep, nextStep: index, action: "goTo" });
     setCurrentStep(index);
   }
 
