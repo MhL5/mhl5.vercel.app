@@ -1,7 +1,12 @@
 "use client";
 
 import { jsonParseWithFallback } from "@/utils/jsonParseWithFallback";
-import { useCallback, useMemo, useSyncExternalStore } from "react";
+import {
+  useEffect,
+  useEffectEvent,
+  useMemo,
+  useSyncExternalStore,
+} from "react";
 
 const LOCAL_STORAGE_CHANGE_EVENT = "local-storage-change";
 
@@ -71,27 +76,33 @@ function useLocalStorage<T>(key: string, initialValue: T | (() => T)) {
     });
   }, [jsonSnapshot, initialValue]);
 
-  const setData = useCallback(
-    (value: T | ((prev: T) => T)) => {
-      const resolvedValue =
-        value instanceof Function ? value(parsedSnapshot) : value;
+  function setData(value: T | ((prev: T) => T) | undefined) {
+    const resolvedValue =
+      value instanceof Function ? value(parsedSnapshot) : value;
 
-      const isResolvedValueInvalid =
-        resolvedValue === undefined || resolvedValue === null;
+    const isResolvedValueInvalid =
+      resolvedValue === undefined || resolvedValue === null;
 
-      if (isResolvedValueInvalid) localStorage.removeItem(key);
-      else localStorage.setItem(key, JSON.stringify(resolvedValue));
-      window.dispatchEvent(
-        new CustomEvent(LOCAL_STORAGE_CHANGE_EVENT, { detail: { key } }),
-      );
-    },
-    [key, parsedSnapshot],
+    if (isResolvedValueInvalid) localStorage.removeItem(key);
+    else localStorage.setItem(key, JSON.stringify(resolvedValue));
+    window.dispatchEvent(
+      new CustomEvent(LOCAL_STORAGE_CHANGE_EVENT, { detail: { key } }),
+    );
+  }
+
+  const initializeStorageIfMissing = useEffectEvent(() =>
+    sessionStorage.setItem(key, JSON.stringify(parsedSnapshot)),
   );
 
-  return useMemo(
-    () => [parsedSnapshot, setData] as const,
-    [parsedSnapshot, setData],
+  useEffect(
+    () =>
+      sessionStorage.getItem(key) === null
+        ? initializeStorageIfMissing()
+        : void null,
+    [key],
   );
+
+  return [parsedSnapshot, setData] as const;
 }
 
 export { useLocalStorage };

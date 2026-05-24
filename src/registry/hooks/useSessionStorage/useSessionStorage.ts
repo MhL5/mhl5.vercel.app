@@ -1,7 +1,12 @@
 "use client";
 
 import { jsonParseWithFallback } from "@/utils/jsonParseWithFallback";
-import { useCallback, useMemo, useSyncExternalStore } from "react";
+import {
+  useEffect,
+  useEffectEvent,
+  useMemo,
+  useSyncExternalStore,
+} from "react";
 
 const SESSION_STORAGE_CHANGE_EVENT = "session-storage-change";
 
@@ -62,22 +67,31 @@ function useSessionStorage<T>(key: string, defaultValue: T | (() => T)) {
       : resolvedInitialValue;
   }, [defaultValue, jsonSnapshot]);
 
-  const setData = useCallback(
-    (value: T | ((prev: T) => T)) => {
-      const resolvedValue =
-        value instanceof Function ? value(parsedSnapshot) : value;
+  function setData(value: T | ((prev: T) => T | undefined)) {
+    const resolvedValue =
+      value instanceof Function ? value(parsedSnapshot) : value;
 
-      const isResolvedValueInvalid =
-        resolvedValue === undefined || resolvedValue === null;
+    const isResolvedValueInvalid =
+      resolvedValue === undefined || resolvedValue === null;
 
-      if (isResolvedValueInvalid) sessionStorage.removeItem(key);
-      else sessionStorage.setItem(key, JSON.stringify(resolvedValue));
+    if (isResolvedValueInvalid) sessionStorage.removeItem(key);
+    else sessionStorage.setItem(key, JSON.stringify(resolvedValue));
 
-      window.dispatchEvent(
-        new CustomEvent(SESSION_STORAGE_CHANGE_EVENT, { detail: { key } }),
-      );
-    },
-    [key, parsedSnapshot],
+    window.dispatchEvent(
+      new CustomEvent(SESSION_STORAGE_CHANGE_EVENT, { detail: { key } }),
+    );
+  }
+
+  const initializeStorageIfMissing = useEffectEvent(() =>
+    sessionStorage.setItem(key, JSON.stringify(parsedSnapshot)),
+  );
+
+  useEffect(
+    () =>
+      sessionStorage.getItem(key) === null
+        ? initializeStorageIfMissing()
+        : void null,
+    [key],
   );
 
   return [parsedSnapshot, setData] as const;
