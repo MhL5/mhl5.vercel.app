@@ -501,6 +501,18 @@ const uiBookmarks: Bookmark[] = [
     title: "shadcn ui kit",
     description: "Build faster with pre-built assets using the Shadcn UI Kit",
   },
+  {
+    url: "https://shoogle.dev",
+    category: "ui",
+    title: "shoogle",
+    description: "search shadcn blocks",
+  },
+  {
+    url: "https://ui.bklit.com",
+    category: "ui",
+    title: "bklit",
+    description: "Design engineered charts and components.",
+  },
   // {
   //   url: "",
   //   category: "ui",
