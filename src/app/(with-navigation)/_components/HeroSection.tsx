@@ -30,7 +30,7 @@ export default function HeroSection({
         <Title
           as="h2"
           size="default"
-          className="mx-auto w-[50ch] leading-relaxed text-muted-foreground"
+          className="mx-auto w-full max-w-[50ch] leading-relaxed text-muted-foreground"
         >
           a Software engineer passionate about building user-friendly and
           efficient web applications.

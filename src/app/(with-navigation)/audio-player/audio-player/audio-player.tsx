@@ -4,10 +4,14 @@ import { NetworkState } from "@/app/(with-navigation)/audio-player/audio-player/
 import { ReadyState } from "@/app/(with-navigation)/audio-player/audio-player/constants/ReadyState";
 import { useAnimationFrame } from "@/app/(with-navigation)/audio-player/audio-player/hooks/useAnimationFrame";
 import {
+  type Dispatch,
   type ReactNode,
   type RefObject,
+  type SetStateAction,
   createContext,
-  useContext,
+  use,
+  useEffect,
+  useEffectEvent,
   useRef,
   useState,
 } from "react";
@@ -17,9 +21,12 @@ type AudioPlayerItem = {
   id: string | number;
   src: string;
   data: {
-    id: string;
-    name: string;
-    url: string;
+    id: string; // track id (can mirror `id`)
+    title: string; // title for Media Session
+    artist: string; // artist name
+    album?: string; // optional album name
+    artworkUrl?: string; // optional artwork URL
+    url: string; // canonical URL to this track (e.g., page or file)
   };
 };
 
@@ -27,6 +34,8 @@ type AudioPlayerApi = {
   ref: RefObject<HTMLAudioElement | null>;
   activeItem: AudioPlayerItem | null;
   duration: number | undefined;
+  playList: AudioPlayerItem[] | null; // Added
+  setPlaylist: Dispatch<SetStateAction<AudioPlayerItem[] | null>>; // Added
   error: MediaError | null;
   isPlaying: boolean;
   isBuffering: boolean;
@@ -43,6 +52,7 @@ type AudioPlayerApi = {
 const AudioPlayerContext = createContext<AudioPlayerApi | null>(null);
 
 function AudioPlayerProvider({ children }: { children: ReactNode }) {
+  const [playList, setPlaylist] = useState<AudioPlayerItem[] | null>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
   const itemRef = useRef<AudioPlayerItem | null>(null);
   const playPromiseRef = useRef<Promise<void> | null>(null);
@@ -54,6 +64,11 @@ function AudioPlayerProvider({ children }: { children: ReactNode }) {
   const [activeItem, _setActiveItem] = useState<AudioPlayerItem | null>(null);
   const [paused, setPaused] = useState(true);
   const [playbackRate, setPlaybackRateState] = useState<number>(1);
+
+  const isPlaying = !paused;
+  const isBuffering =
+    readyState < ReadyState.HAVE_FUTURE_DATA &&
+    networkState === NetworkState.NETWORK_LOADING;
 
   async function setActiveItem(item: AudioPlayerItem | null) {
     if (!audioRef.current) return;
@@ -75,7 +90,7 @@ function AudioPlayerProvider({ children }: { children: ReactNode }) {
   async function play(item?: AudioPlayerItem | null) {
     if (!audioRef.current) return;
 
-    if (playPromiseRef.current) {
+    if (playPromiseRef.current)
       try {
         await playPromiseRef.current;
       } catch (error) {
@@ -83,7 +98,6 @@ function AudioPlayerProvider({ children }: { children: ReactNode }) {
           `Play promise error: ${error instanceof Error ? error?.message : "unknown error"}`,
         );
       }
-    }
 
     if (item === undefined) {
       const playPromise = audioRef.current.play();
@@ -116,7 +130,7 @@ function AudioPlayerProvider({ children }: { children: ReactNode }) {
   async function pause() {
     if (!audioRef.current) return;
 
-    if (playPromiseRef.current) {
+    if (playPromiseRef.current)
       try {
         await playPromiseRef.current;
       } catch (error) {
@@ -124,7 +138,6 @@ function AudioPlayerProvider({ children }: { children: ReactNode }) {
           error instanceof Error ? error?.message : "Pause: Unknown error",
         );
       }
-    }
 
     audioRef.current.pause();
     playPromiseRef.current = null;
@@ -158,18 +171,67 @@ function AudioPlayerProvider({ children }: { children: ReactNode }) {
     setPlaybackRateState(audioRef.current.playbackRate);
   });
 
-  const isPlaying = !paused;
-  const isBuffering =
-    readyState < ReadyState.HAVE_FUTURE_DATA &&
-    networkState === NetworkState.NETWORK_LOADING;
+  const onPlayEffectEvent = useEffectEvent((audio?: AudioPlayerItem) => {
+    if (audio) play(audio);
+    else play();
+  });
+
+  useEffect(() => {
+    if (!("mediaSession" in navigator) || !activeItem || !playList) return;
+
+    if (!activeItem) {
+      navigator.mediaSession.metadata = null;
+      navigator.mediaSession.playbackState = "none";
+      return;
+    }
+
+    const { title, artist, album, artworkUrl } = activeItem.data;
+
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title,
+      artist,
+      album,
+      artwork: artworkUrl
+        ? [
+            {
+              src: artworkUrl,
+              sizes: "512x512",
+              type: "image/png",
+            },
+          ]
+        : [],
+    });
+
+    navigator.mediaSession.playbackState = isPlaying ? "playing" : "paused";
+
+    navigator.mediaSession.setActionHandler("play", () => onPlayEffectEvent());
+    navigator.mediaSession.setActionHandler("pause", () => pause());
+
+    const currentIndex = playList.findIndex(
+      (item) => item.id === activeItem.id,
+    );
+
+    navigator.mediaSession.setActionHandler("nexttrack", () => {
+      if (currentIndex < playList.length - 1)
+        onPlayEffectEvent(playList[currentIndex + 1]);
+      else navigator.mediaSession.setActionHandler("nexttrack", null);
+    });
+
+    navigator.mediaSession.setActionHandler("previoustrack", () => {
+      if (currentIndex > 0) onPlayEffectEvent(playList[currentIndex - 1]);
+      else navigator.mediaSession.setActionHandler("previoustrack", null);
+    });
+  }, [activeItem, playList, isPlaying]);
 
   return (
-    <AudioPlayerContext.Provider
+    <AudioPlayerContext
       value={{
         ref: audioRef,
         duration,
         error,
         isPlaying,
+        playList,
+        setPlaylist,
         isBuffering,
         activeItem,
         playbackRate,
@@ -184,12 +246,12 @@ function AudioPlayerProvider({ children }: { children: ReactNode }) {
     >
       <audio ref={audioRef} className="hidden" crossOrigin="anonymous" />
       {children}
-    </AudioPlayerContext.Provider>
+    </AudioPlayerContext>
   );
 }
 
 function useAudioPlayer(): AudioPlayerApi {
-  const context = useContext(AudioPlayerContext);
+  const context = use(AudioPlayerContext);
   if (!context)
     throw new Error(
       "useAudioPlayer cannot be called outside of AudioPlayerProvider",

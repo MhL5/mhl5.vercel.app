@@ -2,7 +2,7 @@ import { HeaderLink } from "@/app/(with-navigation)/_components/HeaderLink";
 import { AppearanceDisplay } from "@/components/AppearanceDisplay";
 import ButtonWithTooltip from "@/components/buttons/ButtonWithTooltip";
 import { ModeToggle } from "@/components/buttons/ModeToggle";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
 import {
   Sheet,
@@ -34,11 +34,14 @@ export default function Header() {
       <header className="fixed top-0 z-50 h-(--site-header-height) w-[calc(100%-var(--removed-body-scroll-bar-size,0px))] border-b border-border/20 bg-background/20 backdrop-blur-md dark:border-border/30">
         <nav className="mx-auto flex h-full w-full max-w-9xl items-center px-4">
           <Sheet>
-            <SheetTrigger className="lg:hidden" asChild>
-              <Button variant="ghost">
-                <span className="sr-only">Menu</span>
-                <MenuIcon className="size-6" />
-              </Button>
+            <SheetTrigger
+              className={buttonVariants({
+                className: "lg:hidden",
+                variant: "ghost",
+              })}
+            >
+              <span className="sr-only">Menu</span>
+              <MenuIcon className="size-6" />
             </SheetTrigger>
             <SheetContent side="left" className="max-w-xs sm:max-w-xs">
               <SheetHeader>

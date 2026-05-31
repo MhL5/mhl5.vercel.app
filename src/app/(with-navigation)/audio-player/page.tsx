@@ -4,10 +4,8 @@ import { AudioPlayerDemo } from "@/app/(with-navigation)/audio-player/Demo";
 
 export default function Page() {
   return (
-    <section className="grid min-h-dvh w-full place-items-center">
-      <div>
-        <AudioPlayerDemo />
-      </div>
+    <section className="grid min-h-dvh w-full place-items-center px-5">
+      <AudioPlayerDemo />
     </section>
   );
 }

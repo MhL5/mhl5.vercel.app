@@ -7,14 +7,14 @@ function useAnimationFrame(callback: (delta: number) => void) {
   const onFrame = useEffectEvent((delta: number) => callback(delta));
 
   useEffect(() => {
-    const animate = (time: number) => {
+    function animate(time: number) {
       if (previousTimeRef.current !== null) {
         const delta = time - previousTimeRef.current;
         onFrame(delta);
       }
       previousTimeRef.current = time;
       requestRef.current = requestAnimationFrame(animate);
-    };
+    }
 
     requestRef.current = requestAnimationFrame(animate);
 
