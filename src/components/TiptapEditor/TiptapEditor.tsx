@@ -1,7 +1,9 @@
-import { TiptapEditorSkeleton } from "@/components/TiptapEditor/components/TiptapEditorSkeleton";
+"use client";
+
 import { editorMessages } from "@/components/TiptapEditor/i18n/messages";
 import { useDirection } from "@/components/ui/direction";
 import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { tiptapTypography } from "@/styles/typography";
 import {
@@ -11,7 +13,7 @@ import {
   type EditorEvents,
   useEditor,
 } from "@tiptap/react";
-import dynamic from "next/dynamic";
+import { type Ref, useImperativeHandle } from "react";
 
 import { TIPTAP_EXTENSIONS } from "./extensions";
 import { InsertAssetUploadPopover } from "./extensions/asset-upload-node/components/InsertAssetUploadPopover";
@@ -31,31 +33,46 @@ import {
 } from "./extensions/table/components/Table";
 import { TextAlignPopover } from "./extensions/text-align/components/TextAlignPopover";
 import { YoutubeDialog } from "./extensions/youtube/components/YoutubeDialog";
-import { useSyncEditorEditable } from "./hooks/useSyncEditorEditable";
 import { EditorMessagesProvider } from "./i18n/EditorMessagesContext";
 import "./tiptap-editor-styles.css";
 
 type TiptapEditorProps = {
   className?: string;
+
   content: Content;
   onUpdate: (props: EditorEvents["update"]) => void;
-  editable?: boolean;
+
+  "aria-invalid": boolean;
+  ref: Ref<{ setEditable: (editable: boolean) => void }>;
   locale?: keyof typeof editorMessages;
 };
 
 function TiptapEditor({
   className,
   content,
-  editable = true,
   locale = "en",
   onUpdate,
+  ref,
+  "aria-invalid": ariaInvalid,
 }: TiptapEditorProps) {
   const direction = useDirection();
   const editor = useEditor({
     extensions: TIPTAP_EXTENSIONS,
-    content,
-    editable,
+    // Don't render immediately on the server to avoid SSR issues
+    immediatelyRender: false,
     textDirection: direction,
+    /**
+     * Changing the `editable` prop passed to useEditor after the initial render does not update the editor's editable state.
+     * To dynamically toggle the editor between read-only and editable, you must explicitly call editor.setEditable
+     * after initialization whenever the `editable` value changes.
+     *
+     * Note: updating this inside useEffect breaks tanstack form field
+     *
+     * @see https://github.com/ueberdosis/tiptap/issues/111
+     */
+    // editable: true,
+    content,
+    onUpdate,
     editorProps: {
       attributes: {
         class: cn(
@@ -66,29 +83,42 @@ function TiptapEditor({
         ),
       },
     },
-    // Don't render immediately on the server to avoid SSR issues
-    immediatelyRender: false,
-    onUpdate,
   });
 
   function handleClickInsideEditorContent() {
     editor?.commands.focus();
   }
 
-  useSyncEditorEditable({ editable, editor });
+  /**
+   * Changing the `editable` prop passed to useEditor after the initial render does not update the editor's editable state.
+   * To dynamically toggle the editor between read-only and editable, you must explicitly call editor.setEditable
+   * after initialization whenever the `editable` value changes.
+   *
+   * Note: updating this inside useEffect breaks tanstack form field, we have to use a ref
+   *
+   * @see https://github.com/ueberdosis/tiptap/issues/111
+   */
+  useImperativeHandle(ref, () => ({
+    setEditable: (editable: boolean) => editor?.setEditable(editable),
+  }));
 
-  if (!editor) return <TiptapEditorSkeleton />;
+  if (!editor) return <Skeleton className={cn("h-200 w-full", className)} />;
   return (
     <div
       dir={direction}
-      className={cn("w-full overflow-hidden rounded-sm border", className)}
+      data-disabled={!editor.isEditable}
+      aria-invalid={ariaInvalid}
+      className={cn(
+        "w-full overflow-hidden rounded-sm border aria-invalid:border-destructive data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 dark:bg-input/30",
+        className,
+      )}
     >
       <EditorMessagesProvider messages={editorMessages[locale]}>
         <EditorContext value={{ editor }}>
           {/* Toolbar */}
           <div
             data-slot="editor-toolbar"
-            className="flex flex-wrap items-center justify-center gap-2 overflow-x-auto border-b bg-card px-2 py-1.75 text-card-foreground"
+            className="flex items-center justify-center gap-2 overflow-x-auto border-b bg-card px-2 py-1.75 text-card-foreground [scrollbar-color:var(--muted-foreground)_transparent] [scrollbar-width:thin]"
           >
             <UndoRedo />
 
@@ -137,12 +167,4 @@ function TiptapEditor({
   );
 }
 
-const TiptapEditorDynamic = dynamic(
-  () => import("./TiptapEditor").then((mod) => mod.TiptapEditor),
-  {
-    ssr: false,
-    loading: TiptapEditorSkeleton,
-  },
-);
-
-export { TiptapEditor, TiptapEditorDynamic };
+export { TiptapEditor };

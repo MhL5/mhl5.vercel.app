@@ -1,7 +1,8 @@
 "use client";
 
-import { TiptapEditorDynamic } from "@/components/TiptapEditor/TiptapEditor";
+import { TiptapEditor } from "@/components/TiptapEditor/TiptapEditor";
 import { TiptapContentRenderer } from "@/components/TiptapEditor/components/TiptapContentRenderer";
+import { useEditorRef } from "@/components/TiptapEditor/hooks/useEditorRef";
 import type { editorMessages } from "@/components/TiptapEditor/i18n/messages";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -35,6 +36,8 @@ function TiptapEditorDemo({
   const [displayMode, setDisplayMode] = useState<
     "editor" | "preview-html-output"
   >("editor");
+  const tiptapEditorRef = useEditorRef();
+
   return (
     <form
       onSubmit={(e) => {
@@ -70,7 +73,9 @@ function TiptapEditorDemo({
           {displayMode === "editor" ? "preview html output" : "back to editor"}
         </Button>
         {displayMode === "editor" ? (
-          <TiptapEditorDynamic
+          <TiptapEditor
+            aria-invalid={false}
+            ref={tiptapEditorRef}
             content={content}
             locale={locale}
             onUpdate={({ editor }) => setContent(editor.getHTML())}
