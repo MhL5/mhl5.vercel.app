@@ -27,7 +27,7 @@
 		"prefix": "tsIgnore",
 		"description": "TypeScript ignore comment",
 		"body": [
-			"// @ts-expect-error todo: temp solution ⏰"
+			"// @ts-expect-error todo: temp solution"
 		],
 	},
 	"asyncFunction": {

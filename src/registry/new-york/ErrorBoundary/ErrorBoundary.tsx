@@ -21,7 +21,7 @@ type ErrorBoundaryProps =
       defaultFallbackProps?: never;
     } & BaseProps)
   | ({
-      defaultFallbackProps: Omit<
+      defaultFallbackProps?: Omit<
         ErrorBoundaryFallbackProps,
         "error" | "onRetry"
       >;

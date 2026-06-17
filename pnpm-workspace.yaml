@@ -1,7 +1,7 @@
-onlyBuiltDependencies:
-  - msw
-  - sharp
-  - unrs-resolver
-
 # Delay dependency releases by 14 days (20160 minutes) to reduce risk from newly published malicious packages
 minimumReleaseAge: 20160
+
+allowBuilds:
+  msw: true
+  sharp: true
+  unrs-resolver: true
