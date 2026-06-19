@@ -38,6 +38,12 @@ const learningResourcesBookmarks: Bookmark[] = [
       "Next SEO is a plug in that makes managing your SEO easier in Next.js projects.",
     category: "learningResources",
   },
+  {
+    title: "Build UI Recipes",
+    description: "Recipes for building UI ",
+    url: "https://buildui.com/recipes",
+    category: "learningResources",
+  },
 ];
 
 const toolsBookmarks: Bookmark[] = [
@@ -73,6 +79,8 @@ const toolsBookmarks: Bookmark[] = [
     url: "https://github.com/millionco/react-doctor",
     category: "tools",
   },
+  // https://www.better-t-stack.dev/
+  // https://www.fonttrio.xyz/
 ];
 const developmentBookmarks: Bookmark[] = [
   {
@@ -179,12 +187,6 @@ const uiBookmarks: Bookmark[] = [
     url: "https://www.mapcn.dev",
   },
   {
-    title: "Shadcn Extension",
-    description: "Additional components and utilities for shadcn/ui.",
-    url: "https://shadcn-extension.vercel.app/",
-    category: "ui",
-  },
-  {
     title: "Shadcn Phone Input",
     description:
       "Phone input component for shadcn/ui with international format support.",
@@ -274,12 +276,6 @@ const uiBookmarks: Bookmark[] = [
     title: "MVP Blocks",
     description: "Prebuilt UI Logo blocks to ship beautiful MVPs fast",
     url: "https://blocks.mvp-subha.me/",
-    category: "ui",
-  },
-  {
-    title: "shsfui",
-    description: "Motion-first UI library for those who care about details.",
-    url: "https://www.shsfui.com/",
     category: "ui",
   },
   {
@@ -382,12 +378,7 @@ const uiBookmarks: Bookmark[] = [
     url: "https://uiverse.io/",
     category: "ui",
   },
-  {
-    title: "Build UI Recipes",
-    description: "Recipes for building UI ",
-    url: "https://buildui.com/recipes",
-    category: "ui",
-  },
+
   {
     title: "intent ui",
     description:
