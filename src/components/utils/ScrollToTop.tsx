@@ -3,10 +3,10 @@
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
-type ScrollToTopProps = { variant: "on-navigation" | "on-mount" };
+type ScrollToTopProps = { mode: "on-navigation" | "on-mount" };
 
-export default function ScrollToTop({ variant }: ScrollToTopProps) {
-  if (variant === "on-navigation") return <ScrollToTopOnNavigation />;
+export default function ScrollToTop({ mode }: ScrollToTopProps) {
+  if (mode === "on-navigation") return <ScrollToTopOnNavigation />;
 
   return <ScrollToTopOnMount />;
 }

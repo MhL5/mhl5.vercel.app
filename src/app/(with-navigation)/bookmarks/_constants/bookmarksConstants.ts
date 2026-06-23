@@ -48,6 +48,13 @@ const learningResourcesBookmarks: Bookmark[] = [
 
 const toolsBookmarks: Bookmark[] = [
   {
+    title: "The Open Agent Skills Ecosystem",
+    description:
+      "Skills are reusable capabilities for AI agents. Install them with a single command to enhance your agents with access to procedural knowledge.",
+    url: "https://skills.sh",
+    category: "tools",
+  },
+  {
     title: "OG Image Generator",
     description:
       "Free Open Graph image generator for websites. Create beautiful social media preview images for your web pages.",
