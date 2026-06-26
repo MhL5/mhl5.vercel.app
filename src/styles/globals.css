@@ -62,6 +62,8 @@
   --color-error-foreground: var(--error-foreground);
 
   --color-code-background: var(--code-background);
+  --color-selection: var(--selection);
+  --color-selection-foreground: var(--selection-foreground);
 
   --animate-fade-in: fade-in 1s ease-in-out forwards;
   --animate-title: title 1s ease-out forwards;
@@ -159,9 +161,12 @@
 
 :root {
   --radius: 0.65rem;
-
   --site-header-height: 3.25rem;
+
   --code-background: var(--color-muted);
+
+  --selection: oklch(90.505% 0.04116 252.877);
+  --selection-foreground: oklch(43.274% 0.12827 256.559);
 
   --success: oklch(97.878% 0.02211 160.513);
   --success-border: oklch(94.045% 0.07759 159.386);
@@ -211,6 +216,9 @@
 
 .dark {
   --code-background: #171717;
+
+  --selection: oklch(24.479% 0.07315 254.657);
+  --selection-foreground: oklch(71.705% 0.1184 253.598);
 
   --success: oklch(21.066% 0.04977 157.455);
   --success-border: oklch(31.552% 0.0818 152.692);
@@ -268,7 +276,7 @@
   }
 
   ::selection {
-    @apply bg-primary text-primary-foreground;
+    @apply bg-selection text-selection-foreground;
   }
 
   [id] {
