@@ -40,7 +40,7 @@ export default function Layout({ children }: LayoutProps<"/snippets">) {
 
   return (
     <>
-      <ScrollToTop variant="on-navigation" />
+      <ScrollToTop mode="on-navigation" />
 
       <div className="mx-auto grid min-h-svh w-full max-w-8xl lg:grid-cols-[14rem_1fr] xl:grid-cols-[17.875rem_1fr]">
         <SnippetsLinksProvider linksPromise={snippetsLinksPromise}>
