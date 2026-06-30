@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "useSearchParamShallow",
   "title": "useSearchParamShallow",
-  "description": "A hook for managing state in the URL search parameters.",
+  "description": "A hook for updating URL search parameters using `window.history.pushState` or `window.history.replaceState` instead of the Next.js router. This means URL updates happen entirely on the client side without triggering a server-side re-render.",
   "files": [
     {
       "path": "src/registry/hooks/useSearchParamShallow/useSearchParamShallow.ts",

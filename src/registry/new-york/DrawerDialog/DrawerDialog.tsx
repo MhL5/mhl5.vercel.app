@@ -34,7 +34,9 @@ import {
 } from "react";
 
 type DualComponentProps<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   A extends ComponentType<any>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   B extends ComponentType<any>,
   AKey extends string = "firstProps",
   BKey extends string = "secondProps",
@@ -123,7 +125,7 @@ function DrawerDialogContent({
       <DialogContent
         data-slot="drawer-dialog-content"
         className={cn(
-          "overflow-hidden sm:[&:has([data-slot='drawer-dialog-scroll-area'])]:p-0",
+          "overflow-hidden sm:has-data-[slot='drawer-dialog-scroll-area']:p-0",
           className,
         )}
         {...dialogContentProps}
@@ -403,7 +405,7 @@ function DrawerDialogScrollArea({
             "max-h-[90dvh] w-auto overflow-y-auto p-6 sm:max-w-[80svw]"
           : // drawer
             "max-h-[90dvh] overflow-y-auto",
-        "[scrollbar-width:thin] [scrollbar-color:var(--muted-foreground)_transparent]",
+        "scrollbar-thin [scrollbar-color:var(--muted-foreground)_transparent]",
         className,
       )}
       {...props}

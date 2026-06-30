@@ -7,6 +7,7 @@ import type { NextRequest } from "next/server";
  */
 const PERMANENT_REDIRECTS: Record<string, string> = {
   "/snippets/hooks/useUrlState": "/snippets/hooks/useSearchParam",
+  "/snippets/hooks/useSearchParam": "/snippets/hooks/useSearchParamShallow",
 };
 
 export default function middleware(req: NextRequest) {

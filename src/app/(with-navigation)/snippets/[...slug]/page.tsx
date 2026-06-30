@@ -5,6 +5,7 @@ import { getShadcnRegistry } from "@/app/(with-navigation)/snippets/_constants/s
 import MdxRemoteServer from "@/components/MDX-remote/MdxRemoteServer";
 import { CONTACT_INFO } from "@/constants";
 import { cn } from "@/lib/utils";
+import { isProd } from "@/registry/utils/checks/checks";
 import { snippetsTypography } from "@/styles/typography";
 import { fileReader } from "@/utils/fileReader";
 import type { Metadata } from "next";
@@ -59,7 +60,7 @@ export default async function Page({
   params,
 }: PageProps<"/snippets/[...slug]">) {
   "use cache";
-  cacheLife("weeks");
+  if (isProd()) cacheLife("weeks");
 
   const { slug = [] } = await params;
   const snippetSlug = slug?.at(-1);

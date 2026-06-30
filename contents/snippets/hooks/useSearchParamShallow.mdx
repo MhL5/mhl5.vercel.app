@@ -1,4 +1,8 @@
-You will most likely want to use this hook with debounce since each url update triggers a page re render.
+This is useful for scenarios where you want to:
+
+- Update the URL without triggering a full page re-render
+- Maintain client-side state in the URL (e.g., filters, search queries)
+- Keep the URL in sync with client-side state without server involvement
 
 <Alert variant="warning" className="not-prose my-5">
   <AlertTitle>
@@ -13,24 +17,24 @@ You will most likely want to use this hook with debounce since each url update t
   </AlertDescription>
 </Alert>
 
-<PreviewCode name="useSearchParam" />
+<PreviewCode name="useSearchParamShallow" />
 
 ## Installation
 
-<InstallationTabs name="useSearchParam" />
+<InstallationTabs name="useSearchParamShallow" />
 
 ## Usage
 
 ### Basic Usage
 
 ```tsx
-const [value, setValue] = useSearchParam("name");
+const [value, setValue] = useSearchParamShallow("name");
 ```
 
 ### With history replace
 
 ```tsx
-const [value, setValue] = useSearchParam("name", {
+const [value, setValue] = useSearchParamShallow("name", {
   history: "replace",
 });
 ```

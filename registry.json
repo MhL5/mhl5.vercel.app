@@ -377,16 +377,16 @@
       ]
     },
     {
-      "name": "useSearchParam",
+      "name": "useSearchParamShallow",
       "type": "registry:hook",
-      "title": "useSearchParam",
-      "description": "A hook for managing state in the URL search parameters.",
+      "title": "useSearchParamShallow",
+      "description": "A hook for updating URL search parameters using `window.history.pushState` or `window.history.replaceState` instead of the Next.js router. This means URL updates happen entirely on the client side without triggering a server-side re-render.",
       "meta": {
-        "url": "/snippets/hooks/useSearchParam"
+        "url": "/snippets/hooks/useSearchParamShallow"
       },
       "files": [
         {
-          "path": "src/registry/hooks/useSearchParam/useSearchParam.ts",
+          "path": "src/registry/hooks/useSearchParamShallow/useSearchParamShallow.ts",
           "type": "registry:hook"
         }
       ]
