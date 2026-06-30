@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "useSearchParamShallow",
+  "title": "useSearchParamShallow",
+  "description": "A hook for managing state in the URL search parameters.",
+  "files": [
+    {
+      "path": "src/registry/hooks/useSearchParamShallow/useSearchParamShallow.ts",
+      "content": "\"use client\";\r\n\r\nimport { usePathname, useSearchParams } from \"next/navigation\";\r\n\r\ntype Options = {\r\n  history?: \"push\" | \"replace\";\r\n};\r\n\r\nfunction useSearchParamShallow(name: string, options: Options = {}) {\r\n  const searchParams = useSearchParams();\r\n  const pathname = usePathname();\r\n\r\n  function createQueryString(value: string | null) {\r\n    const params = new URLSearchParams(window.location.search);\r\n\r\n    if (value) params.set(name, value);\r\n    else params.delete(name);\r\n\r\n    return params.toString();\r\n  }\r\n\r\n  function setValue(value: string | null) {\r\n    const queryString = createQueryString(value);\r\n    const newPath = `${pathname}${queryString ? `?${queryString}` : ``}`;\r\n\r\n    const historyMethod = options?.history || \"push\";\r\n\r\n    window.history[`${historyMethod}State`](null, \"\", newPath);\r\n  }\r\n\r\n  return [searchParams.get(name), setValue] as const;\r\n}\r\n\r\nexport { useSearchParamShallow };\r\n",
+      "type": "registry:hook"
+    }
+  ],
+  "meta": {
+    "url": "/snippets/hooks/useSearchParamShallow"
+  },
+  "type": "registry:hook"
+}

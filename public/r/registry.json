@@ -377,16 +377,16 @@
       ]
     },
     {
-      "name": "useSearchParam",
+      "name": "useSearchParamShallow",
       "type": "registry:hook",
-      "title": "useSearchParam",
+      "title": "useSearchParamShallow",
       "description": "A hook for managing state in the URL search parameters.",
       "meta": {
-        "url": "/snippets/hooks/useSearchParam"
+        "url": "/snippets/hooks/useSearchParamShallow"
       },
       "files": [
         {
-          "path": "src/registry/hooks/useSearchParam/useSearchParam.ts",
+          "path": "src/registry/hooks/useSearchParamShallow/useSearchParamShallow.ts",
           "type": "registry:hook"
         }
       ]
