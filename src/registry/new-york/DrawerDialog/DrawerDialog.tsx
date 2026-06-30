@@ -26,7 +26,32 @@ import {
 } from "@/components/ui/drawer";
 import { cn } from "@/lib/utils";
 import { useMediaQueryBreakpoint } from "@/registry/hooks/useMediaQuery/useMediaQuery";
-import { type ComponentProps, type ReactNode, createContext, use } from "react";
+import {
+  type ComponentProps,
+  type ComponentType,
+  createContext,
+  use,
+} from "react";
+
+type DualComponentProps<
+  A extends ComponentType<any>,
+  B extends ComponentType<any>,
+  AKey extends string = "firstProps",
+  BKey extends string = "secondProps",
+> = Pick<
+  ComponentProps<A>,
+  keyof ComponentProps<A> & keyof ComponentProps<B>
+> & {
+  [K in AKey]?: Omit<
+    ComponentProps<A>,
+    (keyof ComponentProps<A> & keyof ComponentProps<B>) | "children"
+  >;
+} & {
+  [K in BKey]?: Omit<
+    ComponentProps<B>,
+    (keyof ComponentProps<A> & keyof ComponentProps<B>) | "children"
+  >;
+};
 
 type DrawerDialogContextType = {
   isSm: boolean | undefined;
@@ -34,31 +59,33 @@ type DrawerDialogContextType = {
 
 const DrawerDialogContext = createContext<DrawerDialogContextType | null>(null);
 
-type DrawerDialogProviderProps = {
-  children: ReactNode;
-  open?: ComponentProps<typeof Dialog>["open"];
-  onOpenChange?: ComponentProps<typeof Dialog>["onOpenChange"];
-};
+type DrawerDialogProps = DualComponentProps<
+  typeof Dialog,
+  typeof Drawer,
+  "dialogProps",
+  "drawerProps"
+>;
 
-function DrawerDialogProvider({
+function DrawerDialog({
   children,
-  open,
-  onOpenChange,
-}: DrawerDialogProviderProps) {
+  drawerProps,
+  dialogProps,
+  ...sharedProps
+}: DrawerDialogProps) {
   const isSm = useMediaQueryBreakpoint("sm");
 
   return (
     <DrawerDialogContext value={{ isSm }}>
       {isSm ? (
-        <Dialog open={open} onOpenChange={onOpenChange}>
+        <Dialog {...dialogProps} {...sharedProps}>
           {children}
         </Dialog>
       ) : (
         <Drawer
-          // autoFocus={open} fixes block aria hidden attribute accessibility bug
-          // repositionInputs={true} prevents safari keyboard layout shift on dismissal
-          open={open}
-          onOpenChange={onOpenChange}
+          repositionInputs={true}
+          // TS loses Vaul's discriminated union after Omit/Pick, so an explicit cast is needed.
+          {...(drawerProps as ComponentProps<typeof Drawer>)}
+          {...sharedProps}
         >
           {children}
         </Drawer>
@@ -71,21 +98,22 @@ function useDrawerDialogContext() {
   const context = use(DrawerDialogContext);
   if (!context)
     throw new Error(
-      "useDrawerDialogContext must be used within a DrawerDialogProvider",
+      "useDrawerDialogContext must be used within a <DrawerDialog />",
     );
   return context;
 }
 
-type DrawerDialogProps = DrawerDialogProviderProps;
-
-function DrawerDialog(props: DrawerDialogProps) {
-  return <DrawerDialogProvider {...props} />;
-}
-
-type DrawerDialogContentProps = ComponentProps<typeof DialogContent>;
+type DrawerDialogContentProps = DualComponentProps<
+  typeof DialogContent,
+  typeof DrawerContent,
+  "dialogContentProps",
+  "drawerContentProps"
+>;
 
 function DrawerDialogContent({
   className,
+  dialogContentProps,
+  drawerContentProps,
   ...props
 }: DrawerDialogContentProps) {
   const { isSm } = useDrawerDialogContext();
@@ -98,6 +126,7 @@ function DrawerDialogContent({
           "overflow-hidden sm:[&:has([data-slot='drawer-dialog-scroll-area'])]:p-0",
           className,
         )}
+        {...dialogContentProps}
         {...props}
       />
     );
@@ -105,98 +134,264 @@ function DrawerDialogContent({
     <DrawerContent
       data-slot="drawer-dialog-content"
       className={cn("overflow-hidden", className)}
+      {...drawerContentProps}
       {...props}
     />
   );
 }
 
-type DrawerDialogTriggerProps = ComponentProps<typeof DialogTrigger>;
+type DrawerDialogTriggerProps = DualComponentProps<
+  typeof DialogTrigger,
+  typeof DrawerTrigger,
+  "dialogTriggerProps",
+  "drawerTriggerProps"
+>;
 
-function DrawerDialogTrigger(props: DrawerDialogTriggerProps) {
-  const { isSm } = useDrawerDialogContext();
-
-  if (isSm)
-    return <DialogTrigger data-slot="drawer-dialog-trigger" {...props} />;
-  return <DrawerTrigger data-slot="drawer-dialog-trigger" {...props} />;
-}
-
-type DrawerDialogCloseProps = ComponentProps<typeof DialogClose>;
-
-function DrawerDialogClose(props: DrawerDialogCloseProps) {
-  const { isSm } = useDrawerDialogContext();
-
-  if (isSm) return <DialogClose data-slot="drawer-dialog-close" {...props} />;
-  return <DrawerClose data-slot="drawer-dialog-close" {...props} />;
-}
-
-type DrawerDialogDescriptionProps = ComponentProps<typeof DialogDescription>;
-
-function DrawerDialogDescription(props: DrawerDialogDescriptionProps) {
+function DrawerDialogTrigger({
+  drawerTriggerProps,
+  dialogTriggerProps,
+  ...props
+}: DrawerDialogTriggerProps) {
   const { isSm } = useDrawerDialogContext();
 
   if (isSm)
     return (
-      <DialogDescription data-slot="drawer-dialog-description" {...props} />
+      <DialogTrigger
+        data-slot="drawer-dialog-trigger"
+        {...dialogTriggerProps}
+        {...props}
+      />
     );
-  return <DrawerDescription data-slot="drawer-dialog-description" {...props} />;
+  return (
+    <DrawerTrigger
+      data-slot="drawer-dialog-trigger"
+      {...drawerTriggerProps}
+      {...props}
+    />
+  );
 }
 
-type DrawerDialogTitleProps = ComponentProps<typeof DialogTitle>;
+type DrawerDialogCloseProps = DualComponentProps<
+  typeof DialogClose,
+  typeof DrawerClose,
+  "dialogCloseProps",
+  "drawerCloseProps"
+>;
 
-function DrawerDialogTitle(props: DrawerDialogTitleProps) {
-  const { isSm } = useDrawerDialogContext();
-
-  if (isSm) return <DialogTitle data-slot="drawer-dialog-title" {...props} />;
-  return <DrawerTitle data-slot="drawer-dialog-title" {...props} />;
-}
-
-type DrawerDialogFooterProps = ComponentProps<typeof DialogFooter>;
-
-function DrawerDialogFooter(props: DrawerDialogFooterProps) {
-  const { isSm } = useDrawerDialogContext();
-
-  if (isSm) return <DialogFooter data-slot="drawer-dialog-footer" {...props} />;
-  return <DrawerFooter data-slot="drawer-dialog-footer" {...props} />;
-}
-
-type DrawerDialogHeaderProps = ComponentProps<typeof DialogHeader>;
-
-function DrawerDialogHeader(props: DrawerDialogHeaderProps) {
-  const { isSm } = useDrawerDialogContext();
-
-  if (isSm) return <DialogHeader data-slot="drawer-dialog-header" {...props} />;
-  return <DrawerHeader data-slot="drawer-dialog-header" {...props} />;
-}
-
-type DrawerDialogOverlayProps = ComponentProps<typeof DialogOverlay>;
-
-function DrawerDialogOverlay(props: DrawerDialogOverlayProps) {
+function DrawerDialogClose({
+  drawerCloseProps,
+  dialogCloseProps,
+  ...props
+}: DrawerDialogCloseProps) {
   const { isSm } = useDrawerDialogContext();
 
   if (isSm)
-    return <DialogOverlay data-slot="drawer-dialog-overlay" {...props} />;
-  return <DrawerOverlay data-slot="drawer-dialog-overlay" {...props} />;
+    return (
+      <DialogClose
+        data-slot="drawer-dialog-close"
+        {...dialogCloseProps}
+        {...props}
+      />
+    );
+  return (
+    <DrawerClose
+      data-slot="drawer-dialog-close"
+      {...drawerCloseProps}
+      {...props}
+    />
+  );
 }
 
-type DrawerDialogPortalProps = ComponentProps<typeof DialogPortal>;
+type DrawerDialogDescriptionProps = DualComponentProps<
+  typeof DialogDescription,
+  typeof DrawerDescription,
+  "dialogDescriptionProps",
+  "drawerDescriptionProps"
+>;
 
-function DrawerDialogPortal(props: DrawerDialogPortalProps) {
+function DrawerDialogDescription({
+  dialogDescriptionProps,
+  drawerDescriptionProps,
+  ...props
+}: DrawerDialogDescriptionProps) {
   const { isSm } = useDrawerDialogContext();
 
-  if (isSm) return <DialogPortal data-slot="drawer-dialog-portal" {...props} />;
-  return <DrawerPortal data-slot="drawer-dialog-portal" {...props} />;
+  if (isSm)
+    return (
+      <DialogDescription
+        data-slot="drawer-dialog-description"
+        {...dialogDescriptionProps}
+        {...props}
+      />
+    );
+  return (
+    <DrawerDescription
+      data-slot="drawer-dialog-description"
+      {...drawerDescriptionProps}
+      {...props}
+    />
+  );
 }
 
-type DrawerDialogScrollAreaProps = ComponentProps<"div">;
+type DrawerDialogTitleProps = DualComponentProps<
+  typeof DialogTitle,
+  typeof DrawerTitle,
+  "dialogTitleProps",
+  "drawerTitleProps"
+>;
 
-const drawerContentScrollAreaClassNames = "max-h-[90dvh] overflow-y-auto";
-const dialogContentScrollAreaClassNames =
-  "max-h-[90dvh] w-[auto] overflow-y-auto p-6 sm:max-w-[80svw]";
+function DrawerDialogTitle({
+  drawerTitleProps,
+  dialogTitleProps,
+  ...props
+}: DrawerDialogTitleProps) {
+  const { isSm } = useDrawerDialogContext();
+
+  if (isSm)
+    return (
+      <DialogTitle
+        data-slot="drawer-dialog-title"
+        {...dialogTitleProps}
+        {...props}
+      />
+    );
+  return (
+    <DrawerTitle
+      data-slot="drawer-dialog-title"
+      {...drawerTitleProps}
+      {...props}
+    />
+  );
+}
+
+type DrawerDialogFooterProps = DualComponentProps<
+  typeof DialogFooter,
+  typeof DrawerFooter,
+  "dialogFooterProps",
+  "drawerFooterProps"
+>;
+
+function DrawerDialogFooter({
+  drawerFooterProps,
+  dialogFooterProps,
+  ...props
+}: DrawerDialogFooterProps) {
+  const { isSm } = useDrawerDialogContext();
+
+  if (isSm)
+    return (
+      <DialogFooter
+        data-slot="drawer-dialog-footer"
+        {...dialogFooterProps}
+        {...props}
+      />
+    );
+  return (
+    <DrawerFooter
+      data-slot="drawer-dialog-footer"
+      {...drawerFooterProps}
+      {...props}
+    />
+  );
+}
+
+type DrawerDialogHeaderProps = DualComponentProps<
+  typeof DialogHeader,
+  typeof DrawerHeader,
+  "dialogHeaderProps",
+  "drawerHeaderProps"
+>;
+
+function DrawerDialogHeader({
+  dialogHeaderProps,
+  drawerHeaderProps,
+  ...props
+}: DrawerDialogHeaderProps) {
+  const { isSm } = useDrawerDialogContext();
+
+  if (isSm)
+    return (
+      <DialogHeader
+        data-slot="drawer-dialog-header"
+        {...dialogHeaderProps}
+        {...props}
+      />
+    );
+  return (
+    <DrawerHeader
+      data-slot="drawer-dialog-header"
+      {...drawerHeaderProps}
+      {...props}
+    />
+  );
+}
+
+type DrawerDialogOverlayProps = DualComponentProps<
+  typeof DialogOverlay,
+  typeof DrawerOverlay,
+  "dialogOverlayProps",
+  "drawerOverlayProps"
+>;
+
+function DrawerDialogOverlay({
+  dialogOverlayProps,
+  drawerOverlayProps,
+  ...props
+}: DrawerDialogOverlayProps) {
+  const { isSm } = useDrawerDialogContext();
+
+  if (isSm)
+    return (
+      <DialogOverlay
+        data-slot="drawer-dialog-overlay"
+        {...dialogOverlayProps}
+        {...props}
+      />
+    );
+  return (
+    <DrawerOverlay
+      data-slot="drawer-dialog-overlay"
+      {...drawerOverlayProps}
+      {...props}
+    />
+  );
+}
+
+type DrawerDialogPortalProps = DualComponentProps<
+  typeof DialogPortal,
+  typeof DrawerPortal,
+  "dialogPortalProps",
+  "drawerPortalProps"
+>;
+
+function DrawerDialogPortal({
+  dialogPortalProps,
+  drawerPortalProps,
+  ...props
+}: DrawerDialogPortalProps) {
+  const { isSm } = useDrawerDialogContext();
+
+  if (isSm)
+    return (
+      <DialogPortal
+        data-slot="drawer-dialog-portal"
+        {...dialogPortalProps}
+        {...props}
+      />
+    );
+  return (
+    <DrawerPortal
+      data-slot="drawer-dialog-portal"
+      {...drawerPortalProps}
+      {...props}
+    />
+  );
+}
 
 function DrawerDialogScrollArea({
   className,
   ...props
-}: DrawerDialogScrollAreaProps) {
+}: ComponentProps<"div">) {
   const { isSm } = useDrawerDialogContext();
 
   return (
@@ -204,9 +399,11 @@ function DrawerDialogScrollArea({
       data-slot="drawer-dialog-scroll-area"
       className={cn(
         isSm
-          ? dialogContentScrollAreaClassNames
-          : drawerContentScrollAreaClassNames,
-        "[scrollbar-color:var(--muted-foreground)_transparent] [scrollbar-width:thin]",
+          ? // dialog
+            "max-h-[90dvh] w-auto overflow-y-auto p-6 sm:max-w-[80svw]"
+          : // drawer
+            "max-h-[90dvh] overflow-y-auto",
+        "[scrollbar-width:thin] [scrollbar-color:var(--muted-foreground)_transparent]",
         className,
       )}
       {...props}
