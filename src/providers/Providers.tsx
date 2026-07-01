@@ -1,5 +1,5 @@
 import { Toaster } from "@/components/ui/sonner";
-import ThemeProvider from "@/providers/ThemeProvider";
+import { ThemeProvider } from "@/providers/ThemeProvider";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { RscBoundaryProvider } from "@rsc-boundary/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
