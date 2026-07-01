@@ -437,7 +437,7 @@ function Preview(props: PreviewProps) {
       </div>
     );
   return (
-    <div className="relative isolate grid min-h-15.75 w-full place-items-center overflow-hidden rounded-sm border [&:has([data-slot='preview-audio'])]:grid-cols-[1fr_2rem] [&:has([data-slot='preview-audio'])]:gap-2 [&:has([data-slot='preview-audio'])]:p-3">
+    <div className="relative isolate grid min-h-15.75 w-full place-items-center overflow-hidden rounded-sm border has-data-[slot='preview-audio']:grid-cols-[1fr_2rem] has-data-[slot='preview-audio']:gap-2 has-data-[slot='preview-audio']:p-3">
       {mediaType === "image" ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img

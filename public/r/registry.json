@@ -255,7 +255,8 @@
       "files": [
         {
           "path": "src/registry/hooks/useMediaQuery/useMediaQuery.tsx",
-          "type": "registry:hook"
+          "type": "registry:hook",
+          "target": "src/registry/hooks/useMediaQuery.tsx"
         }
       ]
     },
