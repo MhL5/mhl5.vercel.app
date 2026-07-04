@@ -118,7 +118,7 @@ function TiptapEditor({
           {/* Toolbar */}
           <div
             data-slot="editor-toolbar"
-            className="flex items-center justify-center gap-2 overflow-x-auto border-b bg-card px-2 py-1.75 text-card-foreground [scrollbar-color:var(--muted-foreground)_transparent] [scrollbar-width:thin]"
+            className="flex scrollbar-thin [scrollbar-color:var(--muted-foreground)_transparent] items-center justify-center gap-2 overflow-x-auto border-b bg-card px-2 py-1.75 text-card-foreground"
           >
             <UndoRedo />
 

@@ -59,8 +59,8 @@ function EditorButtonInternal({
     <Button
       variant={isActive ? "default" : variant || "ghost"}
       size={size}
-      // type="button"
       data-active={isActive}
+      type="button"
       className={cn(
         `transition-colors duration-300 data-[active=false]:text-muted-foreground`,
         size === "icon-sm" ? "size-7" : "",
