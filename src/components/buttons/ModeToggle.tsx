@@ -1,9 +1,9 @@
 "use client";
 
+import ButtonWithTooltip from "@/components/buttons/ButtonWithTooltip";
+import { Kbd } from "@/components/ui/kbd";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-
-import ButtonWithTooltip from "./ButtonWithTooltip";
 
 export function ModeToggle() {
   const { setTheme } = useTheme();
@@ -12,7 +12,12 @@ export function ModeToggle() {
     <ButtonWithTooltip
       variant="ghost"
       size="icon"
-      tooltipContent={<p className="capitalize">Toggle theme (D)</p>}
+      tooltipContent={
+        <p className="capitalize">
+          Toggle theme
+          <Kbd className="ms-2">D</Kbd>
+        </p>
+      }
       onClick={() => setTheme((theme) => (theme === "dark" ? "light" : "dark"))}
     >
       <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all! duration-200! dark:scale-0 dark:-rotate-90" />
