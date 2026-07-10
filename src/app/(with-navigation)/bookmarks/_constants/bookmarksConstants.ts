@@ -2,6 +2,8 @@ import { snippetsCategoryConfig } from "@/app/(with-navigation)/snippets/_consta
 import { Book, Code2, Palette } from "lucide-react";
 
 // TODO: SKILLS https://github.com/BuilderIO/skills
+// https://github.com/mattpocock/skills
+// https://www.kolejain.com/
 
 export type Bookmark = {
   title: string;

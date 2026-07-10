@@ -35,7 +35,9 @@
 		"body": [
 			"async function ${TM_FILENAME_BASE}() {",
 			"  return $0",
-			"}"
+			"}",
+			"",
+			"export { ${TM_FILENAME_BASE} }"
 		]
 	},
 	"function": {
@@ -43,7 +45,9 @@
 		"body": [
 			"function ${TM_FILENAME_BASE}() {",
 			"  return $0",
-			"}"
+			"}",
+			"",
+			"export { ${TM_FILENAME_BASE} }"
 		]
 	},
 	// =========================================================
@@ -155,16 +159,6 @@
 			"}",
 			"",
 			"export default ${TM_FILENAME_BASE/(?:^|[-_\\s])(\\w)/${1:/upcase}/g};"
-		],
-	},
-	"reactHook": {
-		"prefix": "reactHook",
-		"body": [
-			"function ${TM_FILENAME_BASE}() {",
-			"  return $0;",
-			"}",
-			"",
-			"export { ${TM_FILENAME_BASE} };"
 		],
 	},
 	"reactContext": {
