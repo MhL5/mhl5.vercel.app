@@ -11,7 +11,7 @@ export default function Example() {
       <div className="flex flex-wrap items-center gap-2">
         <span>Debounced Value: </span>
         {value && (
-          <output className="w-fit min-w-10 rounded-md bg-muted p-2 text-xs break-words text-muted-foreground">
+          <output className="w-fit min-w-10 rounded-md bg-muted p-2 text-xs wrap-break-word text-muted-foreground">
             {value}
           </output>
         )}

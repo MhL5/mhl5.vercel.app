@@ -4,6 +4,8 @@ import { Book, Code2, Palette } from "lucide-react";
 // TODO: SKILLS https://github.com/BuilderIO/skills
 // https://github.com/mattpocock/skills
 // https://www.kolejain.com/
+// https://jonas.io/
+// https://unlayer.com/elements
 
 export type Bookmark = {
   title: string;
