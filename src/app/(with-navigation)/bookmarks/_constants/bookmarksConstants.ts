@@ -1,6 +1,8 @@
 import { snippetsCategoryConfig } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
 import { Book, Code2, Palette } from "lucide-react";
 
+// TODO: SKILLS https://github.com/BuilderIO/skills
+
 export type Bookmark = {
   title: string;
   description: string;
@@ -512,10 +514,14 @@ const uiBookmarks: Bookmark[] = [
     description: "Design engineered charts and components.",
   },
   /*
-  Todo:
+  Todo: better bookmarks page like the one https://jonas.io/resources has and add these as well, we need better categories and organization
   https://shark.vini.one/docs/components
   https://www.awwwards.com/inspiration_search/
-  
+  https://ui.watermelon.sh/ 
+  https://beui.dev/
+  https://grootstudio.dev/
+  https://www.vengenceui.com/
+  https://www.kairoui.online/
   */
   // {
   //   url: "",
