@@ -1,6 +1,12 @@
 {
   "version": 1,
   "skills": {
+    "ask-matt": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "skillPath": "skills/engineering/ask-matt/SKILL.md",
+      "computedHash": "87033e097b8e3c55482fa6cbbddf52c23fe1391dddc0310a3ff124f460a354b9"
+    },
     "caveman": {
       "source": "JuliusBrussee/caveman",
       "sourceType": "github",
