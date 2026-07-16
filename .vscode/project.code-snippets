@@ -295,12 +295,11 @@
 		"scope": "javascriptreact,typescriptreact",
 		"description": "Next.js layout",
 		"body": [
-			"function Layout({ children }: LayoutProps<'$0'>) {",
+			"export default function Layout({ children }: LayoutProps<'$0'>) {",
 			"",
 			"  return children;",
 			"}",
 			"",
-			"export default Layout"
 		]
 	},
 	"nextJsPage": {
