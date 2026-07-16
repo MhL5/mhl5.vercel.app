@@ -11,19 +11,23 @@ const getShadcnRegistry = cache(() =>
 const snippetsCategoryConfig = {
   types: {
     icon: Code2,
-    tailwindClass: "text-blue-600 dark:text-blue-400",
+    tailwindClass:
+      "text-blue-600 dark:text-blue-400 hover:text-blue-600 hover:dark:text-blue-400",
   },
   components: {
     icon: Package,
-    tailwindClass: "text-orange-600 dark:text-orange-400",
+    tailwindClass:
+      "text-orange-600 dark:text-orange-400  hover:text-orange-600 hover:dark:text-orange-400",
   },
   hooks: {
     icon: HookSvg,
-    tailwindClass: "text-purple-600 dark:text-purple-400",
+    tailwindClass:
+      "text-purple-600 dark:text-purple-400  hover:text-purple-600 hover:dark:text-purple-400",
   },
   utils: {
     icon: Wrench,
-    tailwindClass: "text-emerald-600 dark:text-emerald-400",
+    tailwindClass:
+      "text-emerald-600 dark:text-emerald-400  hover:text-emerald-600 hover:dark:text-emerald-400",
   },
 } as const;
 

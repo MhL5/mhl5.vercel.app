@@ -1,7 +1,9 @@
 "use client";
 
-import { editorMessages } from "@/components/TiptapEditor/i18n/messages";
-import { useDirection } from "@/components/ui/direction";
+import {
+  editorLocaleDirections,
+  editorMessages,
+} from "@/components/TiptapEditor/i18n/messages";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
@@ -42,6 +44,7 @@ type TiptapEditorProps = {
   content: Content;
   onUpdate: (props: EditorEvents["update"]) => void;
 
+  textDirection?: Parameters<typeof useEditor>[0]["textDirection"];
   "aria-invalid": boolean;
   ref: Ref<{ setEditable: (editable: boolean) => void }>;
   locale?: keyof typeof editorMessages;
@@ -55,7 +58,7 @@ function TiptapEditor({
   ref,
   "aria-invalid": ariaInvalid,
 }: TiptapEditorProps) {
-  const direction = useDirection();
+  const direction = editorLocaleDirections[locale];
   const editor = useEditor({
     extensions: TIPTAP_EXTENSIONS,
     // Don't render immediately on the server to avoid SSR issues

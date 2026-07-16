@@ -3,11 +3,18 @@
 import { TiptapEditor } from "@/components/TiptapEditor/TiptapEditor";
 import { TiptapContentRenderer } from "@/components/TiptapEditor/components/TiptapContentRenderer";
 import { useEditorRef } from "@/components/TiptapEditor/hooks/useEditorRef";
-import type { editorMessages } from "@/components/TiptapEditor/i18n/messages";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 const htmlContent = {
   en: `
@@ -27,11 +34,8 @@ const htmlContent = {
 `,
 };
 
-function TiptapEditorDemo({
-  locale = "en",
-}: {
-  locale?: keyof typeof editorMessages;
-}) {
+function TiptapEditorDemo() {
+  const [locale, setLocale] = useState<"en" | "fa" | "ar">("en");
   const [content, setContent] = useState(htmlContent[locale]);
   const [displayMode, setDisplayMode] = useState<
     "editor" | "preview-html-output"
@@ -58,7 +62,7 @@ function TiptapEditorDemo({
         the direction change
       </Badge>
 
-      <div className="relative isolate">
+      <div className="flex flex-wrap items-center gap-2">
         <Button
           type="button"
           onClick={() =>
@@ -68,14 +72,37 @@ function TiptapEditorDemo({
           }
           variant="outline"
           data-display-mode={displayMode}
-          className="absolute inset-e-5 top-15 z-50 shrink-0 transition-normal duration-200 data-[display-mode=content]:top-5"
+          className=""
         >
           {displayMode === "editor" ? "preview html output" : "back to editor"}
         </Button>
+
+        <Select
+          value={locale}
+          onValueChange={(v) => {
+            setContent(htmlContent[v as "en" | "fa" | "ar"]);
+            setLocale(v as "en" | "fa" | "ar");
+          }}
+        >
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {["fa", "ar", "en"].map((l) => (
+              <SelectItem key={`editor-locale-select-item-${l}`} value={l}>
+                {l}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div>
         {displayMode === "editor" ? (
           <TiptapEditor
             aria-invalid={false}
             ref={tiptapEditorRef}
+            key={locale}
             content={content}
             locale={locale}
             onUpdate={({ editor }) => setContent(editor.getHTML())}

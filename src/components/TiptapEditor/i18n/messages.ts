@@ -360,11 +360,15 @@ const editorArMessages = {
   noHeadingsInDocument: "لا توجد عناوين في المستند",
 };
 
-export const editorMessages: Record<
-  "en" | "ar" | "fa",
-  typeof editorEnMessages
-> = {
+const editorMessages: Record<"en" | "ar" | "fa", typeof editorEnMessages> = {
   en: editorEnMessages,
   fa: editorFaMessages,
   ar: editorArMessages,
 };
+
+const editorLocaleDirections: Record<
+  keyof typeof editorMessages,
+  "ltr" | "rtl"
+> = { ar: "rtl", fa: "rtl", en: "ltr" };
+
+export { editorMessages, editorLocaleDirections };
