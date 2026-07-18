@@ -2,18 +2,15 @@
 
 import { getSnippetsCategoryConfig } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
 import { useSnippetsLinks } from "@/app/(with-navigation)/snippets/_context/SnippetsLinksContext";
-import { LinkIndicator } from "@/components/LinkIndicator";
-import { Link } from "@/components/ui/link";
+import { NavLink, NavLinkPending } from "@/components/ui/NavLink";
 import { cn } from "@/lib/utils";
 import type { Route } from "next";
-import { usePathname } from "next/navigation";
 
 type AsideProps = {
   className?: string;
 };
 
 export default function Aside({ className }: AsideProps) {
-  const pathname = usePathname();
   const links = useSnippetsLinks();
 
   return (
@@ -34,22 +31,21 @@ export default function Aside({ className }: AsideProps) {
               </div>
 
               <nav className="space-y-1 pl-0.5">
-                {items?.map(({ title, url }) => {
-                  const isActive = pathname.includes(url);
+                {items?.map(({ title, url }) => (
+                  <NavLink
+                    key={`${title}-${url}`}
+                    size="sm"
+                    exact
+                    className="w-full justify-between pe-1.5 transition-all aria-[current=page]:bg-secondary aria-[current=page]:text-secondary-foreground aria-[current=page]:hover:bg-secondary/80"
+                    href={url as Route}
+                  >
+                    {title}
 
-                  return (
-                    <Link
-                      key={`${title}-${url}`}
-                      variant={isActive ? "secondary" : "ghost"}
-                      size="sm"
-                      className="w-full justify-between transition-all"
-                      href={url as Route}
-                    >
-                      {title}
-                      <LinkIndicator />
-                    </Link>
-                  );
-                })}
+                    <div className="size-4">
+                      <NavLinkPending />
+                    </div>
+                  </NavLink>
+                ))}
               </nav>
             </li>
           );

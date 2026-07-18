@@ -1,7 +1,7 @@
-import { HeaderLink } from "@/app/(with-navigation)/_components/HeaderLink";
 import { AppearanceDisplay } from "@/components/AppearanceDisplay";
 import ButtonWithTooltip from "@/components/buttons/ButtonWithTooltip";
 import { ModeToggle } from "@/components/buttons/ModeToggle";
+import { NavLink } from "@/components/ui/NavLink";
 import { buttonVariants } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
 import {
@@ -63,14 +63,14 @@ export default function Header() {
                 {links.map(({ href, label }) => {
                   return (
                     <SheetClose key={`${href}-${label}`} asChild>
-                      <Link
+                      <NavLink
                         variant="ghost"
                         size="lg"
-                        className="justify-start font-medium"
+                        className="justify-start font-medium aria-[current=page]:bg-secondary aria-[current=page]:text-secondary-foreground aria-[current=page]:hover:bg-secondary/80"
                         href={href}
                       >
                         {label}
-                      </Link>
+                      </NavLink>
                     </SheetClose>
                   );
                 })}
@@ -81,17 +81,24 @@ export default function Header() {
             </SheetContent>
           </Sheet>
 
-          <div className="mr-auto flex items-center gap-6">
-            <Link
+          <div className="me-auto flex items-center gap-6 not-lg:ms-1">
+            <NavLink
               href="/"
               variant="link"
-              className="font-nunito px-0 text-xl font-bold no-underline hover:underline md:px-4"
+              className="font-nunito px-0 text-xl font-bold no-underline hover:underline aria-[current=page]:underline md:px-4"
             >
               MhL
-            </Link>
+            </NavLink>
 
             {links.map(({ href, label }) => (
-              <HeaderLink key={href} label={label} href={href} />
+              <NavLink
+                exact={false}
+                className="m-0 hidden px-1 underline-offset-4 aria-[current=page]:underline lg:inline-block"
+                key={href}
+                href={href}
+              >
+                {label}
+              </NavLink>
             ))}
           </div>
 

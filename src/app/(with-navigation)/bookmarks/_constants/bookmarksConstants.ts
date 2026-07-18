@@ -6,6 +6,7 @@ import { Book, Code2, Palette } from "lucide-react";
 // https://www.kolejain.com/
 // https://jonas.io/
 // https://unlayer.com/elements
+// https://spell.sh/
 
 export type Bookmark = {
   title: string;
