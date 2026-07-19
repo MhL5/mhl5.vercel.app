@@ -1,7 +1,27 @@
 "use client";
 
-import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes";
+import {
+  ThemeProvider as NextThemesProvider,
+  useTheme,
+} from "@teispace/next-themes";
 import { type PropsWithChildren, useEffect } from "react";
+
+function ThemeProvider({ children }: PropsWithChildren) {
+  return (
+    <NextThemesProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      transition={{
+        type: "circular",
+        duration: 1_000,
+      }}
+    >
+      <ThemeHotkey />
+      {children}
+    </NextThemesProvider>
+  );
+}
 
 function isTypingTarget(target: EventTarget | null) {
   if (!(target instanceof HTMLElement)) return false;
@@ -36,20 +56,6 @@ function ThemeHotkey() {
   }, [resolvedTheme, setTheme]);
 
   return null;
-}
-
-function ThemeProvider({ children }: PropsWithChildren) {
-  return (
-    <NextThemesProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-    >
-      <ThemeHotkey />
-      {children}
-    </NextThemesProvider>
-  );
 }
 
 export { ThemeProvider };

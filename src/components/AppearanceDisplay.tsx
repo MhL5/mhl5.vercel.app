@@ -2,7 +2,7 @@
 
 import { ModeToggleGroup } from "@/components/buttons/ModeToggleGroup";
 import { cn } from "@/lib/utils";
-import { useTheme } from "next-themes";
+import { useTheme } from "@teispace/next-themes";
 import type { ComponentProps } from "react";
 
 type AppearanceDisplayProps = ComponentProps<"div">;
