@@ -6,7 +6,7 @@ import localFont from "next/font/local";
 
 const figtree = localFont({
   src: "../assets/fonts/Figtree/Figtree-VariableFont_wght.ttf",
-  variable: "--font-figtree",
+  variable: "--font-sans",
   display: "swap",
 });
 
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html data-scroll-behavior="smooth" lang="en" suppressHydrationWarning>
-      <body className={`${figtree.variable} min-w-xs font-figtree antialiased`}>
+      <body className={`${figtree.variable} min-w-xs font-sans antialiased`}>
         <div className="fixed inset-0 -z-10 size-full dark:bg-[radial-gradient(125%_125%_at_50%_100%,var(--background)_40%,#010133_100%)]" />
         <Providers>{children}</Providers>
       </body>

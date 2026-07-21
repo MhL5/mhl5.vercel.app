@@ -6,7 +6,7 @@
 @plugin "@tailwindcss/typography";
 
 @theme inline {
-  --font-figtree: var(--font-figtree);
+  --font-sans: var(--font-sans);
 
   --container-8xl: 96rem;
   --container-9xl: 104rem;
@@ -334,38 +334,6 @@
   html .shiki,
   html .shiki span {
     background-color: var(--code-background) !important;
-  }
-}
-
-.no-visible-scrollbar {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  -webkit-overflow-scrolling: touch;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-.scrollbar-on-hover {
-  &:hover,
-  &:focus-visible {
-    scrollbar-width: thin;
-    -ms-overflow-style: auto;
-    -webkit-overflow-scrolling: auto;
-
-    scrollbar-color: var(--muted-foreground) transparent;
-    &::-webkit-scrollbar {
-      display: block;
-    }
-  }
-
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  -webkit-overflow-scrolling: touch;
-
-  &::-webkit-scrollbar {
-    display: none;
   }
 }
 
