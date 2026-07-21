@@ -5,7 +5,6 @@ import anywriteImg from "@/app/(with-navigation)/_components/my-projects/assets/
 import appleAppsImg from "@/app/(with-navigation)/_components/my-projects/assets/apple-apps.png";
 import kafshMeImg from "@/app/(with-navigation)/_components/my-projects/assets/kafsh-me.png";
 import vsimImg from "@/app/(with-navigation)/_components/my-projects/assets/vsim.png";
-import { Paragraph, Title } from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
 import type { ComponentProps } from "react";
 
@@ -111,13 +110,13 @@ export default function MyProjects({
       {...props}
     >
       <header className="mx-auto mb-10 w-full max-w-lg space-y-6 text-center">
-        <Title as="h2" size="2xl" className="font-semibold tracking-tight">
+        <h2 className="text-3xl font-semibold tracking-tight">
           Check out my latest work
-        </Title>
-        <Paragraph size="md">
+        </h2>
+        <p className="text-base text-muted-foreground">
           I&apos;ve worked on a variety of projects, from simple websites to
           complex web applications. Here are a few of my favorites
-        </Paragraph>
+        </p>
       </header>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

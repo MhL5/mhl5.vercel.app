@@ -1,5 +1,4 @@
 import { Link } from "@/components/ui/link";
-import { Paragraph, Title } from "@/components/ui/typography";
 import { CONTACT_INFO } from "@/constants";
 import type { ComponentProps } from "react";
 
@@ -8,11 +7,9 @@ export default function ContactMe(props: ComponentProps<"section">) {
     <section id="contact" {...props}>
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-3xl space-y-5 text-center">
-          <Title as="h2" size="2xl">
-            Get in touch
-          </Title>
+          <h2 className="text-3xl font-semibold">Get in touch</h2>
 
-          <Paragraph size="md">
+          <p className="text-base text-muted-foreground">
             Want to chat? Just shoot me with a dm on{" "}
             <Link
               href={CONTACT_INFO.telegram}
@@ -32,7 +29,7 @@ export default function ContactMe(props: ComponentProps<"section">) {
               Discord
             </Link>
             and I&apos;ll respond whenever I can.
-          </Paragraph>
+          </p>
         </div>
       </div>
     </section>
