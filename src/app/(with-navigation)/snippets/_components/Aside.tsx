@@ -16,7 +16,7 @@ export default function Aside({ className }: AsideProps) {
   return (
     <aside className={cn("w-full", className)}>
       <ul
-        className="grid gap-6 px-3 pt-4 xl:sticky xl:top-16 xl:h-[calc(100svh-4rem)] xl:overflow-y-auto xl:px-5 xl:pb-8"
+        className="grid gap-6 overscroll-contain px-3 pt-4 lg:sticky lg:top-16 lg:h-[calc(100svh-4rem)] lg:overflow-y-auto lg:pb-8 xl:px-5"
         style={{
           scrollbarWidth: "none",
         }}
