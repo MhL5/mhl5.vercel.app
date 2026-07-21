@@ -1,86 +1,16 @@
-import { AppearanceDisplay } from "@/components/AppearanceDisplay";
 import ButtonWithTooltip from "@/components/buttons/ButtonWithTooltip";
 import { ModeToggle } from "@/components/buttons/ModeToggle";
 import { NavLink } from "@/components/ui/NavLink";
-import { buttonVariants } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 import { GITHUB_REPO_URL } from "@/constants";
-import { MenuIcon } from "lucide-react";
 
-const links = [
-  {
-    label: "Snippets",
-    href: "/snippets",
-  },
-  {
-    label: "Bookmarks",
-    href: "/bookmarks",
-  },
-] as const;
+import { navigationLinks } from "../_constants";
 
 export default function Header() {
   return (
     <>
       <header className="fixed top-0 z-50 h-(--site-header-height) w-[calc(100%-var(--removed-body-scroll-bar-size,0.1px))] border-b border-border/20 bg-background/20 backdrop-blur-md dark:border-border/30">
         <nav className="mx-auto flex h-full w-full max-w-9xl items-center px-4">
-          <Sheet>
-            <SheetTrigger
-              className={buttonVariants({
-                className: "lg:hidden",
-                variant: "ghost",
-              })}
-            >
-              <span className="sr-only">Menu</span>
-              <MenuIcon className="size-6" />
-            </SheetTrigger>
-            <SheetContent side="left" className="max-w-xs sm:max-w-xs">
-              <SheetHeader>
-                <SheetTitle>
-                  <Link
-                    variant="link"
-                    className="font-nunito px-0 text-xl font-bold"
-                    href="/"
-                  >
-                    MhL
-                  </Link>
-                </SheetTitle>
-                <SheetDescription className="sr-only">
-                  main page navigation menu for mobile devices
-                </SheetDescription>
-              </SheetHeader>
-
-              <div className="flex flex-col gap-1.5 px-2">
-                {links.map(({ href, label }) => {
-                  return (
-                    <SheetClose key={`${href}-${label}`} asChild>
-                      <NavLink
-                        variant="ghost"
-                        size="lg"
-                        className="justify-start font-medium aria-[current=page]:bg-secondary aria-[current=page]:text-secondary-foreground aria-[current=page]:hover:bg-secondary/80"
-                        href={href}
-                      >
-                        {label}
-                      </NavLink>
-                    </SheetClose>
-                  );
-                })}
-              </div>
-              <SheetFooter>
-                <AppearanceDisplay />
-              </SheetFooter>
-            </SheetContent>
-          </Sheet>
-
           <div className="me-auto flex items-center gap-6 not-lg:ms-1">
             <NavLink
               href="/"
@@ -90,16 +20,19 @@ export default function Header() {
               MhL
             </NavLink>
 
-            {links.map(({ href, label }) => (
-              <NavLink
-                exact={false}
-                className="m-0 hidden px-1 underline-offset-4 aria-[current=page]:underline lg:inline-block"
-                key={href}
-                href={href}
-              >
-                {label}
-              </NavLink>
-            ))}
+            {navigationLinks.map(({ href, label }) => {
+              if (href === "/") return null;
+              return (
+                <NavLink
+                  exact={false}
+                  className="m-0 hidden px-2 underline-offset-4 aria-[current=page]:underline lg:inline-block"
+                  key={href}
+                  href={href}
+                >
+                  {label}
+                </NavLink>
+              );
+            })}
           </div>
 
           <div className="flex items-center gap-2 px-2">

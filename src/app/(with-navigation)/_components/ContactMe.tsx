@@ -1,15 +1,11 @@
 import { Link } from "@/components/ui/link";
 import { Paragraph, Title } from "@/components/ui/typography";
 import { CONTACT_INFO } from "@/constants";
-import { cn } from "@/lib/utils";
 import type { ComponentProps } from "react";
 
-export default function ContactMe({
-  className,
-  ...props
-}: ComponentProps<"section">) {
+export default function ContactMe(props: ComponentProps<"section">) {
   return (
-    <section id="contact" className={cn("", className)} {...props}>
+    <section id="contact" {...props}>
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-3xl space-y-5 text-center">
           <Title as="h2" size="2xl">
