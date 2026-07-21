@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { DotSeparator } from "@/components/ui/dot-separator";
 import { FieldError } from "@/components/ui/field";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useTranslations } from "@/hooks/useTranslations";
 import { cn } from "@/lib/utils";
 import { formatBytes } from "@/registry/utils/formatters/formatters";
 import { Trash2Icon } from "lucide-react";
@@ -47,10 +46,9 @@ function FilePreviewUrl({
   onError,
 }: Extract<FilePreviewProps, { file: string }>) {
   const [error, setError] = useState<Error | null>(null);
-  const t = useTranslations("components.upload.FilePreview");
 
   function handleError(type: string) {
-    const err = [{ message: t("failedToLoad", { fileType: type }) }];
+    const err = [{ message: `failedToLoad ${type}` }];
     setError(err);
     onError?.(err);
   }
@@ -95,8 +93,6 @@ function RenderPreview({
   onRemove,
   onError,
 }: RenderPreviewProps) {
-  const t = useTranslations("components.upload.FilePreview");
-
   if (fileType === "image")
     return (
       <FilePreviewContainer className={className}>
@@ -120,7 +116,7 @@ function RenderPreview({
           className="size-full rounded-lg"
           onError={() => onError("video")}
         >
-          {t("htmlElementNotSupported", { element: "Video" })}
+          Your browser does not support the video tag.
         </video>
         <FilePreviewRemoveButton onClick={onRemove} disabled={disabled} />
       </FilePreviewContainer>
@@ -135,7 +131,7 @@ function RenderPreview({
           className="w-full"
           onError={() => onError("audio")}
         >
-          {t("htmlElementNotSupported", { element: "Audio" })}
+          Your browser does not support the audio tag.
         </audio>
         <FilePreviewRemoveButton onClick={onRemove} disabled={disabled} />
       </FilePreviewContainer>
@@ -159,7 +155,7 @@ function RenderPreview({
       className={`${className} grid place-content-center gap-1 overflow-hidden text-center`}
     >
       <p className="text-sm font-medium text-foreground">
-        {t("previewNotSupportedFor")} {fileName || "Unknown!"}
+        {"Preview not supported for"} {fileName || "Unknown!"}
       </p>
       <p className="text-xs text-muted-foreground">
         {!!fileSize && (
@@ -167,7 +163,7 @@ function RenderPreview({
             {formatBytes(fileSize)} <DotSeparator />
           </>
         )}
-        {fileType || t("unknownType")}
+        {fileType || "Unknown type"}
       </p>
       <FilePreviewRemoveButton onClick={onRemove} disabled={disabled} />
     </FilePreviewContainer>
@@ -184,10 +180,9 @@ function FilePreviewFile({
   const [previewUrl, setPreviewUrl] = useState("");
   const [fileType, setFileType] = useState<FileType | null>(null);
   const [error, setError] = useState<Error | null>(null);
-  const t = useTranslations("components.upload.FilePreview");
 
   function handleError(fileType: string) {
-    const error = [{ message: t("failedToLoad", { fileType }) }];
+    const error = [{ message: `failedToLoad ${fileType}` }];
     setError(error);
     onError?.(error);
   }
@@ -220,7 +215,7 @@ function FilePreviewFile({
   if (!previewUrl)
     return (
       <FilePreviewContainer className="p-0">
-        <Skeleton aria-label={t("loadingPreview")} className="size-full" />
+        <Skeleton aria-label={"Loading preview..."} className="size-full" />
       </FilePreviewContainer>
     );
 
@@ -261,12 +256,10 @@ function FilePreviewRemoveButton({
   className,
   ...props
 }: ComponentProps<typeof Button>) {
-  const t = useTranslations("components.upload.FilePreview");
-
   return (
     <Button
       variant="destructive"
-      title={t("remove")}
+      title={"remove"}
       className={cn("absolute inset-e-3 top-3", className)}
       {...props}
     >
