@@ -34,12 +34,15 @@ export const metadata: Metadata = {
     "Mohammad lashani code snippets collection",
     "محمد لشنی",
     "محمد حسین لشنی",
-    "کدهای MhL5",
   ],
   authors: [
     { name: "Mohammad Lashani", url: domainUrl },
     {
       name: "محمد لشنی",
+      url: domainUrl,
+    },
+    {
+      name: "محمد حسین لشنی",
       url: domainUrl,
     },
   ],

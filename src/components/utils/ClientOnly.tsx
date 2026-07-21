@@ -53,13 +53,12 @@ type ClientOnlyProps = {
  *   <span>{window.navigator.language}</span>
  * </ClientOnly>
  */
-export default function ClientOnly({
-  children,
-  fallback = null,
-}: ClientOnlyProps) {
+function ClientOnly({ children, fallback = null }: ClientOnlyProps) {
   const isMounted = useIsMounted();
 
   if (!isMounted) return fallback;
 
   return children;
 }
+
+export { ClientOnly };

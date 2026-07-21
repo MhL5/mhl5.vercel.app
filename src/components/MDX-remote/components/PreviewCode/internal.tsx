@@ -4,8 +4,8 @@ import {
   PreviewComponents,
   type componentPaths,
 } from "@/components/MDX-remote/components/PreviewCode/constants";
-import ButtonWithTooltip from "@/components/buttons/ButtonWithTooltip";
 import { OpenInV0Button } from "@/components/buttons/OpenInV0Button";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RefreshCcw } from "lucide-react";
@@ -48,7 +48,7 @@ export default function PreviewCodeInternal({
       </div>
 
       <Card
-        className="h-(--preview-code-height) overflow-y-auto rounded-lg bg-transparent p-0 [scrollbar-color:var(--muted-foreground)_var(--code-background)]"
+        className="h-(--preview-code-height) [scrollbar-color:var(--muted-foreground)_var(--code-background)] overflow-y-auto rounded-lg bg-transparent p-0"
         style={
           {
             "--preview-code-height": height === "default" ? "460px" : "600px",
@@ -60,14 +60,14 @@ export default function PreviewCodeInternal({
             value="preview"
             className="relative flex h-full items-center justify-center p-4"
           >
-            <ButtonWithTooltip
-              tooltipContent={<>Re render</>}
+            <Button
+              title="Re render"
               variant="ghost"
               className="absolute inset-e-3 top-3 ms-auto"
               onClick={() => setPreviewComponentKey(Date.now())}
             >
               <RefreshCcw />
-            </ButtonWithTooltip>
+            </Button>
 
             <PreviewComponent key={previewComponentKey} />
           </TabsContent>

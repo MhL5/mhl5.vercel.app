@@ -1,6 +1,5 @@
 import SnippetBreadCrumb from "@/app/(with-navigation)/snippets/[...slug]/_components/SnippetBreadCrumb";
 import { getSnippetsLinks } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
-import ButtonWithTooltip from "@/components/buttons/ButtonWithTooltip";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
 import { ArrowRight } from "lucide-react";
@@ -58,17 +57,15 @@ function GoToNeighbor({
 
   const { title, url } = neighbor;
   return (
-    <ButtonWithTooltip
-      tooltipContent={`go to ${position === "previous" ? `previous "${title}"` : `next "${title}"`}`}
+    <Link
       size="icon"
+      title={`go to ${position === "previous" ? `previous "${title}"` : `next "${title}"`}`}
       variant="secondary"
+      href={url as Route}
       className="size-8 xl:size-9"
-      asChild
     >
-      <Link href={url as Route} className="size-8 xl:size-9">
-        <ArrowRight className={position === "previous" ? "rotate-180" : ""} />
-      </Link>
-    </ButtonWithTooltip>
+      <ArrowRight className={position === "previous" ? "rotate-180" : ""} />
+    </Link>
   );
 }
 

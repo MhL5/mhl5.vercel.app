@@ -6,7 +6,7 @@ type GradientTextProps<E extends ElementType> = { as?: E } & Omit<
   "as"
 >;
 
-export default function GradientText<E extends ElementType = "div">({
+function GradientText<E extends ElementType = "div">({
   as,
   className,
   ...rest
@@ -23,3 +23,5 @@ export default function GradientText<E extends ElementType = "div">({
     />
   );
 }
+
+export { GradientText };

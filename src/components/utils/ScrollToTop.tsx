@@ -3,12 +3,16 @@
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
-type ScrollToTopProps = { mode: "on-navigation" | "on-mount" };
+function handleScroll() {
+  const prefersReducedMotion =
+    typeof window !== "undefined" &&
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-export default function ScrollToTop({ mode }: ScrollToTopProps) {
-  if (mode === "on-navigation") return <ScrollToTopOnNavigation />;
-
-  return <ScrollToTopOnMount />;
+  window.scrollTo({
+    top: 0,
+    behavior: prefersReducedMotion ? "auto" : "smooth",
+  });
 }
 
 function ScrollToTopOnNavigation() {
@@ -29,14 +33,4 @@ function ScrollToTopOnMount() {
   return null;
 }
 
-function handleScroll() {
-  const prefersReducedMotion =
-    typeof window !== "undefined" &&
-    typeof window.matchMedia === "function" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  window.scrollTo({
-    top: 0,
-    behavior: prefersReducedMotion ? "auto" : "smooth",
-  });
-}
+export { ScrollToTopOnMount, ScrollToTopOnNavigation };

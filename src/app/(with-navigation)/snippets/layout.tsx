@@ -1,7 +1,7 @@
 import Aside from "@/app/(with-navigation)/snippets/_components/Aside";
 import { getSnippetsLinks } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
 import { SnippetsLinksProvider } from "@/app/(with-navigation)/snippets/_context/SnippetsLinksContext";
-import ScrollToTop from "@/components/utils/ScrollToTop";
+import { ScrollToTopOnNavigation } from "@/components/utils/ScrollToTop";
 import { CONTACT_INFO } from "@/constants";
 import type { Metadata } from "next";
 
@@ -40,7 +40,7 @@ export default function Layout({ children }: LayoutProps<"/snippets">) {
 
   return (
     <>
-      <ScrollToTop mode="on-navigation" />
+      <ScrollToTopOnNavigation />
 
       <div className="mx-auto grid min-h-svh w-full max-w-8xl lg:grid-cols-[14rem_1fr] xl:grid-cols-[17.875rem_1fr]">
         <SnippetsLinksProvider linksPromise={snippetsLinksPromise}>
