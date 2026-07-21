@@ -1,6 +1,5 @@
 "use client";
 
-import InlineScroll from "@/components/experimental/ScrollFadeArea";
 import CssSvg from "@/components/icons/CssSvg";
 import TypeScriptSvg from "@/components/icons/TypeScriptSvg";
 import { Button } from "@/components/ui/button";
@@ -25,12 +24,7 @@ export default function CollapsibleCodeCard({
       <CardContent className="p-0">
         <div className="flex items-center border-b border-input px-3 py-1">
           <Icon filePath={filePath} />
-          <InlineScroll
-            fadeShadowClassNames="from-code-background"
-            className="font-mono text-muted-foreground"
-          >
-            {filePath}
-          </InlineScroll>
+          <div className="font-mono text-muted-foreground">{filePath}</div>
           <Button
             variant="ghost"
             size="sm"

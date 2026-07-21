@@ -116,13 +116,13 @@ async function getCodeModuleData(registryItem: string) {
   const css = parseJsonToCss(registryJson?.css || {});
   const formattedCss = getFormattedCssVars(registryJson?.cssVars, css) || null;
 
-  const filesToCopy = registryJson.files?.map((file) => {
+  const filesToCopy = registryJson.files?.map((file, i) => {
     const pathFromType =
       "target" in file && file?.target
         ? file.target
         : getFileLocationFromType(file.type);
     return {
-      path: `${pathFromType}/${registryItem}.${file.path.split(".").pop()}`,
+      path: `${pathFromType}${i === 0 ? `/${registryItem}.${file.path.split(".").pop()}` : ``}`,
       // TODO: In what cases is content undefined?
       content:
         "content" in file && typeof file.content === "string"
@@ -239,12 +239,12 @@ function getFileLocationFromType(
 ) {
   switch (type) {
     case "registry:ui":
-      return "src/components/mhl5-registry/ui";
+      return "src/components/ui";
     case "registry:page":
     case "registry:file":
       throw new Error("Page and file types require a target");
     case "registry:component":
-      return "src/components/mhl5-registry";
+      return "src/components";
     case "registry:lib":
       return "src/lib";
     case "registry:hook":
