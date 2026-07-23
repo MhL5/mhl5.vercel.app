@@ -1,7 +1,8 @@
+import { APP_THEME_COLORS } from "@/constants";
 import Providers from "@/providers/Providers";
 import "@/styles/globals.css";
 import { domainUrl } from "@/utils/absoluteUrl";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 
 const figtree = localFont({
@@ -9,6 +10,13 @@ const figtree = localFont({
   variable: "--font-sans",
   display: "swap",
 });
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: APP_THEME_COLORS.light },
+    { media: "(prefers-color-scheme: dark)", color: APP_THEME_COLORS.dark },
+  ],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(domainUrl),
