@@ -11,8 +11,3 @@ export function CONTACT_SUPPORT_LINK(text?: string) {
   if (text) supportUrl.searchParams.append("text", text);
   return supportUrl.href;
 }
-
-export const APP_THEME_COLORS = {
-  light: "#ffffff", // matches --background in :root
-  dark: "#0a0a0a",  // matches --background in .dark
-} as const;
