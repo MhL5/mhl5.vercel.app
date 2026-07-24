@@ -13,8 +13,7 @@ function ThemeProvider({ children }: PropsWithChildren) {
       defaultTheme="system"
       enableSystem
       transition={{
-        type: "circular",
-        duration: 1_000,
+        type: "none",
       }}
     >
       <ThemeHotkey />
