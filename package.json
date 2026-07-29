@@ -12,6 +12,7 @@
     "registry:build": "shadcn build"
   },
   "dependencies": {
+    "@base-ui/react": "^1.6.0",
     "@next/third-parties": "16.2.4",
     "@tanstack/react-form-nextjs": "^1.28.6",
     "@teispace/next-themes": "^2.0.4",
