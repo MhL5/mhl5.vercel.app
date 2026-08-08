@@ -29,7 +29,7 @@ export default function BookmarkSidebar({
   return (
     <nav
       aria-label="Bookmark categories"
-      className="flex flex-wrap gap-2 lg:sticky lg:top-[calc(var(--site-header-height)+2rem)] lg:block lg:max-h-[calc(100svh-var(--site-header-height)-4rem)] lg:gap-0 lg:space-y-6 lg:overflow-y-auto lg:pe-2"
+      className="flex flex-wrap gap-2 p-0.5 lg:sticky lg:top-[calc(var(--site-header-height)+2rem)] lg:block lg:max-h-[calc(100svh-var(--site-header-height)-4rem)] lg:gap-0 lg:space-y-6 lg:overflow-y-auto"
     >
       <CategoryButton
         isSelected={selectedCategory === null}
