@@ -12,6 +12,7 @@ function ThemeProvider({ children }: PropsWithChildren) {
       attribute="class"
       defaultTheme="system"
       enableSystem
+      disableTransitionOnChange
       transition={{
         type: "none",
       }}

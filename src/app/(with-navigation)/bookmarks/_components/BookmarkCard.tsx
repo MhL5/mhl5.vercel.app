@@ -34,7 +34,7 @@ export default function BookmarkCard({
   const hostname = getBookmarkHostname(item.url);
 
   return (
-    <div className="group relative flex h-full flex-col gap-3 rounded-xl border border-border/60 bg-card/60 p-4 transition-colors focus-within:border-ring hover:border-ring/40 hover:bg-accent/40">
+    <div className="group hover:bg-card/7d0 relative flex h-full flex-col gap-3 rounded-xl border border-border/60 bg-card/60 p-4 transition-colors focus-within:border-ring hover:border-ring/40">
       <div className="flex items-start justify-between gap-2">
         <div className="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border/60 bg-background">
           {hasFaviconError ? (
