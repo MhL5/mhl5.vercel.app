@@ -7,7 +7,15 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   typedRoutes: true,
   images: {
-    remotePatterns: [{ hostname: "localhost" }],
+    remotePatterns: [
+      { hostname: "localhost" },
+      // favicons of the links on /bookmarks
+      {
+        protocol: "https",
+        hostname: "www.google.com",
+        pathname: "/s2/favicons",
+      },
+    ],
   },
   logging: { browserToTerminal: true },
   experimental: {
