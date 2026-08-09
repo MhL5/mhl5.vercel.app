@@ -163,6 +163,14 @@ const toolsBookmarks: Bookmark[] = [
     category: "tools",
     tags: ["shadcn", "search", "blocks"],
   },
+  {
+    title: "StackRender",
+    description:
+      "Design database schemas visually. Generate SQL migrations. Track schema changes as your project grows.",
+    url: "https://stackrender.io",
+    category: "tools",
+    tags: ["database", "backend", "database schema"],
+  },
 ];
 
 const developmentBookmarks: Bookmark[] = [
