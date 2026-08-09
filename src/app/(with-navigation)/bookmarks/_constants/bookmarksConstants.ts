@@ -19,8 +19,6 @@ import {
 // https://ui.justinlevine.me/docs
 /*
 Todo: add these as well
-https://shark.vini.one/docs/components
-https://www.awwwards.com/inspiration_search/
 https://ui.watermelon.sh/
 https://beui.dev/
 https://grootstudio.dev/
@@ -35,7 +33,7 @@ https://www.kairoui.online/
  * Categories are grouped in the sidebar by `group`.
  * `color`/`hoverColor` are written out in full so tailwind can pick them up.
  */
-export const bookmarkCategoryConfig = {
+const bookmarkCategoryConfig = {
   ui: {
     label: "UI Libraries",
     group: "dev",
@@ -95,16 +93,16 @@ export const bookmarkCategoryConfig = {
   },
 } as const;
 
-export const bookmarkGroupConfig = {
+const bookmarkGroupConfig = {
   dev: { label: "Dev" },
   design: { label: "Design" },
   other: { label: "Other" },
 } as const;
 
-export type BookmarkCategory = keyof typeof bookmarkCategoryConfig;
-export type BookmarkGroup = keyof typeof bookmarkGroupConfig;
+type BookmarkCategory = keyof typeof bookmarkCategoryConfig;
+type BookmarkGroup = keyof typeof bookmarkGroupConfig;
 
-export type Bookmark = {
+type Bookmark = {
   title: string;
   description: string;
   url: `https://${string}`;
@@ -265,6 +263,13 @@ const designBookmarks: Bookmark[] = [
     category: "design",
     tags: ["portfolio", "inspiration"],
   },
+  {
+    title: "awards website",
+    description: "",
+    url: "https://www.awwwards.com/inspiration_search",
+    category: "design",
+    tags: ["inspiration", "awwwards"],
+  },
 ];
 
 const uiBookmarks: Bookmark[] = [
@@ -273,7 +278,6 @@ const uiBookmarks: Bookmark[] = [
     description:
       "Unstyled UI components for building accessible web apps and design systems. From the creators of Radix, Floating UI, and Material UI.",
     url: "https://base-ui.com/",
-    category: "ui",
     tags: ["headless", "accessibility", "primitives"],
   },
   {
@@ -281,7 +285,6 @@ const uiBookmarks: Bookmark[] = [
     description:
       "Clean and minimal UI component library for modern applications.",
     url: "https://originui.com/",
-    category: "ui",
     tags: ["shadcn", "tailwind"],
   },
   {
@@ -289,7 +292,6 @@ const uiBookmarks: Bookmark[] = [
     description:
       "A collection of composable, unstyled UI primitives for building accessible web applications.",
     url: "https://www.diceui.com/",
-    category: "ui",
     tags: ["primitives", "headless"],
   },
   {
@@ -297,14 +299,12 @@ const uiBookmarks: Bookmark[] = [
     description:
       "Kibo UI is a custom registry of composable, accessible and open source components designed for use with shadcn/ui.",
     url: "https://www.kibo-ui.com/",
-    category: "ui",
     tags: ["shadcn", "registry"],
   },
   {
     title: "skiper ui",
     description: "Components crafted for Modern Websites",
     url: "https://skiper-ui.com/",
-    category: "ui",
     tags: ["motion", "components"],
   },
   {
@@ -312,7 +312,6 @@ const uiBookmarks: Bookmark[] = [
     description:
       "A collection of composable, unstyled UI primitives for building accessible web applications.",
     url: "https://21st.dev/home",
-    category: "ui",
     tags: ["registry", "shadcn"],
   },
   {
@@ -320,14 +319,12 @@ const uiBookmarks: Bookmark[] = [
     description:
       "Untitled UI React is the world’s largest collection of open-source React components built with Tailwind CSS and React Aria. Just copy, paste, and build.",
     url: "https://www.untitledui.com/react",
-    category: "ui",
     tags: ["react aria", "tailwind"],
   },
   {
     title: "shadcn/ui expansions",
     description: "More components built on top of shadcn-ui.",
     url: "https://shadcnui-expansions.typeart.cc/",
-    category: "ui",
     tags: ["shadcn"],
   },
   {
@@ -336,28 +333,24 @@ const uiBookmarks: Bookmark[] = [
     description:
       "Advanced button components with additional features and styles.",
     url: "https://enhanced-button.vercel.app/",
-    category: "ui",
     tags: ["button", "shadcn"],
   },
   {
     title: "Cult UI",
     description: "Modern UI component library with unique design approach.",
     url: "https://www.cult-ui.com/",
-    category: "ui",
     tags: ["shadcn"],
   },
   {
     title: "Awesome Shadcn UI",
     description: "Curated collection of shadcn/ui resources and components.",
     url: "https://awesome-shadcn-ui.vercel.app/",
-    category: "ui",
     tags: ["shadcn", "awesome list"],
   },
   {
     title: "WDS Shadcn Registry",
     description: "Component registry for shadcn/ui by Web Dev Simplified.",
     url: "https://wds-shadcn-registry.netlify.app/",
-    category: "ui",
     tags: ["shadcn", "registry"],
   },
   {
@@ -365,7 +358,6 @@ const uiBookmarks: Bookmark[] = [
     description:
       "Open-source collection of UI components and animated effects built with React, Typescript, Tailwind CSS, and Motion. Pairs beautifully with shadcn/ui.",
     url: "https://reui.io/",
-    category: "ui",
     tags: ["shadcn", "motion"],
   },
   {
@@ -373,7 +365,6 @@ const uiBookmarks: Bookmark[] = [
     description:
       "Beautiful, modern UI components built with Tailwind CSS, shadcn/ui & Motion.100+ open-source components designed for React & Next.js.",
     url: "https://kokonutui.com/",
-    category: "ui",
     tags: ["shadcn", "motion"],
   },
   {
@@ -381,7 +372,6 @@ const uiBookmarks: Bookmark[] = [
     description:
       "Highly customizable, production-ready UI blocks for building beautiful websites and apps that look and feel the way you mean it.",
     url: "https://smoothui.dev/",
-    category: "ui",
     tags: ["motion", "components"],
   },
   {
@@ -389,14 +379,12 @@ const uiBookmarks: Bookmark[] = [
     description:
       "Accessible React component library to copy, customize, and own your UI.",
     url: "https://intentui.com/",
-    category: "ui",
     tags: ["react aria", "accessibility"],
   },
   {
     title: "uiverse",
     description: "The Largest Library of Open-Source UI",
     url: "https://uiverse.io/",
-    category: "ui",
     tags: ["css"],
   },
   {
@@ -404,7 +392,6 @@ const uiBookmarks: Bookmark[] = [
     description:
       "Essential UI components, advanced patterns, and AI integrations. From buttons to AI chat interfaces - everything you need to build modern applications.",
     url: "https://www.shadcn.io/",
-    category: "ui",
     tags: ["shadcn", "ai"],
   },
   {
@@ -412,7 +399,6 @@ const uiBookmarks: Bookmark[] = [
     description:
       "ElevenLabs UI is a component library and custom registry built on top of shadcn/ui to help you build multimodal agentic experiences faster.",
     url: "https://ui.elevenlabs.io/docs",
-    category: "ui",
     tags: ["shadcn", "ai", "voice"],
   },
   {
@@ -420,7 +406,6 @@ const uiBookmarks: Bookmark[] = [
     description:
       "A comprehensive collection of React components designed for building modern AI chat interfaces.",
     url: "https://ai-sdk.dev/elements/components",
-    category: "ui",
     tags: ["ai", "chat", "vercel"],
   },
   {
@@ -428,7 +413,6 @@ const uiBookmarks: Bookmark[] = [
     description:
       "Ready to use, customizable map components for React.Built on MapLibre. Styled with Tailwind.",
     url: "https://www.mapcn.dev",
-    category: "ui",
     tags: ["maps", "maplibre"],
   },
   {
@@ -436,7 +420,6 @@ const uiBookmarks: Bookmark[] = [
     description:
       "Phone input component for shadcn/ui with international format support.",
     url: "https://shadcn-phone-input.vercel.app/",
-    category: "ui",
     tags: ["shadcn", "forms", "input"],
   },
   {
@@ -444,38 +427,40 @@ const uiBookmarks: Bookmark[] = [
     description:
       "Collection of custom extensions and toolbars for Tiptap editor.",
     url: "https://tiptap.niazmorshed.dev",
-    category: "ui",
     tags: ["tiptap", "editor", "shadcn"],
   },
   {
     title: "evil charts",
     description: "Beautiful, responsive, customizable charts for your website.",
     url: "https://evilcharts.com/",
-    category: "ui",
     tags: ["charts", "data viz"],
   },
   {
     title: "bklit",
     description: "Design engineered charts and components.",
     url: "https://ui.bklit.com",
-    category: "ui",
     tags: ["charts", "data viz"],
   },
   {
     title: "Wigggle UI",
     description: "The first ever collection of Widgets for the Web.",
     url: "https://wigggle-ui.vercel.app/",
-    category: "ui",
     tags: ["widgets"],
   },
   {
     title: "Pixel Perfect",
     description: "A pixel-perfect React component library for modern web apps",
     url: "https://www.pixel-perfect.space/",
-    category: "ui",
     tags: ["react", "components"],
   },
-];
+  {
+    title: "Shark ui",
+    description:
+      "A beautifully designed and accessible set of 90+ components, created to help you build reusable and scalable design systems.",
+    url: "https://shark.vini.one",
+    tags: ["headless", "accessibility", "primitives"],
+  },
+].map((b) => ({ ...(b as Bookmark), category: "ui" }));
 
 const blocksBookmarks: Bookmark[] = [
   {
@@ -699,7 +684,7 @@ const learningBookmarks: Bookmark[] = [
   },
 ];
 
-export const allBookmarks: Bookmark[] = [
+const allBookmarks: Bookmark[] = [
   ...uiBookmarks,
   ...blocksBookmarks,
   ...animationBookmarks,
@@ -710,15 +695,26 @@ export const allBookmarks: Bookmark[] = [
   ...learningBookmarks,
 ];
 
-/** Category keys in sidebar order, i.e. grouped by `group`. */
-export const bookmarkCategories = Object.keys(
+const bookmarkCategories = Object.keys(
   bookmarkCategoryConfig,
 ) as BookmarkCategory[];
 
-export function getBookmarkHostname(url: string) {
+function getBookmarkHostname(url: string) {
   return new URL(url).hostname.replace(/^www\./, "");
 }
 
-export function getBookmarkFaviconUrl(url: string) {
+function getBookmarkFaviconUrl(url: string) {
   return `https://www.google.com/s2/favicons?domain=${getBookmarkHostname(url)}&sz=64`;
 }
+
+export {
+  type BookmarkCategory,
+  type Bookmark,
+  type BookmarkGroup,
+  getBookmarkFaviconUrl,
+  getBookmarkHostname,
+  bookmarkCategories,
+  allBookmarks,
+  bookmarkGroupConfig,
+  bookmarkCategoryConfig,
+};
