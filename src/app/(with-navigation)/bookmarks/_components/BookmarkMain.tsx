@@ -79,7 +79,7 @@ export default function BookmarkMain() {
     selectedTags.length > 0;
 
   return (
-    <section className="mx-auto min-h-svh w-full max-w-9xl px-4 py-8 md:px-6">
+    <section className="mx-auto min-h-svh w-full max-w-7xl px-4 py-8 md:px-6">
       <header className="mb-8">
         <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
           Bookmarks

@@ -17,6 +17,19 @@ import {
 // https://spell.sh/
 // https://icons0.dev/
 // https://ui.justinlevine.me/docs
+/*
+Todo: add these as well
+https://shark.vini.one/docs/components
+https://www.awwwards.com/inspiration_search/
+https://ui.watermelon.sh/
+https://beui.dev/
+https://grootstudio.dev/
+https://www.vengenceui.com/
+https://www.kairoui.online/
+*/
+// Tools
+// https://www.better-t-stack.dev/
+// https://www.fonttrio.xyz/
 
 /**
  * Categories are grouped in the sidebar by `group`.
@@ -152,8 +165,6 @@ const toolsBookmarks: Bookmark[] = [
     category: "tools",
     tags: ["shadcn", "search", "blocks"],
   },
-  // https://www.better-t-stack.dev/
-  // https://www.fonttrio.xyz/
 ];
 
 const developmentBookmarks: Bookmark[] = [
@@ -687,17 +698,6 @@ const learningBookmarks: Bookmark[] = [
     tags: ["react", "recipes"],
   },
 ];
-
-/*
-Todo: add these as well
-https://shark.vini.one/docs/components
-https://www.awwwards.com/inspiration_search/
-https://ui.watermelon.sh/
-https://beui.dev/
-https://grootstudio.dev/
-https://www.vengenceui.com/
-https://www.kairoui.online/
-*/
 
 export const allBookmarks: Bookmark[] = [
   ...uiBookmarks,
