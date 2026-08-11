@@ -33,64 +33,6 @@ type BookmarksGroups = typeof bookmarksGroups;
 
 const bookmarksGroups = ["development", "design", "other"] as const;
 
-const bookmarkCategories = {
-  // Development
-  ui: {
-    label: "UI",
-    group: bookmarksGroups[0],
-    icon: PackageIcon,
-    color: "text-orange-600 hover:text-orange-600/90 dark:text-orange-400",
-  },
-  development: {
-    label: "Development",
-    group: bookmarksGroups[0],
-    icon: Code2Icon,
-    color: "text-blue-600 hover:text-blue-600/90 dark:text-blue-400",
-  },
-  tools: {
-    label: "Tools",
-    group: bookmarksGroups[2],
-    icon: WrenchIcon,
-    color: "text-emerald-600 hover:text-emerald-600/90 dark:text-emerald-400",
-  },
-  ai: {
-    label: "AI",
-    group: bookmarksGroups[0],
-    color: "text-pink-600 hover:text-pink-600/90 dark:text-pink-400",
-    icon: SparklesIcon,
-  },
-
-  // Design
-  icons: {
-    label: "Icons",
-    group: bookmarksGroups[1],
-    icon: ShapesIcon,
-    color: "text-violet-600 hover:text-violet-600/90 dark:text-violet-400",
-  },
-  design: {
-    label: "Design & Inspiration",
-    group: bookmarksGroups[1],
-    icon: PaletteIcon,
-    color: "text-purple-600 hover:text-purple-600/90 dark:text-purple-400",
-  },
-
-  // Learning
-  blogs: {
-    label: "Learning",
-    group: bookmarksGroups[2],
-    icon: BookIcon,
-    color: "text-green-600 hover:text-green-600/90 dark:text-green-400",
-  },
-} as const satisfies Record<
-  string,
-  {
-    label: string;
-    group: BookmarksGroups[number];
-    icon: JSX.ElementType;
-    color: string;
-  }
->;
-
 const aiBookmarks: Bookmark[] = (
   [
     {
@@ -750,6 +692,72 @@ const uiBookmarks: Bookmark[] = (
     // },
   ] satisfies Omit<Bookmark, "category">[]
 ).map((b) => ({ ...b, category: "ui" }));
+
+const bookmarkCategories = {
+  // Development
+  ui: {
+    label: "UI",
+    group: bookmarksGroups[0],
+    icon: PackageIcon,
+    count: uiBookmarks.length,
+    color: "text-orange-600 hover:text-orange-600/90 dark:text-orange-400",
+  },
+  development: {
+    label: "Development",
+    group: bookmarksGroups[0],
+    icon: Code2Icon,
+    count: developmentBookmarks.length,
+    color: "text-blue-600 hover:text-blue-600/90 dark:text-blue-400",
+  },
+  tools: {
+    label: "Tools",
+    group: bookmarksGroups[2],
+    icon: WrenchIcon,
+    count: toolsBookmarks.length,
+    color: "text-emerald-600 hover:text-emerald-600/90 dark:text-emerald-400",
+  },
+  ai: {
+    label: "AI",
+    group: bookmarksGroups[0],
+    color: "text-pink-600 hover:text-pink-600/90 dark:text-pink-400",
+    icon: SparklesIcon,
+    count: aiBookmarks.length,
+  },
+
+  // Design
+  icons: {
+    label: "Icons",
+    group: bookmarksGroups[1],
+    icon: ShapesIcon,
+    count: iconsBookmarks.length,
+    color: "text-violet-600 hover:text-violet-600/90 dark:text-violet-400",
+  },
+  design: {
+    label: "Design & Inspiration",
+    group: bookmarksGroups[1],
+    icon: PaletteIcon,
+    count: designBookmarks.length,
+    color: "text-purple-600 hover:text-purple-600/90 dark:text-purple-400",
+  },
+
+  // Learning
+  blogs: {
+    label: "Learning",
+    group: bookmarksGroups[2],
+    icon: BookIcon,
+    count: blogsBookmarks.length,
+    color: "text-green-600 hover:text-green-600/90 dark:text-green-400",
+  },
+} as const satisfies Record<
+  string,
+  {
+    label: string;
+    group: BookmarksGroups[number];
+    icon: JSX.ElementType;
+    color: string;
+    count: number;
+  }
+>;
 
 const bookmarks = [
   ...aiBookmarks,

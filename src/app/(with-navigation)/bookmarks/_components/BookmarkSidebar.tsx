@@ -52,10 +52,11 @@ export default function BookmarkSidebar({
               .filter(
                 (category) => bookmarkCategories[category].group === group,
               )
-              // .filter((category) => bookmarkCategories[category] === group)
               .map((category, i) => {
-                const { icon, label, color } = bookmarkCategories[category];
+                const { icon, label, color, count } =
+                  bookmarkCategories[category];
                 const Icon = icon;
+
                 return (
                   <CategoryButton
                     key={category + i}
@@ -68,7 +69,8 @@ export default function BookmarkSidebar({
                     }
                   >
                     <Icon />
-                    <span>{label}</span>
+                    {label}
+                    <span className="ms-auto">{count}</span>
                   </CategoryButton>
                 );
               })}

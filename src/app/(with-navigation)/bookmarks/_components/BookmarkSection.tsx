@@ -139,7 +139,7 @@ function BookmarkSection() {
             </span>
 
             {selectedTags.map((tag) => (
-              <button
+              <Button
                 key={tag}
                 type="button"
                 onClick={() => toggleTag(tag)}
@@ -148,7 +148,7 @@ function BookmarkSection() {
               >
                 #{tag}
                 <X aria-hidden className="size-3" />
-              </button>
+              </Button>
             ))}
           </div>
         ) : null}
