@@ -369,5 +369,13 @@
   "[snippets]": {
     "editor.defaultFormatter": "vscode.json-language-features"
   },
-  "window.autoDetectColorScheme": false
+  "window.autoDetectColorScheme": false,
+  "cSpell.words": [
+    "fonttrio",
+    "grootstudio",
+    "kairoui",
+    "kole",
+    "mattpocock",
+    "vengence"
+  ]
 }

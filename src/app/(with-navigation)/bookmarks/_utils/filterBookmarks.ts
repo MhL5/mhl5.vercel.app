@@ -1,8 +1,4 @@
-import {
-  type Bookmark,
-  bookmarkCategoryConfig,
-  getBookmarkHostname,
-} from "@/app/(with-navigation)/bookmarks/_constants/bookmarksConstants";
+import { type Bookmark } from "@/app/(with-navigation)/bookmarks/_constants";
 
 /**
  * Everything a bookmark can be matched against: title, description, tags,
@@ -19,7 +15,7 @@ function getSearchIndex(bookmark: Bookmark) {
     bookmark.description,
     bookmark.tags?.join(" ") ?? "",
     getBookmarkHostname(bookmark.url),
-    bookmarkCategoryConfig[bookmark.category].label,
+    bookmark.category,
   ]
     .join(" ")
     .toLowerCase();
@@ -29,7 +25,7 @@ function getSearchIndex(bookmark: Bookmark) {
 }
 
 /** Every whitespace separated term has to match, order does not matter. */
-export function filterBookmarks(bookmarks: Bookmark[], query: string) {
+function filterBookmarks(bookmarks: Bookmark[], query: string) {
   const terms = query.toLowerCase().trim().split(/\s+/).filter(Boolean);
   if (terms.length === 0) return bookmarks;
 
@@ -40,10 +36,25 @@ export function filterBookmarks(bookmarks: Bookmark[], query: string) {
 }
 
 /** Selected tags narrow the list down, a bookmark has to carry all of them. */
-export function filterBookmarksByTags(bookmarks: Bookmark[], tags: string[]) {
+function filterBookmarksByTags(bookmarks: Bookmark[], tags: string[]) {
   if (tags.length === 0) return bookmarks;
 
   return bookmarks.filter((bookmark) =>
     tags.every((tag) => bookmark.tags?.includes(tag)),
   );
 }
+
+function getBookmarkHostname(url: string) {
+  return new URL(url).hostname.replace(/^www\./, "");
+}
+
+function getBookmarkFaviconUrl(url: string) {
+  return `https://www.google.com/s2/favicons?domain=${getBookmarkHostname(url)}&sz=64`;
+}
+
+export {
+  filterBookmarks,
+  filterBookmarksByTags,
+  getBookmarkFaviconUrl,
+  getBookmarkHostname,
+};

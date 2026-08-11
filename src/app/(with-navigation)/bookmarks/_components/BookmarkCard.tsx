@@ -2,16 +2,19 @@
 
 import {
   type Bookmark,
-  bookmarkCategoryConfig,
-  getBookmarkFaviconUrl,
-  getBookmarkHostname,
-} from "@/app/(with-navigation)/bookmarks/_constants/bookmarksConstants";
+  bookmarkCategories,
+} from "@/app/(with-navigation)/bookmarks/_constants";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
 import { cn } from "@/lib/utils";
 import Img from "@/registry/new-york/Img/Img";
-import { ArrowUpRight, Star } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { useState } from "react";
+
+import {
+  getBookmarkFaviconUrl,
+  getBookmarkHostname,
+} from "../_utils/filterBookmarks";
 
 type BookmarkCardProps = {
   item: Bookmark;
@@ -28,9 +31,8 @@ export default function BookmarkCard({
   const {
     icon: CategoryIcon,
     color,
-    hoverColor,
     label,
-  } = bookmarkCategoryConfig[item.category];
+  } = bookmarkCategories[item.category];
   const hostname = getBookmarkHostname(item.url);
 
   return (
@@ -53,12 +55,6 @@ export default function BookmarkCard({
         </div>
 
         <div className="flex items-center gap-1.5">
-          {item.featured ? (
-            <Star
-              aria-hidden
-              className="size-4 fill-amber-400/30 text-amber-500 dark:text-amber-400"
-            />
-          ) : null}
           <ArrowUpRight
             aria-hidden
             className="size-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100"
@@ -67,12 +63,7 @@ export default function BookmarkCard({
       </div>
 
       <div className="min-w-0">
-        <h3
-          className={cn(
-            "font-semibold text-foreground transition-colors",
-            hoverColor,
-          )}
-        >
+        <h3 className="font-semibold text-foreground transition-colors">
           <Link
             unStyled
             prefetch={false}

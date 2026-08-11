@@ -2,11 +2,9 @@
 
 import {
   type BookmarkCategory,
-  type BookmarkGroup,
   bookmarkCategories,
-  bookmarkCategoryConfig,
-  bookmarkGroupConfig,
-} from "@/app/(with-navigation)/bookmarks/_constants/bookmarksConstants";
+  bookmarksGroups,
+} from "@/app/(with-navigation)/bookmarks/_constants";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Library } from "lucide-react";
@@ -18,8 +16,6 @@ type BookmarkSidebarProps = {
   selectedCategory: BookmarkCategory | null;
   onSelectCategory: (category: BookmarkCategory | null) => void;
 };
-
-const groups = Object.keys(bookmarkGroupConfig) as BookmarkGroup[];
 
 export default function BookmarkSidebar({
   totalCount,
@@ -41,19 +37,24 @@ export default function BookmarkSidebar({
         <span className="ms-auto inline-block">{totalCount}</span>
       </CategoryButton>
 
-      {groups.map((group) => (
+      {bookmarksGroups.map((group) => (
         <div key={group} className="contents lg:block">
           <p className="hidden text-xs font-medium tracking-widest text-muted-foreground/70 uppercase lg:mb-2 lg:block">
-            {bookmarkGroupConfig[group].label}
+            {group}
           </p>
 
           <div className="contents lg:grid lg:gap-0.5">
-            {bookmarkCategories
+            {(
+              Object.keys(
+                bookmarkCategories,
+              ) as (keyof typeof bookmarkCategories)[]
+            )
               .filter(
-                (category) => bookmarkCategoryConfig[category].group === group,
+                (category) => bookmarkCategories[category].group === group,
               )
+              // .filter((category) => bookmarkCategories[category] === group)
               .map((category, i) => {
-                const { icon, label, color } = bookmarkCategoryConfig[category];
+                const { icon, label, color } = bookmarkCategories[category];
                 const Icon = icon;
                 return (
                   <CategoryButton

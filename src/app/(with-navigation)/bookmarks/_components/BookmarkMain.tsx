@@ -4,10 +4,8 @@ import BookmarkCard from "@/app/(with-navigation)/bookmarks/_components/Bookmark
 import BookmarkSidebar from "@/app/(with-navigation)/bookmarks/_components/BookmarkSidebar";
 import {
   type BookmarkCategory,
-  allBookmarks,
   bookmarkCategories,
-  bookmarkCategoryConfig,
-} from "@/app/(with-navigation)/bookmarks/_constants/bookmarksConstants";
+} from "@/app/(with-navigation)/bookmarks/_constants";
 import {
   filterBookmarks,
   filterBookmarksByTags,
@@ -17,6 +15,8 @@ import { Kbd } from "@/components/ui/kbd";
 import DebouncedInput from "@/registry/new-york/DebouncedInput/DebouncedInput";
 import { Search, SearchX, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+
+import { bookmarks as allBookmarks } from "../_constants";
 
 export default function BookmarkMain() {
   const [query, setQuery] = useState("");
@@ -60,7 +60,7 @@ export default function BookmarkMain() {
   );
 
   const counts = Object.fromEntries(
-    bookmarkCategories.map((category) => [
+    Object.keys(bookmarkCategories).map((category) => [
       category,
       searchedBookmarks.filter((bookmark) => bookmark.category === category)
         .length,
@@ -128,7 +128,7 @@ export default function BookmarkMain() {
               {visibleBookmarks.length}{" "}
               {visibleBookmarks.length === 1 ? "bookmark" : "bookmarks"}
               {selectedCategory
-                ? ` in ${bookmarkCategoryConfig[selectedCategory].label}`
+                ? ` in ${bookmarkCategories[selectedCategory].label}`
                 : null}
             </p>
 
