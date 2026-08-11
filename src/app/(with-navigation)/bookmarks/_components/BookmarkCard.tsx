@@ -11,10 +11,7 @@ import Img from "@/registry/new-york/Img/Img";
 import { ArrowUpRight } from "lucide-react";
 import { useState } from "react";
 
-import {
-  getBookmarkFaviconUrl,
-  getBookmarkHostname,
-} from "../_utils/filterBookmarks";
+import { getBookmarkFaviconUrl, getBookmarkHostname } from "../_utils";
 
 type BookmarkCardProps = {
   item: Bookmark;
