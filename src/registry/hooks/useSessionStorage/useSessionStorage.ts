@@ -1,6 +1,6 @@
 "use client";
 
-import { jsonParseWithFallback } from "@/utils/jsonParseWithFallback";
+import { isDev } from "@/registry/utils/checks/checks";
 import {
   useEffect,
   useEffectEvent,
@@ -12,7 +12,7 @@ const SESSION_STORAGE_CHANGE_EVENT = "session-storage-change";
 
 function createSessionStorageStore(key: string) {
   function getServerSnapshot() {
-    return null;
+    return undefined;
   }
 
   function getSnapshot() {
@@ -59,13 +59,22 @@ function useSessionStorage<T>(key: string, defaultValue: T | (() => T)) {
   const parsedSnapshot = useMemo(() => {
     const resolvedInitialValue =
       defaultValue instanceof Function ? defaultValue() : defaultValue;
-    return jsonSnapshot
-      ? (jsonParseWithFallback({
-          fallback: resolvedInitialValue,
-          json: jsonSnapshot,
-        }) as T)
-      : resolvedInitialValue;
-  }, [defaultValue, jsonSnapshot]);
+
+    if (!jsonSnapshot) return resolvedInitialValue;
+
+    try {
+      return JSON.parse(jsonSnapshot);
+    } catch (error) {
+      if (isDev())
+        // eslint-disable-next-line no-console
+        console.warn(
+          `useSessionStorage failed to parse snapshot for "${key}", using initial value`,
+          error,
+        );
+
+      return resolvedInitialValue;
+    }
+  }, [defaultValue, jsonSnapshot, key]);
 
   function setData(value: T | ((prev: T) => T | undefined)) {
     const resolvedValue =

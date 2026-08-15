@@ -1,6 +1,6 @@
 "use client";
 
-import { jsonParseWithFallback } from "@/utils/jsonParseWithFallback";
+import { isDev } from "@/registry/utils/checks/checks";
 import {
   useEffect,
   useEffectEvent,
@@ -70,11 +70,19 @@ function useLocalStorage<T>(key: string, initialValue: T | (() => T)) {
 
     if (!jsonSnapshot) return resolvedInitialValue;
 
-    return jsonParseWithFallback({
-      json: jsonSnapshot,
-      fallback: resolvedInitialValue,
-    });
-  }, [jsonSnapshot, initialValue]);
+    try {
+      return JSON.parse(jsonSnapshot);
+    } catch (error) {
+      if (isDev())
+        // eslint-disable-next-line no-console
+        console.warn(
+          `useLocalStorage failed to parse snapshot for "${key}", using initial value`,
+          error,
+        );
+
+      return resolvedInitialValue;
+    }
+  }, [jsonSnapshot, initialValue, key]);
 
   function setData(value: T | ((prev: T) => T) | undefined) {
     const resolvedValue =

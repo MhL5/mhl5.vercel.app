@@ -9,7 +9,7 @@
   "files": [
     {
       "path": "src/registry/new-york/StructuredDataScript/StructuredDataScript.tsx",
-      "content": "import type { Thing, WithContext } from \"schema-dts\";\n\ntype StructuredDataScriptProps<T extends Thing> = {\n  data: WithContext<T>;\n  id?: string;\n};\n\nexport default function StructuredDataScript<T extends Thing>({\n  data,\n  id,\n}: StructuredDataScriptProps<T>) {\n  return (\n    <script\n      id={id}\n      type=\"application/ld+json\"\n      // this is safe as long as the data comes from our code and not from the users input\n      dangerouslySetInnerHTML={{\n        __html: JSON.stringify(data),\n      }}\n    />\n  );\n}\n",
+      "content": "import type { Thing, WithContext } from \"schema-dts\";\r\n\r\ntype StructuredDataScriptProps<T extends Thing> = {\r\n  data: WithContext<T>;\r\n  id?: string;\r\n};\r\n\r\nexport default function StructuredDataScript<T extends Thing>({\r\n  data,\r\n  id,\r\n}: StructuredDataScriptProps<T>) {\r\n  return (\r\n    <script\r\n      id={id}\r\n      type=\"application/ld+json\"\r\n      // this is safe as long as the data comes from our code and not from the users input\r\n      dangerouslySetInnerHTML={{\r\n        __html: JSON.stringify(data),\r\n      }}\r\n    />\r\n  );\r\n}\r\n",
       "type": "registry:component"
     }
   ],
