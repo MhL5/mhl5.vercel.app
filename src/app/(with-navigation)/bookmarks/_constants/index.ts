@@ -684,6 +684,12 @@ const uiBookmarks: Bookmark[] = (
       url: "https://chanhdai.com/",
       tags: ["portfolio", "inspiration"],
     },
+    {
+      title: "Bag\Ui",
+      description: "Build production-ready SaaS landing pages faster",
+      tags: ["blocks"],
+      url: "https://www.bagui.pro/",
+    },
     // {
     //   title: "",
     //   description: "",
