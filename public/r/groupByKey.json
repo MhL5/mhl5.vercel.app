@@ -6,7 +6,7 @@
   "files": [
     {
       "path": "src/registry/utils/groupByKey/groupByKey.ts",
-      "content": "export function groupByKey<T extends Record<string, unknown>>(\n  arr: T[],\n  key: keyof T,\n): Record<string, T[]> {\n  return arr.reduce(\n    (acc, item) => {\n      const groupKey = String(item[key]);\n      if (!acc[groupKey]) acc[groupKey] = [];\n      acc[groupKey].push(item);\n      return acc;\n    },\n    {} as Record<string, T[]>,\n  );\n}\n",
+      "content": "export function groupByKey<T extends Record<string, unknown>>(\r\n  arr: T[],\r\n  key: keyof T,\r\n): Record<string, T[]> {\r\n  return arr.reduce(\r\n    (acc, item) => {\r\n      const groupKey = String(item[key]);\r\n      if (!acc[groupKey]) acc[groupKey] = [];\r\n      acc[groupKey].push(item);\r\n      return acc;\r\n    },\r\n    {} as Record<string, T[]>,\r\n  );\r\n}\r\n",
       "type": "registry:lib",
       "target": "src/utils/groupByKey.ts"
     }

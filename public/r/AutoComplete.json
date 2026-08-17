@@ -6,7 +6,7 @@
   "files": [
     {
       "path": "src/registry/types/AutoComplete/AutoComplete.ts",
-      "content": "export type StringWithAutoComplete<TOptions extends string> =\n  | (string & {})\n  | TOptions;\n\nexport type NumberWithAutoComplete<TOptions extends number> =\n  | (number & {})\n  | TOptions;\n",
+      "content": "export type StringWithAutoComplete<TOptions extends string> =\r\n  | (string & {})\r\n  | TOptions;\r\n\r\nexport type NumberWithAutoComplete<TOptions extends number> =\r\n  | (number & {})\r\n  | TOptions;\r\n",
       "type": "registry:lib",
       "target": "src/types/AutoComplete.ts"
     }

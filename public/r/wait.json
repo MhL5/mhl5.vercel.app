@@ -6,7 +6,7 @@
   "files": [
     {
       "path": "src/registry/utils/wait/wait.ts",
-      "content": "import { isDev } from \"@/registry/utils/checks/checks\";\n\nexport async function asyncWait(ms: number) {\n  // safe guard so it only runs in dev mode\n  if (!isDev()) return;\n\n  await new Promise((resolve) => setTimeout(resolve, ms));\n}\n\nexport function syncWait(ms: number) {\n  // safe guard so it only runs in dev mode\n  if (!isDev()) return;\n\n  const start = Date.now();\n  let now = start;\n  while (now - start < ms) now = Date.now();\n}\n",
+      "content": "import { isDev } from \"@/registry/utils/checks/checks\";\r\n\r\nexport async function asyncWait(ms: number) {\r\n  // safe guard so it only runs in dev mode\r\n  if (!isDev()) return;\r\n\r\n  await new Promise((resolve) => setTimeout(resolve, ms));\r\n}\r\n\r\nexport function syncWait(ms: number) {\r\n  // safe guard so it only runs in dev mode\r\n  if (!isDev()) return;\r\n\r\n  const start = Date.now();\r\n  let now = start;\r\n  while (now - start < ms) now = Date.now();\r\n}\r\n",
       "type": "registry:lib",
       "target": "src/utils/wait.ts"
     }

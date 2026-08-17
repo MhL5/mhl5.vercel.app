@@ -6,7 +6,7 @@
   "files": [
     {
       "path": "src/registry/types/PartialPick/PartialPick.ts",
-      "content": "export type PartialPick<T, Key extends keyof T> = Partial<Pick<T, Key>> &\n  Omit<T, Key>;\n",
+      "content": "export type PartialPick<T, Key extends keyof T> = Partial<Pick<T, Key>> &\r\n  Omit<T, Key>;\r\n",
       "type": "registry:lib",
       "target": "src/types/PartialPick.ts"
     }

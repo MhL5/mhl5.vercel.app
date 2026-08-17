@@ -322,11 +322,6 @@
         {
           "path": "src/registry/hooks/useSessionStorage/useSessionStorage.ts",
           "type": "registry:hook"
-        },
-        {
-          "path": "src/utils/jsonParseWithFallback.ts",
-          "type": "registry:lib",
-          "target": "src/utils/jsonParseWithFallback.ts"
         }
       ]
     },

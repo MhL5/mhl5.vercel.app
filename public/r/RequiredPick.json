@@ -6,7 +6,7 @@
   "files": [
     {
       "path": "src/registry/types/RequiredPick/RequiredPick.ts",
-      "content": "export type RequiredPick<T, Key extends keyof T> = Required<Pick<T, Key>> & T;\n",
+      "content": "export type RequiredPick<T, Key extends keyof T> = Required<Pick<T, Key>> & T;\r\n",
       "type": "registry:lib",
       "target": "src/types/RequiredPick.ts"
     }
