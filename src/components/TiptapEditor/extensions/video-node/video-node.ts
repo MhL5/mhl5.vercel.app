@@ -142,10 +142,10 @@ export const videoNode = Node.create({
   },
 
   renderHTML({ HTMLAttributes }) {
-    const attrs = { ...this.options.HTMLAttributes, ...HTMLAttributes };
+    const attrs = { ...this.options.HTMLAttributes, ...HTMLAttributes }
     // Only include width/height if present (number or string)
-    if (attrs.width != null) attrs.width = String(attrs.width);
-    if (attrs.height != null) attrs.height = String(attrs.height);
+    if ("width" in attrs && attrs.width != null) attrs.width = String(attrs.width);
+    if ("height" in attrs && attrs.height != null) attrs.height = String(attrs.height);
     return ["video", attrs];
   },
 });

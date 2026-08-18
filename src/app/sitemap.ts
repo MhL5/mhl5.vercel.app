@@ -1,10 +1,12 @@
 import { getShadcnRegistry } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
 import { absoluteUrl } from "@/utils/absoluteUrl";
 import type { MetadataRoute } from "next";
-
-export const revalidate = 259200; // 3 days
+import { cacheLife } from "next/cache";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  "use cache";
+  cacheLife("days");
+
   const snippets = await getShadcnRegistry();
 
   const snippetsLinks = snippets.items.reduce((acc, item) => {
