@@ -19,6 +19,12 @@
       "skillPath": "skills/engineering/code-review/SKILL.md",
       "computedHash": "83a7f80d5dd27bc682ec3ed742de0064d1fc88eea92814a7004465fc86b5ab2a"
     },
+    "emil-design-eng": {
+      "source": "emilkowalski/skills",
+      "sourceType": "github",
+      "skillPath": "skills/emil-design-eng/SKILL.md",
+      "computedHash": "87067d79205fdedc6d682891027dd9c7335486c4b4dc2e785638941a9d2e6061"
+    },
     "grill-with-docs": {
       "source": "mattpocock/skills",
       "sourceType": "github",
@@ -49,6 +55,12 @@
       "skillPath": "skills/shadcn/SKILL.md",
       "computedHash": "4f78ff7cd3a4f637b6fe30dbbab4a80a19dd63fa62d9352bed461ccfdbcbbf43"
     },
+    "thermo-nuclear-code-quality-review": {
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "skillPath": "cursor-team-kit/skills/thermo-nuclear-code-quality-review/SKILL.md",
+      "computedHash": "1be9e8126d5b4bd3000f1e654622faf1493c7df204f9460ba0c1e41e7227497f"
+    },
     "to-spec": {
       "source": "mattpocock/skills",
       "sourceType": "github",
@@ -66,18 +78,6 @@
       "sourceType": "github",
       "skillPath": "skills/engineering/triage/SKILL.md",
       "computedHash": "7caa274494d702d8c668d1ff17267b4a69b6d58e34a00c20b2df9de67ef6edc9"
-    },
-    "visual-plan": {
-      "source": "builderio/skills",
-      "sourceType": "github",
-      "skillPath": "skills/visual-plan/SKILL.md",
-      "computedHash": "18eabbac1f7cb9695e7e3fc6ede196b4f10f8509a557e41ca77de2ae9f0c486d"
-    },
-    "visual-recap": {
-      "source": "builderio/skills",
-      "sourceType": "github",
-      "skillPath": "skills/visual-recap/SKILL.md",
-      "computedHash": "524d54f96623b7834de5794fdaa21ad5cfa3afde1a732b9ecfac41672263271f"
     },
     "wayfinder": {
       "source": "mattpocock/skills",
