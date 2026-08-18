@@ -1,5 +1,5 @@
 import { parseNumberSearchParam } from "@/utils/parseSearchParam";
-import { describe, expect, test } from "bun:test";
+import { describe, expect, test } from "vitest";
 
 describe("parseNumberSearchParam", () => {
   test("should return valid integers", () => {

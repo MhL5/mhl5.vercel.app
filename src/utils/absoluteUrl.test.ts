@@ -1,5 +1,5 @@
-import { describe, expect, test } from "bun:test";
 import { absoluteUrl } from "@/utils/absoluteUrl";
+import { describe, expect, test } from "vitest";
 
 describe("absoluteUrl", () => {
   describe("development mode", () => {

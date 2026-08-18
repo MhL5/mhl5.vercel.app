@@ -1,5 +1,5 @@
-import { describe, expect, test } from "bun:test";
-import { jsonToCsv } from "./jsonToCsv";
+import { jsonToCsv } from "@/utils/jsonToCsv";
+import { describe, expect, test } from "vitest";
 
 describe("JsonToCsv", () => {
   test("should convert json data correctly to match the expected output", () => {
