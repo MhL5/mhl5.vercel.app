@@ -1,12 +1,7 @@
 "use client";
 
 import { isDev } from "@/registry/utils/checks/checks";
-import {
-  useEffect,
-  useEffectEvent,
-  useMemo,
-  useSyncExternalStore,
-} from "react";
+import { useMemo, useSyncExternalStore } from "react";
 
 const SESSION_STORAGE_CHANGE_EVENT = "session-storage-change";
 
@@ -90,18 +85,6 @@ function useSessionStorage<T>(key: string, defaultValue: T | (() => T)) {
       new CustomEvent(SESSION_STORAGE_CHANGE_EVENT, { detail: { key } }),
     );
   }
-
-  const initializeStorageIfMissing = useEffectEvent(() =>
-    sessionStorage.setItem(key, JSON.stringify(parsedSnapshot)),
-  );
-
-  useEffect(
-    () =>
-      sessionStorage.getItem(key) === null
-        ? initializeStorageIfMissing()
-        : void null,
-    [key],
-  );
 
   return [parsedSnapshot, setData] as const;
 }
