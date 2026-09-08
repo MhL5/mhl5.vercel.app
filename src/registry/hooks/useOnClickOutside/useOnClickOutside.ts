@@ -2,17 +2,18 @@
 
 import { type RefObject, useEffect, useEffectEvent } from "react";
 
-export default function useOnClickOutside(
+function useOnClickOutside(
   ref: RefObject<HTMLElement | null>,
-  cb: (e: MouseEvent) => void,
+  cb: (e: PointerEvent) => void,
+  enabled = true,
 ) {
   const onClickEvent = useEffectEvent((e: PointerEvent) =>
-    ref.current && !ref.current.contains(e.target as HTMLElement)
-      ? cb(e)
-      : null,
+    ref.current && !ref.current.contains(e.target as Node) ? cb(e) : null,
   );
 
   useEffect(() => {
+    if (!enabled) return;
+
     const abortController = new AbortController();
 
     document.addEventListener("click", onClickEvent, {
@@ -20,5 +21,7 @@ export default function useOnClickOutside(
     });
 
     return () => abortController.abort();
-  }, [ref]);
+  }, [enabled]);
 }
+
+export { useOnClickOutside };

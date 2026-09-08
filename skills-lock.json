@@ -19,6 +19,12 @@
       "skillPath": "skills/engineering/code-review/SKILL.md",
       "computedHash": "83a7f80d5dd27bc682ec3ed742de0064d1fc88eea92814a7004465fc86b5ab2a"
     },
+    "coding-conventions": {
+      "source": "MhL5/portfolio",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/coding-conventions/SKILL.md",
+      "computedHash": "5523995bbc5dccf193176263c578e0051091bd8e712a8bded80d213f2ec62298"
+    },
     "emil-design-eng": {
       "source": "emilkowalski/skills",
       "sourceType": "github",
@@ -84,6 +90,12 @@
       "sourceType": "github",
       "skillPath": "skills/engineering/wayfinder/SKILL.md",
       "computedHash": "71d7080cec29cd00ef8173b1aa591f57a08e2a0a5ea6b6339a6ff2cf2895ccc1"
+    },
+    "writing-for-agents": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "skillPath": "skills/productivity/writing-for-agents/SKILL.md",
+      "computedHash": "831e996c177c6c5233eb3bb472a33edee2b3ce1ee5a6d7e8b696c1c3fb4eda3d"
     },
     "writing-great-skills": {
       "source": "mattpocock/skills",
