@@ -2,10 +2,10 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
-type CopyState = "idle" | "copied" | "error";
-
 export default function useCopyToClipboard(contentToCopy: string) {
-  const [copyState, setCopyState] = useState<CopyState>("idle");
+  const [copyState, setCopyState] = useState<"idle" | "copied" | "error">(
+    "idle",
+  );
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleCopy = useCallback(async () => {
