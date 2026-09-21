@@ -137,8 +137,8 @@ async function getCodeModuleData(registryItem: string) {
   const registryDependencies = registryJson.registryDependencies
     ?.map((dep) => {
       if (dep.startsWith("http")) {
-        // This is a non-shadcn/ui dependency that is hosted on our registry.
-        // Currently other registry dependencies are not supported.
+        // A dependency hosted on our registry links to its snippet page;
+        // any other third-party registry links to the raw registry URL.
         const name = dep.split("/").pop()?.split(".")[0]?.replace("-", " ");
         const depRegistry = shadcnRegistry.items.find((item) => {
           return `https://mhl5.vercel.app/r/${item.name}.json` === dep;
@@ -146,7 +146,7 @@ async function getCodeModuleData(registryItem: string) {
 
         return {
           name,
-          href: depRegistry?.meta.url,
+          href: depRegistry?.meta.url ?? dep,
         };
       } else {
         // This is a shadcn/ui dependency.

@@ -4,11 +4,14 @@ import PreviewCodeInternal from "@/components/MDX-remote/components/PreviewCode/
 
 type CodePreviewProps = {
   name: keyof typeof componentPaths;
+  /** registry item the "Open in v0" button targets, when it differs from `name` */
+  registryName?: string;
   height?: "default" | "lg";
 };
 
 export default function PreviewCode({
   name,
+  registryName,
   height = "default",
 }: CodePreviewProps) {
   const previewSourceCodePath = componentPaths[name].replace("@/", "src/");
@@ -16,6 +19,7 @@ export default function PreviewCode({
   return (
     <PreviewCodeInternal
       name={name}
+      registryName={registryName}
       height={height}
       code={
         <ComponentSource

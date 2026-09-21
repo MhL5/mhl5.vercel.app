@@ -1,5 +1,6 @@
 import { MDXRemote } from "next-mdx-remote/rsc";
 import type { ComponentProps } from "react";
+import remarkGfm from "remark-gfm";
 
 import { mdxClientComponents } from "./constants/mdxClientComponents";
 import { mdxServerComponents } from "./constants/mdxServerComponents";
@@ -12,6 +13,7 @@ export default function MdxRemoteServer({ source }: MdxRemoteServerProps) {
   return (
     <MDXRemote
       source={source}
+      options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
       components={{
         ...mdxClientComponents,
         ...mdxServerComponents,

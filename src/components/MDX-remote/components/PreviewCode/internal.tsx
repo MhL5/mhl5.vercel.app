@@ -6,19 +6,21 @@ import {
 } from "@/components/MDX-remote/components/PreviewCode/constants";
 import { OpenInV0Button } from "@/components/buttons/OpenInV0Button";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RefreshCcw } from "lucide-react";
 import { type CSSProperties, type ReactNode, useState } from "react";
 
 type CodePreviewProps = {
   name: keyof typeof componentPaths;
+  registryName?: string;
   code: ReactNode;
   height?: "default" | "lg";
 };
 
 export default function PreviewCodeInternal({
   name,
+  registryName = name,
   code,
   height = "default",
 }: CodePreviewProps) {
@@ -44,7 +46,7 @@ export default function PreviewCodeInternal({
           <TabsTrigger value="code">Code</TabsTrigger>
         </TabsList>
 
-        <OpenInV0Button name={name} />
+        <OpenInV0Button name={registryName} />
       </div>
 
       <Card
@@ -55,26 +57,24 @@ export default function PreviewCodeInternal({
           } as CSSProperties
         }
       >
-        <CardContent className="h-full p-0">
-          <TabsContent
-            value="preview"
-            className="relative flex h-full items-center justify-center p-4"
+        <TabsContent
+          value="preview"
+          className="relative flex items-center justify-center p-4"
+        >
+          <Button
+            title="Re render"
+            variant="ghost"
+            className="absolute inset-e-3 top-3 ms-auto"
+            onClick={() => setPreviewComponentKey(Date.now())}
           >
-            <Button
-              title="Re render"
-              variant="ghost"
-              className="absolute inset-e-3 top-3 ms-auto"
-              onClick={() => setPreviewComponentKey(Date.now())}
-            >
-              <RefreshCcw />
-            </Button>
+            <RefreshCcw />
+          </Button>
 
-            <PreviewComponent key={previewComponentKey} />
-          </TabsContent>
-          <TabsContent value="code" className="h-full">
-            {code}
-          </TabsContent>
-        </CardContent>
+          <PreviewComponent key={previewComponentKey} />
+        </TabsContent>
+        <TabsContent value="code" className="h-full">
+          {code}
+        </TabsContent>
       </Card>
     </Tabs>
   );

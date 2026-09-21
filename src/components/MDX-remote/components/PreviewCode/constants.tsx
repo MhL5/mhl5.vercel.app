@@ -28,6 +28,20 @@ export const componentPaths = {
     "@/registry/new-york/FallbackPages/examples/LoadingExample.tsx",
 
   TagsInput: "@/registry/new-york/TagsInput/example.tsx",
+  Form: "@/registry/new-york/form/examples/FullFormExample.tsx",
+  FormInput: "@/registry/new-york/form/examples/InputExample.tsx",
+  FormInputGroup: "@/registry/new-york/form/examples/InputGroupExample.tsx",
+  FormInputNumber: "@/registry/new-york/form/examples/InputNumberExample.tsx",
+  FormTextarea: "@/registry/new-york/form/examples/TextareaExample.tsx",
+  FormSelect: "@/registry/new-york/form/examples/SelectExample.tsx",
+  FormMultiSelect: "@/registry/new-york/form/examples/MultiSelectExample.tsx",
+  FormRadioGroup: "@/registry/new-york/form/examples/RadioGroupExample.tsx",
+  FormCheckbox: "@/registry/new-york/form/examples/CheckboxExample.tsx",
+  FormDropzone: "@/registry/new-york/form/examples/DropzoneExample.tsx",
+  FormActions: "@/registry/new-york/form/examples/FormActionsExample.tsx",
+  FormFieldGroup: "@/registry/new-york/form/examples/FieldGroupExample.tsx",
+  FormCustomControl:
+    "@/registry/new-york/form/examples/CustomControlExample.tsx",
 
   useDebounce: "@/registry/hooks/useDebounce/example.tsx",
   useStepper: "@/registry/hooks/useStepper/example.tsx",
@@ -106,6 +120,45 @@ export const PreviewComponents = {
     },
   ),
   TagsInput: dynamic(() => import(componentPaths.TagsInput), {
+    ...dynamicImportOptions,
+  }),
+  Form: dynamic(() => import(componentPaths.Form), {
+    ...dynamicImportOptions,
+  }),
+  FormInput: dynamic(() => import(componentPaths.FormInput), {
+    ...dynamicImportOptions,
+  }),
+  FormInputGroup: dynamic(() => import(componentPaths.FormInputGroup), {
+    ...dynamicImportOptions,
+  }),
+  FormInputNumber: dynamic(() => import(componentPaths.FormInputNumber), {
+    ...dynamicImportOptions,
+  }),
+  FormTextarea: dynamic(() => import(componentPaths.FormTextarea), {
+    ...dynamicImportOptions,
+  }),
+  FormSelect: dynamic(() => import(componentPaths.FormSelect), {
+    ...dynamicImportOptions,
+  }),
+  FormMultiSelect: dynamic(() => import(componentPaths.FormMultiSelect), {
+    ...dynamicImportOptions,
+  }),
+  FormRadioGroup: dynamic(() => import(componentPaths.FormRadioGroup), {
+    ...dynamicImportOptions,
+  }),
+  FormCheckbox: dynamic(() => import(componentPaths.FormCheckbox), {
+    ...dynamicImportOptions,
+  }),
+  FormDropzone: dynamic(() => import(componentPaths.FormDropzone), {
+    ...dynamicImportOptions,
+  }),
+  FormActions: dynamic(() => import(componentPaths.FormActions), {
+    ...dynamicImportOptions,
+  }),
+  FormFieldGroup: dynamic(() => import(componentPaths.FormFieldGroup), {
+    ...dynamicImportOptions,
+  }),
+  FormCustomControl: dynamic(() => import(componentPaths.FormCustomControl), {
     ...dynamicImportOptions,
   }),
   useDebounce: dynamic(() => import(componentPaths.useDebounce), {
