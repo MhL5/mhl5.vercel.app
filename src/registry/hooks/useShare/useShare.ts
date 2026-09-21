@@ -4,25 +4,13 @@ import { tryCatch } from "@/registry/utils/tryCatch/tryCatch";
 import { useState } from "react";
 import { toast } from "sonner";
 
-const DEFAULT_STATE = {
-  status: "idle",
-} as const satisfies UseShareParams["state"];
-
 type UseShareParams = {
   shareData: ShareData;
-  state:
-    | {
-        status: "idle";
-      }
-    | {
-        status: "error";
-        message: string;
-      };
-  isPending: boolean;
+  onError?: (error: Error) => void;
 };
 
-function useShare({ shareData }: UseShareParams) {
-  const [state, setState] = useState<UseShareParams["state"]>(DEFAULT_STATE);
+function useShare({ shareData, onError }: UseShareParams) {
+  const [error, setError] = useState<string | null>(null);
   const isSupported =
     typeof navigator !== "undefined" && typeof navigator.share === "function";
 
@@ -32,20 +20,17 @@ function useShare({ shareData }: UseShareParams) {
 
     await tryCatch(navigator.share(shareData), {
       onError: (error) => {
-        if (!error || (error as Error)?.name === "AbortError") return;
-        setState({
-          status: "error",
-          message: (error as Error)?.message || "Something went wrong!",
-        });
+        if (!error || error?.name === "AbortError") return setError(null);
+
+        onError?.(error);
+        setError(
+          error?.message?.trim() || "Something went wrong while sharing!",
+        );
       },
     });
   }
 
-  function clearState() {
-    setState({ status: "idle" });
-  }
-
-  return { handleShare, isSupported, state, clearState };
+  return { handleShare, isSupported, error };
 }
 
 export { useShare };
