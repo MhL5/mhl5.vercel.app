@@ -24,8 +24,8 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { cn } from "@/lib/utils";
 import { useMediaQueryBreakpoint } from "@/registry/hooks/useMediaQuery/useMediaQuery";
+import { cn } from "cn";
 import {
   type ComponentProps,
   type ComponentType,
@@ -110,27 +110,44 @@ type DrawerDialogContentProps = DualComponentProps<
   typeof DrawerContent,
   "dialogContentProps",
   "drawerContentProps"
->;
+> & { scrollAreaProps?: ComponentProps<"div"> };
 
 function DrawerDialogContent({
   className,
   dialogContentProps,
   drawerContentProps,
+  scrollAreaProps: {
+    className: scrollAreaPropsClassName,
+    ...scrollAreaProps
+  } = {},
+  children,
   ...props
 }: DrawerDialogContentProps) {
   const { isSm } = useDrawerDialogContext();
+
+  const scrollAreaClassName =
+    "scrollbar-thin [scrollbar-color:var(--muted-foreground)_transparent]";
 
   if (isSm)
     return (
       <DialogContent
         data-slot="drawer-dialog-content"
-        className={cn(
-          "overflow-hidden sm:has-data-[slot='drawer-dialog-scroll-area']:p-0",
-          className,
-        )}
+        className={cn("overflow-hidden sm:p-0", className)}
         {...dialogContentProps}
         {...props}
-      />
+      >
+        <div
+          data-slot="drawer-dialog-scroll-area"
+          className={cn(
+            "max-h-[90dvh] w-auto overflow-y-auto p-6 sm:max-w-[80svw]",
+            scrollAreaClassName,
+            scrollAreaPropsClassName,
+          )}
+          {...scrollAreaProps}
+        >
+          {children}
+        </div>
+      </DialogContent>
     );
   return (
     <DrawerContent
@@ -138,7 +155,19 @@ function DrawerDialogContent({
       className={cn("overflow-hidden", className)}
       {...drawerContentProps}
       {...props}
-    />
+    >
+      <div
+        data-slot="drawer-dialog-scroll-area"
+        className={cn(
+          "max-h-[90dvh] overflow-y-auto",
+          scrollAreaClassName,
+          scrollAreaPropsClassName,
+        )}
+        {...scrollAreaProps}
+      >
+        {children}
+      </div>
+    </DrawerContent>
   );
 }
 
@@ -390,29 +419,6 @@ function DrawerDialogPortal({
   );
 }
 
-function DrawerDialogScrollArea({
-  className,
-  ...props
-}: ComponentProps<"div">) {
-  const { isSm } = useDrawerDialogContext();
-
-  return (
-    <div
-      data-slot="drawer-dialog-scroll-area"
-      className={cn(
-        isSm
-          ? // dialog
-            "max-h-[90dvh] w-auto overflow-y-auto p-6 sm:max-w-[80svw]"
-          : // drawer
-            "max-h-[90dvh] overflow-y-auto",
-        "scrollbar-thin [scrollbar-color:var(--muted-foreground)_transparent]",
-        className,
-      )}
-      {...props}
-    />
-  );
-}
-
 export {
   DrawerDialog,
   DrawerDialogClose,
@@ -422,7 +428,6 @@ export {
   DrawerDialogHeader,
   DrawerDialogOverlay,
   DrawerDialogPortal,
-  DrawerDialogScrollArea,
   DrawerDialogTitle,
   DrawerDialogTrigger,
 };
