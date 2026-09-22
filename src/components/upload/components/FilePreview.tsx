@@ -2,8 +2,8 @@ import { Button } from "@/components/ui/button";
 import { DotSeparator } from "@/components/ui/dot-separator";
 import { FieldError } from "@/components/ui/field";
 import { Skeleton } from "@/components/ui/skeleton";
-import { cn } from "@/lib/utils";
 import { formatBytes } from "@/registry/utils/formatters/formatters";
+import { cn } from "cn";
 import { Trash2Icon } from "lucide-react";
 import {
   type ComponentProps,

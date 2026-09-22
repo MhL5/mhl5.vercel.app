@@ -1,0 +1,171 @@
+`Form` binds [TanStack Form](https://tanstack.com/form/latest) to the shadcn [Field](https://ui.shadcn.com/docs/components/field) primitives. You describe the form once with `useAppForm`, then compose fields out of `AppField*` controls that read everything they need from context: the value, the change and blur handlers, the accessible ids, the validation state and whether the form is currently submitting.
+
+<PreviewCode name="Form" height="lg" />
+
+## Installation
+
+<InstallationTabs name="Form" />
+
+Every file under `fieldComponents/` is standalone. Delete the controls you don't use and remove their primitives from your project.
+
+## Usage
+
+```tsx
+"use client";
+
+import { useAppForm } from "@/components/form/appForm";
+import { AppField } from "@/components/form/fieldComponents/AppField";
+import { AppFieldError } from "@/components/form/fieldComponents/AppFieldError";
+import { AppFieldInput } from "@/components/form/fieldComponents/AppFieldInput";
+import { AppFieldLabel } from "@/components/form/fieldComponents/AppFieldLabel";
+import { SubmitButton } from "@/components/form/formComponents/SubmitButton";
+import { focusOnFirstInvalidInput } from "@/components/form/utils/focusOnFirstInvalidInput";
+import { revalidateLogic } from "@tanstack/react-form-nextjs";
+import z from "zod";
+
+const schema = z.object({
+  email: z.email("Enter a valid email"),
+});
+
+function SignupForm() {
+  const form = useAppForm({
+    defaultValues: { email: "" },
+    validationLogic: revalidateLogic(),
+    validators: { onDynamic: schema },
+    onSubmit: async ({ value }) => {
+      await signup(value);
+    },
+    onSubmitInvalid: focusOnFirstInvalidInput,
+  });
+
+  return (
+    <form
+      noValidate
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
+    >
+      <form.AppForm>
+        <form.AppField name="email">
+          {() => (
+            <AppField>
+              <AppFieldLabel>Email</AppFieldLabel>
+              <AppFieldInput type="email" />
+              <AppFieldError />
+            </AppField>
+          )}
+        </form.AppField>
+
+        <SubmitButton>Sign up</SubmitButton>
+      </form.AppForm>
+    </form>
+  );
+}
+```
+
+Two rules, everything else follows from them:
+
+1.  **Field controls render inside `form.AppField`.** The render prop's `field` argument is optional; `AppField*` components read the field from context. Use the argument when you need the value or the handlers yourself, like a character counter or a dropzone.
+2.  **Form controls render inside `form.AppForm`.** `SubmitButton`, `FormActionButton` and `FormErrorAlert` subscribe to the form store to know when it is submitting or has form-level errors. The field controls need it too, since they disable themselves while submitting.
+
+## Field components
+
+### Layout
+
+These four wrap the shadcn `Field` primitives and add the ids and states. Use them in place of `Field`, `FieldLabel`, `FieldDescription` and `FieldError` inside `form.AppField`.
+
+| Component             | Wraps              | Adds                                                                                                                                                                                       |
+| --------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `AppField`            | `Field`            | `data-invalid` while the field is touched and invalid, which turns the label and description destructive. Accepts `orientation="horizontal"` for checkbox rows.                            |
+| `AppFieldLabel`       | `FieldLabel`       | `htmlFor` pointing at the control and `aria-invalid` for styling.                                                                                                                          |
+| `AppFieldDescription` | `FieldDescription` | The `id` the control's `aria-describedby` references. Can hold anything, including live values from the render prop's `field`.                                                             |
+| `AppFieldError`       | `FieldError`       | The `id` referenced only while invalid, plus `errors={field.state.meta.errors}`. Renders nothing when there are no errors, one line for one error, a list for several. Has `role="alert"`. |
+
+Every field in the examples follows the same shape: `AppField`, label, control, optional description, error. Radio groups swap `AppField` for `FieldSet` + `FieldLegend` because the whole group is the control.
+
+### Input
+
+`AppFieldInput` wraps `Input`. Value type `string`. All `Input` props pass through, so `type`, `placeholder`, `autoComplete` and friends work as usual.
+
+<PreviewCode name="FormInput" registryName="Form" />
+
+### Input group
+
+`AppFieldInputGroupInput` is the `InputGroupInput` flavour of `AppFieldInput`, for when the control sits next to addons, buttons or text inside an `InputGroup`. Value type `string`. The `InputGroup` and its addons are plain shadcn primitives; only the input is form-aware.
+
+<PreviewCode name="FormInputGroup" registryName="Form" />
+
+### Number
+
+`AppFieldInputNumber` renders `Input type="number" inputMode="numeric"` and stores `number | null`: an empty or unparsable input becomes `null` instead of `NaN` or `""`. Type the field as nullable and derive the "required" message from the `null` case. `min`, `max` and `step` pass through to the input.
+
+<PreviewCode name="FormInputNumber" registryName="Form" />
+
+### Textarea
+
+`AppFieldTextarea` wraps `Textarea`. Value type `string`. Use the render prop's `field` for live feedback such as a character counter.
+
+<PreviewCode name="FormTextarea" registryName="Form" />
+
+### Select
+
+`AppFieldSelect` wraps `Select` and binds `value`, `onValueChange`, `name` and the submitting state. `AppFieldSelectTrigger` is the part that carries the accessible ids, because the trigger is the focusable element. Value type `string`; use `""` as the empty default so the placeholder shows.
+
+The rest are the shadcn parts re-exported under the `AppField` prefix so a field reads consistently: `AppFieldSelectValue`, `AppFieldSelectContent`, `AppFieldSelectGroup`, `AppFieldSelectLabel`, `AppFieldSelectItem`, `AppFieldSelectSeparator`, `AppFieldSelectScrollUpButton`, `AppFieldSelectScrollDownButton`.
+
+<PreviewCode name="FormSelect" registryName="Form" />
+
+### Multi select
+
+`AppFieldMultiSelect` wraps the WDS `MultiSelect` and binds `values` / `onValuesChange`. Value type `string[]`. `AppFieldMultiSelectTrigger` carries the ids and the submitting state. `AppFieldMultiSelectValue`, `AppFieldMultiSelectContent`, `AppFieldMultiSelectGroup` and `AppFieldMultiSelectItem` are re-exports.
+
+`AppFieldMultiSelectContent` accepts `search` (`boolean` or `{ placeholder, emptyMessage }`) and `AppFieldMultiSelectGroup` accepts a `heading`, both from the underlying `cmdk` command list.
+
+<PreviewCode name="FormMultiSelect" registryName="Form" />
+
+### Radio group
+
+Radio groups have one field and many focusable items, so every item needs its own ids. `AppFieldRadioGroupItemProvider` takes the item's `radioItemValue`, derives `-item-${value}` ids from it and hands them to the item parts through context:
+
+| Component                           | Role                                                                                                          |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `AppFieldRadioGroup`                | Wraps `RadioGroup`, binds `value`, `onValueChange` and `name`. Value type `string`.                           |
+| `AppFieldRadioGroupItemProvider`    | One per option. Requires `radioItemValue`, provides the item's ids.                                           |
+| `AppFieldRadioGroupItem`            | Wraps `RadioGroupItem`. Gets its `value` from the provider, so you don't pass one. Disabled while submitting. |
+| `AppFieldRadioGroupItemLabel`       | `FieldLabel` with `htmlFor` the item.                                                                         |
+| `AppFieldRadioGroupItemDescription` | `FieldDescription` with the item's description id.                                                            |
+| `AppFieldRadioGroupItemError`       | `FieldError` with the item's error id, for the rare case an error belongs to one option.                      |
+| `useAppFieldRadioGroupItemContext`  | The hook behind the item parts, for building your own item layout.                                            |
+
+The `AppFieldError` for the group sits outside the items, next to the `FieldLegend`.
+
+<PreviewCode name="FormRadioGroup" registryName="Form" />
+
+### Checkbox
+
+`AppFieldCheckbox` wraps `Checkbox` and binds `checked` / `onCheckedChange`. Value type `boolean`; `onCheckedChange` is coerced to a boolean, so an `indeterminate` state is stored as `true`. Put it in an `AppField orientation="horizontal"` with the label after it. A "must accept" checkbox is a `z.boolean().refine(Boolean, "...")`.
+
+<PreviewCode name="FormCheckbox" registryName="Form" />
+
+### Dropzone
+
+`AppFieldDropzone` wraps `DropZone` with `multiple` and `accept="image/*"` as defaults and value type `string[]`. It is the one control that doesn't write to the field on its own: `onDropAccepted(files: File[])` is required and you decide what to store, typically the urls returned by your upload. Rejected files (wrong type, over `maxSizeInBytes`) go straight into the field's error map and mark it touched, so `AppFieldError` shows them without a submit.
+
+The accessible ids go to the hidden file input through `inputProps`, and `aria-invalid` is applied to the visible drop area as well so it turns destructive.
+
+<PreviewCode name="FormDropzone" registryName="Form" />
+
+## Form components
+
+Render these inside `form.AppForm`.
+
+| Component          | Renders                 | Behavior                                                                                                                                                             |
+| ------------------ | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `SubmitButton`     | `Button type="submit"`  | Disabled while `isSubmitting`, or when you pass `disabled`. All `Button` props pass through.                                                                         |
+| `FormActionButton` | `Button type="button"`  | Same guard, for reset and other secondary actions that must not fire mid-submit.                                                                                     |
+| `FormErrorAlert`   | `Alert variant="error"` | Shows the messages in `form.state.errorMap.onSubmit` when it has the shape `{ errors: [{ message }] }`. Renders nothing otherwise. Duplicate messages are collapsed. |
+
+Form-level errors are the ones that don't belong to a single field: "username taken", "payment declined", a failed request. Produce them from a form validator on the submit event, `onSubmit` for sync checks or `onSubmitAsync` for a server round trip, by returning `{ errors: [{ message }] }`. Returning `undefined` clears the alert on the next submit.
+
+<PreviewCode name="FormActions" registryName="Form" />

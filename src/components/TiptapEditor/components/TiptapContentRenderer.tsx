@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
 import { tiptapTypography } from "@/styles/typography";
+import { cn } from "cn";
 import type { ComponentProps } from "react";
 
 type TiptapContentRendererProps = {

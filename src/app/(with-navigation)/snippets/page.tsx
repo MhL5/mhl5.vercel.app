@@ -4,10 +4,10 @@ import SnippetsList from "@/app/(with-navigation)/snippets/_components/SnippetsL
 import { getSnippetsLinks } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
 import MdxRemoteServer from "@/components/MDX-remote/MdxRemoteServer";
 import { Skeleton } from "@/components/ui/skeleton";
-import { cn } from "@/lib/utils";
 import AutoGrid from "@/registry/new-york/AutoGrid/AutoGrid";
 import { snippetsTypography } from "@/styles/typography";
 import { fileReader } from "@/utils/fileReader";
+import { cn } from "cn";
 import { cacheLife } from "next/cache";
 import { Suspense } from "react";
 

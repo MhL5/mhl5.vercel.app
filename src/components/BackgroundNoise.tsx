@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import { type ComponentProps, useId } from "react";
 
 type BackgroundNoiseProps = ComponentProps<"div"> & { opacity?: number };

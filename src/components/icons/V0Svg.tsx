@@ -1,5 +1,5 @@
+import { cn } from "cn";
 import type { ComponentProps } from "react";
-import { cn } from "@/lib/utils";
 
 export default function V0Svg({ className, ...props }: ComponentProps<"svg">) {
   return (

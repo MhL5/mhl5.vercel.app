@@ -7,7 +7,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import { InfoIcon, Plus, X } from "lucide-react";
 import {
   type ChangeEvent,

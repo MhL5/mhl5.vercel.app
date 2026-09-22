@@ -1,8 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import useCopyToClipboard from "@/registry/hooks/useCopyToClipboard/useCopyToClipboard";
+import { cn } from "cn";
 
 export default function Example() {
   const { copyState, handleCopy } = useCopyToClipboard("Hello, world!");

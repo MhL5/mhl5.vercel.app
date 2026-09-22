@@ -1,6 +1,6 @@
 import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import type { VariantProps } from "class-variance-authority";
+import { cn } from "cn";
 // eslint-disable-next-line no-restricted-imports
 import NextJsLink from "next/link";
 import type { ComponentProps } from "react";

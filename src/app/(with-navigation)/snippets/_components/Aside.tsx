@@ -3,7 +3,7 @@
 import { getSnippetsCategoryConfig } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
 import { useSnippetsLinks } from "@/app/(with-navigation)/snippets/_context/SnippetsLinksContext";
 import { NavLink, NavLinkPending } from "@/components/ui/NavLink";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import type { Route } from "next";
 
 type AsideProps = {

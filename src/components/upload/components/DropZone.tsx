@@ -1,8 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { formatBytes } from "@/registry/utils/formatters/formatters";
+import { cn } from "cn";
 import { FileUpIcon } from "lucide-react";
 import {
   type ChangeEvent,

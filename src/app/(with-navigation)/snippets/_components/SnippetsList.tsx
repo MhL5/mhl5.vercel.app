@@ -11,10 +11,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { cn } from "@/lib/utils";
 import { useSearchParamShallow } from "@/registry/hooks/useSearchParamShallow/useSearchParamShallow";
 import AutoGrid from "@/registry/new-york/AutoGrid/AutoGrid";
 import DebouncedInput from "@/registry/new-york/DebouncedInput/DebouncedInput";
+import { cn } from "cn";
 import type { Route } from "next";
 import { Fragment, useState } from "react";
 

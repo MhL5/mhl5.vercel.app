@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import type { ComponentProps, ElementType } from "react";
 
 type GradientTextProps<E extends ElementType> = { as?: E } & Omit<

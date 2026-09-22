@@ -4,7 +4,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import type { ComponentProps, ReactNode } from "react";
 
 type EditorButtonProps = ComponentProps<typeof Button> & {

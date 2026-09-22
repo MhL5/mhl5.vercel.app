@@ -8,6 +8,8 @@ import {
 } from "@/components/ui/field";
 import { InputGroup, InputGroupAddon } from "@/components/ui/input-group";
 import { useAppForm } from "@/registry/new-york/form/appForm";
+import { ExampleForm } from "@/registry/new-york/form/examples/components/ExampleForm";
+import { showSubmittedValues } from "@/registry/new-york/form/examples/utils/showSubmittedValues";
 import { AppField } from "@/registry/new-york/form/fieldComponents/AppField";
 import { AppFieldCheckbox } from "@/registry/new-york/form/fieldComponents/AppFieldCheckbox";
 import { AppFieldDescription } from "@/registry/new-york/form/fieldComponents/AppFieldDescription";
@@ -48,31 +50,32 @@ import { FormErrorAlert } from "@/registry/new-york/form/formComponents/FormErro
 import { SubmitButton } from "@/registry/new-york/form/formComponents/SubmitButton";
 import { focusOnFirstInvalidInput } from "@/registry/new-york/form/utils/focusOnFirstInvalidInput";
 import { revalidateLogic } from "@tanstack/react-form-nextjs";
-import { SearchIcon } from "lucide-react";
-import { toast } from "sonner";
+import { AtSignIcon } from "lucide-react";
 import z from "zod";
 
-const formSchema = z.object({
+const schema = z.object({
   fullName: z.string().trim().min(2, "Name needs at least 2 characters"),
-  email: z.email("Enter a valid email"),
-  search: z.string().trim().optional(),
+  username: z
+    .string()
+    .trim()
+    .min(3, "Username needs at least 3 characters")
+    .regex(/^[a-z0-9_]+$/i, "Letters, numbers and underscores only"),
   age: z
     .number({ error: "Age is required" })
     .min(18, "You must be 18+")
     .max(100, "Max age is 100")
     .nullable(),
-  bio: z.string().trim().max(200, "Max 200 characters").optional(),
+  bio: z.string().trim().max(200, "Max 200 characters"),
   role: z.string().min(1, "Pick a role"),
   skills: z.array(z.string()).min(1, "Pick at least one skill"),
   experience: z.string().min(1, "Pick an experience level"),
   newsletter: z.boolean(),
-  avatar: z.array(z.string()).optional(),
+  avatar: z.array(z.string()),
 });
 
-const defaultValues: z.infer<typeof formSchema> = {
+const defaultValues: z.infer<typeof schema> = {
   fullName: "",
-  email: "",
-  search: "",
+  username: "",
   age: null,
   bio: "",
   role: "",
@@ -88,37 +91,17 @@ const experienceOptions = [
   { value: "senior", label: "Senior", description: "5+ years" },
 ];
 
-export default function Example() {
+export default function FullFormExample() {
   const form = useAppForm({
     defaultValues,
     validationLogic: revalidateLogic(),
-    validators: { onDynamic: formSchema, onSubmit: formSchema },
-    onSubmit: async ({ value }) => {
-      // fake delay so the submitting state is visible
-      await new Promise((resolve) => setTimeout(resolve, 800));
-      toast.success("Submitted!", {
-        description: (
-          <pre className="mt-2 w-full overflow-x-auto rounded bg-muted p-2 text-xs">
-            {JSON.stringify(value, null, 2)}
-          </pre>
-        ),
-      });
-    },
-    onSubmitInvalid: () => {
-      focusOnFirstInvalidInput();
-      toast.error("Please fix the highlighted fields.");
-    },
+    validators: { onDynamic: schema },
+    onSubmit: showSubmittedValues,
+    onSubmitInvalid: focusOnFirstInvalidInput,
   });
 
   return (
-    <form
-      noValidate
-      className="mx-auto flex w-full max-w-xl flex-col gap-6 py-10"
-      onSubmit={(e) => {
-        e.preventDefault();
-        form.handleSubmit();
-      }}
-    >
+    <ExampleForm form={form} className="max-w-xl py-10">
       <form.AppForm>
         <FormErrorAlert />
 
@@ -136,25 +119,15 @@ export default function Example() {
             )}
           </form.AppField>
 
-          <form.AppField name="email">
+          <form.AppField name="username">
             {() => (
               <AppField>
-                <AppFieldLabel>Email</AppFieldLabel>
-                <AppFieldInput type="email" placeholder="ada@example.com" />
-                <AppFieldError />
-              </AppField>
-            )}
-          </form.AppField>
-
-          <form.AppField name="search">
-            {() => (
-              <AppField>
-                <AppFieldLabel>Search</AppFieldLabel>
+                <AppFieldLabel>Username</AppFieldLabel>
                 <InputGroup>
                   <InputGroupAddon>
-                    <SearchIcon />
+                    <AtSignIcon />
                   </InputGroupAddon>
-                  <AppFieldInputGroupInput placeholder="Search posts..." />
+                  <AppFieldInputGroupInput placeholder="ada" />
                 </InputGroup>
                 <AppFieldError />
               </AppField>
@@ -166,9 +139,6 @@ export default function Example() {
               <AppField>
                 <AppFieldLabel>Age</AppFieldLabel>
                 <AppFieldInputNumber placeholder="27" />
-                <AppFieldDescription>
-                  Stored as number | null.
-                </AppFieldDescription>
                 <AppFieldError />
               </AppField>
             )}
@@ -310,7 +280,7 @@ export default function Example() {
                 />
                 <AppFieldDescription>
                   Images only, max 5MB.
-                  {field.state.value?.length
+                  {field.state.value.length > 0
                     ? ` Selected: ${field.state.value.join(", ")}`
                     : null}
                 </AppFieldDescription>
@@ -327,6 +297,6 @@ export default function Example() {
           </FormActionButton>
         </div>
       </form.AppForm>
-    </form>
+    </ExampleForm>
   );
 }

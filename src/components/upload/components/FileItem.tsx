@@ -8,12 +8,12 @@ import type {
   FileItemUploading as FileItemUploadingType,
 } from "@/components/upload/hooks/useFileUpload";
 import { isImage, parseFileUrl } from "@/components/upload/utils";
-import { cn } from "@/lib/utils";
 import Img from "@/registry/new-york/Img/Img";
 import {
   formatBytes,
   formatSeconds,
 } from "@/registry/utils/formatters/formatters";
+import { cn } from "cn";
 import { Eye, RefreshCcw, Trash2, TriangleAlertIcon, X } from "lucide-react";
 import { type ComponentProps, Fragment, type ReactNode } from "react";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import { type ComponentProps, createContext, use } from "react";
 
 type SwapContextValue = {

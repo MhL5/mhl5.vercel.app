@@ -2,8 +2,8 @@
 
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { cn } from "@/lib/utils";
 import { useTheme } from "@teispace/next-themes";
+import { cn } from "cn";
 import { MonitorIcon, MoonIcon, SunIcon } from "lucide-react";
 import dynamic from "next/dynamic";
 import type { ComponentProps } from "react";

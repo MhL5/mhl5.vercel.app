@@ -1,15 +1,15 @@
 "use client";
 
-import { CheckIcon, ClipboardIcon, XIcon } from "lucide-react";
-import { type ComponentProps, createContext, useContext } from "react";
 import { Button, type ButtonProps } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { cn } from "@/lib/utils";
 import useCopyToClipboard from "@/registry/hooks/useCopyToClipboard/useCopyToClipboard";
+import { cn } from "cn";
+import { CheckIcon, ClipboardIcon, XIcon } from "lucide-react";
+import { type ComponentProps, createContext, useContext } from "react";
 
 type CopyButtonContextType = {
   contentToCopy: string;

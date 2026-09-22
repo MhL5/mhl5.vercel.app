@@ -1,7 +1,7 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import type { VariantProps } from "class-variance-authority";
+import { cn } from "cn";
 // eslint-disable-next-line no-restricted-imports
 import Link, { useLinkStatus } from "next/link";
 import { usePathname } from "next/navigation";

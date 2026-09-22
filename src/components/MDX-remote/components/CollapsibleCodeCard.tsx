@@ -4,7 +4,7 @@ import CssSvg from "@/components/icons/CssSvg";
 import TypeScriptSvg from "@/components/icons/TypeScriptSvg";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import { CodeIcon } from "lucide-react";
 import { type ReactNode, useState } from "react";
 

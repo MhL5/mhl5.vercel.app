@@ -5,7 +5,7 @@ import anywriteImg from "@/app/(with-navigation)/_components/my-projects/assets/
 import appleAppsImg from "@/app/(with-navigation)/_components/my-projects/assets/apple-apps.png";
 import kafshMeImg from "@/app/(with-navigation)/_components/my-projects/assets/kafsh-me.png";
 import vsimImg from "@/app/(with-navigation)/_components/my-projects/assets/vsim.png";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import type { ComponentProps } from "react";
 
 const projects: ProjectCardProps[] = [

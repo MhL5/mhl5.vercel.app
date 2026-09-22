@@ -6,7 +6,6 @@ import {
 } from "@/components/TiptapEditor/i18n/messages";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { cn } from "@/lib/utils";
 import { tiptapTypography } from "@/styles/typography";
 import {
   type Content,
@@ -15,6 +14,7 @@ import {
   type EditorEvents,
   useEditor,
 } from "@tiptap/react";
+import { cn } from "cn";
 import { type Ref, useImperativeHandle } from "react";
 
 import { TIPTAP_EXTENSIONS } from "./extensions";

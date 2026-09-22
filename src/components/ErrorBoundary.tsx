@@ -9,7 +9,7 @@ import {
 import { Button, buttonVariants } from "@/components/ui/button";
 import Spinner from "@/components/ui/spinner";
 import { CONTACT_SUPPORT_LINK } from "@/constants";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import { type ErrorInfo, catchError } from "next/error";
 import type { ComponentProps } from "react";
 import { useState, useTransition } from "react";

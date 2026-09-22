@@ -6,7 +6,7 @@ import {
   bookmarksGroups,
 } from "@/app/(with-navigation)/bookmarks/_constants";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import { Library } from "lucide-react";
 import type { ComponentProps } from "react";
 

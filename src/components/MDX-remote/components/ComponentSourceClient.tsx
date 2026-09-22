@@ -2,7 +2,7 @@
 
 import { CopyButton, CopyButtonIcon } from "@/components/buttons/CopyButton";
 import { Skeleton } from "@/components/ui/skeleton";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import { Loader2Icon } from "lucide-react";
 import { type ComponentProps, useEffect, useState } from "react";
 import { codeToHtml } from "shiki";

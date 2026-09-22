@@ -21,6 +21,7 @@
   },
   "registries": {
     "@mhl5-registry": "https://mhl5.vercel.app/r/{name}.json",
-    "@aceternity": "https://ui.aceternity.com/registry/{name}.json"
+    "@aceternity": "https://ui.aceternity.com/registry/{name}.json",
+    "@wds": "https://wds-shadcn-registry.netlify.app/r/{name}.json"
   }
 }

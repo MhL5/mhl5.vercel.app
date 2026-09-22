@@ -9,8 +9,8 @@ import {
 import { Button, buttonVariants } from "@/components/ui/button";
 import Spinner from "@/components/ui/spinner";
 import { CONTACT_SUPPORT_LINK } from "@/constants";
-import { cn } from "@/lib/utils";
 import { isDev } from "@/registry/utils/checks/checks";
+import { cn } from "cn";
 import { useRouter } from "next/navigation";
 import type { ComponentProps, ReactNode } from "react";
 import { Component, useState, useTransition } from "react";

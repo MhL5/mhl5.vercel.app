@@ -181,7 +181,142 @@
         }
       ]
     },
-
+    {
+      "name": "Form",
+      "type": "registry:component",
+      "title": "Form",
+      "description": "TanStack Form bound to shadcn field primitives: typed AppField* controls, accessible ids, validation states and submit-aware form actions.",
+      "meta": {
+        "url": "/snippets/components/Form"
+      },
+      "dependencies": ["@tanstack/react-form-nextjs", "zod"],
+      "registryDependencies": [
+        "alert",
+        "button",
+        "checkbox",
+        "field",
+        "input",
+        "input-group",
+        "radio-group",
+        "select",
+        "textarea",
+        "https://wds-shadcn-registry.netlify.app/r/multi-select.json",
+        "https://mhl5.vercel.app/r/RequiredPick.json",
+        "https://mhl5.vercel.app/r/formatters.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/new-york/form/appForm.ts",
+          "type": "registry:component",
+          "target": "src/components/form/appForm.ts"
+        },
+        {
+          "path": "src/registry/new-york/form/fieldComponents/AppField.tsx",
+          "type": "registry:component",
+          "target": "src/components/form/fieldComponents/AppField.tsx"
+        },
+        {
+          "path": "src/registry/new-york/form/fieldComponents/AppFieldCheckbox.tsx",
+          "type": "registry:component",
+          "target": "src/components/form/fieldComponents/AppFieldCheckbox.tsx"
+        },
+        {
+          "path": "src/registry/new-york/form/fieldComponents/AppFieldDescription.tsx",
+          "type": "registry:component",
+          "target": "src/components/form/fieldComponents/AppFieldDescription.tsx"
+        },
+        {
+          "path": "src/registry/new-york/form/fieldComponents/AppFieldDropzone.tsx",
+          "type": "registry:component",
+          "target": "src/components/form/fieldComponents/AppFieldDropzone.tsx"
+        },
+        {
+          "path": "src/registry/new-york/form/fieldComponents/AppFieldError.tsx",
+          "type": "registry:component",
+          "target": "src/components/form/fieldComponents/AppFieldError.tsx"
+        },
+        {
+          "path": "src/registry/new-york/form/fieldComponents/AppFieldInput.tsx",
+          "type": "registry:component",
+          "target": "src/components/form/fieldComponents/AppFieldInput.tsx"
+        },
+        {
+          "path": "src/registry/new-york/form/fieldComponents/AppFieldInputGroupInput.tsx",
+          "type": "registry:component",
+          "target": "src/components/form/fieldComponents/AppFieldInputGroupInput.tsx"
+        },
+        {
+          "path": "src/registry/new-york/form/fieldComponents/AppFieldInputNumber.tsx",
+          "type": "registry:component",
+          "target": "src/components/form/fieldComponents/AppFieldInputNumber.tsx"
+        },
+        {
+          "path": "src/registry/new-york/form/fieldComponents/AppFieldLabel.tsx",
+          "type": "registry:component",
+          "target": "src/components/form/fieldComponents/AppFieldLabel.tsx"
+        },
+        {
+          "path": "src/registry/new-york/form/fieldComponents/AppFieldMultiSelect.tsx",
+          "type": "registry:component",
+          "target": "src/components/form/fieldComponents/AppFieldMultiSelect.tsx"
+        },
+        {
+          "path": "src/registry/new-york/form/fieldComponents/AppFieldRadioGroup.tsx",
+          "type": "registry:component",
+          "target": "src/components/form/fieldComponents/AppFieldRadioGroup.tsx"
+        },
+        {
+          "path": "src/registry/new-york/form/fieldComponents/AppFieldSelect.tsx",
+          "type": "registry:component",
+          "target": "src/components/form/fieldComponents/AppFieldSelect.tsx"
+        },
+        {
+          "path": "src/registry/new-york/form/fieldComponents/AppFieldTextarea.tsx",
+          "type": "registry:component",
+          "target": "src/components/form/fieldComponents/AppFieldTextarea.tsx"
+        },
+        {
+          "path": "src/registry/new-york/form/formComponents/FormActionButton.tsx",
+          "type": "registry:component",
+          "target": "src/components/form/formComponents/FormActionButton.tsx"
+        },
+        {
+          "path": "src/registry/new-york/form/formComponents/FormErrorAlert.tsx",
+          "type": "registry:component",
+          "target": "src/components/form/formComponents/FormErrorAlert.tsx"
+        },
+        {
+          "path": "src/registry/new-york/form/formComponents/SubmitButton.tsx",
+          "type": "registry:component",
+          "target": "src/components/form/formComponents/SubmitButton.tsx"
+        },
+        {
+          "path": "src/registry/new-york/form/hooks/useGenerateFieldProps.ts",
+          "type": "registry:component",
+          "target": "src/components/form/hooks/useGenerateFieldProps.ts"
+        },
+        {
+          "path": "src/registry/new-york/form/utils/generateFieldProps.ts",
+          "type": "registry:component",
+          "target": "src/components/form/utils/generateFieldProps.ts"
+        },
+        {
+          "path": "src/registry/new-york/form/utils/focusOnFirstInvalidInput.ts",
+          "type": "registry:component",
+          "target": "src/components/form/utils/focusOnFirstInvalidInput.ts"
+        },
+        {
+          "path": "src/components/upload/components/DropZone.tsx",
+          "type": "registry:component",
+          "target": "src/components/upload/components/DropZone.tsx"
+        },
+        {
+          "path": "src/components/upload/utils/index.ts",
+          "type": "registry:lib",
+          "target": "src/components/upload/utils/index.ts"
+        }
+      ]
+    },
     {
       "name": "useCopyToClipboard",
       "type": "registry:hook",
@@ -386,7 +521,6 @@
         }
       ]
     },
-
     {
       "name": "AutoComplete",
       "type": "registry:lib",
@@ -435,7 +569,6 @@
         }
       ]
     },
-
     {
       "name": "checks",
       "type": "registry:lib",

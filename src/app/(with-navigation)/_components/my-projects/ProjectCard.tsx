@@ -8,8 +8,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Link } from "@/components/ui/link";
-import { cn } from "@/lib/utils";
 import Img from "@/registry/new-york/Img/Img";
+import { cn } from "cn";
 import type { StaticImageData } from "next/image";
 
 export type ProjectCardProps = {

@@ -1,5 +1,5 @@
 import { Link } from "@/components/ui/link";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import type { Route } from "next";
 import type { ComponentProps } from "react";
 

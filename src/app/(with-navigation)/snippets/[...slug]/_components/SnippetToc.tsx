@@ -1,7 +1,7 @@
 "use client";
 
 import { GITHUB_REPO_URL } from "@/constants";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import { Bug, Lightbulb, NotebookPen } from "lucide-react";
 import { usePathname } from "next/navigation";
 

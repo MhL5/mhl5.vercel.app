@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 
 const typography = cn(
   // Base
@@ -7,8 +7,6 @@ const typography = cn(
   "prose-code:w-fit prose-code:rounded-sm prose-code:bg-secondary prose-code:px-1 prose-code:py-0.5 prose-code:tracking-wide prose-code:text-secondary-foreground prose-code:before:content-none prose-code:after:content-none",
   // Pre
   "prose-pre:has-[code]:[direction:ltr] prose-pre:[&_code]:rounded-none prose-pre:[&_code]:bg-transparent prose-pre:[&_code]:p-0 prose-pre:[&_code]:tracking-normal",
-  // Table
-  "prose-table:first:mt-0 prose-table:first:mb-0 prose-th:border prose-th:p-2 prose-td:border prose-td:first:p-2 prose-table:[&_p]:m-0 prose-table:[&_p]:p-0",
 
   /**
    * Assets
@@ -37,6 +35,9 @@ const tiptapTypography = cn(
    */
   // [data-youtube-video]
   "[&_[data-youtube-video]]:mx-auto [&_[data-youtube-video]]:my-3 [&_[data-youtube-video]]:w-full [&_[data-youtube-video]]:rounded-sm [&_[data-youtube-video]]:bg-muted",
+
+  // Table
+  "prose-table:first:mt-0 prose-table:first:mb-0 prose-th:border prose-th:p-2 prose-td:border prose-td:first:p-2 prose-table:[&_p]:m-0 prose-table:[&_p]:p-0",
 );
 
 export { snippetsTypography, tiptapTypography };

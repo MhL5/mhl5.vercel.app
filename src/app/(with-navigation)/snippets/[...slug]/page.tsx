@@ -4,10 +4,10 @@ import { extractHeadings } from "@/app/(with-navigation)/snippets/[...slug]/_uti
 import { getShadcnRegistry } from "@/app/(with-navigation)/snippets/_constants/snippetsConstants";
 import MdxRemoteServer from "@/components/MDX-remote/MdxRemoteServer";
 import { CONTACT_INFO } from "@/constants";
-import { cn } from "@/lib/utils";
 import { isProd } from "@/registry/utils/checks/checks";
 import { snippetsTypography } from "@/styles/typography";
 import { fileReader } from "@/utils/fileReader";
+import { cn } from "cn";
 import type { Metadata } from "next";
 import { cacheLife } from "next/cache";
 import { notFound } from "next/navigation";

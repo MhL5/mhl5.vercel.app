@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import { ChevronRight, MoreHorizontal } from "lucide-react";
 // un styled link works better here
 // eslint-disable-next-line no-restricted-imports

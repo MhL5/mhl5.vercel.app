@@ -16,7 +16,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import { CheckIcon, ChevronsUpDownIcon, XIcon } from "lucide-react";
 import {
   type ComponentPropsWithoutRef,

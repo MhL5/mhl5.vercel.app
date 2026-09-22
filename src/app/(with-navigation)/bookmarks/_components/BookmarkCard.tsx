@@ -6,8 +6,8 @@ import {
 } from "@/app/(with-navigation)/bookmarks/_constants";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
-import { cn } from "@/lib/utils";
 import Img from "@/registry/new-york/Img/Img";
+import { cn } from "cn";
 import { ArrowUpRight } from "lucide-react";
 import { useState } from "react";
 
