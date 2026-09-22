@@ -2,6 +2,12 @@
   "name": "portfolio-v1",
   "version": "0.1.0",
   "private": true,
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "onFail": "error"
+    }
+  },
   "scripts": {
     "dev": "next dev --port 7777",
     "lint": "eslint .",
@@ -13,7 +19,7 @@
   },
   "dependencies": {
     "@next/third-parties": "16.2.4",
-    "@tanstack/react-form-nextjs": "^1.28.6",
+    "@tanstack/react-form-nextjs": "^1.33.5",
     "@teispace/next-themes": "^2.0.4",
     "@tiptap/core": "^3.22.3",
     "@tiptap/extension-audio": "^3.19.0",

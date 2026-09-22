@@ -36,7 +36,7 @@ function FormErrorAlert() {
   if (errors.length === 0) return null;
 
   return (
-    <Alert variant="error">
+    <Alert variant="destructive">
       <AlertTriangleIcon />
       <AlertTitle>Error</AlertTitle>
       <AlertDescription className="mt-1">
