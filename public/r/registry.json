@@ -201,10 +201,14 @@
         "select",
         "textarea",
         "https://wds-shadcn-registry.netlify.app/r/multi-select.json",
-        "https://mhl5.vercel.app/r/RequiredPick.json",
         "https://mhl5.vercel.app/r/formatters.json"
       ],
       "files": [
+        {
+          "path": "src/registry/types/RequiredPick/RequiredPick.ts",
+          "type": "registry:lib",
+          "target": "src/types/RequiredPick.ts"
+        },
         {
           "path": "src/registry/new-york/form/appForm.ts",
           "type": "registry:component",
