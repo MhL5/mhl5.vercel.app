@@ -1,8 +1,22 @@
-# TanStack Query modules
+# Data fetching
+
+## On Server
+
+Fetch in a server component when the data doesn't change after render:
+
+```tsx
+const [error, data] = await tryCatch(getBlogs());
+```
+
+## On Client
+
+Client-side fetching goes through TanStack Query, one module per endpoint, always passing the `signal`. Before writing any query or mutation module, open [`data-fetching.md`](data-fetching.md) and copy the template it holds.
+
+### TanStack Query modules
 
 One module per endpoint. Each exports the fetcher, the query options (or the mutation hook), the key factory, and the param and response types.
 
-## Query
+#### Query
 
 ```tsx
 type GetUserResponse = { id: string; name: string; email: string };
@@ -104,7 +118,7 @@ function getUserQueryOptions() {
 }
 ```
 
-## Mutation
+#### Mutation
 
 ```tsx
 type CreateUserResponse = {};

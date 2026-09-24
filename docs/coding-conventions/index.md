@@ -4,6 +4,12 @@ Apply every rule below to code you write or review.
 
 Done means every rule checked against every file you touched, each finding named by the rule it breaks. When a rule doesn't settle the case in front of you, ask rather than inventing a convention.
 
+## Components
+
+Build UI by composing the primitives in `@/components/ui` and the design tokens in `globals.css`; reach for the shadcn/ui MCP before writing a primitive from scratch.
+
+Localize logic by ownership. When logic is specific to an isolated concern, it MUST live with that concern—in its component, hook, or utility. Parent components MUST NOT contain or duplicate logic that is owned by a child UI piece. Extract logic to the smallest appropriate owner and keep it there unless it is genuinely shared.
+
 ## Co-location
 
 Code lives at the narrowest scope that has a consumer. A second consumer **promotes** it.
@@ -37,24 +43,6 @@ useLocalStorage({ key, defaultValue }); // not useLocalStorage("key", "")
 
 Prefer inference over annotation, and `type` over `interface`.
 
-## Components
-
-Build UI by composing the primitives in `@/components/ui` and the design tokens in `globals.css`; reach for the shadcn/ui MCP before writing a primitive from scratch.
-
-Logic that belongs to one isolated piece of the UI moves into that piece's own component and stays there.
-
-Route forms through a form library.
-
-## Comments
-
-Comments carry the _why_. Document every exported utility with a JSDoc block carrying an `@example`; `@/utils/absoluteUrl.ts` is the pattern.
-
 ## Data fetching
 
-Fetch in a server component when the data doesn't change after render:
-
-```tsx
-const [error, data] = await tryCatch(getBlogs());
-```
-
-Client-side fetching goes through TanStack Query, one module per endpoint, always passing the `signal`. Before writing any query or mutation module, open [`data-fetching.md`](data-fetching.md) and copy the template it holds.
+for data fetching read [`data-fetching.md`](data-fetching.md)
