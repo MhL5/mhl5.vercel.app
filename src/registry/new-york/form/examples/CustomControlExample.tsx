@@ -16,7 +16,7 @@ import { AppFieldLabel } from "@/registry/new-york/form/fieldComponents/AppField
 import { SubmitButton } from "@/registry/new-york/form/formComponents/SubmitButton";
 import { useGenerateFieldProps } from "@/registry/new-york/form/hooks/useGenerateFieldProps";
 import { focusOnFirstInvalidInput } from "@/registry/new-york/form/utils/focusOnFirstInvalidInput";
-import { revalidateLogic, useStore } from "@tanstack/react-form-nextjs";
+import { revalidateLogic, useSelector } from "@tanstack/react-form-nextjs";
 import { cn } from "cn";
 import { StarIcon } from "lucide-react";
 import type { ComponentProps } from "react";
@@ -36,7 +36,7 @@ function AppFieldRating({ max = 5, className, ...props }: AppFieldRatingProps) {
   const field = useFieldContext<number>();
   const { fieldControllerProps, isInvalid } = useGenerateFieldProps();
   const form = useFormContext();
-  const isSubmitting = useStore(form.store, (state) => state.isSubmitting);
+  const isSubmitting = useSelector(form.store, (state) => state.isSubmitting);
 
   return (
     <div

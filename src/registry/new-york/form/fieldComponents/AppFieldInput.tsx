@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import { useStore } from "@tanstack/react-form-nextjs";
+import { useSelector } from "@tanstack/react-form-nextjs";
 import { type ComponentProps } from "react";
 
 import { useFieldContext, useFormContext } from "../appForm";
@@ -9,7 +9,7 @@ function AppFieldInput({ disabled, ...props }: ComponentProps<typeof Input>) {
   const { fieldControllerProps } = useGenerateFieldProps();
   const field = useFieldContext<string>();
   const form = useFormContext();
-  const isSubmitting = useStore(form.store, (state) => state.isSubmitting);
+  const isSubmitting = useSelector(form.store, (state) => state.isSubmitting);
 
   return (
     <Input

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useStore } from "@tanstack/react-form-nextjs";
+import { useSelector } from "@tanstack/react-form-nextjs";
 import type { ComponentProps } from "react";
 
 import { useFormContext } from "../appForm";
@@ -18,7 +18,7 @@ function FormActionButton({
   ...props
 }: ComponentProps<typeof Button>) {
   const form = useFormContext();
-  const isSubmitting = useStore(form.store, (state) => state.isSubmitting);
+  const isSubmitting = useSelector(form.store, (state) => state.isSubmitting);
 
   return (
     <Button type="button" disabled={isSubmitting || disabled} {...props} />

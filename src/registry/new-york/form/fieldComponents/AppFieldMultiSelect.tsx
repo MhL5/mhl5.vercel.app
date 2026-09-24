@@ -6,7 +6,7 @@ import {
   MultiSelectTrigger,
   MultiSelectValue,
 } from "@/components/ui/multi-select";
-import { useStore } from "@tanstack/react-form-nextjs";
+import { useSelector } from "@tanstack/react-form-nextjs";
 import type { ComponentProps } from "react";
 
 import { useFieldContext, useFormContext } from "../appForm";
@@ -30,7 +30,7 @@ function AppFieldMultiSelectTrigger({
 }: ComponentProps<typeof MultiSelectTrigger>) {
   const form = useFormContext();
   const { fieldControllerProps } = useGenerateFieldProps();
-  const isSubmitting = useStore(form.store, (state) => state.isSubmitting);
+  const isSubmitting = useSelector(form.store, (state) => state.isSubmitting);
 
   return (
     <MultiSelectTrigger
@@ -43,10 +43,10 @@ function AppFieldMultiSelectTrigger({
 
 export {
   AppFieldMultiSelect,
-  AppFieldMultiSelectTrigger,
   // only renamed
   MultiSelectContent as AppFieldMultiSelectContent,
   MultiSelectGroup as AppFieldMultiSelectGroup,
   MultiSelectItem as AppFieldMultiSelectItem,
+  AppFieldMultiSelectTrigger,
   MultiSelectValue as AppFieldMultiSelectValue,
 };

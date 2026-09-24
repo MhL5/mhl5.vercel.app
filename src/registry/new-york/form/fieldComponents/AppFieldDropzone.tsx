@@ -1,6 +1,6 @@
 import { DropZone } from "@/components/upload/components/DropZone";
 import type { RequiredPick } from "@/registry/types/RequiredPick/RequiredPick";
-import { useStore } from "@tanstack/react-form-nextjs";
+import { useSelector } from "@tanstack/react-form-nextjs";
 import { cn } from "cn";
 import type { ComponentProps } from "react";
 
@@ -22,7 +22,7 @@ function AppFieldDropzone({
   const { isInvalid, fieldControllerProps } = useGenerateFieldProps();
   const field = useFieldContext<string[]>();
   const form = useFormContext();
-  const isSubmitting = useStore(form.store, (state) => state.isSubmitting);
+  const isSubmitting = useSelector(form.store, (state) => state.isSubmitting);
 
   return (
     <DropZone

@@ -4,7 +4,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useStore } from "@tanstack/react-form-nextjs";
+import { useSelector } from "@tanstack/react-form-nextjs";
 import type { ComponentProps } from "react";
 import { type ReactNode, createContext, use } from "react";
 
@@ -77,7 +77,7 @@ function AppFieldRadioGroupItem({
     radioItemValue,
   } = useAppFieldRadioGroupItemContext();
   const form = useFormContext();
-  const isSubmitting = useStore(form.store, (state) => state.isSubmitting);
+  const isSubmitting = useSelector(form.store, (state) => state.isSubmitting);
 
   return (
     <RadioGroupItem
@@ -139,12 +139,12 @@ function AppFieldRadioGroupItemError(props: AppFieldRadioGroupItemErrorProps) {
 }
 
 export {
-  AppFieldRadioGroupItemProvider,
-  type AppFieldRadioGroupItemContextValue,
-  useAppFieldRadioGroupItemContext,
   AppFieldRadioGroup,
   AppFieldRadioGroupItem,
-  AppFieldRadioGroupItemLabel,
-  AppFieldRadioGroupItemError,
   AppFieldRadioGroupItemDescription,
+  AppFieldRadioGroupItemError,
+  AppFieldRadioGroupItemLabel,
+  AppFieldRadioGroupItemProvider,
+  useAppFieldRadioGroupItemContext,
+  type AppFieldRadioGroupItemContextValue,
 };

@@ -1,5 +1,5 @@
 import { Checkbox } from "@/components/ui/checkbox";
-import { useStore } from "@tanstack/react-form-nextjs";
+import { useSelector } from "@tanstack/react-form-nextjs";
 import { type ComponentProps } from "react";
 
 import { useFieldContext, useFormContext } from "../appForm";
@@ -12,7 +12,7 @@ function AppFieldCheckbox({
   const { fieldControllerProps } = useGenerateFieldProps();
   const field = useFieldContext<boolean>();
   const form = useFormContext();
-  const isSubmitting = useStore(form.store, (state) => state.isSubmitting);
+  const isSubmitting = useSelector(form.store, (state) => state.isSubmitting);
 
   return (
     <Checkbox
