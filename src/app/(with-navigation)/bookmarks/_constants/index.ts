@@ -690,6 +690,19 @@ const uiBookmarks: Bookmark[] = (
       tags: ["blocks"],
       url: "https://www.bagui.pro/",
     },
+    {
+      title: "Great Ui",
+      description:
+        "A curated collection of over 50 accessible, beautifully designed Tailwind CSS components. Copy, paste, and customize to build stunning applications in minutes.",
+      tags: [
+        "animation",
+        "components",
+        "page transition",
+        "theme transition",
+        "typography",
+      ],
+      url: "https://www.great-ui.com",
+    },
     // {
     //   title: "",
     //   description: "",
