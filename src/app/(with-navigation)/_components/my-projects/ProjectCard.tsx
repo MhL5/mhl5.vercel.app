@@ -16,7 +16,6 @@ export type ProjectCardProps = {
   title: string;
   href?: `https://${string}`;
   description: string;
-  dates: string;
   technologies: string[];
   status: "in progress" | "completed" | "coming soon";
   className?: string;
@@ -33,7 +32,6 @@ export default function ProjectCard({
   title,
   href,
   description,
-  dates,
   technologies,
   className,
   status,
@@ -88,8 +86,6 @@ export default function ProjectCard({
             </Badge>
           )}
         </div>
-
-        <time className="inline-block text-xs">{dates}</time>
       </CardHeader>
 
       <CardContent className="mb-auto flex w-full flex-col px-2 pt-2">

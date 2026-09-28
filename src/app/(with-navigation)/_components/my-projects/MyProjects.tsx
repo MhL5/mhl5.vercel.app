@@ -4,6 +4,7 @@ import ProjectCard, {
 import anywriteImg from "@/app/(with-navigation)/_components/my-projects/assets/anywrite.png";
 import appleAppsImg from "@/app/(with-navigation)/_components/my-projects/assets/apple-apps.png";
 import kafshMeImg from "@/app/(with-navigation)/_components/my-projects/assets/kafsh-me.png";
+import pingRoomImg from "@/app/(with-navigation)/_components/my-projects/assets/pingroom.png";
 import vsimImg from "@/app/(with-navigation)/_components/my-projects/assets/vsim.png";
 import { cn } from "cn";
 import type { ComponentProps } from "react";
@@ -14,7 +15,6 @@ const projects: ProjectCardProps[] = [
     description:
       "Official website for a anywrite application, a smart-keyboard tool that helps you write faster, smarter, and more efficiently.",
     href: "https://anywrite.ai",
-    dates: "August 20, 2024",
     status: "completed",
     technologies: [
       "NextJs 15",
@@ -31,7 +31,6 @@ const projects: ProjectCardProps[] = [
     title: "Vsim",
     description: "Official website for a Vsim, a sms verification service.",
     href: "https://vsimapp.com",
-    dates: "September 18, 2024",
     status: "completed",
     technologies: [
       "NextJs 15",
@@ -51,7 +50,6 @@ const projects: ProjectCardProps[] = [
     description:
       "platform for downloading applications,Not affiliated with Apple Inc. ",
     href: "https://apple-apps.vercel.app/",
-    dates: "June 22, 2025",
     status: "in progress",
     technologies: [
       "NextJs 15",
@@ -68,7 +66,6 @@ const projects: ProjectCardProps[] = [
     description:
       "An e-commerce website for a KafshMe, a platform for buying and selling high quality Shoes.",
     href: "https://kafsh.me",
-    dates: "December 08, 2024",
     status: "coming soon",
     technologies: [
       "NextJs 15",
@@ -80,6 +77,22 @@ const projects: ProjectCardProps[] = [
     ],
 
     imageSrc: kafshMeImg,
+  },
+  {
+    title: "Pingroom",
+    description:
+      "Send a Ping to your room in one tap. Ask for a response when you need one.",
+    href: "https://pingroom.io",
+    status: "completed",
+    technologies: [
+      "NextJs 16",
+      "Typescript",
+      "TailwindCSS",
+      "Shadcn UI",
+      "Tanstack query",
+      "next-mdx-remote",
+    ],
+    imageSrc: pingRoomImg,
   },
   // {
   //   title: "SyncLine",
