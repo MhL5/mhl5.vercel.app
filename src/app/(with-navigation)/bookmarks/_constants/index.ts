@@ -222,6 +222,40 @@ const toolsBookmarks: Bookmark[] = (
       url: "https://stackrender.io",
       tags: ["database", "backend", "database schema"],
     },
+    {
+      title: "mshr",
+      description:
+        "A collection of vanilla CSS mesh gradients free for you to use in any of your projects. Browse our generated meshes or create your own custom mesh with our overcomplicated App.",
+      tags: [],
+      url: "https://www.mshr.app",
+    },
+    {
+      title: "fffuel",
+      description:
+        "fffuel is a collection of color tools and free SVG generators for gradients, patterns, textures, shapes & backgrounds",
+      tags: [],
+      url: "https://www.fffuel.co",
+    },
+    {
+      title: "CSS Generators",
+      description:
+        "A wide range of CSS generators to get an optimized and modern code in no time. The Easiest way to generate your CSS code!",
+      tags: [],
+      url: "https://css-generators.com/",
+    },
+    {
+      title: "Easing Wizard",
+      description: "CSS easing functions made easy",
+      tags: [],
+      url: "https://easingwizard.com/",
+    },
+    {
+      title: "dicebear",
+      description:
+        "DiceBear is a privacy-focused, open source avatar library with 61 avatar styles, from hand-drawn characters to abstract patterns. Generate deterministic profile pictures via API, JS library, PHP library, Python library, Rust library, Go library, Dart library, C# library & CLI.",
+      tags: [],
+      url: "https://www.dicebear.com/",
+    },
     // {
     //   title: "",
     //   description: "",
@@ -702,6 +736,13 @@ const uiBookmarks: Bookmark[] = (
         "typography",
       ],
       url: "https://www.great-ui.com",
+    },
+    {
+      title: "audiocn",
+      description:
+        "Meters, faders, knobs, visualizers and a complete mixer for React. Built the shadcn way, so you own every line.",
+      tags: ["components", "primitive"],
+      url: "https://www.audiocn.dev",
     },
     // {
     //   title: "",
