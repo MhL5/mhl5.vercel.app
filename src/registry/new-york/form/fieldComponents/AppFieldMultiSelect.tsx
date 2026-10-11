@@ -1,11 +1,4 @@
-import {
-  MultiSelect,
-  MultiSelectContent,
-  MultiSelectGroup,
-  MultiSelectItem,
-  MultiSelectTrigger,
-  MultiSelectValue,
-} from "@/components/ui/multi-select";
+import { MultiSelect, MultiSelectTrigger } from "@/components/ui/multi-select";
 import { useSelector } from "@tanstack/react-form-nextjs";
 import type { ComponentProps } from "react";
 
@@ -42,11 +35,10 @@ function AppFieldMultiSelectTrigger({
 }
 
 export {
-  AppFieldMultiSelect,
-  // only renamed
   MultiSelectContent as AppFieldMultiSelectContent,
   MultiSelectGroup as AppFieldMultiSelectGroup,
   MultiSelectItem as AppFieldMultiSelectItem,
-  AppFieldMultiSelectTrigger,
   MultiSelectValue as AppFieldMultiSelectValue,
-};
+  MultiSelectSeparator as AppFieldMultiSelectSeparator,
+} from "@/components/ui/multi-select";
+export { AppFieldMultiSelect, AppFieldMultiSelectTrigger };

@@ -49,7 +49,7 @@ const projects: ProjectCardProps[] = [
     title: "AppleApps",
     description:
       "platform for downloading applications,Not affiliated with Apple Inc. ",
-    href: "https://apple-apps.vercel.app/",
+    href: "https://www.appleapps.io",
     status: "in progress",
     technologies: [
       "NextJs 15",

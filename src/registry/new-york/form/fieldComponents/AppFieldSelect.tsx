@@ -1,15 +1,4 @@
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectScrollDownButton,
-  SelectScrollUpButton,
-  SelectSeparator,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectTrigger } from "@/components/ui/select";
 import { useSelector } from "@tanstack/react-form-nextjs";
 import type { ComponentProps } from "react";
 
@@ -50,8 +39,6 @@ function AppFieldSelectTrigger({
 }
 
 export {
-  AppFieldSelect,
-  // only renamed
   SelectContent as AppFieldSelectContent,
   SelectGroup as AppFieldSelectGroup,
   SelectItem as AppFieldSelectItem,
@@ -59,6 +46,6 @@ export {
   SelectScrollDownButton as AppFieldSelectScrollDownButton,
   SelectScrollUpButton as AppFieldSelectScrollUpButton,
   SelectSeparator as AppFieldSelectSeparator,
-  AppFieldSelectTrigger,
   SelectValue as AppFieldSelectValue,
-};
+} from "@/components/ui/select";
+export { AppFieldSelect, AppFieldSelectTrigger };
