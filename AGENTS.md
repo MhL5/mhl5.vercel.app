@@ -13,6 +13,11 @@ How code here is placed, named, exported, styled, typed, and tested. Read `docs/
 - If you don't need anything from me, say "Nothing needed from you right now", and say whether the work is finished or still going.
 - Never bury a request for me in the middle of a long update.
 
+## When to stop and ask me
+
+- When something is unclear or you're unsure
+- before anything destructive: deleting data, force-pushing, or changing anything outside this repository
+
 ## Agent skills
 
 ### Issue tracker
