@@ -21,6 +21,7 @@ const nextConfig: NextConfig = {
   experimental: {
     typedEnv: true,
     authInterrupts: true,
+    turbopackRustReactCompiler: true,
   },
 };
 

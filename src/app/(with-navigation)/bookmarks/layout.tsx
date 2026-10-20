@@ -1,6 +1,8 @@
 import { CONTACT_INFO } from "@/constants";
 import type { Metadata } from "next";
 
+export const ensureStatic = "navigation";
+
 export const metadata: Metadata = {
   title: "Bookmarks",
   description:
