@@ -744,6 +744,27 @@ const uiBookmarks: Bookmark[] = (
       tags: ["components", "primitive"],
       url: "https://www.audiocn.dev",
     },
+    {
+      title: "canvas ui",
+      description:
+        "An open source library of tasteful html-in-canvas components, in WebGL or WebGPU. Framework agnostic.",
+      tags: ["animation", "components", "primitive"],
+      url: "https://canvasui.dev",
+    },
+    {
+      title: "shield cn",
+      description:
+        "A shields.io alternative with the visual quality of shadcn/ui. Badges and charts. Unlimited combinations.",
+      tags: ["components", "blocks", "readme generator"],
+      url: "https://shieldcn.dev/",
+    },
+    {
+      title: "GRID cn",
+      description:
+        "An authentic Tron: Ares inspired theme featuring Greek god color schemes, movie UI components, and immersive 3D effects.",
+      tags: [],
+      url: "https://thegridcn.com",
+    },
     // {
     //   title: "",
     //   description: "",
