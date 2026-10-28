@@ -1,0 +1,1083 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Website condition report: criwestmidlands.co.uk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=Source+Sans+3:ital,wght@0,400..700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F2F4F5; --surface:#FFFFFF; --surface2:#E8EDF0; --ink:#17222B; --muted:#52616D; --line:#D3DBE0;
+  --accent:#1D5C70; --accent-ink:#FFFFFF; --accent-soft:#DDEBF0;
+  --crit:#A3201B; --crit-bg:#FBE4E2; --high:#A84B07; --high-bg:#FCE9D9; --med:#7A5E00; --med-bg:#F8EDC7; --low:#2A5F80; --low-bg:#DFECF5;
+  --c1:#2D7A4C; --c2:#B07A00; --c3:#B3261E; --roof-empty:#E3E8EB; --course:rgba(23,34,43,.13);
+  --code-bg:#EEF2F4;
+  --font-d:"Archivo","Helvetica Neue",Arial,sans-serif; --font-b:"Source Sans 3","Segoe UI",Roboto,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color-scheme:light;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F171D; --surface:#16212A; --surface2:#1D2A34; --ink:#E4EBEF; --muted:#9BABB7; --line:#2A3945;
+    --accent:#7DBCD0; --accent-ink:#0F171D; --accent-soft:#1B3440;
+    --crit:#FF9C94; --crit-bg:#3F1A18; --high:#F7B27A; --high-bg:#3D2614; --med:#E8CB6A; --med-bg:#362E12; --low:#93C5E6; --low-bg:#17303F;
+    --c1:#62C48A; --c2:#E5B23C; --c3:#F0766C; --roof-empty:#22313C; --course:rgba(228,235,239,.12); --code-bg:#1A2731;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F171D; --surface:#16212A; --surface2:#1D2A34; --ink:#E4EBEF; --muted:#9BABB7; --line:#2A3945;
+  --accent:#7DBCD0; --accent-ink:#0F171D; --accent-soft:#1B3440;
+  --crit:#FF9C94; --crit-bg:#3F1A18; --high:#F7B27A; --high-bg:#3D2614; --med:#E8CB6A; --med-bg:#362E12; --low:#93C5E6; --low-bg:#17303F;
+  --c1:#62C48A; --c2:#E5B23C; --c3:#F0766C; --roof-empty:#22313C; --course:rgba(228,235,239,.12); --code-bg:#1A2731;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 4.5rem);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-b);font-size:1.0625rem;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+a{color:var(--accent);text-underline-offset:.18em}
+a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+img,svg{max-width:100%}
+code{font-family:var(--mono);font-size:.86em;background:var(--code-bg);padding:.08em .32em;border-radius:4px;overflow-wrap:anywhere}
+h1,h2,h3,h4{font-family:var(--font-d);font-stretch:112%;line-height:1.15;margin:0}
+.wrap{max-width:1120px;margin:0 auto;padding:0 clamp(1rem,4vw,2.25rem)}
+
+/* top bar */
+.bar-top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+.bar-top .wrap{display:flex;align-items:center;gap:1rem;min-height:3.5rem}
+.brandmark{font-family:var(--font-d);font-stretch:112%;font-weight:700;font-size:.98rem;margin-right:auto;display:flex;align-items:center;gap:.55rem}
+.brandmark svg{width:26px;height:20px;flex:none}
+.toc{display:flex;gap:.25rem;overflow-x:auto;scrollbar-width:none}
+.toc a{color:var(--muted);text-decoration:none;font-size:.92rem;padding:.35rem .55rem;border-radius:6px;white-space:nowrap}
+.toc a:hover{color:var(--ink);background:var(--surface2)}
+.tbtn{font:inherit;font-size:.9rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:.38rem .7rem;cursor:pointer;white-space:nowrap}
+.tbtn:hover{background:var(--surface2)}
+@media (max-width:860px){.toc{display:none}}
+
+/* hero */
+.hero{padding:clamp(2rem,5vw,3.5rem) 0 2rem}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:clamp(1.5rem,4vw,3rem);align-items:center}
+.hero h1{font-size:clamp(2rem,4.6vw,3.25rem);font-weight:800;letter-spacing:-.01em;max-width:18ch}
+.hero .lede{font-size:1.15rem;color:var(--muted);max-width:60ch;margin:1rem 0 0}
+.meta{display:flex;flex-wrap:wrap;gap:.4rem 1.25rem;margin:1.25rem 0 0;padding:0;list-style:none;font-size:.95rem;color:var(--muted)}
+.meta strong{color:var(--ink);font-weight:600}
+.gauge{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1rem 1rem .9rem;text-align:center}
+.roof{width:100%;height:auto;display:block}
+.roof .roof-empty{fill:var(--roof-empty)}
+.roof.c1 .roof-fill{fill:var(--c1)} .roof.c2 .roof-fill{fill:var(--c2)} .roof.c3 .roof-fill{fill:var(--c3)}
+.roof .courses line{stroke:var(--course);stroke-width:1.2}
+.roof .roof-line{fill:none;stroke:var(--ink);stroke-width:3;stroke-linejoin:round}
+.roof .chim{fill:var(--surface2);stroke:var(--ink);stroke-width:2.5}
+.roof .wall{fill:var(--surface2);stroke:var(--ink);stroke-width:2.5}
+.roof .g-num{font-family:var(--font-d);font-stretch:112%;font-weight:800;font-size:44px;fill:var(--ink)}
+.roof .g-den{font-family:var(--font-b);font-size:12px;fill:var(--muted)}
+.crbig{display:inline-flex;align-items:center;gap:.5rem;margin-top:.6rem;font-weight:600}
+.crbig .crn{display:inline-grid;place-items:center;width:1.7rem;height:1.7rem;border-radius:50%;color:#fff;font-family:var(--font-d);font-weight:800}
+.c1 .crn,.crbig.c1 .crn{background:var(--c1)} .c2 .crn,.crbig.c2 .crn{background:var(--c2)} .c3 .crn,.crbig.c3 .crn{background:var(--c3)}
+:root[data-theme="dark"] .crn{color:#0F171D}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .crn{color:#0F171D}}
+.gnote{font-size:.85rem;color:var(--muted);margin:.5rem 0 0}
+@media (max-width:760px){.hero .wrap{grid-template-columns:1fr}.gauge{max-width:320px}}
+
+/* sections */
+section.block{padding:2.5rem 0;border-top:1px solid var(--line)}
+section.block > .wrap > h2{font-size:clamp(1.5rem,3vw,2rem);font-weight:750;margin-bottom:.5rem}
+.intro{color:var(--muted);max-width:68ch;margin:0 0 1.5rem}
+.prose{max-width:70ch}
+.prose p{margin:0 0 1rem}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1.25rem;margin-top:1.5rem}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:1.25rem 1.35rem}
+.panel h3{font-size:1.1rem;margin-bottom:.75rem}
+.panel ol,.panel ul{margin:0;padding-left:1.25rem}
+.panel li{margin:.4rem 0}
+.panel li .sev{margin-left:.35rem;vertical-align:1px}
+.method{font-size:.95rem;color:var(--muted);background:var(--surface2);border-radius:10px;padding:1rem 1.2rem;margin-top:1.5rem;max-width:80ch}
+.method strong{color:var(--ink)}
+
+/* badges */
+.sev{display:inline-block;font-size:.78rem;font-weight:700;padding:.12rem .5rem;border-radius:999px;line-height:1.35;border:1px solid transparent}
+.sev-critical{color:var(--crit);background:var(--crit-bg);border-color:color-mix(in srgb,var(--crit) 35%,transparent)}
+.sev-high{color:var(--high);background:var(--high-bg);border-color:color-mix(in srgb,var(--high) 35%,transparent)}
+.sev-medium{color:var(--med);background:var(--med-bg);border-color:color-mix(in srgb,var(--med) 35%,transparent)}
+.sev-low{color:var(--low);background:var(--low-bg);border-color:color-mix(in srgb,var(--low) 35%,transparent)}
+.conf{font-size:.8rem;padding:.05rem .45rem;border-radius:5px;border:1px dashed var(--line)}
+.conf-confirmed{border-style:solid;border-color:var(--c1);color:var(--c1)}
+.conf-likely{border-color:var(--muted)}
+.conf-client-reported{border-color:var(--accent);color:var(--accent)}
+.conf-needs-data{border-color:var(--med);color:var(--med)}
+
+/* scorecard */
+.scorecard{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:.5rem 1.25rem}
+.scrow{display:grid;grid-template-columns:minmax(0,15rem) minmax(0,1fr) 3rem 10.5rem;gap:1rem;align-items:center;padding:.95rem 0;border-bottom:1px solid var(--line)}
+.scrow:last-child{border-bottom:0}
+.scname strong{font-family:var(--font-d);font-stretch:108%;font-weight:700}
+.scsub{display:block;font-size:.85rem;color:var(--muted)}
+.prov{font-size:.75rem;color:var(--med);border:1px dashed var(--med);border-radius:5px;padding:0 .35rem;margin-left:.35rem;vertical-align:2px}
+.bar{height:14px;background:var(--roof-empty);border-radius:3px;overflow:hidden;position:relative;
+  background-image:repeating-linear-gradient(90deg,transparent 0 calc(10% - 1px),var(--bg) calc(10% - 1px) 10%)}
+.bar span{display:block;height:100%;border-radius:3px 0 0 3px}
+.bar.c1 span{background:var(--c1)} .bar.c2 span{background:var(--c2)} .bar.c3 span{background:var(--c3)}
+.scnum{font-family:var(--font-d);font-weight:800;font-size:1.35rem;text-align:right}
+.cr{display:flex;align-items:center;gap:.45rem;font-size:.88rem}
+.cr .crn{display:inline-grid;place-items:center;width:1.45rem;height:1.45rem;border-radius:50%;color:#fff;font-weight:800;font-size:.85rem;flex:none}
+.legend{display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;font-size:.9rem;color:var(--muted);margin:1rem 0 0}
+.legend span{display:inline-flex;align-items:center;gap:.4rem}
+.legend i{width:.8rem;height:.8rem;border-radius:50%;display:inline-block}
+@media (max-width:760px){.scrow{grid-template-columns:1fr 3rem;grid-template-areas:"n s" "b b" "c c";gap:.45rem}.scname{grid-area:n}.scnum{grid-area:s}.bar{grid-area:b}.cr{grid-area:c}}
+
+/* filters */
+.filters{display:flex;flex-wrap:wrap;gap:.75rem 1rem;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:.9rem 1rem;margin-bottom:1rem}
+.fgroup{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center}
+.flabel{font-size:.88rem;color:var(--muted);margin-right:.2rem}
+.fbtn{font:inherit;font-size:.86rem;font-weight:600;cursor:pointer;border-radius:999px;padding:.25rem .7rem;border:1.5px solid var(--line);background:var(--surface);color:var(--muted)}
+.fbtn[aria-pressed="true"].f-critical{background:var(--crit-bg);color:var(--crit);border-color:var(--crit)}
+.fbtn[aria-pressed="true"].f-high{background:var(--high-bg);color:var(--high);border-color:var(--high)}
+.fbtn[aria-pressed="true"].f-medium{background:var(--med-bg);color:var(--med);border-color:var(--med)}
+.fbtn[aria-pressed="true"].f-low{background:var(--low-bg);color:var(--low);border-color:var(--low)}
+.fbtn[aria-pressed="false"]{text-decoration:line-through;opacity:.75}
+select,input[type=search]{font:inherit;font-size:.92rem;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:.35rem .55rem}
+input[type=search]{min-width:12rem;flex:1}
+.fcount{font-size:.9rem;color:var(--muted);margin-left:auto}
+.factions{display:flex;gap:.5rem;margin:0 0 1rem}
+
+/* issues */
+.sevgroup{margin-bottom:1.5rem}
+.grouph{font-size:1rem;display:flex;align-items:center;gap:.6rem;margin:1.25rem 0 .6rem}
+.gcount{font-family:var(--font-b);font-weight:400;color:var(--muted);font-size:.95rem}
+.issue{background:var(--surface);border:1px solid var(--line);border-radius:10px;margin:.5rem 0;overflow:hidden}
+.issue[data-sev="Critical"]{border-left:5px solid var(--crit)}
+.issue[data-sev="High"]{border-left:5px solid var(--high)}
+.issue[data-sev="Medium"]{border-left:5px solid var(--med)}
+.issue[data-sev="Low"]{border-left:5px solid var(--low)}
+.issue summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:auto auto minmax(0,1fr);gap:.3rem .7rem;align-items:baseline;padding:.85rem 2.5rem .85rem 1rem;position:relative}
+.issue summary::-webkit-details-marker{display:none}
+.issue summary::after{content:"";position:absolute;right:1.1rem;top:1.15rem;width:.55rem;height:.55rem;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .15s}
+.issue[open] summary::after{transform:rotate(-135deg);top:1.4rem}
+.issue summary:hover{background:var(--surface2)}
+.inum{font-family:var(--font-d);font-weight:700;color:var(--muted);font-size:.9rem}
+.ititle{font-weight:650;font-size:1.04rem}
+.imeta{grid-column:3;display:flex;flex-wrap:wrap;gap:.3rem .9rem;font-size:.86rem;color:var(--muted)}
+@media (max-width:600px){.issue summary{grid-template-columns:auto 1fr}.ititle,.imeta{grid-column:1 / -1}}
+.ibody{padding:.25rem 1.25rem 1.25rem 1rem;border-top:1px solid var(--line)}
+.ibody > *{max-width:84ch}
+.ibody h4{font-size:.95rem;font-stretch:105%;margin:1rem 0 .3rem;color:var(--ink)}
+.ibody p,.ibody .ev,.ibody div{margin:0}
+.ibody ul{margin:.3rem 0;padding-left:1.2rem}
+.ibody li{margin:.2rem 0}
+table.mini{border-collapse:collapse;margin:.6rem 0;font-size:.92rem;width:100%}
+table.mini th,table.mini td{text-align:left;border-bottom:1px solid var(--line);padding:.35rem .5rem;vertical-align:top}
+table.mini td:first-child{font-family:var(--mono);font-size:.84rem;white-space:nowrap}
+figure.code{margin:1rem 0 0}
+figure.code figcaption{font-size:.85rem;color:var(--muted);margin-bottom:.3rem}
+pre{margin:0;background:var(--code-bg);border:1px solid var(--line);border-radius:8px;padding:.85rem 1rem;overflow-x:auto;font-size:.84rem;line-height:1.5}
+pre code{background:none;padding:0;font-size:inherit;overflow-wrap:normal}
+.noresults{display:none;padding:1.25rem;text-align:center;color:var(--muted);background:var(--surface);border:1px dashed var(--line);border-radius:10px}
+
+/* matrix */
+.matrix{display:grid;grid-template-columns:7.5rem repeat(3,minmax(0,1fr));gap:.6rem}
+.mhead{font-family:var(--font-d);font-stretch:108%;font-weight:700;font-size:.92rem;text-align:center;color:var(--muted);padding-bottom:.2rem}
+.mrowlab{font-family:var(--font-d);font-stretch:108%;font-weight:700;font-size:.92rem;color:var(--muted);display:flex;align-items:center;justify-content:flex-end;text-align:right;writing-mode:horizontal-tb}
+.mcell{border:1px solid var(--line);border-radius:10px;padding:.75rem;background:var(--surface);min-height:7rem}
+.m-high-low{background:color-mix(in srgb,var(--c1) 11%,var(--surface));border-color:color-mix(in srgb,var(--c1) 45%,var(--line))}
+.m-high-medium,.m-high-high{background:color-mix(in srgb,var(--accent) 8%,var(--surface))}
+.mname{font-weight:700;font-size:.92rem;margin-bottom:.5rem}
+.chip{display:block;text-decoration:none;color:var(--ink);font-size:.87rem;padding:.3rem .5rem;border-radius:6px;margin:.25rem 0;background:var(--bg);border-left:4px solid var(--line)}
+.chip:hover{background:var(--surface2)}
+.chip .cn{color:var(--muted);font-weight:600;margin-right:.15rem}
+.sev-b-critical{border-left-color:var(--crit)} .sev-b-high{border-left-color:var(--high)} .sev-b-medium{border-left-color:var(--med)} .sev-b-low{border-left-color:var(--low)}
+.empty{color:var(--muted);font-size:.88rem;margin:0}
+.axis{font-size:.88rem;color:var(--muted);margin-top:.75rem}
+@media (max-width:760px){.matrix{grid-template-columns:1fr}.mhead.corner,.mhead{display:none}.mrowlab{justify-content:flex-start;margin-top:.75rem}}
+
+/* plan */
+.plan{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1rem}
+.phase{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:1.2rem 1.25rem}
+.phead{display:flex;gap:.8rem;align-items:flex-start;margin-bottom:.6rem}
+.pstep{display:inline-grid;place-items:center;width:2.1rem;height:2.1rem;border-radius:8px;background:var(--accent);color:var(--accent-ink);font-family:var(--font-d);font-weight:800;flex:none}
+.phase h3{font-size:1.15rem}
+.ptheme{margin:.1rem 0 0;color:var(--muted);font-size:.95rem}
+.phase ul{margin:0;padding-left:1.1rem}
+.phase li{margin:.5rem 0;font-size:.97rem}
+.refs{white-space:normal}
+.ref{white-space:nowrap;display:inline-block;margin-top:.15rem;font-size:.82rem;font-weight:600;text-decoration:none;background:var(--accent-soft);color:var(--accent);padding:.02rem .35rem;border-radius:4px;margin-left:.15rem}
+
+/* tables */
+.tscroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table.tbl{border-collapse:collapse;width:100%;font-size:.94rem}
+table.tbl th,table.tbl td{text-align:left;vertical-align:top;padding:.65rem .8rem;border-bottom:1px solid var(--line)}
+table.tbl thead th{font-family:var(--font-d);font-stretch:106%;font-size:.88rem;background:var(--surface2);white-space:nowrap}
+table.tbl tbody tr:last-child th,table.tbl tbody tr:last-child td{border-bottom:0}
+table.tbl tbody th{font-weight:600;min-width:11rem}
+.comp td:nth-child(2){background:color-mix(in srgb,var(--c3) 6%,transparent)}
+.st{font-size:.8rem;font-weight:700;padding:.08rem .45rem;border-radius:5px}
+.st-pass{color:var(--c1);background:color-mix(in srgb,var(--c1) 14%,transparent)}
+.st-part{color:var(--med);background:var(--med-bg)}
+.st-fail{color:var(--crit);background:var(--crit-bg)}
+.st-unv{color:var(--muted);border:1px dashed var(--line)}
+details.checks{background:var(--surface);border:1px solid var(--line);border-radius:10px;margin:.5rem 0;overflow:hidden}
+details.checks summary{cursor:pointer;padding:.7rem 1rem;display:flex;gap:1rem;justify-content:space-between}
+details.checks summary span{color:var(--muted)}
+details.checks table{border-top:1px solid var(--line)}
+h3.sub{font-size:1.15rem;margin:2rem 0 .75rem}
+.foot{padding:2rem 0 3rem;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line)}
+
+@media (prefers-reduced-motion: reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media (prefers-reduced-motion: no-preference){html{scroll-behavior:smooth}}
+
+@media print{
+  :root,:root[data-theme="dark"]{
+    --bg:#fff; --surface:#fff; --surface2:#F1F4F6; --ink:#111; --muted:#444; --line:#ccc; --accent:#1D5C70; --accent-soft:#E6F0F3;
+    --crit:#A3201B; --crit-bg:#FBE4E2; --high:#A84B07; --high-bg:#FCE9D9; --med:#7A5E00; --med-bg:#F8EDC7; --low:#2A5F80; --low-bg:#DFECF5;
+    --c1:#2D7A4C; --c2:#B07A00; --c3:#B3261E; --roof-empty:#E7ECEF; --code-bg:#F3F5F6; color-scheme:light;
+  }
+  :root{padding:0}
+  body{font-size:10.5pt}
+  body::before,.bar-top,.filters,.factions,.noprint{display:none!important}
+  section.block{padding:1.2rem 0;break-inside:auto}
+  .issue,.phase,.panel,.mcell,.scrow,tr{break-inside:avoid}
+  .issue summary::after{display:none}
+  .sevgroup[hidden],.issue[hidden]{display:block!important}
+  a{color:inherit}
+  pre{white-space:pre-wrap}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  h2{break-after:avoid}
+}
+</style>
+</head>
+<body>
+<header class="bar-top">
+  <div class="wrap">
+    <div class="brandmark"><svg viewBox="0 0 26 20" aria-hidden="true"><polygon points="1,19 13,2 25,19" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg>Website condition report</div>
+    <nav class="toc" aria-label="Report sections">
+      <a href="#summary">Summary</a><a href="#scorecard">Scorecard</a><a href="#issues">Issues</a><a href="#matrix">Matrix</a><a href="#plan">Plan</a><a href="#gaps">Data gaps</a><a href="#appendix">Appendix</a>
+    </nav>
+    <button class="tbtn" id="themeBtn" type="button" aria-label="Colour theme: automatic">Theme: Auto</button>
+    <button class="tbtn" id="printBtn" type="button">Print</button>
+  </div>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="title">
+  <div class="wrap">
+    <div>
+      <h1 id="title">criwestmidlands.co.uk condition report</h1>
+      <p class="lede">An evidence-based audit of SEO, conversion, accessibility, performance and compliance for CRI West Midlands, a family-run conservatory roof specialist. Built on a good modern stack, held back by missing basics that are cheap to fix.</p>
+      <ul class="meta">
+        <li><strong>Date</strong> 28 October 2026</li>
+        <li><strong>Pages reviewed</strong> 7 on site, 2 competitors</li>
+        <li><strong>Issues found</strong> 34</li>
+        <li><strong>Stack</strong> Next.js on Vercel, Sanity CMS</li>
+      </ul>
+    </div>
+    <div class="gauge">
+      <svg class="roof c3" viewBox="0 0 240 232" role="img" aria-label="Overall score 30 out of 100">
+  <defs><clipPath id="roofclip"><polygon points="14,150 120,28 226,150"/></clipPath></defs>
+  <rect x="162" y="52" width="20" height="48" class="chim"/>
+  <g clip-path="url(#roofclip)">
+    <rect x="0" y="0" width="240" height="150" class="roof-empty"/>
+    <rect x="0" y="113.4" width="240" height="36.6" class="roof-fill"/>
+    <g class="courses"><line x1="0" x2="240" y1="40" y2="40"/><line x1="0" x2="240" y1="54" y2="54"/><line x1="0" x2="240" y1="68" y2="68"/><line x1="0" x2="240" y1="82" y2="82"/><line x1="0" x2="240" y1="96" y2="96"/><line x1="0" x2="240" y1="110" y2="110"/><line x1="0" x2="240" y1="124" y2="124"/><line x1="0" x2="240" y1="138" y2="138"/></g>
+  </g>
+  <polygon points="14,150 120,28 226,150" class="roof-line"/>
+  <rect x="34" y="150" width="172" height="74" class="wall"/>
+  <text x="120" y="200" text-anchor="middle" class="g-num">30</text>
+  <text x="120" y="218" text-anchor="middle" class="g-den">out of 100</text>
+</svg>
+      <div class="crbig c3"><span class="crn">3</span>Urgent attention</div>
+      <p class="gnote">Projected after the 30-day plan: about 77. <a href="#method">How this is scored</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="summary" aria-labelledby="h-summary">
+  <div class="wrap">
+    <h2 id="h-summary">Executive summary</h2>
+    <div class="prose">
+      <p>The site scores <strong>30 out of 100</strong> against a 55-point best-practice checklist for a local lead-generation site (47 checks could be verified; the rest are excluded rather than counted as failures).</p>
+      <p>The foundations are better than the score suggests. It runs on Next.js with server-rendered content and a Sanity CMS, the URLs are clean, and it holds unusually strong raw material: 31 detailed customer reviews with photos, real projects in 15 local towns, and specific performance figures (U-values of 0.15 and 0.18, fitting times of 1 to 5 days).</p>
+      <p>The problem is that almost none of this is visible to Google or to a homeowner in the first few seconds. Every page shares the same title and description, the homepage has no H1, the quote form has no URL, the phone number can’t be tapped, and the reviews and 10-year guarantee are hidden on inner pages. Most fixes are configuration and content work on the existing stack, not a rebuild.</p>
+    </div>
+    <div class="cols">
+      <div class="panel">
+        <h3>Top 5 issues</h3>
+        <ol><li><a href="#issue-1" class="jump">Every page uses the same title tag: “CRI West Midlands”</a> <span class="sev sev-critical">Critical</span></li><li><a href="#issue-3" class="jump">“Get a quote” and “Make an enquiry” open a form that has no URL</a> <span class="sev sev-high">High</span></li><li><a href="#issue-4" class="jump">31 detailed reviews exist, but the homepage shows none of them</a> <span class="sev sev-high">High</span></li><li><a href="#issue-5" class="jump">No location pages, though the site already has projects in 15 towns</a> <span class="sev sev-high">High</span></li><li><a href="#issue-10" class="jump">FAQ answers are missing from the page HTML</a> <span class="sev sev-high">High</span></li></ol>
+      </div>
+      <div class="panel">
+        <h3>Quick wins (high impact, low effort)</h3>
+        <ul><li><a href="#issue-1" class="jump">Same title on every page</a></li><li><a href="#issue-2" class="jump">Phone & email not tappable</a></li><li><a href="#issue-6" class="jump">Same 40-char description everywhere</a></li><li><a href="#issue-7" class="jump">No H1 on home or service pages</a></li><li><a href="#issue-8" class="jump">Guarantee & CPA buried</a></li><li><a href="#issue-9" class="jump">No address; Gmail contact</a></li><li><a href="#issue-10" class="jump">FAQ answers not in HTML</a></li><li><a href="#issue-11" class="jump">No price guidance</a></li></ul>
+      </div>
+      <div class="panel">
+        <h3>What’s already working</h3>
+        <ul>
+          <li>Server-rendered Next.js pages; content is readable without JavaScript.</li>
+          <li>Descriptive service URLs such as /services/tiled-conservatory-roof.</li>
+          <li>31 genuine, detailed reviews linked to Google, Facebook and Yell.</li>
+          <li>Before/after slider on the homepage.</li>
+          <li>Concrete specs buyers care about: U-values, time on site, CPA-backed guarantee.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="method" id="method">
+      <p style="margin:0 0 .5rem"><strong>How the score is calculated.</strong> Each category is scored as checks passed ÷ checks verified, with partial passes counting as half. The overall score is a weighted average: UX &amp; conversion 25%, Technical SEO 20%, On-page SEO 20%, Accessibility 15%, Performance 10%, Security &amp; best practices 10%. Weights favour conversion because the site’s job is generating quote requests. Condition ratings follow the home-survey convention: 1 (75+), 2 (40–74), 3 (below 40).</p>
+      <p style="margin:0"><strong>This is not a Lighthouse score.</strong> No PageSpeed data was supplied, so Performance is provisional. The full checklist is in the <a href="#appendix">appendix</a>. Confidence labels on issues: Confirmed (21), Likely (7), Client-reported (4), Needs data (2).</p>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="scorecard" aria-labelledby="h-score">
+  <div class="wrap">
+    <h2 id="h-score">Scorecard by category</h2>
+    <p class="intro">Bars show each category’s score out of 100. The segment lines mark every 10 points.</p>
+    <div class="scorecard"><div class="scrow">
+  <div class="scname"><strong>Technical SEO</strong><span class="scsub">Weight 20%. 3 of 10 verifiable checks passed; 1 unverified.</span></div>
+  <div class="bar c3" role="img" aria-label="Technical SEO: 30 out of 100"><span style="width:30.0%"></span></div>
+  <div class="scnum">30</div>
+  <div class="cr c3" title="Condition rating 3: Urgent attention"><span class="crn">3</span><span class="crl">Urgent attention</span></div>
+</div><div class="scrow">
+  <div class="scname"><strong>On-page SEO</strong><span class="scsub">Weight 20%. 2.5 of 9 verifiable checks passed.</span></div>
+  <div class="bar c3" role="img" aria-label="On-page SEO: 28 out of 100"><span style="width:27.8%"></span></div>
+  <div class="scnum">28</div>
+  <div class="cr c3" title="Condition rating 3: Urgent attention"><span class="crn">3</span><span class="crl">Urgent attention</span></div>
+</div><div class="scrow">
+  <div class="scname"><strong>Accessibility</strong><span class="scsub">Weight 15%. 2 of 7 verifiable checks passed; 2 unverified.</span></div>
+  <div class="bar c3" role="img" aria-label="Accessibility: 29 out of 100"><span style="width:28.6%"></span></div>
+  <div class="scnum">29</div>
+  <div class="cr c3" title="Condition rating 3: Urgent attention"><span class="crn">3</span><span class="crl">Urgent attention</span></div>
+</div><div class="scrow">
+  <div class="scname"><strong>UX & conversion</strong><span class="scsub">Weight 25%. 3 of 12 verifiable checks passed.</span></div>
+  <div class="bar c3" role="img" aria-label="UX & conversion: 25 out of 100"><span style="width:25.0%"></span></div>
+  <div class="scnum">25</div>
+  <div class="cr c3" title="Condition rating 3: Urgent attention"><span class="crn">3</span><span class="crl">Urgent attention</span></div>
+</div><div class="scrow">
+  <div class="scname"><strong>Performance</strong> <span class="prov">provisional</span><span class="scsub">Weight 10%. 1.5 of 3 verifiable checks passed; 3 unverified.</span></div>
+  <div class="bar c2" role="img" aria-label="Performance: 50 out of 100"><span style="width:50.0%"></span></div>
+  <div class="scnum">50</div>
+  <div class="cr c2" title="Condition rating 2: Repair soon"><span class="crn">2</span><span class="crl">Repair soon</span></div>
+</div><div class="scrow">
+  <div class="scname"><strong>Security & best practices</strong><span class="scsub">Weight 10%. 2 of 6 verifiable checks passed; 2 unverified.</span></div>
+  <div class="bar c3" role="img" aria-label="Security & best practices: 33 out of 100"><span style="width:33.3%"></span></div>
+  <div class="scnum">33</div>
+  <div class="cr c3" title="Condition rating 3: Urgent attention"><span class="crn">3</span><span class="crl">Urgent attention</span></div>
+</div></div>
+    <div class="legend" aria-label="Condition rating legend">
+      <span><i style="background:var(--c1)"></i>1: No repair needed (75+)</span>
+      <span><i style="background:var(--c2)"></i>2: Repair soon (40–74)</span>
+      <span><i style="background:var(--c3)"></i>3: Urgent attention (below 40)</span>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="issues" aria-labelledby="h-issues">
+  <div class="wrap">
+    <h2 id="h-issues">Prioritised issues</h2>
+    <p class="intro">Sorted by severity, then by impact and effort. Open any issue for evidence, business impact and the fix. Critical 1, High 9, Medium 16, Low 8.</p>
+    <div class="filters" role="group" aria-label="Filter issues">
+      <div class="fgroup"><span class="flabel">Severity</span>
+        <button type="button" class="fbtn f-critical" data-sev="Critical" aria-pressed="true">Critical</button>
+        <button type="button" class="fbtn f-high" data-sev="High" aria-pressed="true">High</button>
+        <button type="button" class="fbtn f-medium" data-sev="Medium" aria-pressed="true">Medium</button>
+        <button type="button" class="fbtn f-low" data-sev="Low" aria-pressed="true">Low</button>
+      </div>
+      <div class="fgroup"><label class="flabel" for="fcat">Category</label>
+        <select id="fcat"><option value="">All categories</option><option>Technical SEO</option><option>On-page SEO</option><option>Accessibility</option><option>UX &amp; conversion</option><option>Performance</option><option>Security &amp; best practices</option></select></div>
+      <div class="fgroup"><label class="flabel" for="fconf">Confidence</label>
+        <select id="fconf"><option value="">Any</option><option>Confirmed</option><option>Likely</option><option>Client-reported</option><option>Needs data</option></select></div>
+      <div class="fgroup" style="flex:1"><label class="flabel" for="fq">Search</label>
+        <input type="search" id="fq" placeholder="e.g. reviews, alt, sitemap"></div>
+      <span class="fcount" id="fcount" aria-live="polite"></span>
+    </div>
+    <div class="factions"><button type="button" class="tbtn" id="expandAll">Expand all</button><button type="button" class="tbtn" id="collapseAll">Collapse all</button></div>
+    <div id="issueList"><section class="sevgroup" data-group="Critical"><h3 class="grouph"><span class="sev sev-critical">Critical</span> <span class="gcount">1 issue</span></h3><details class="issue" id="issue-1" data-sev="Critical" data-cat="Technical SEO" data-conf="Confirmed" data-text="every page uses the same title tag: “cri west midlands” all seven pages fetched return the identical title cri west midlands : / , /services/tiled-conservatory-roof , /services/interior-roof-insulation , /projects , /reviews , /faqs , /policies/privacy-policy . give each page its own 50–60 character title. suggested starting points: page suggested title / tiled conservatory roofs &amp;amp; insulation | cri west midlands /services/tiled-conservatory-roof tiled conservatory roof replacement | cri west midlands /services/interior-roof-insulation conservatory roof insulation, fitted in 1 day | cri /projects conservatory roof projects in dudley &amp;amp; stourbridge | cri /reviews cri west midlands reviews from 31 local customers /faqs conservatory roof faqs: cost, planning, guarantees | cri better still, add seotitle and seodescription fields to the sanity schema so the client can edit them, and return them from generatemetadata() .">
+<summary>
+  <span class="inum">#1</span>
+  <span class="sev sev-critical">Critical</span>
+  <span class="ititle">Every page uses the same title tag: “CRI West Midlands”</span>
+  <span class="imeta"><span>Technical SEO</span><span>Effort: Low</span><span class="conf conf-confirmed">Confirmed</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev">All seven pages fetched return the identical title <code>CRI West Midlands</code>: <a href="https://www.criwestmidlands.co.uk/" target="_blank" rel="noopener">/</a>, <a href="https://www.criwestmidlands.co.uk/services/tiled-conservatory-roof" target="_blank" rel="noopener">/services/tiled-conservatory-roof</a>, <a href="https://www.criwestmidlands.co.uk/services/interior-roof-insulation" target="_blank" rel="noopener">/services/interior-roof-insulation</a>, <a href="https://www.criwestmidlands.co.uk/projects" target="_blank" rel="noopener">/projects</a>, <a href="https://www.criwestmidlands.co.uk/reviews" target="_blank" rel="noopener">/reviews</a>, <a href="https://www.criwestmidlands.co.uk/faqs" target="_blank" rel="noopener">/faqs</a>, <a href="https://www.criwestmidlands.co.uk/policies/privacy-policy" target="_blank" rel="noopener">/policies/privacy-policy</a>.</div>
+  <h4>Why it matters</h4><p>The title is the blue link people click in Google and the strongest on-page relevance signal. None of the titles mentions “conservatory roof”, “tiled”, “insulation” or a town, so the site can realistically only rank for its own name. Identical titles also push Google to treat pages as near-duplicates and pick one to show.</p>
+  <h4>Recommended fix</h4><div>Give each page its own 50–60 character title. Suggested starting points:
+<table class="mini"><tr><th>Page</th><th>Suggested title</th></tr>
+<tr><td>/</td><td>Tiled Conservatory Roofs &amp; Insulation | CRI West Midlands</td></tr>
+<tr><td>/services/tiled-conservatory-roof</td><td>Tiled Conservatory Roof Replacement | CRI West Midlands</td></tr>
+<tr><td>/services/interior-roof-insulation</td><td>Conservatory Roof Insulation, Fitted in 1 Day | CRI</td></tr>
+<tr><td>/projects</td><td>Conservatory Roof Projects in Dudley &amp; Stourbridge | CRI</td></tr>
+<tr><td>/reviews</td><td>CRI West Midlands Reviews from 31 Local Customers</td></tr>
+<tr><td>/faqs</td><td>Conservatory Roof FAQs: Cost, Planning, Guarantees | CRI</td></tr></table>
+Better still, add <code>seoTitle</code> and <code>seoDescription</code> fields to the Sanity schema so the client can edit them, and return them from <code>generateMetadata()</code>.</div>
+  <figure class="code"><figcaption>Example</figcaption><pre><code>// app/services/tiled-conservatory-roof/page.tsx  (App Router; Pages Router uses next/head)
+export const metadata = {
+  title: &#x27;Tiled Conservatory Roof Replacement | CRI West Midlands&#x27;,
+  description:
+    &#x27;Swap a polycarbonate or glass roof for an insulated tiled roof (U-value 0.15). &#x27; +
+    &#x27;Fitted in 3-5 days with a 10-year insurance-backed guarantee. Free quote.&#x27;,
+  alternates: { canonical: &#x27;/services/tiled-conservatory-roof&#x27; },
+};</code></pre></figure>
+</div>
+</details></section><section class="sevgroup" data-group="High"><h3 class="grouph"><span class="sev sev-high">High</span> <span class="gcount">9 issues</span></h3><details class="issue" id="issue-2" data-sev="High" data-cat="UX &amp; conversion" data-conf="Likely" data-text="phone number and email are plain text, not tap-to-call or mailto links “07941 042 047” and “criwestmidlands@gmail.com” appear as plain text in the footer of all seven pages; the facebook and instagram urls next to them are rendered as links, so the contrast is clear. the phone number does not appear in the header. wrap both in links, add the number to the header, and add a slim sticky “call / get a quote” bar on mobile.">
+<summary>
+  <span class="inum">#2</span>
+  <span class="sev sev-high">High</span>
+  <span class="ititle">Phone number and email are plain text, not tap-to-call or mailto links</span>
+  <span class="imeta"><span>UX & conversion</span><span>Effort: Low</span><span class="conf conf-likely">Likely</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev">“07941 042 047” and “criwestmidlands@gmail.com” appear as plain text in the footer of all seven pages; the Facebook and Instagram URLs next to them are rendered as links, so the contrast is clear. The phone number does not appear in the header.</div>
+  <h4>Why it matters</h4><p>Most homeowners will browse on a phone. For a trades business, calls are often the biggest lead source, and every extra step (copying, switching apps) loses some of them.</p>
+  <h4>Recommended fix</h4><div>Wrap both in links, add the number to the header, and add a slim sticky “Call / Get a quote” bar on mobile.</div>
+  <figure class="code"><figcaption>Example</figcaption><pre><code>&lt;a href=&quot;tel:+447941042047&quot;&gt;07941 042 047&lt;/a&gt;
+&lt;a href=&quot;mailto:hello@criwestmidlands.co.uk&quot;&gt;hello@criwestmidlands.co.uk&lt;/a&gt;</code></pre></figure>
+</div>
+</details><details class="issue" id="issue-3" data-sev="High" data-cat="UX &amp; conversion" data-conf="Confirmed" data-text="“get a quote” and “make an enquiry” open a form that has no url on all seven pages, “get a quote”, “get a free quote” and “make an enquiry” are rendered without an href . the footer copy asks visitors to use “the form linked below”, but nothing is linked. there is no /contact or /get-a-quote page. create /get-a-quote with the form as a normal page. keep the modal as an enhancement by making every cta a real link that the modal intercepts. on success, route to /get-a-quote/thank-you so conversions can be counted. add a short version of the form (name, phone, postcode, roof type) to the page itself.">
+<summary>
+  <span class="inum">#3</span>
+  <span class="sev sev-high">High</span>
+  <span class="ititle">“Get a quote” and “Make an enquiry” open a form that has no URL</span>
+  <span class="imeta"><span>UX & conversion</span><span>Effort: Medium</span><span class="conf conf-confirmed">Confirmed</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev">On all seven pages, “Get a quote”, “Get a free quote” and “Make an enquiry” are rendered without an <code>href</code>. The footer copy asks visitors to use “the form linked below”, but nothing is linked. There is no /contact or /get-a-quote page.</div>
+  <h4>Why it matters</h4><p>Without a URL, the quote form can’t be linked from Google Business Profile, Facebook, Instagram, ads or emails; it can’t be measured as a goal in GA4; it can’t rank for searches like “conservatory roof quote”; and AI assistants or browsing agents can’t find it. This is the one page that turns visits into revenue.</p>
+  <h4>Recommended fix</h4><div>Create <code>/get-a-quote</code> with the form as a normal page. Keep the modal as an enhancement by making every CTA a real link that the modal intercepts. On success, route to <code>/get-a-quote/thank-you</code> so conversions can be counted. Add a short version of the form (name, phone, postcode, roof type) to the page itself.</div>
+  <figure class="code"><figcaption>Example</figcaption><pre><code>// Every CTA is a real link; the modal is a progressive enhancement
+&lt;Link href=&quot;/get-a-quote&quot; onClick={(e) =&gt; { e.preventDefault(); openQuoteModal(); }}&gt;
+  Get a free quote
+&lt;/Link&gt;
+
+// After a successful submit, give analytics a URL to count
+router.push(&#x27;/get-a-quote/thank-you&#x27;);</code></pre></figure>
+</div>
+</details><details class="issue" id="issue-4" data-sev="High" data-cat="UX &amp; conversion" data-conf="Confirmed" data-text="31 detailed reviews exist, but the homepage shows none of them /reviews lists 31 written reviews from google, facebook and yell, many with photos. the homepage shows only an unlinked “25+ 5-star reviews” label (twice). the client concern “no social proof” is partly right: the proof exists, but it isn’t where buyers make the decision. add a review band under the hero: three short quotes with first name, project type and source, a live google rating and count from the google business profile, and a link to /reviews. update the counter to the real number, or pull it from sanity so it can’t drift.">
+<summary>
+  <span class="inum">#4</span>
+  <span class="sev sev-high">High</span>
+  <span class="ititle">31 detailed reviews exist, but the homepage shows none of them</span>
+  <span class="imeta"><span>UX & conversion</span><span>Effort: Medium</span><span class="conf conf-confirmed">Confirmed</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev"><a href="https://www.criwestmidlands.co.uk/reviews" target="_blank" rel="noopener">/reviews</a> lists 31 written reviews from Google, Facebook and Yell, many with photos. The homepage shows only an unlinked “25+ 5-star reviews” label (twice). The client concern “no social proof” is partly right: the proof exists, but it isn’t where buyers make the decision.</div>
+  <h4>Why it matters</h4><p>A roof conversion is a four-figure, high-trust purchase from a small firm. Seeing a real customer say “best thing we’ve ever done” beside the quote button does more for conversion than any design change. The counter also undersells the business (“25+” versus 31 on the page).</p>
+  <h4>Recommended fix</h4><div>Add a review band under the hero: three short quotes with first name, project type and source, a live Google rating and count from the Google Business Profile, and a link to /reviews. Update the counter to the real number, or pull it from Sanity so it can’t drift.</div>
+  
+</div>
+</details><details class="issue" id="issue-5" data-sev="High" data-cat="On-page SEO" data-conf="Confirmed" data-text="no location pages, though the site already has projects in 15 towns image alt text on /projects names dudley, sedgley, kinver, kingswinford, brierley hill, wordsley, wall heath, stourbridge, gornal, kidderminster, stourton, quarry bank, wombourne, bobbington and bewdley. no page targets any of them. competitor lmdconservatoryroofs.co.uk has town pages including /conservatory-roof-stourbridge/, /conservatory-roof-dudley/, /conservatory-roof-kidderminster/ and /conservatory-roof-bewdley/, which is cri’s home patch. build 6–8 area pages around real local jobs: photos, the customer’s review, the roof type, the timeframe and a map of the area served. start with stourbridge, dudley, kingswinford, brierley hill and kidderminster. avoid boilerplate pages with only the town name swapped; google treats those as doorway pages and may ignore them.">
+<summary>
+  <span class="inum">#5</span>
+  <span class="sev sev-high">High</span>
+  <span class="ititle">No location pages, though the site already has projects in 15 towns</span>
+  <span class="imeta"><span>On-page SEO</span><span>Effort: High</span><span class="conf conf-confirmed">Confirmed</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev">Image alt text on <a href="https://www.criwestmidlands.co.uk/projects" target="_blank" rel="noopener">/projects</a> names Dudley, Sedgley, Kinver, Kingswinford, Brierley Hill, Wordsley, Wall Heath, Stourbridge, Gornal, Kidderminster, Stourton, Quarry Bank, Wombourne, Bobbington and Bewdley. No page targets any of them. Competitor lmdconservatoryroofs.co.uk has town pages including /conservatory-roof-stourbridge/, /conservatory-roof-dudley/, /conservatory-roof-kidderminster/ and /conservatory-roof-bewdley/, which is CRI’s home patch.</div>
+  <h4>Why it matters</h4><p>Most searches for this service include a town (“conservatory roof Stourbridge”). With no matching page, CRI is absent from those results while an out-of-area competitor occupies them.</p>
+  <h4>Recommended fix</h4><div>Build 6–8 area pages around real local jobs: photos, the customer’s review, the roof type, the timeframe and a map of the area served. Start with Stourbridge, Dudley, Kingswinford, Brierley Hill and Kidderminster. Avoid boilerplate pages with only the town name swapped; Google treats those as doorway pages and may ignore them.</div>
+  
+</div>
+</details><details class="issue" id="issue-6" data-sev="High" data-cat="On-page SEO" data-conf="Confirmed" data-text="one 40-character meta description is reused on every page all seven pages share &amp;lt;meta name=&quot;description&quot; content=&quot;conservatory roof insulation specialists&quot;&amp;gt; (40 characters). it doesn’t mention tiled roofs, the guarantee, the free quote or the area served. write a unique 140–160 character description per page that states the service, the outcome, a proof point and the action. examples: home: insulated tiled conservatory roofs and interior roof insulation across the west midlands. family-run since 2003, 10-year guarantee. get a free quote. interior insulation: interior conservatory roof insulation fitted in one day. warmer in winter, cooler in summer (u-value 0.18). free, no-obligation quote. reviews: read 31 reviews from west midlands homeowners who turned a too-hot, too-cold conservatory into a room they use all year round. ">
+<summary>
+  <span class="inum">#6</span>
+  <span class="sev sev-high">High</span>
+  <span class="ititle">One 40-character meta description is reused on every page</span>
+  <span class="imeta"><span>On-page SEO</span><span>Effort: Low</span><span class="conf conf-confirmed">Confirmed</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev">All seven pages share <code>&lt;meta name="description" content="Conservatory Roof Insulation Specialists"&gt;</code> (40 characters). It doesn’t mention tiled roofs, the guarantee, the free quote or the area served.</div>
+  <h4>Why it matters</h4><p>The description is the sales copy under the link in Google. At 40 characters Google will usually replace it with a random snippet from the page, so CRI loses control of its first impression on every search.</p>
+  <h4>Recommended fix</h4><div>Write a unique 140–160 character description per page that states the service, the outcome, a proof point and the action. Examples:
+<ul><li><strong>Home:</strong> Insulated tiled conservatory roofs and interior roof insulation across the West Midlands. Family-run since 2003, 10-year guarantee. Get a free quote.</li>
+<li><strong>Interior insulation:</strong> Interior conservatory roof insulation fitted in one day. Warmer in winter, cooler in summer (U-value 0.18). Free, no-obligation quote.</li>
+<li><strong>Reviews:</strong> Read 31 reviews from West Midlands homeowners who turned a too-hot, too-cold conservatory into a room they use all year round.</li></ul></div>
+  
+</div>
+</details><details class="issue" id="issue-7" data-sev="High" data-cat="On-page SEO" data-conf="Likely" data-text="homepage and service pages have no h1 heading in the fetched html, the first heading on / is an h2 reading “cri west midlands”; both service pages also start at h2. /reviews , /projects , /faqs and the privacy policy do have an h1, so the templates support it. confirm in view-source. promote the service headline to h1 and demote the brand name to plain text. one h1 per page, describing the page’s topic.">
+<summary>
+  <span class="inum">#7</span>
+  <span class="sev sev-high">High</span>
+  <span class="ititle">Homepage and service pages have no H1 heading</span>
+  <span class="imeta"><span>On-page SEO</span><span>Effort: Low</span><span class="conf conf-likely">Likely</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev">In the fetched HTML, the first heading on <a href="https://www.criwestmidlands.co.uk/" target="_blank" rel="noopener">/</a> is an H2 reading “CRI West Midlands”; both service pages also start at H2. <a href="https://www.criwestmidlands.co.uk/reviews" target="_blank" rel="noopener">/reviews</a>, <a href="https://www.criwestmidlands.co.uk/projects" target="_blank" rel="noopener">/projects</a>, <a href="https://www.criwestmidlands.co.uk/faqs" target="_blank" rel="noopener">/faqs</a> and the privacy policy do have an H1, so the templates support it. Confirm in view-source.</div>
+  <h4>Why it matters</h4><p>The H1 tells Google and screen-reader users what a page is about. On the homepage the only top-level heading is the brand name, which says nothing about conservatory roofs.</p>
+  <h4>Recommended fix</h4><div>Promote the service headline to H1 and demote the brand name to plain text. One H1 per page, describing the page’s topic.</div>
+  <figure class="code"><figcaption>Example</figcaption><pre><code>&lt;!-- Homepage hero --&gt;
+&lt;p class=&quot;brand&quot;&gt;CRI West Midlands&lt;/p&gt;
+&lt;h1&gt;Tiled conservatory roofs and roof insulation across the West Midlands&lt;/h1&gt;</code></pre></figure>
+</div>
+</details><details class="issue" id="issue-8" data-sev="High" data-cat="UX &amp; conversion" data-conf="Confirmed" data-text="guarantee, cpa membership and track record are buried on service pages “10 year guarantee… insurance-backed members of the cpa” appears only inside bullet lists on the two service pages. “formed in 2003” is in a paragraph further down the homepage. a directory profile (freeindex) says the founder has over 30 years in the conservatory trade; the site doesn’t say this at all. no logos or badges anywhere. add a trust strip directly under the hero: “family-run since 2003”, “10-year insurance-backed guarantee”, “cpa member”, google rating. use the cpa logo only if membership terms allow it.">
+<summary>
+  <span class="inum">#8</span>
+  <span class="sev sev-high">High</span>
+  <span class="ititle">Guarantee, CPA membership and track record are buried on service pages</span>
+  <span class="imeta"><span>UX & conversion</span><span>Effort: Low</span><span class="conf conf-confirmed">Confirmed</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev">“10 year guarantee… insurance-backed members of the CPA” appears only inside bullet lists on the two service pages. “Formed in 2003” is in a paragraph further down the homepage. A directory profile (FreeIndex) says the founder has over 30 years in the conservatory trade; the site doesn’t say this at all. No logos or badges anywhere.</div>
+  <h4>Why it matters</h4><p>Competitors put accreditations up front (NJN shows a FENSA badge; LMD states it is a Guardian Warm Roof accredited installer). Homeowners comparing three quotes use these as shortcuts for “will this firm still be around if something goes wrong”.</p>
+  <h4>Recommended fix</h4><div>Add a trust strip directly under the hero: “Family-run since 2003”, “10-year insurance-backed guarantee”, “CPA member”, Google rating. Use the CPA logo only if membership terms allow it.</div>
+  
+</div>
+</details><details class="issue" id="issue-9" data-sev="High" data-cat="UX &amp; conversion" data-conf="Confirmed" data-text="no address or base town, a gmail address and a mobile-only number none of the seven pages gives a postal address or base town; the only location is “west midlands”. directory listings place the business in stourbridge (freeindex profile: dy8 1se; the yell listing linked from /reviews is “cri-west-midlands-ltd-stourbridge”). contact email is @gmail.com. add name, address (or base town plus service area, matching the google business profile setting) and phone to the footer and to structured data, exactly as they appear on gbp, yell and freeindex. set up an address on the domain, such as hello@criwestmidlands.co.uk.">
+<summary>
+  <span class="inum">#9</span>
+  <span class="sev sev-high">High</span>
+  <span class="ititle">No address or base town, a Gmail address and a mobile-only number</span>
+  <span class="imeta"><span>UX & conversion</span><span>Effort: Low</span><span class="conf conf-confirmed">Confirmed</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev">None of the seven pages gives a postal address or base town; the only location is “West Midlands”. Directory listings place the business in Stourbridge (FreeIndex profile: DY8 1SE; the Yell listing linked from /reviews is “cri-west-midlands-ltd-stourbridge”). Contact email is @gmail.com.</div>
+  <h4>Why it matters</h4><p>Local search ranking leans on consistent name, address and phone across the web, and on proximity. Buyers also read a named base and a business email address as signs of a real, established firm; a Gmail address reads as a sole trader working from a phone.</p>
+  <h4>Recommended fix</h4><div>Add name, address (or base town plus service area, matching the Google Business Profile setting) and phone to the footer and to structured data, exactly as they appear on GBP, Yell and FreeIndex. Set up an address on the domain, such as hello@criwestmidlands.co.uk.</div>
+  
+</div>
+</details><details class="issue" id="issue-10" data-sev="High" data-cat="Technical SEO" data-conf="Confirmed" data-text="faq answers are missing from the page html /faqs returns 12 questions and zero answers in the fetched html, for example “which areas do you cover?” and “will you need planning permission for any of our services?”. answers appear to load only when a question is opened. render every answer on the server inside a native &amp;lt;details&amp;gt; element, which stays collapsible without javascript. note that google now shows faq rich results mainly for government and health sites, so do this for visibility in normal results and ai answers, not for the faq snippet.">
+<summary>
+  <span class="inum">#10</span>
+  <span class="sev sev-high">High</span>
+  <span class="ititle">FAQ answers are missing from the page HTML</span>
+  <span class="imeta"><span>Technical SEO</span><span>Effort: Low</span><span class="conf conf-confirmed">Confirmed</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev"><a href="https://www.criwestmidlands.co.uk/faqs" target="_blank" rel="noopener">/faqs</a> returns 12 questions and zero answers in the fetched HTML, for example “Which areas do you cover?” and “Will you need planning permission for any of our services?”. Answers appear to load only when a question is opened.</div>
+  <h4>Why it matters</h4><p>Search engines and AI assistants (ChatGPT, Perplexity, Gemini) mostly read the HTML the server sends. Questions such as “do I need planning permission for a tiled conservatory roof” are high-intent searches CRI could be answering, but the answers are invisible to them.</p>
+  <h4>Recommended fix</h4><div>Render every answer on the server inside a native <code>&lt;details&gt;</code> element, which stays collapsible without JavaScript. Note that Google now shows FAQ rich results mainly for government and health sites, so do this for visibility in normal results and AI answers, not for the FAQ snippet.</div>
+  <figure class="code"><figcaption>Example</figcaption><pre><code>{faqs.map((f) =&gt; (
+  &lt;details key={f._id}&gt;
+    &lt;summary&gt;{f.question}&lt;/summary&gt;
+    &lt;PortableText value={f.answer} /&gt;  {/* rendered on the server */}
+  &lt;/details&gt;
+))}</code></pre></figure>
+</div>
+</details></section><section class="sevgroup" data-group="Medium"><h3 class="grouph"><span class="sev sev-medium">Medium</span> <span class="gcount">16 issues</span></h3><details class="issue" id="issue-11" data-sev="Medium" data-cat="UX &amp; conversion" data-conf="Confirmed" data-text="no price guidance anywhere no prices, ranges or “from” figures on any page. competitor lmdconservatoryroofs.co.uk states on its homepage that replacement roofs start from around £5,500. add a “what does it cost?” section with real ranges by conservatory size for each service (figures to be supplied by the client), plus the factors that move the price.">
+<summary>
+  <span class="inum">#11</span>
+  <span class="sev sev-medium">Medium</span>
+  <span class="ititle">No price guidance anywhere</span>
+  <span class="imeta"><span>UX & conversion</span><span>Effort: Low</span><span class="conf conf-confirmed">Confirmed</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev">No prices, ranges or “from” figures on any page. Competitor lmdconservatoryroofs.co.uk states on its homepage that replacement roofs start from around £5,500.</div>
+  <h4>Why it matters</h4><p>Cost is the first question every buyer has. A “typical range” pre-qualifies enquiries, cuts time spent quoting people who can’t afford it, and keeps visitors from leaving to find a competitor who will tell them.</p>
+  <h4>Recommended fix</h4><div>Add a “What does it cost?” section with real ranges by conservatory size for each service (figures to be supplied by the client), plus the factors that move the price.</div>
+  
+</div>
+</details><details class="issue" id="issue-12" data-sev="Medium" data-cat="On-page SEO" data-conf="Confirmed" data-text="service pages are thin and reuse the homepage images /services/tiled-conservatory-roof is seven bullets, an options list and a timeframe; it reuses the same before/after pair as the homepage. neither service page covers cost, the installation process, materials or tile system, building regulations, or reviews about that service. the pages do contain strong specifics worth building on: u-value 0.15 versus 0.18, and 3–5 days versus 1 day. expand each to roughly 800–1,200 words: how it works step by step, materials and brand, building regulations and planning, what affects cost, a gallery from that service only, three reviews that mention it, and the relevant faqs answered in full.">
+<summary>
+  <span class="inum">#12</span>
+  <span class="sev sev-medium">Medium</span>
+  <span class="ititle">Service pages are thin and reuse the homepage images</span>
+  <span class="imeta"><span>On-page SEO</span><span>Effort: Medium</span><span class="conf conf-confirmed">Confirmed</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev"><a href="https://www.criwestmidlands.co.uk/services/tiled-conservatory-roof" target="_blank" rel="noopener">/services/tiled-conservatory-roof</a> is seven bullets, an options list and a timeframe; it reuses the same before/after pair as the homepage. Neither service page covers cost, the installation process, materials or tile system, building regulations, or reviews about that service. The pages do contain strong specifics worth building on: U-value 0.15 versus 0.18, and 3–5 days versus 1 day.</div>
+  <h4>Why it matters</h4><p>These two pages should rank for the money searches (“tiled conservatory roof”, “conservatory roof insulation”). Competing pages answer the buyer’s questions in one place; thin pages give Google little to rank and the buyer little reason to call.</p>
+  <h4>Recommended fix</h4><div>Expand each to roughly 800–1,200 words: how it works step by step, materials and brand, building regulations and planning, what affects cost, a gallery from that service only, three reviews that mention it, and the relevant FAQs answered in full.</div>
+  
+</div>
+</details><details class="issue" id="issue-13" data-sev="Medium" data-cat="Technical SEO" data-conf="Client-reported" data-text="no structured data describing the business or its services reported in your brief; consistent with the rest of the head being minimal (no canonical or open graph tags detected). my fetch tool doesn’t expose json-ld, so confirm with google’s rich results test. add homeandconstructionbusiness markup site-wide, service markup on each service page and breadcrumblist on inner pages. confirm the address details with the client before publishing.">
+<summary>
+  <span class="inum">#13</span>
+  <span class="sev sev-medium">Medium</span>
+  <span class="ititle">No structured data describing the business or its services</span>
+  <span class="imeta"><span>Technical SEO</span><span>Effort: Low</span><span class="conf conf-client-reported">Client-reported</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev">Reported in your brief; consistent with the rest of the head being minimal (no canonical or Open Graph tags detected). My fetch tool doesn’t expose JSON-LD, so confirm with Google’s Rich Results Test.</div>
+  <h4>Why it matters</h4><p>Markup confirms the business entity (name, phone, area served, founding date, social profiles) to Google and AI agents. Be careful when pitching this: Google doesn’t show review stars for a business’s reviews of itself on LocalBusiness markup, so the benefit is understanding and eligibility, not instant stars.</p>
+  <h4>Recommended fix</h4><div>Add HomeAndConstructionBusiness markup site-wide, Service markup on each service page and BreadcrumbList on inner pages. Confirm the address details with the client before publishing.</div>
+  <figure class="code"><figcaption>Example</figcaption><pre><code>&lt;script type=&quot;application/ld+json&quot;&gt;
+{
+  &quot;@context&quot;: &quot;https://schema.org&quot;,
+  &quot;@type&quot;: &quot;HomeAndConstructionBusiness&quot;,
+  &quot;@id&quot;: &quot;https://www.criwestmidlands.co.uk/#business&quot;,
+  &quot;name&quot;: &quot;CRI West Midlands&quot;,
+  &quot;url&quot;: &quot;https://www.criwestmidlands.co.uk/&quot;,
+  &quot;telephone&quot;: &quot;+447941042047&quot;,
+  &quot;foundingDate&quot;: &quot;2003&quot;,
+  &quot;founder&quot;: { &quot;@type&quot;: &quot;Person&quot;, &quot;name&quot;: &quot;Brian Longville&quot; },
+  &quot;address&quot;: { &quot;@type&quot;: &quot;PostalAddress&quot;, &quot;addressLocality&quot;: &quot;Stourbridge&quot;,
+               &quot;addressRegion&quot;: &quot;West Midlands&quot;, &quot;addressCountry&quot;: &quot;GB&quot; },
+  &quot;areaServed&quot;: [&quot;Stourbridge&quot;, &quot;Dudley&quot;, &quot;Kingswinford&quot;, &quot;Brierley Hill&quot;, &quot;Kidderminster&quot;],
+  &quot;sameAs&quot;: [
+    &quot;https://www.facebook.com/criwestmidlands&quot;,
+    &quot;https://www.instagram.com/cri_west_midlands/&quot;,
+    &quot;https://www.yell.com/biz/cri-west-midlands-ltd-stourbridge-901766658/&quot;
+  ]
+}
+&lt;/script&gt;</code></pre></figure>
+</div>
+</details><details class="issue" id="issue-14" data-sev="Medium" data-cat="Technical SEO" data-conf="Likely" data-text="no canonical tags detected the fetch returned no canonical link for any cri page, while the same fetch returned canonicals for njnconservatories.co.uk and lmdconservatoryroofs.co.uk. the competitor links in your brief carry ?utm_source=chatgpt.com ; links to cri will pick up the same parameters. set metadatabase once in the root layout and a self-referencing alternates.canonical in each page’s metadata (or in generatemetadata() for cms routes).">
+<summary>
+  <span class="inum">#14</span>
+  <span class="sev sev-medium">Medium</span>
+  <span class="ititle">No canonical tags detected</span>
+  <span class="imeta"><span>Technical SEO</span><span>Effort: Low</span><span class="conf conf-likely">Likely</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev">The fetch returned no canonical link for any CRI page, while the same fetch returned canonicals for njnconservatories.co.uk and lmdconservatoryroofs.co.uk. The competitor links in your brief carry <code>?utm_source=chatgpt.com</code>; links to CRI will pick up the same parameters.</div>
+  <h4>Why it matters</h4><p>Without a canonical, every tracked or parameterised link can be indexed as a separate copy of the page, splitting ranking signals.</p>
+  <h4>Recommended fix</h4><div>Set <code>metadataBase</code> once in the root layout and a self-referencing <code>alternates.canonical</code> in each page’s metadata (or in <code>generateMetadata()</code> for CMS routes).</div>
+  
+</div>
+</details><details class="issue" id="issue-15" data-sev="Medium" data-cat="Technical SEO" data-conf="Likely" data-text="no open graph or twitter card tags no og: or twitter: tags were detected on any page. both competitors fetched have og:title , og:image and twitter:card . client also reports this. add site-wide open graph defaults with a 1200×630 before/after image, and per-page titles and descriptions.">
+<summary>
+  <span class="inum">#15</span>
+  <span class="sev sev-medium">Medium</span>
+  <span class="ititle">No Open Graph or Twitter card tags</span>
+  <span class="imeta"><span>Technical SEO</span><span>Effort: Low</span><span class="conf conf-likely">Likely</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev">No <code>og:</code> or <code>twitter:</code> tags were detected on any page. Both competitors fetched have <code>og:title</code>, <code>og:image</code> and <code>twitter:card</code>. Client also reports this.</div>
+  <h4>Why it matters</h4><p>Half of CRI’s reviews come from Facebook, and word of mouth travels by WhatsApp. When someone shares the site there, the preview has no controlled image or headline, so it looks unfinished next to competitors’ link previews.</p>
+  <h4>Recommended fix</h4><div>Add site-wide Open Graph defaults with a 1200×630 before/after image, and per-page titles and descriptions.</div>
+  <figure class="code"><figcaption>Example</figcaption><pre><code>// app/layout.tsx
+export const metadata = {
+  metadataBase: new URL(&#x27;https://www.criwestmidlands.co.uk&#x27;),
+  openGraph: {
+    type: &#x27;website&#x27;,
+    locale: &#x27;en_GB&#x27;,
+    siteName: &#x27;CRI West Midlands&#x27;,
+    images: [{ url: &#x27;/og/before-after.jpg&#x27;, width: 1200, height: 630 }],
+  },
+  twitter: { card: &#x27;summary_large_image&#x27; },
+};</code></pre></figure>
+</div>
+</details><details class="issue" id="issue-16" data-sev="Medium" data-cat="Technical SEO" data-conf="Client-reported" data-text="no xml sitemap (robots.txt unchecked) reported in your brief. my fetch tool can only open urls linked from pages, so i couldn’t check /sitemap.xml or /robots.txt directly; neither is linked anywhere. generate both from next.js using sanity data, then submit the sitemap in google search console and bing webmaster tools. adjust the groq query to the real schema type names.">
+<summary>
+  <span class="inum">#16</span>
+  <span class="sev sev-medium">Medium</span>
+  <span class="ititle">No XML sitemap (robots.txt unchecked)</span>
+  <span class="imeta"><span>Technical SEO</span><span>Effort: Low</span><span class="conf conf-client-reported">Client-reported</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev">Reported in your brief. My fetch tool can only open URLs linked from pages, so I couldn’t check /sitemap.xml or /robots.txt directly; neither is linked anywhere.</div>
+  <h4>Why it matters</h4><p>With only seven pages Google will find them anyway, but a sitemap becomes important once area pages and project pages are added, and it is how you see indexing problems in Search Console.</p>
+  <h4>Recommended fix</h4><div>Generate both from Next.js using Sanity data, then submit the sitemap in Google Search Console and Bing Webmaster Tools. Adjust the GROQ query to the real schema type names.</div>
+  <figure class="code"><figcaption>Example</figcaption><pre><code>// app/sitemap.ts
+import { client } from &#x27;@/sanity/client&#x27;;
+
+export default async function sitemap() {
+  const base = &#x27;https://www.criwestmidlands.co.uk&#x27;;
+  const services = await client.fetch(
+    &#x27;*[_type == &quot;service&quot;]{ &quot;slug&quot;: slug.current, _updatedAt }&#x27;
+  );
+  return [
+    { url: base + &#x27;/&#x27;, lastModified: new Date() },
+    ...[&#x27;/projects&#x27;, &#x27;/reviews&#x27;, &#x27;/faqs&#x27;, &#x27;/get-a-quote&#x27;].map((p) =&gt; ({ url: base + p })),
+    ...services.map((s) =&gt; ({ url: base + &#x27;/services/&#x27; + s.slug, lastModified: s._updatedAt })),
+  ];
+}
+
+// app/robots.ts
+export default function robots() {
+  return {
+    rules: { userAgent: &#x27;*&#x27;, allow: &#x27;/&#x27; },
+    sitemap: &#x27;https://www.criwestmidlands.co.uk/sitemap.xml&#x27;,
+  };
+}</code></pre></figure>
+</div>
+</details><details class="issue" id="issue-17" data-sev="Medium" data-cat="UX &amp; conversion" data-conf="Confirmed" data-text="the hero leads with the brand name instead of the outcome homepage hero: heading “cri west midlands”, a 30-word subheading, a “scroll down” label, two quote buttons and no phone number. hero image alt text is “image for cri west midlands”. lead with the result, follow with proof, then give two actions. for example: “use your conservatory all year round” / “insulated tiled roofs and roof insulation across dudley, stourbridge and the west midlands. fitted in 1–5 days with a 10-year guarantee.” / [get a free quote] [call 07941 042 047], then the trust strip.">
+<summary>
+  <span class="inum">#17</span>
+  <span class="sev sev-medium">Medium</span>
+  <span class="ititle">The hero leads with the brand name instead of the outcome</span>
+  <span class="imeta"><span>UX & conversion</span><span>Effort: Low</span><span class="conf conf-confirmed">Confirmed</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev">Homepage hero: heading “CRI West Midlands”, a 30-word subheading, a “SCROLL DOWN” label, two quote buttons and no phone number. Hero image alt text is “image for CRI West Midlands”.</div>
+  <h4>Why it matters</h4><p>Visitors decide within a few seconds whether a site solves their problem. The current hero makes them read a long sentence to find out.</p>
+  <h4>Recommended fix</h4><div>Lead with the result, follow with proof, then give two actions. For example: “Use your conservatory all year round” / “Insulated tiled roofs and roof insulation across Dudley, Stourbridge and the West Midlands. Fitted in 1–5 days with a 10-year guarantee.” / [Get a free quote] [Call 07941 042 047], then the trust strip.</div>
+  
+</div>
+</details><details class="issue" id="issue-18" data-sev="Medium" data-cat="Accessibility" data-conf="Confirmed" data-text="alt text is generic, duplicated or wrong hero image: “image for cri west midlands”. decorative arrows announced as “cri arrow”, twice per page. all 58 review photos on /reviews share “image showing conservatory roof upgrade project”. customer names stored as locations on /projects: “wendy, west midlands project”, “michael, west midlands project”, “dean, west midlands project”. typo “quary bank” (quarry bank). use empty alt for decorative images, describe what each photo shows, and fix the location data in sanity. add an alt-text field with validation to the image schema so editors can’t skip it.">
+<summary>
+  <span class="inum">#18</span>
+  <span class="sev sev-medium">Medium</span>
+  <span class="ititle">Alt text is generic, duplicated or wrong</span>
+  <span class="imeta"><span>Accessibility</span><span>Effort: Low</span><span class="conf conf-confirmed">Confirmed</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev"><ul><li>Hero image: “image for CRI West Midlands”.</li>
+<li>Decorative arrows announced as “CRI arrow”, twice per page.</li>
+<li>All 58 review photos on /reviews share “Image showing Conservatory Roof Upgrade project”.</li>
+<li>Customer names stored as locations on /projects: “Wendy, West Midlands project”, “Michael, West Midlands project”, “Dean, West Midlands project”.</li>
+<li>Typo “Quary Bank” (Quarry Bank).</li></ul></div>
+  <h4>Why it matters</h4><p>Screen-reader users hear noise instead of information (WCAG 1.1.1), and image search loses the strongest signal for a business that sells visible results.</p>
+  <h4>Recommended fix</h4><div>Use empty alt for decorative images, describe what each photo shows, and fix the location data in Sanity. Add an alt-text field with validation to the image schema so editors can’t skip it.</div>
+  <figure class="code"><figcaption>Example</figcaption><pre><code>&lt;img src=&quot;/cri-arrow.svg&quot; alt=&quot;&quot; /&gt;   &lt;!-- decorative --&gt;
+&lt;Image alt=&quot;Grey tiled conservatory roof with roof window, Kingswinford&quot; ... /&gt;</code></pre></figure>
+</div>
+</details><details class="issue" id="issue-19" data-sev="Medium" data-cat="UX &amp; conversion" data-conf="Confirmed" data-text="some “see the review” links point to the wrong review or a fragile search url on /reviews, the reviews by melanie and corinne both link to the same google share link (share.google/xwqcfcsw3bykgfa8l). the “see our google reviews” button links to a copied chrome search url that includes personal browser parameters ( rlz=1c5chfa_engb1172gb1172 , gs_lcrp=… ). use the review link from google business profile (or https://search.google.com/local/reviews?placeid=place_id ) and check each per-review link.">
+<summary>
+  <span class="inum">#19</span>
+  <span class="sev sev-medium">Medium</span>
+  <span class="ititle">Some “see the review” links point to the wrong review or a fragile search URL</span>
+  <span class="imeta"><span>UX & conversion</span><span>Effort: Low</span><span class="conf conf-confirmed">Confirmed</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev">On /reviews, the reviews by Melanie and Corinne both link to the same Google share link (share.google/xWQcfCsW3bykgFA8l). The “See our google reviews” button links to a copied Chrome search URL that includes personal browser parameters (<code>rlz=1C5CHFA_enGB1172GB1172</code>, <code>gs_lcrp=…</code>).</div>
+  <h4>Why it matters</h4><p>A cautious buyer who clicks to verify a review and lands on a different one will start doubting all of them. Search URLs like this also break whenever Google changes its results page.</p>
+  <h4>Recommended fix</h4><div>Use the review link from Google Business Profile (or <code>https://search.google.com/local/reviews?placeid=PLACE_ID</code>) and check each per-review link.</div>
+  
+</div>
+</details><details class="issue" id="issue-20" data-sev="Medium" data-cat="Performance" data-conf="Confirmed" data-text="every photo is resized and compressed twice every content image uses /_next/image?url=cdn.sanity.io/…?w=1200&amp;amp;q=80&amp;amp;auto=format&amp;amp;w=3840&amp;amp;q=75 . sanity resizes and compresses (quality 80), then the next.js optimiser decodes and re-encodes again (quality 75). whether a correct sizes attribute is set needs the raw srcset to confirm. use a custom loader so sanity’s cdn does the resizing once, and set sizes on every image so phones download phone-sized files.">
+<summary>
+  <span class="inum">#20</span>
+  <span class="sev sev-medium">Medium</span>
+  <span class="ititle">Every photo is resized and compressed twice</span>
+  <span class="imeta"><span>Performance</span><span>Effort: Low</span><span class="conf conf-confirmed">Confirmed</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev">Every content image uses <code>/_next/image?url=cdn.sanity.io/…?w=1200&amp;q=80&amp;auto=format&amp;w=3840&amp;q=75</code>. Sanity resizes and compresses (quality 80), then the Next.js optimiser decodes and re-encodes again (quality 75). Whether a correct <code>sizes</code> attribute is set needs the raw srcset to confirm.</div>
+  <h4>Why it matters</h4><p>Two lossy passes visibly soften photos, which matters for a business whose sales pitch is the finished look. The second pass also adds server work and counts against the Vercel image-optimisation allowance.</p>
+  <h4>Recommended fix</h4><div>Use a custom loader so Sanity’s CDN does the resizing once, and set <code>sizes</code> on every image so phones download phone-sized files.</div>
+  <figure class="code"><figcaption>Example</figcaption><pre><code>// lib/sanityLoader.ts
+export default function sanityLoader({ src, width, quality }) {
+  const url = new URL(src);
+  url.searchParams.set(&#x27;w&#x27;, String(width));
+  url.searchParams.set(&#x27;q&#x27;, String(quality || 75));
+  url.searchParams.set(&#x27;auto&#x27;, &#x27;format&#x27;);
+  url.searchParams.set(&#x27;fit&#x27;, &#x27;max&#x27;);
+  return url.toString();
+}
+
+// usage
+&lt;Image loader={sanityLoader} src={rawSanityUrl}
+       sizes=&quot;(min-width: 1024px) 50vw, 100vw&quot; alt=&quot;...&quot; width={1200} height={900} /&gt;</code></pre></figure>
+</div>
+</details><details class="issue" id="issue-21" data-sev="Medium" data-cat="On-page SEO" data-conf="Confirmed" data-text="projects page is an unlabelled photo grid with no case studies /projects shows 30 images with no captions, links or detail pages. the filter (all / interior roof insulation / conservatory roof tiling) is not made of links, so filtered views can’t be shared or indexed. give each project a page (for example /projects/kingswinford-tiled-roof) with town, roof type, duration, before/after photos and the matching review. link projects from area and service pages.">
+<summary>
+  <span class="inum">#21</span>
+  <span class="sev sev-medium">Medium</span>
+  <span class="ititle">Projects page is an unlabelled photo grid with no case studies</span>
+  <span class="imeta"><span>On-page SEO</span><span>Effort: Medium</span><span class="conf conf-confirmed">Confirmed</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev"><a href="https://www.criwestmidlands.co.uk/projects" target="_blank" rel="noopener">/projects</a> shows 30 images with no captions, links or detail pages. The filter (All / Interior Roof Insulation / Conservatory Roof Tiling) is not made of links, so filtered views can’t be shared or indexed.</div>
+  <h4>Why it matters</h4><p>Each project is a ready-made local case study (“Tiled roof in Kingswinford, 4 days”). As pictures only, they carry no searchable text and can’t support the area pages.</p>
+  <h4>Recommended fix</h4><div>Give each project a page (for example /projects/kingswinford-tiled-roof) with town, roof type, duration, before/after photos and the matching review. Link projects from area and service pages.</div>
+  
+</div>
+</details><details class="issue" id="issue-22" data-sev="Medium" data-cat="Performance" data-conf="Needs data" data-text="reviews and projects pages carry a large number of photos /reviews embeds about 58 review photos plus platform icons; /projects embeds 30. lazy loading and total transfer size couldn’t be checked without pagespeed or raw html. confirm loading=&quot;lazy&quot; on everything below the fold, show around 10 reviews with “show more”, use ~400px thumbnails that open a lightbox, and re-test in pagespeed insights.">
+<summary>
+  <span class="inum">#22</span>
+  <span class="sev sev-medium">Medium</span>
+  <span class="ititle">Reviews and Projects pages carry a large number of photos</span>
+  <span class="imeta"><span>Performance</span><span>Effort: Medium</span><span class="conf conf-needs-data">Needs data</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev">/reviews embeds about 58 review photos plus platform icons; /projects embeds 30. Lazy loading and total transfer size couldn’t be checked without PageSpeed or raw HTML.</div>
+  <h4>Why it matters</h4><p>If more than the first screenful loads up front, these pages will be slow on mobile data, and these are exactly the pages a sceptical buyer opens.</p>
+  <h4>Recommended fix</h4><div>Confirm <code>loading="lazy"</code> on everything below the fold, show around 10 reviews with “Show more”, use ~400px thumbnails that open a lightbox, and re-test in PageSpeed Insights.</div>
+  
+</div>
+</details><details class="issue" id="issue-23" data-sev="Medium" data-cat="Security &amp; best practices" data-conf="Confirmed" data-text="the privacy policy is a generic template /policies/privacy-policy (updated 5 march 2026) talks about using details to ship an order and emailing about specials and new products. it doesn’t name the business as data controller or give its address, and doesn’t mention lawful basis, retention periods, the right to complain to the ico, or the services that process form data (form provider, vercel, sanity, any analytics). rewrite it against the ico’s guidance for small businesses, listing each processor and the actual purposes (quotes, surveys, follow-up). have the client confirm the details.">
+<summary>
+  <span class="inum">#23</span>
+  <span class="sev sev-medium">Medium</span>
+  <span class="ititle">The privacy policy is a generic template</span>
+  <span class="imeta"><span>Security & best practices</span><span>Effort: Medium</span><span class="conf conf-confirmed">Confirmed</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev"><a href="https://www.criwestmidlands.co.uk/policies/privacy-policy" target="_blank" rel="noopener">/policies/privacy-policy</a> (updated 5 March 2026) talks about using details to ship an order and emailing about specials and new products. It doesn’t name the business as data controller or give its address, and doesn’t mention lawful basis, retention periods, the right to complain to the ICO, or the services that process form data (form provider, Vercel, Sanity, any analytics).</div>
+  <h4>Why it matters</h4><p>UK GDPR requires clear transparency information when collecting personal data through the quote form. A template that refers to shipping orders also undermines credibility. This is a flag for review, not legal advice.</p>
+  <h4>Recommended fix</h4><div>Rewrite it against the ICO’s guidance for small businesses, listing each processor and the actual purposes (quotes, surveys, follow-up). Have the client confirm the details.</div>
+  
+</div>
+</details><details class="issue" id="issue-24" data-sev="Medium" data-cat="Technical SEO" data-conf="Likely" data-text="ai assistants and browsing agents can’t complete “get me a quote” combines confirmed findings: the quote form has no url, faq answers are not in the html, phone and email aren’t links, and structured data is reported absent. you mention a low “agent browsing” score; i don’t know which tool produced it, so i can’t verify the number. most of this is solved by the quote page, server-rendered faqs, tel/mailto links and structured data. also use a semantic &amp;lt;form&amp;gt; with a &amp;lt;label&amp;gt; on every field and an &amp;lt;address&amp;gt; block. an /llms.txt summary is cheap to add but is an emerging convention, not a confirmed ranking factor.">
+<summary>
+  <span class="inum">#24</span>
+  <span class="sev sev-medium">Medium</span>
+  <span class="ititle">AI assistants and browsing agents can’t complete “get me a quote”</span>
+  <span class="imeta"><span>Technical SEO</span><span>Effort: Medium</span><span class="conf conf-likely">Likely</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev">Combines confirmed findings: the quote form has no URL, FAQ answers are not in the HTML, phone and email aren’t links, and structured data is reported absent. You mention a low “agent browsing” score; I don’t know which tool produced it, so I can’t verify the number.</div>
+  <h4>Why it matters</h4><p>People increasingly ask ChatGPT, Gemini or Perplexity to “find a conservatory roof company near Stourbridge and get me a quote”. Agents need a findable URL, labelled form fields and machine-readable contact details to do that.</p>
+  <h4>Recommended fix</h4><div>Most of this is solved by the quote page, server-rendered FAQs, tel/mailto links and structured data. Also use a semantic <code>&lt;form&gt;</code> with a <code>&lt;label&gt;</code> on every field and an <code>&lt;address&gt;</code> block. An /llms.txt summary is cheap to add but is an emerging convention, not a confirmed ranking factor.</div>
+  
+</div>
+</details><details class="issue" id="issue-25" data-sev="Medium" data-cat="Accessibility" data-conf="Likely" data-text="header button text is duplicated in the markup each header cta outputs “get a quote” and “get a free quote” back to back, and the pair appears twice per page. if the hidden variant is hidden with opacity, transform or width rather than display: none , screen readers announce both. render a single label, or hide the alternative at each breakpoint with display: none . verify with axe devtools or voiceover.">
+<summary>
+  <span class="inum">#25</span>
+  <span class="sev sev-medium">Medium</span>
+  <span class="ititle">Header button text is duplicated in the markup</span>
+  <span class="imeta"><span>Accessibility</span><span>Effort: Low</span><span class="conf conf-likely">Likely</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev">Each header CTA outputs “Get a quote” and “Get a free quote” back to back, and the pair appears twice per page. If the hidden variant is hidden with opacity, transform or width rather than <code>display: none</code>, screen readers announce both.</div>
+  <h4>Why it matters</h4><p>Repeated, run-together labels make the main action harder to understand for assistive-technology users (WCAG 2.5.3 Label in Name, 4.1.2 Name, Role, Value).</p>
+  <h4>Recommended fix</h4><div>Render a single label, or hide the alternative at each breakpoint with <code>display: none</code>. Verify with axe DevTools or VoiceOver.</div>
+  
+</div>
+</details><details class="issue" id="issue-26" data-sev="Medium" data-cat="Security &amp; best practices" data-conf="Needs data" data-text="company details are not shown (may be a legal requirement) the yell listing linked from /reviews is titled “cri-west-midlands-ltd-stourbridge”, which suggests a limited company. the site shows no legal name, company number or registered office. i couldn’t confirm the company on companies house. confirm the legal status, then add a footer line such as “cri west midlands ltd, registered in england and wales no. ________, registered office ________”.">
+<summary>
+  <span class="inum">#26</span>
+  <span class="sev sev-medium">Medium</span>
+  <span class="ititle">Company details are not shown (may be a legal requirement)</span>
+  <span class="imeta"><span>Security & best practices</span><span>Effort: Low</span><span class="conf conf-needs-data">Needs data</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev">The Yell listing linked from /reviews is titled “cri-west-midlands-ltd-stourbridge”, which suggests a limited company. The site shows no legal name, company number or registered office. I couldn’t confirm the company on Companies House.</div>
+  <h4>Why it matters</h4><p>If the business is a limited company, UK trading-disclosure rules require the registered name, number, place of registration and registered office on its website. Showing them, plus a VAT number if registered, is also a trust signal (NJN shows its VAT number).</p>
+  <h4>Recommended fix</h4><div>Confirm the legal status, then add a footer line such as “CRI West Midlands Ltd, registered in England and Wales no. ________, registered office ________”.</div>
+  
+</div>
+</details></section><section class="sevgroup" data-group="Low"><h3 class="grouph"><span class="sev sev-low">Low</span> <span class="gcount">8 issues</span></h3><details class="issue" id="issue-27" data-sev="Low" data-cat="Technical SEO" data-conf="Confirmed" data-text="“services” in the main menu isn’t a link and there is no services overview page the “services” menu item has no href on all seven pages; only the two individual service urls exist. create /services comparing tiled roof versus interior insulation (u-value, time on site, look, typical cost) and make the menu item link to it, with the dropdown still available.">
+<summary>
+  <span class="inum">#27</span>
+  <span class="sev sev-low">Low</span>
+  <span class="ititle">“Services” in the main menu isn’t a link and there is no services overview page</span>
+  <span class="imeta"><span>Technical SEO</span><span>Effort: Low</span><span class="conf conf-confirmed">Confirmed</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev">The “Services” menu item has no <code>href</code> on all seven pages; only the two individual service URLs exist.</div>
+  <h4>Why it matters</h4><p>A /services hub gives Google a clear page for the general topic (“conservatory roof upgrades”) and gives visitors a place to compare the two options side by side.</p>
+  <h4>Recommended fix</h4><div>Create /services comparing tiled roof versus interior insulation (U-value, time on site, look, typical cost) and make the menu item link to it, with the dropdown still available.</div>
+  
+</div>
+</details><details class="issue" id="issue-28" data-sev="Low" data-cat="Accessibility" data-conf="Likely" data-text="star ratings are bare characters, and 15 of 31 reviews show no stars ratings on /reviews are the text “★★★★★”. fifteen reviews (mostly facebook recommendations, which have no star score) show no rating at all. give the rating a text alternative and label facebook reviews as “recommended on facebook” instead of leaving them blank.">
+<summary>
+  <span class="inum">#28</span>
+  <span class="sev sev-low">Low</span>
+  <span class="ititle">Star ratings are bare characters, and 15 of 31 reviews show no stars</span>
+  <span class="imeta"><span>Accessibility</span><span>Effort: Low</span><span class="conf conf-likely">Likely</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev">Ratings on /reviews are the text “★★★★★”. Fifteen reviews (mostly Facebook recommendations, which have no star score) show no rating at all.</div>
+  <h4>Why it matters</h4><p>Screen readers read “black star” five times. Visually, unrated reviews sitting next to five-star ones can look like weaker reviews.</p>
+  <h4>Recommended fix</h4><div>Give the rating a text alternative and label Facebook reviews as “Recommended on Facebook” instead of leaving them blank.</div>
+  <figure class="code"><figcaption>Example</figcaption><pre><code>&lt;span role=&quot;img&quot; aria-label=&quot;Rated 5 out of 5&quot;&gt;★★★★★&lt;/span&gt;</code></pre></figure>
+</div>
+</details><details class="issue" id="issue-29" data-sev="Low" data-cat="On-page SEO" data-conf="Confirmed" data-text="spelling and grammar slips on key pages “no longer effect the usability” (affect), tiled roof page. “timeframe dependant on” (dependent), both service pages. “stabilises your conservatories climate” (conservatory’s), homepage alt text. “will you need planning permission for any of our services?” (my conservatory), faqs. “useable” and “usable” both used on the interior insulation page; “social medias” in the footer. correct the items above in sanity and pick one spelling (“usable”) site-wide.">
+<summary>
+  <span class="inum">#29</span>
+  <span class="sev sev-low">Low</span>
+  <span class="ititle">Spelling and grammar slips on key pages</span>
+  <span class="imeta"><span>On-page SEO</span><span>Effort: Low</span><span class="conf conf-confirmed">Confirmed</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev"><ul><li>“no longer effect the usability” (affect), tiled roof page.</li>
+<li>“Timeframe dependant on” (dependent), both service pages.</li>
+<li>“Stabilises Your Conservatories Climate” (Conservatory’s), homepage alt text.</li>
+<li>“Will you need planning permission for any of our services?” (my conservatory), FAQs.</li>
+<li>“useable” and “usable” both used on the interior insulation page; “social medias” in the footer.</li></ul></div>
+  <h4>Why it matters</h4><p>On a four-figure purchase, small errors chip away at the sense of care and craftsmanship the reviews describe.</p>
+  <h4>Recommended fix</h4><div>Correct the items above in Sanity and pick one spelling (“usable”) site-wide.</div>
+  
+</div>
+</details><details class="issue" id="issue-30" data-sev="Low" data-cat="Performance" data-conf="Confirmed" data-text="some project photos are very low resolution source images on /projects include 202×269 (kinver), 311×258 (kingswinford), 640×342 (stourbridge) and several 480×640. replace them with originals from the team’s phones, and add a minimum-dimension rule (for example 1200px wide) to the sanity image field.">
+<summary>
+  <span class="inum">#30</span>
+  <span class="sev sev-low">Low</span>
+  <span class="ititle">Some project photos are very low resolution</span>
+  <span class="imeta"><span>Performance</span><span>Effort: Medium</span><span class="conf conf-confirmed">Confirmed</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev">Source images on /projects include 202×269 (Kinver), 311×258 (Kingswinford), 640×342 (Stourbridge) and several 480×640.</div>
+  <h4>Why it matters</h4><p>Upscaled into grid tiles or a lightbox, these look blurry, which undercuts a business selling visual quality.</p>
+  <h4>Recommended fix</h4><div>Replace them with originals from the team’s phones, and add a minimum-dimension rule (for example 1200px wide) to the Sanity image field.</div>
+  
+</div>
+</details><details class="issue" id="issue-31" data-sev="Low" data-cat="UX &amp; conversion" data-conf="Confirmed" data-text="social links are shown as raw urls footer on every page shows “https://www.facebook.com/criwestmidlands” and “https://www.instagram.com/cri_west_midlands/” as link text. use icons or the words “facebook” and “instagram” with an accessible name, and say what visitors will find there (“see recent roofs on instagram”).">
+<summary>
+  <span class="inum">#31</span>
+  <span class="sev sev-low">Low</span>
+  <span class="ititle">Social links are shown as raw URLs</span>
+  <span class="imeta"><span>UX & conversion</span><span>Effort: Low</span><span class="conf conf-confirmed">Confirmed</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev">Footer on every page shows “https://www.facebook.com/criwestmidlands” and “https://www.instagram.com/cri_west_midlands/” as link text.</div>
+  <h4>Why it matters</h4><p>Looks unfinished and is read out character by character by screen readers.</p>
+  <h4>Recommended fix</h4><div>Use icons or the words “Facebook” and “Instagram” with an accessible name, and say what visitors will find there (“See recent roofs on Instagram”).</div>
+  
+</div>
+</details><details class="issue" id="issue-32" data-sev="Low" data-cat="Security &amp; best practices" data-conf="Client-reported" data-text="no web app manifest or full icon set reported in your brief; not independently checked. add app/manifest.ts plus 192px and 512px icons.">
+<summary>
+  <span class="inum">#32</span>
+  <span class="sev sev-low">Low</span>
+  <span class="ititle">No web app manifest or full icon set</span>
+  <span class="imeta"><span>Security & best practices</span><span>Effort: Low</span><span class="conf conf-client-reported">Client-reported</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev">Reported in your brief; not independently checked.</div>
+  <h4>Why it matters</h4><p>Honestly, little direct SEO or lead value for a local trades site. It is worth doing because it takes minutes in Next.js and tidies up home-screen icons and Lighthouse notices.</p>
+  <h4>Recommended fix</h4><div>Add app/manifest.ts plus 192px and 512px icons.</div>
+  <figure class="code"><figcaption>Example</figcaption><pre><code>// app/manifest.ts
+export default function manifest() {
+  return {
+    name: &#x27;CRI West Midlands&#x27;,
+    short_name: &#x27;CRI&#x27;,
+    start_url: &#x27;/&#x27;,
+    display: &#x27;browser&#x27;,
+    background_color: &#x27;#ffffff&#x27;,
+    theme_color: &#x27;#1f5f74&#x27;,   // use the brand colour
+    icons: [
+      { src: &#x27;/icon-192.png&#x27;, sizes: &#x27;192x192&#x27;, type: &#x27;image/png&#x27; },
+      { src: &#x27;/icon-512.png&#x27;, sizes: &#x27;512x512&#x27;, type: &#x27;image/png&#x27; },
+    ],
+  };
+}</code></pre></figure>
+</div>
+</details><details class="issue" id="issue-33" data-sev="Low" data-cat="Accessibility" data-conf="Confirmed" data-text="two identical “learn more” links on the homepage both homepage service cards use the link text “learn more”. use “explore tiled conservatory roofs” and “explore interior roof insulation”, or add visually hidden text.">
+<summary>
+  <span class="inum">#33</span>
+  <span class="sev sev-low">Low</span>
+  <span class="ititle">Two identical “Learn more” links on the homepage</span>
+  <span class="imeta"><span>Accessibility</span><span>Effort: Low</span><span class="conf conf-confirmed">Confirmed</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev">Both homepage service cards use the link text “Learn more”.</div>
+  <h4>Why it matters</h4><p>Out of context (as in a screen reader’s link list) the two links are indistinguishable, and the anchor text tells Google nothing about the target page (WCAG 2.4.4).</p>
+  <h4>Recommended fix</h4><div>Use “Explore tiled conservatory roofs” and “Explore interior roof insulation”, or add visually hidden text.</div>
+  
+</div>
+</details><details class="issue" id="issue-34" data-sev="Low" data-cat="UX &amp; conversion" data-conf="Client-reported" data-text="layout on ultra-wide monitors and no dark mode reported in your brief. i can read the html but can’t render the page, so this needs screenshots at 2560px and 3440px to confirm. cap content width and let backgrounds run full-bleed; add dark tokens with prefers-color-scheme if the brand allows.">
+<summary>
+  <span class="inum">#34</span>
+  <span class="sev sev-low">Low</span>
+  <span class="ititle">Layout on ultra-wide monitors and no dark mode</span>
+  <span class="imeta"><span>UX & conversion</span><span>Effort: Medium</span><span class="conf conf-client-reported">Client-reported</span></span>
+</summary>
+<div class="ibody">
+  <h4>Evidence</h4><div class="ev">Reported in your brief. I can read the HTML but can’t render the page, so this needs screenshots at 2560px and 3440px to confirm.</div>
+  <h4>Why it matters</h4><p>Ultra-wide visitors are a small share for a homeowner audience, and dark mode won’t change how many people ask for a quote. Treat both as polish, and don’t lead the pitch with them.</p>
+  <h4>Recommended fix</h4><div>Cap content width and let backgrounds run full-bleed; add dark tokens with <code>prefers-color-scheme</code> if the brand allows.</div>
+  <figure class="code"><figcaption>Example</figcaption><pre><code>.container { max-width: 1440px; margin-inline: auto; padding-inline: clamp(1rem, 4vw, 3rem); }
+@media (prefers-color-scheme: dark) { :root { --bg: #111820; --text: #e8edf0; } }</code></pre></figure>
+</div>
+</details></section></div>
+    <p class="noresults" id="noresults">No issues match these filters.</p>
+  </div>
+</section>
+
+<section class="block" id="matrix" aria-labelledby="h-matrix">
+  <div class="wrap">
+    <h2 id="h-matrix">Priority matrix</h2>
+    <p class="intro">Impact is scored 1–5 on likely effect on enquiries and search visibility; higher impact means 4 or 5. Start top-left and work right.</p>
+    <div class="matrix">
+      <div class="mhead corner"></div><div class="mhead">Low effort</div><div class="mhead">Medium effort</div><div class="mhead">High effort</div>
+      <div class="mrowlab">Higher impact</div><div class="mcell m-high-low"><div class="mname">Quick wins</div><a class="chip sev-b-critical" href="#issue-1"><span class="cn">#1</span> Same title on every page</a><a class="chip sev-b-high" href="#issue-2"><span class="cn">#2</span> Phone & email not tappable</a><a class="chip sev-b-high" href="#issue-6"><span class="cn">#6</span> Same 40-char description everywhere</a><a class="chip sev-b-high" href="#issue-7"><span class="cn">#7</span> No H1 on home or service pages</a><a class="chip sev-b-high" href="#issue-8"><span class="cn">#8</span> Guarantee & CPA buried</a><a class="chip sev-b-high" href="#issue-9"><span class="cn">#9</span> No address; Gmail contact</a><a class="chip sev-b-high" href="#issue-10"><span class="cn">#10</span> FAQ answers not in HTML</a><a class="chip sev-b-medium" href="#issue-11"><span class="cn">#11</span> No price guidance</a></div><div class="mcell m-high-medium"><div class="mname">Planned upgrades</div><a class="chip sev-b-high" href="#issue-3"><span class="cn">#3</span> Quote form has no URL</a><a class="chip sev-b-high" href="#issue-4"><span class="cn">#4</span> 31 reviews hidden from homepage</a><a class="chip sev-b-medium" href="#issue-12"><span class="cn">#12</span> Thin service pages</a></div><div class="mcell m-high-high"><div class="mname">Strategic project</div><a class="chip sev-b-high" href="#issue-5"><span class="cn">#5</span> No town landing pages</a></div><div class="mrowlab">Lower impact</div><div class="mcell m-low-low"><div class="mname">Fill-ins</div><a class="chip sev-b-medium" href="#issue-13"><span class="cn">#13</span> No structured data</a><a class="chip sev-b-medium" href="#issue-14"><span class="cn">#14</span> No canonical tags</a><a class="chip sev-b-medium" href="#issue-15"><span class="cn">#15</span> No Open Graph tags</a><a class="chip sev-b-medium" href="#issue-16"><span class="cn">#16</span> No sitemap.xml / robots.txt</a><a class="chip sev-b-medium" href="#issue-17"><span class="cn">#17</span> Hero doesn’t sell the outcome</a><a class="chip sev-b-medium" href="#issue-18"><span class="cn">#18</span> Alt text wrong or generic</a><a class="chip sev-b-medium" href="#issue-19"><span class="cn">#19</span> Review links wrong or fragile</a><a class="chip sev-b-medium" href="#issue-20"><span class="cn">#20</span> Images compressed twice</a><a class="chip sev-b-medium" href="#issue-25"><span class="cn">#25</span> CTA label duplicated</a><a class="chip sev-b-medium" href="#issue-26"><span class="cn">#26</span> Company details possibly missing</a><a class="chip sev-b-low" href="#issue-27"><span class="cn">#27</span> “Services” isn’t a link</a><a class="chip sev-b-low" href="#issue-28"><span class="cn">#28</span> Stars are bare characters</a><a class="chip sev-b-low" href="#issue-29"><span class="cn">#29</span> Spelling & grammar slips</a><a class="chip sev-b-low" href="#issue-31"><span class="cn">#31</span> Social links as raw URLs</a><a class="chip sev-b-low" href="#issue-32"><span class="cn">#32</span> No web manifest</a><a class="chip sev-b-low" href="#issue-33"><span class="cn">#33</span> Generic “Learn more” links</a></div><div class="mcell m-low-medium"><div class="mname">Schedule later</div><a class="chip sev-b-medium" href="#issue-21"><span class="cn">#21</span> Projects are an unlabelled grid</a><a class="chip sev-b-medium" href="#issue-22"><span class="cn">#22</span> Heavy Reviews/Projects pages</a><a class="chip sev-b-medium" href="#issue-23"><span class="cn">#23</span> Template privacy policy</a><a class="chip sev-b-medium" href="#issue-24"><span class="cn">#24</span> Hard for AI agents to act</a><a class="chip sev-b-low" href="#issue-30"><span class="cn">#30</span> Tiny source photos</a><a class="chip sev-b-low" href="#issue-34"><span class="cn">#34</span> Ultra-wide layout & dark mode</a></div><div class="mcell m-low-high"><div class="mname">Deprioritise</div><p class="empty">None</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="competitors" aria-labelledby="h-comp">
+  <div class="wrap">
+    <h2 id="h-comp">Competitor snapshot</h2>
+    <p class="intro">Based on the pages fetched on 28 October 2026: njnconservatories.co.uk/roof-services and lmdconservatoryroofs.co.uk. Even a Wix site (NJN) covers basics CRI is missing.</p>
+    <div class="tscroll"><table class="tbl comp">
+      <thead><tr><th>Check</th><th>CRI West Midlands</th><th>NJN Conservatories</th><th>LMD Conservatory Roofs</th></tr></thead>
+      <tbody><tr><th scope="row">Title names the service</th><td>No: “CRI West Midlands”</td><td>Yes: “Tiled Conservatory Roofs | NJN Conservatories| West Midlands”</td><td>Weak: “Home Page - LMD Conservatory Roofs”</td></tr><tr><th scope="row">Canonical tag</th><td>Not detected</td><td>Yes</td><td>Yes</td></tr><tr><th scope="row">Open Graph and Twitter tags</th><td>Not detected</td><td>Yes</td><td>Yes</td></tr><tr><th scope="row">H1 states the service</th><td>No H1 detected</td><td>“Tiled Conservatory Roofs across the West Midlands”</td><td>“Insulated Conservatory Roofs”</td></tr><tr><th scope="row">Town landing pages</th><td>None</td><td>None seen</td><td>Over 100 in the menu, incl. Stourbridge, Dudley, Kidderminster, Bewdley</td></tr><tr><th scope="row">Reviews on homepage</th><td>Count label only</td><td>Not on page reviewed</td><td>Review widget, “based on 91 reviews”</td></tr><tr><th scope="row">Accreditation shown</th><td>CPA in service-page text only</td><td>FENSA badge</td><td>Guardian Warm Roof accredited installer</td></tr><tr><th scope="row">Price guidance</th><td>None</td><td>None</td><td>From around £5,500</td></tr><tr><th scope="row">Address or company details</th><td>None</td><td>VAT number</td><td>Full street address, Sutton Coldfield</td></tr><tr><th scope="row">Email on own domain</th><td>No (Gmail)</td><td>Yes</td><td>Yes</td></tr><tr><th scope="row">Contact or quote page URL</th><td>None</td><td>/contact</td><td>/contact-us</td></tr></tbody>
+    </table></div>
+  </div>
+</section>
+
+<section class="block" id="plan" aria-labelledby="h-plan">
+  <div class="wrap">
+    <h2 id="h-plan">30/60/90-day action plan</h2>
+    <p class="intro">Numbers link to the issues each step resolves.</p>
+    <div class="plan"><div class="phase"><div class="phead"><span class="pstep">1</span><div><h3>Days 1–30</h3><p class="ptheme">Fix the foundations and stop losing leads</p></div></div><ul><li>Unique titles, meta descriptions and H1s on every page <span class=refs><a href="#issue-1" class="ref">#1</a> <a href="#issue-6" class="ref">#6</a> <a href="#issue-7" class="ref">#7</a></span></li><li>Canonicals, Open Graph, sitemap.xml and robots.txt; submit to Search Console <span class=refs><a href="#issue-14" class="ref">#14</a> <a href="#issue-15" class="ref">#15</a> <a href="#issue-16" class="ref">#16</a></span></li><li>Tap-to-call and mailto links, phone in header, sticky mobile call bar <span class=refs><a href="#issue-2" class="ref">#2</a></span></li><li>Build /get-a-quote and a thank-you URL; set up the GA4 conversion <span class=refs><a href="#issue-3" class="ref">#3</a></span></li><li>Reviews band, Google rating and guarantee strip on the homepage <span class=refs><a href="#issue-4" class="ref">#4</a> <a href="#issue-8" class="ref">#8</a></span></li><li>Server-render FAQ answers; add business structured data; NAP in footer <span class=refs><a href="#issue-9" class="ref">#9</a> <a href="#issue-10" class="ref">#10</a> <a href="#issue-13" class="ref">#13</a></span></li><li>Clean-up: alt text, review links, copy errors, CTA labels, link text, services hub <span class=refs><a href="#issue-18" class="ref">#18</a> <a href="#issue-19" class="ref">#19</a> <a href="#issue-25" class="ref">#25</a> <a href="#issue-27" class="ref">#27</a> <a href="#issue-28" class="ref">#28</a> <a href="#issue-29" class="ref">#29</a> <a href="#issue-31" class="ref">#31</a> <a href="#issue-33" class="ref">#33</a></span></li><li>Record baselines: PageSpeed (mobile and desktop), Search Console, axe scan</li></ul></div><div class="phase"><div class="phead"><span class="pstep">2</span><div><h3>Days 31–60</h3><p class="ptheme">Sell the outcome</p></div></div><ul><li>Rewrite the hero; publish price guidance <span class=refs><a href="#issue-11" class="ref">#11</a> <a href="#issue-17" class="ref">#17</a></span></li><li>Expand both service pages with process, materials, regulations and reviews <span class=refs><a href="#issue-12" class="ref">#12</a></span></li><li>Domain email, company details, rewritten privacy policy <span class=refs><a href="#issue-9" class="ref">#9</a> <a href="#issue-23" class="ref">#23</a> <a href="#issue-26" class="ref">#26</a></span></li><li>Fix the image pipeline; lazy-load and paginate galleries; replace tiny photos <span class=refs><a href="#issue-20" class="ref">#20</a> <a href="#issue-22" class="ref">#22</a> <a href="#issue-30" class="ref">#30</a></span></li><li>Align Google Business Profile: name, address, categories, photos, review link</li></ul></div><div class="phase"><div class="phead"><span class="pstep">3</span><div><h3>Days 61–90</h3><p class="ptheme">Win local search</p></div></div><ul><li>Publish 6–8 area pages built on real local jobs <span class=refs><a href="#issue-5" class="ref">#5</a></span></li><li>Turn the first 10 projects into case-study pages linked to their reviews <span class=refs><a href="#issue-21" class="ref">#21</a></span></li><li>Agent-ready quote form, address block, optional /llms.txt <span class=refs><a href="#issue-24" class="ref">#24</a></span></li><li>Polish: manifest, ultra-wide container, optional dark mode <span class=refs><a href="#issue-32" class="ref">#32</a> <a href="#issue-34" class="ref">#34</a></span></li><li>Re-measure Core Web Vitals, rankings for 10 target searches, and quote volume against baseline</li></ul></div></div>
+  </div>
+</section>
+
+<section class="block" id="gaps" aria-labelledby="h-gaps">
+  <div class="wrap">
+    <h2 id="h-gaps">Data gaps</h2>
+    <p class="intro">What couldn’t be verified in this review, and what would close each gap.</p>
+    <div class="tscroll"><table class="tbl">
+      <thead><tr><th>Gap</th><th>Why it matters</th><th>How to get it</th></tr></thead>
+      <tbody><tr><th scope="row">PageSpeed Insights results</th><td>The brief’s PageSpeed section was an unfilled placeholder, so there are no LCP, INP, CLS, FCP or TTFB figures. The Performance score is provisional (3 of 6 checks).</td><td>Run pagespeed.web.dev on /, /reviews and /projects for mobile and desktop and share the JSON.</td></tr><tr><th scope="row">Raw HTML source</th><td>My fetch tool returns extracted content, so H1, canonical, Open Graph, srcset and sizes findings are marked Likely.</td><td>View-source or curl the homepage and one service page.</td></tr><tr><th scope="row">robots.txt, sitemap.xml, manifest</th><td>The tool can only open URLs linked from pages; none of these are linked.</td><td>Open /robots.txt, /sitemap.xml and /manifest.webmanifest directly.</td></tr><tr><th scope="row">Response headers</th><td>HSTS, Content-Security-Policy, X-Content-Type-Options and Referrer-Policy are unchecked.</td><td>securityheaders.com or curl -I.</td></tr><tr><th scope="row">Rendered screenshots</th><td>Ultra-wide layout, mobile layout, colour contrast and the quote modal can’t be judged from HTML.</td><td>Screenshots at 390, 1440, 2560 and 3440px wide.</td></tr><tr><th scope="row">Accessibility testing</th><td>Contrast, keyboard navigation, focus visibility and the modal’s focus trap are unverified.</td><td>axe DevTools or Lighthouse, plus a keyboard-only walkthrough.</td></tr><tr><th scope="row">Google Search Console</th><td>No data on indexed pages, search queries, impressions or click-through rate.</td><td>Read access or an export of Performance and Pages reports.</td></tr><tr><th scope="row">Analytics and call data</th><td>No baseline for visits, quote submissions or calls, so improvement can’t be proved later.</td><td>GA4 access and any call-tracking numbers.</td></tr><tr><th scope="row">Google Business Profile</th><td>Current rating, review count, categories and address versus service-area setting are unknown.</td><td>Screenshot of the GBP dashboard.</td></tr><tr><th scope="row">Legal status</th><td>Whether CRI West Midlands is a limited company (affects the company-details finding).</td><td>Companies House number from the client.</td></tr><tr><th scope="row">Scripts and cookies</th><td>Whether analytics or pixels run, and so whether a consent banner is required.</td><td>Network tab or a tag inventory.</td></tr><tr><th scope="row">“Agent browsing” score</th><td>The tool and method behind the reported score are unknown.</td><td>The report or tool name.</td></tr><tr><th scope="row">Remaining competitors</th><td>swifthomeimprovements.uk and westmidlandsguardian.co.uk were not reviewed; greeneroofdesign.co.uk blocks automated access.</td><td>Manual review if a fuller comparison is needed.</td></tr></tbody>
+    </table></div>
+  </div>
+</section>
+
+<section class="block" id="appendix" aria-labelledby="h-app">
+  <div class="wrap">
+    <h2 id="h-app">Appendix</h2>
+    <h3 class="sub">Pages reviewed</h3>
+    <div class="tscroll"><table class="tbl">
+      <thead><tr><th>URL</th><th>Type</th><th>H1 found</th><th>Notes</th></tr></thead>
+      <tbody><tr><td><a href="https://www.criwestmidlands.co.uk/" target="_blank" rel="noopener">/</a></td><td>Home</td><td>None detected (H2 brand name)</td><td>Before/after slider, two service cards, About, footer contacts. No reviews shown.</td></tr><tr><td><a href="https://www.criwestmidlands.co.uk/services/tiled-conservatory-roof" target="_blank" rel="noopener">/services/tiled-conservatory-roof</a></td><td>Service</td><td>None detected</td><td>7 benefit bullets, U-value 0.15, 3–5 days, CPA guarantee mention.</td></tr><tr><td><a href="https://www.criwestmidlands.co.uk/services/interior-roof-insulation" target="_blank" rel="noopener">/services/interior-roof-insulation</a></td><td>Service</td><td>None detected</td><td>6 bullets, U-value 0.18, 1 day, single image.</td></tr><tr><td><a href="https://www.criwestmidlands.co.uk/projects" target="_blank" rel="noopener">/projects</a></td><td>Gallery</td><td>“Projects. All.”</td><td>30 photos, no captions or detail pages, 15 towns in alt text.</td></tr><tr><td><a href="https://www.criwestmidlands.co.uk/reviews" target="_blank" rel="noopener">/reviews</a></td><td>Reviews</td><td>“Reviews.”</td><td>31 reviews, about 58 photos, links to Google, Facebook and Yell.</td></tr><tr><td><a href="https://www.criwestmidlands.co.uk/faqs" target="_blank" rel="noopener">/faqs</a></td><td>FAQs</td><td>“FAQs.”</td><td>12 questions; answers absent from HTML.</td></tr><tr><td><a href="https://www.criwestmidlands.co.uk/policies/privacy-policy" target="_blank" rel="noopener">/policies/privacy-policy</a></td><td>Legal</td><td>“Privacy Policy”</td><td>Generic template, updated 5 March 2026.</td></tr></tbody>
+    </table></div>
+    <h3 class="sub">Data sources</h3>
+    <ul class="prose">
+      <li>Live fetch of the seven pages above on 28 October 2026 (HTML extracted to text, with head metadata).</li>
+      <li>Competitor pages: njnconservatories.co.uk/roof-services and lmdconservatoryroofs.co.uk. greeneroofdesign.co.uk blocked automated access; swifthomeimprovements.uk and westmidlandsguardian.co.uk were not reviewed.</li>
+      <li>Web search for directory listings (FreeIndex profile for CRI West Midlands) and the Yell listing linked from /reviews.</li>
+      <li>Your brief: business context and known concerns, used as “Client-reported” where not independently confirmed.</li>
+      <li>No PageSpeed Insights, Search Console, analytics or header data was available.</li>
+    </ul>
+    <h3 class="sub">Scoring checklist</h3>
+    <details class="checks"><summary><strong>Technical SEO</strong> <span>30 / 100, weight 20%</span></summary><table class="tbl"><thead><tr><th>Check</th><th>Result</th><th>Note</th></tr></thead><tbody><tr><td>Served over HTTPS</td><td><span class="st st-pass">Pass</span></td><td>All pages resolve on https://</td></tr><tr><td>Main content rendered on the server</td><td><span class="st st-pass">Pass</span></td><td>Text and images present in fetched HTML (Next.js)</td></tr><tr><td>Clean, descriptive URLs</td><td><span class="st st-pass">Pass</span></td><td>e.g. /services/tiled-conservatory-roof</td></tr><tr><td>Unique title on every page</td><td><span class="st st-fail">Fail</span></td><td>Issue: same title on every page</td></tr><tr><td>Canonical tags</td><td><span class="st st-fail">Fail</span></td><td>Issue: none detected (likely)</td></tr><tr><td>Open Graph and Twitter tags</td><td><span class="st st-fail">Fail</span></td><td>Issue: none detected (likely)</td></tr><tr><td>Structured data</td><td><span class="st st-fail">Fail</span></td><td>Client-reported</td></tr><tr><td>XML sitemap</td><td><span class="st st-fail">Fail</span></td><td>Client-reported</td></tr><tr><td>Key actions reachable by URL</td><td><span class="st st-fail">Fail</span></td><td>Quote form and services hub have no URL</td></tr><tr><td>FAQ content in HTML</td><td><span class="st st-fail">Fail</span></td><td>12 questions, 0 answers</td></tr><tr><td>Valid robots.txt</td><td><span class="st st-unv">Unverified</span></td><td>Couldn’t fetch</td></tr></tbody></table></details><details class="checks"><summary><strong>On-page SEO</strong> <span>28 / 100, weight 20%</span></summary><table class="tbl"><thead><tr><th>Check</th><th>Result</th><th>Note</th></tr></thead><tbody><tr><td>Unique meta descriptions</td><td><span class="st st-fail">Fail</span></td><td>Same 40-character text on all pages</td></tr><tr><td>H1 on every page</td><td><span class="st st-part">Partial</span></td><td>Inner pages yes; home and services no</td></tr><tr><td>Titles target service and location</td><td><span class="st st-fail">Fail</span></td><td></td></tr><tr><td>In-depth service pages</td><td><span class="st st-fail">Fail</span></td><td>Bullets only</td></tr><tr><td>Location landing pages</td><td><span class="st st-fail">Fail</span></td><td>None</td></tr><tr><td>Descriptive alt text</td><td><span class="st st-fail">Fail</span></td><td>Generic, duplicated or wrong</td></tr><tr><td>Error-free copy</td><td><span class="st st-part">Partial</span></td><td>Handful of slips</td></tr><tr><td>Original first-hand content</td><td><span class="st st-pass">Pass</span></td><td>31 reviews, 30 project photos, U-values</td></tr><tr><td>Descriptive internal link text</td><td><span class="st st-part">Partial</span></td><td>“Learn more” on homepage</td></tr></tbody></table></details><details class="checks"><summary><strong>Accessibility</strong> <span>29 / 100, weight 15%</span></summary><table class="tbl"><thead><tr><th>Check</th><th>Result</th><th>Note</th></tr></thead><tbody><tr><td>Meaningful alt text</td><td><span class="st st-fail">Fail</span></td><td></td></tr><tr><td>Decorative images hidden</td><td><span class="st st-fail">Fail</span></td><td>“CRI arrow” announced</td></tr><tr><td>Heading structure starts at H1</td><td><span class="st st-part">Partial</span></td><td></td></tr><tr><td>Unique accessible names on CTAs</td><td><span class="st st-fail">Fail</span></td><td>Likely duplicated</td></tr><tr><td>Text alternative for star ratings</td><td><span class="st st-fail">Fail</span></td><td>Likely missing</td></tr><tr><td>Zoom not blocked</td><td><span class="st st-pass">Pass</span></td><td>viewport allows scaling</td></tr><tr><td>Link purpose clear</td><td><span class="st st-part">Partial</span></td><td>Raw URLs, “Learn more”</td></tr><tr><td>Colour contrast (WCAG 1.4.3)</td><td><span class="st st-unv">Unverified</span></td><td>Needs rendered test</td></tr><tr><td>Keyboard and focus (WCAG 2.1.1, 2.4.7)</td><td><span class="st st-unv">Unverified</span></td><td>Needs manual test</td></tr></tbody></table></details><details class="checks"><summary><strong>UX & conversion</strong> <span>25 / 100, weight 25%</span></summary><table class="tbl"><thead><tr><th>Check</th><th>Result</th><th>Note</th></tr></thead><tbody><tr><td>Quote CTA visible in header</td><td><span class="st st-pass">Pass</span></td><td></td></tr><tr><td>Quote form has its own URL</td><td><span class="st st-fail">Fail</span></td><td></td></tr><tr><td>Tap-to-call and mailto links</td><td><span class="st st-fail">Fail</span></td><td></td></tr><tr><td>Reviews on homepage</td><td><span class="st st-fail">Fail</span></td><td>Count label only</td></tr><tr><td>Guarantee and credentials on homepage</td><td><span class="st st-fail">Fail</span></td><td></td></tr><tr><td>Before/after proof on homepage</td><td><span class="st st-pass">Pass</span></td><td>Slider present</td></tr><tr><td>Price guidance</td><td><span class="st st-fail">Fail</span></td><td></td></tr><tr><td>Base town and service area stated</td><td><span class="st st-part">Partial</span></td><td>“West Midlands” only</td></tr><tr><td>Business email and details</td><td><span class="st st-fail">Fail</span></td><td>Gmail</td></tr><tr><td>Review source links accurate</td><td><span class="st st-part">Partial</span></td><td>Duplicates and fragile URL</td></tr><tr><td>Outcome-led hero headline</td><td><span class="st st-fail">Fail</span></td><td></td></tr><tr><td>Project case studies</td><td><span class="st st-fail">Fail</span></td><td></td></tr></tbody></table></details><details class="checks"><summary><strong>Performance</strong> <span>50 / 100, weight 10%</span></summary><table class="tbl"><thead><tr><th>Check</th><th>Result</th><th>Note</th></tr></thead><tbody><tr><td>Image CDN and optimiser in place</td><td><span class="st st-pass">Pass</span></td><td>Sanity CDN + next/image</td></tr><tr><td>Single image compression pass</td><td><span class="st st-fail">Fail</span></td><td>Double-encoded</td></tr><tr><td>Adequate source resolution</td><td><span class="st st-part">Partial</span></td><td>Some tiny originals</td></tr><tr><td>Lazy loading on gallery pages</td><td><span class="st st-unv">Unverified</span></td><td>Needs HTML/PSI</td></tr><tr><td>Responsive sizes attribute</td><td><span class="st st-unv">Unverified</span></td><td>Needs raw srcset</td></tr><tr><td>Core Web Vitals pass (LCP, INP, CLS)</td><td><span class="st st-unv">Unverified</span></td><td>No PageSpeed data supplied</td></tr></tbody></table></details><details class="checks"><summary><strong>Security & best practices</strong> <span>33 / 100, weight 10%</span></summary><table class="tbl"><thead><tr><th>Check</th><th>Result</th><th>Note</th></tr></thead><tbody><tr><td>HTTPS</td><td><span class="st st-pass">Pass</span></td><td></td></tr><tr><td>Privacy policy present</td><td><span class="st st-pass">Pass</span></td><td></td></tr><tr><td>Privacy policy specific to UK GDPR</td><td><span class="st st-fail">Fail</span></td><td>Generic template</td></tr><tr><td>Legal business identity shown</td><td><span class="st st-fail">Fail</span></td><td></td></tr><tr><td>Email on own domain</td><td><span class="st st-fail">Fail</span></td><td></td></tr><tr><td>Web manifest and icons</td><td><span class="st st-fail">Fail</span></td><td>Client-reported</td></tr><tr><td>Security headers (HSTS, CSP, etc.)</td><td><span class="st st-unv">Unverified</span></td><td>Needs header check</td></tr><tr><td>Cookie consent matches scripts</td><td><span class="st st-unv">Unverified</span></td><td>Needs script inventory</td></tr></tbody></table></details>
+  </div>
+</section>
+</main>
+<footer class="foot"><div class="wrap">Prepared 28 October 2026. Findings reflect the live site on that date. Compliance points are flags for review, not legal advice.</div></footer>
+
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById('themeBtn');
+  var modes=['auto','light','dark'], mode='auto';
+  try{ mode=localStorage.getItem('cri-audit-theme')||'auto'; }catch(e){}
+  function apply(){
+    if(mode==='auto') root.removeAttribute('data-theme'); else root.setAttribute('data-theme',mode);
+    var label=mode.charAt(0).toUpperCase()+mode.slice(1);
+    btn.textContent='Theme: '+label; btn.setAttribute('aria-label','Colour theme: '+label+'. Click to change.');
+  }
+  apply();
+  btn.addEventListener('click',function(){ mode=modes[(modes.indexOf(mode)+1)%3]; try{localStorage.setItem('cri-audit-theme',mode);}catch(e){} apply(); });
+
+  document.getElementById('printBtn').addEventListener('click',function(){ window.print(); });
+
+  var issues=[].slice.call(document.querySelectorAll('.issue'));
+  var groups=[].slice.call(document.querySelectorAll('.sevgroup'));
+  var sevBtns=[].slice.call(document.querySelectorAll('.fbtn'));
+  var fcat=document.getElementById('fcat'), fconf=document.getElementById('fconf'), fq=document.getElementById('fq');
+  var fcount=document.getElementById('fcount'), nores=document.getElementById('noresults');
+  function filter(){
+    var sevs=sevBtns.filter(function(b){return b.getAttribute('aria-pressed')==='true';}).map(function(b){return b.dataset.sev;});
+    var c=fcat.value, cf=fconf.value, q=fq.value.trim().toLowerCase(), shown=0;
+    issues.forEach(function(el){
+      var ok=sevs.indexOf(el.dataset.sev)>-1 && (!c||el.dataset.cat===c) && (!cf||el.dataset.conf===cf) && (!q||el.dataset.text.indexOf(q)>-1);
+      el.hidden=!ok; if(ok) shown++;
+    });
+    groups.forEach(function(g){ g.hidden=!g.querySelector('.issue:not([hidden])'); });
+    fcount.textContent='Showing '+shown+' of '+issues.length;
+    nores.style.display=shown?'none':'block';
+  }
+  sevBtns.forEach(function(b){ b.addEventListener('click',function(){ b.setAttribute('aria-pressed', b.getAttribute('aria-pressed')==='true'?'false':'true'); filter(); }); });
+  [fcat,fconf].forEach(function(s){ s.addEventListener('change',filter); });
+  fq.addEventListener('input',filter);
+  filter();
+
+  document.getElementById('expandAll').addEventListener('click',function(){ issues.forEach(function(d){ if(!d.hidden) d.open=true; }); });
+  document.getElementById('collapseAll').addEventListener('click',function(){ issues.forEach(function(d){ d.open=false; }); });
+
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a[href^="#issue-"]'); if(!a) return;
+    var t=document.getElementById(a.getAttribute('href').slice(1)); if(!t) return;
+    e.preventDefault();
+    if(t.hidden){ sevBtns.forEach(function(b){b.setAttribute('aria-pressed','true');}); fcat.value=''; fconf.value=''; fq.value=''; filter(); }
+    t.open=true; t.scrollIntoView({block:'start'}); t.querySelector('summary').focus({preventScroll:true});
+  });
+
+  var wasOpen=[];
+  window.addEventListener('beforeprint',function(){
+    wasOpen=issues.map(function(d){return d.open;});
+    issues.forEach(function(d){d.open=true;});
+    document.querySelectorAll('details.checks').forEach(function(d){d.dataset.w=d.open?'1':''; d.open=true;});
+  });
+  window.addEventListener('afterprint',function(){
+    issues.forEach(function(d,i){d.open=wasOpen[i];});
+    document.querySelectorAll('details.checks').forEach(function(d){d.open=!!d.dataset.w;});
+  });
+})();
+</script>
+</body>
+</html>
