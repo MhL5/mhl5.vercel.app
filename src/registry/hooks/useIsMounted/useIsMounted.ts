@@ -2,11 +2,11 @@
 
 import { useSyncExternalStore } from "react";
 
+const subscribe = () => () => {};
+const getSnapshot = () => true;
+const getServerSnapshot = () => false;
+
 const useIsMounted = () =>
-  useSyncExternalStore(
-    (cb) => () => cb(),
-    () => true,
-    () => false,
-  );
+  useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
 export { useIsMounted };

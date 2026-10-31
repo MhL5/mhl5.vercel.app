@@ -762,8 +762,15 @@ const uiBookmarks: Bookmark[] = (
       title: "GRID cn",
       description:
         "An authentic Tron: Ares inspired theme featuring Greek god color schemes, movie UI components, and immersive 3D effects.",
-      tags: [],
+      tags: [""],
       url: "https://thegridcn.com",
+    },
+    {
+      title: "scrolltide",
+      description:
+        "A curated library of scroll-driven templates and prompts. Copy one, paste it into your AI, and launch a site that doesn't look AI-made.",
+      tags: ["components", "blocks", "animation"],
+      url: "https://www.scrolltide.co",
     },
     // {
     //   title: "",

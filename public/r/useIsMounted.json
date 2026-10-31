@@ -6,7 +6,7 @@
   "files": [
     {
       "path": "src/registry/hooks/useIsMounted/useIsMounted.ts",
-      "content": "\"use client\";\r\n\r\nimport { useSyncExternalStore } from \"react\";\r\n\r\nconst useIsMounted = () =>\r\n  useSyncExternalStore(\r\n    (cb) => () => cb(),\r\n    () => true,\r\n    () => false,\r\n  );\r\n\r\nexport { useIsMounted };\r\n",
+      "content": "\"use client\";\r\n\r\nimport { useSyncExternalStore } from \"react\";\r\n\r\nconst subscribe = () => () => {};\r\nconst getSnapshot = () => true;\r\nconst getServerSnapshot = () => false;\r\n\r\nconst useIsMounted = () =>\r\n  useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);\r\n\r\nexport { useIsMounted };\r\n",
       "type": "registry:hook"
     }
   ],
